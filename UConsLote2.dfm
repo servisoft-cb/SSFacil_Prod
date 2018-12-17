@@ -19,7 +19,7 @@ object frmConsLote2: TfrmConsLote2
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 920
+    Width = 912
     Height = 140
     Align = alTop
     Color = clSilver
@@ -319,6 +319,20 @@ object frmConsLote2: TfrmConsLote2
       Height = 13
       Alignment = taRightJustify
       Caption = 'Final:'
+      HorizontalPosition = hpLeft
+      InnerHorizontal = True
+      InnerVertical = False
+      InnerMargins.Horizontal = 0
+      InnerMargins.Vertical = 2
+      VerticalPosition = vpTop
+    end
+    object NxLabel18: TNxLabel
+      Left = 709
+      Top = 31
+      Width = 21
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Tipo'
       HorizontalPosition = hpLeft
       InnerHorizontal = True
       InnerVertical = False
@@ -675,12 +689,32 @@ object frmConsLote2: TfrmConsLote2
       ParentCtl3D = False
       TabOrder = 18
     end
+    object cbxTipo: TNxComboBox
+      Left = 732
+      Top = 23
+      Width = 141
+      Height = 21
+      Cursor = crArrow
+      BevelOuter = bvSpace
+      TabOrder = 19
+      Text = 'Todos'
+      ReadOnly = True
+      HideFocus = False
+      Style = dsDropDownList
+      AutoCompleteDelay = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Todos'
+        'Retrabalhos'
+        'Ajustes'
+        '')
+    end
   end
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 140
-    Width = 920
-    Height = 393
+    Width = 912
+    Height = 385
     ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
@@ -692,8 +726,8 @@ object frmConsLote2: TfrmConsLote2
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 352
+        Width = 908
+        Height = 344
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsConsulta_Lote
@@ -979,8 +1013,8 @@ object frmConsLote2: TfrmConsLote2
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 352
-        Width = 916
+        Top = 344
+        Width = 908
         Height = 18
         Align = alBottom
         Caption = 'F7 Gerar Tal'#227'o de Ajuste     F8 Retrabalho'
@@ -1000,8 +1034,8 @@ object frmConsLote2: TfrmConsLote2
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 370
+        Width = 908
+        Height = 362
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsLote_Ped

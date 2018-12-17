@@ -64,6 +64,8 @@ type
     DateEdit7: TDateEdit;
     DateEdit8: TDateEdit;
     aloRetrabalho1: TMenuItem;
+    NxLabel18: TNxLabel;
+    cbxTipo: TNxComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -472,6 +474,12 @@ begin
     2 : vComando := vComando + ' AND DTBAIXA is not null ';
     3 : vComando := vComando + ' AND DTENTRADA is null ';
   end;
+
+  case cbxTipo.ItemIndex of
+    1 : vComando := vComando + ' AND AJUSTE = ' + QuotedStr('S');
+    2 : vComando := vComando + ' AND RETRABALHO = ' + QuotedStr('S');
+  end;
+
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND REFERENCIA = ' + QuotedStr(Edit1.Text);
   if trim(RxDBLookupCombo1.Text) <> '' then
