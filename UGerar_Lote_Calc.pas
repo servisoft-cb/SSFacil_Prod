@@ -604,7 +604,7 @@ begin
       end;
 
       fDMCadLote_Calc.cdsLote.ApplyUpdates(0);
-      if fDMCadLote_Calc.qParametros_LoteTIPO_PROCESSO.AsString = 'L' then
+      if (fDMCadLote_Calc.qParametros_LoteTIPO_PROCESSO.AsString = 'L') and (vID_BaixaProcesso > 0) then
         fDMCadLote_Calc.cdsBaixa_Processo.ApplyUpdates(0);
 
       MessageDlg('*** Lotes/Talões Gerados!', mtInformation, [mbok], 0);

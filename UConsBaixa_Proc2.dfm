@@ -318,6 +318,7 @@ object frmConsBaixa_Proc2: TfrmConsBaixa_Proc2
     Top = 104
   end
   object cdsConsProcesso: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'ITEM;NOME_PROCESSO'
     Params = <>

@@ -493,10 +493,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 920
     Height = 420
-    ActivePage = TS_Talao
+    ActivePage = TS_Processo
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
