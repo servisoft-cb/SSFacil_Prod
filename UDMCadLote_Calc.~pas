@@ -1025,7 +1025,6 @@ begin
   qParametros.Open;
   qParametros_Lote.Open;
   qParametros_Ped.Open;
-  qParametros_Prod.Open;
 
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

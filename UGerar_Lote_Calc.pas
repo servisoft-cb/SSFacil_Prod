@@ -775,6 +775,9 @@ begin
   while not fDMCadLote_Calc.cdsConsumoCalc.Eof do
   begin
     ProgressBar4.Position := ProgressBar4.Position + 1;
+    //if fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger = 11190 then
+      //showmessage('material 11190');
+
     vCarimbo := fDMCadLote_Calc.cdsLoteCARIMBO.AsString;
     if (fDMCadLote_Calc.cdsConsumoCalcTRANSFER.AsString <> 'S') and (fDMCadLote_Calc.cdsConsumoCalcUSA_CARIMBO_OC.AsString <> 'S') then
       vCarimbo := '';
@@ -807,7 +810,10 @@ begin
         //17/09/2017  
         if fDMCadLote_Calc.cdsConsumoCalcID_GRADE_MAT.AsInteger > 0 then
         begin
-          vTamAux := fnc_Busca_Tam_Material(fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger,vTamanho);
+          if fDMCadLote_Calc.qParametros_ProdUSA_TAM_REFER_GRADE.AsString = 'S' then
+            vTamAux := fnc_Busca_Tam_Material2(fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger,fDMCadLote_Calc.cdsConsumoCalcID_GRADE_PROD.AsInteger,vTamanho)
+          else
+            vTamAux := fnc_Busca_Tam_Material(fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger,vTamanho);
           if trim(vTamAux) <> '' then
             vTamanho := vTamAux;
         end;

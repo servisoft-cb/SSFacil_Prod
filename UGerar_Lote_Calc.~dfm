@@ -22,7 +22,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Gerar
+    ActivePage = TS_Atualizar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -30,7 +30,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 3
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -2141,7 +2141,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           Height = 16
           Alignment = taLeftJustify
           Caption = 'Agrupar Produtos'
-          Checked = True
           Ctl3D = True
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
@@ -2150,9 +2149,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           Font.Style = []
           ParentCtl3D = False
           ParentFont = False
-          State = cbChecked
           TabOrder = 6
-          Visible = False
         end
         object ckAgrupar_cli: TCheckBox
           Left = 660

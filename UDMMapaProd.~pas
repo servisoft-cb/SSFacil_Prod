@@ -172,7 +172,6 @@ type
     cdsConsulta_LoteNOME_MODELO: TStringField;
     qParametros_Lote: TSQLQuery;
     qParametros_LoteLOTE_CALCADO_NOVO: TStringField;
-    cdsConsulta_TalaoNOME_MODELO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMapaNewRecord(DataSet: TDataSet);
     procedure frxmMapaOpen(Sender: TObject);

@@ -225,7 +225,7 @@ begin
                                           fDMConferencia.cdsPedido_ItemVLR_UNITARIO.AsFloat,0,0,
                                           fDMConferencia.cdsPedido_ItemUNIDADE.AsString,
                                           fDMConferencia.cdsPedido_ItemID_COR.AsInteger,
-                                          '','N',0,0);
+                                          '','N',0);
       fDMConferencia.cdsPedido_Conf.Post;
       fDMConferencia.cdsPedido_Conf.ApplyUpdates(0);
 

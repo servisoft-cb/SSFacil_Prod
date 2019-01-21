@@ -2,8 +2,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 363
-  Top = 115
-  Height = 603
+  Top = 5
+  Height = 713
   Width = 798
   object frxReport1: TfrxReport
     Tag = 1

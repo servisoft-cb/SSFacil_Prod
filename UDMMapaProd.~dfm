@@ -575,10 +575,10 @@ object DMMapaProd: TDMMapaProd
       'SELECT L.num_lote, t.num_talao, L.DTENTREGA, L.NUM_ORDEM, T.id, ' +
       'T.id_produto,'#13#10'T.tamanho, T.qtd, T.id_combinacao, PRO.REFERENCIA' +
       ','#13#10'PRO.NOME NOME_PRODUTO, PRO.UNIDADE, PRO.ID_GRADE, COMB.nome N' +
-      'OME_COMBINACAO,'#13#10'PRO.NOME_MODELO'#13#10'FROM LOTE L'#13#10'INNER JOIN TALAO ' +
-      'T'#13#10'ON L.ID = T.ID'#13#10'LEFT JOIN PRODUTO PRO'#13#10'ON T.ID_PRODUTO = PRO.' +
-      'ID'#13#10'LEFT JOIN combinacao COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'WHE' +
-      'RE L.NUM_ORDEM BETWEEN :NUM_INI AND :NUM_FIN'#13#10
+      'OME_COMBINACAO'#13#10'FROM LOTE L'#13#10'INNER JOIN TALAO T'#13#10'ON L.ID = T.ID'#13 +
+      #10'LEFT JOIN PRODUTO PRO'#13#10'ON T.ID_PRODUTO = PRO.ID'#13#10'LEFT JOIN comb' +
+      'inacao COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'WHERE L.NUM_ORDEM BET' +
+      'WEEN :NUM_INI AND :NUM_FIN'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -653,10 +653,6 @@ object DMMapaProd: TDMMapaProd
     object cdsConsulta_TalaoNOME_COMBINACAO: TStringField
       FieldName = 'NOME_COMBINACAO'
       Size = 60
-    end
-    object cdsConsulta_TalaoNOME_MODELO: TStringField
-      FieldName = 'NOME_MODELO'
-      Size = 100
     end
   end
   object dsConsulta_Talao: TDataSource

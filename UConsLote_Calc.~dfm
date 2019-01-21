@@ -543,6 +543,24 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         RowCount = 2
         Columns = <
           item
+            Expanded = False
+            FieldName = 'REFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 12058551
+            Width = 127
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COMBINACAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor'
+            Title.Color = 12058551
+            Width = 137
+            Visible = True
+          end
+          item
             Alignment = taCenter
             Expanded = False
             FieldName = 'NUM_ORDEM'
@@ -605,24 +623,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Caption = 'Nome Setor'
             Title.Color = 12058551
             Width = 190
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'REFERENCIA'
-            Title.Alignment = taCenter
-            Title.Caption = 'Refer'#234'ncia'
-            Title.Color = 12058551
-            Width = 127
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOME_COMBINACAO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Cor'
-            Title.Color = 12058551
-            Width = 137
             Visible = True
           end
           item
@@ -856,6 +856,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -864,6 +865,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Posi'#231#227'o'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -899,6 +901,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Cliente'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
