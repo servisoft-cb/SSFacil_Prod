@@ -2295,7 +2295,7 @@ object DMCadLote_Calc: TDMCadLote_Calc
       'FROM PRODUTO_PCP'
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
-    Left = 776
+    Left = 784
     Top = 336
     object qProdQtdQTD_TALAO: TIntegerField
       FieldName = 'QTD_TALAO'
@@ -5066,6 +5066,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object sdsBaixa_ProcessoID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
     end
+    object sdsBaixa_ProcessoID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
+    end
   end
   object dspBaixa_Processo: TDataSetProvider
     DataSet = sdsBaixa_Processo
@@ -5154,6 +5157,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsBaixa_ProcessoID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
     end
+    object cdsBaixa_ProcessoID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
+    end
   end
   object dsBaixa_Processo: TDataSource
     DataSet = cdsBaixa_Processo
@@ -5164,11 +5170,20 @@ object DMCadLote_Calc: TDMCadLote_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT PC.*, P.id_setor, P.id_posicao, p.id_material'#13#10'FROM PRODU' +
-      'TO_CONSUMO_PROC PC'#13#10'INNER JOIN PRODUTO_CONSUMO P'#13#10' ON  PC.ID = P' +
-      '.ID'#13#10' AND PC.item = P.item'#13#10'WHERE PC.ID = :ID'
+      'SELECT PC.*, P.id_setor, P.id_posicao, p.id_material, cmat.id_co' +
+      'r ID_COR_MAT'#13#10'FROM PRODUTO_CONSUMO_PROC PC'#13#10'INNER JOIN PRODUTO_C' +
+      'ONSUMO P'#13#10' ON  PC.ID = P.ID'#13#10' AND PC.item = P.item'#13#10'left join pr' +
+      'oduto_comb comb'#13#10'on pc.id = comb.id'#13#10'and comb.id_cor_combinacao ' +
+      '= :ID_COR'#13#10'left join produto_comb_mat cmat'#13#10'on comb.id = cmat.id' +
+      #13#10'and comb.item = cmat.item'#13#10'and p.item = cmat.item_mat'#13#10'WHERE P' +
+      'C.ID = :ID'#13#10
     MaxBlobSize = -1
     Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_COR'
+        ParamType = ptInput
+      end
       item
         DataType = ftInteger
         Name = 'ID'
@@ -5212,6 +5227,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     end
     object cdsProduto_Consumo_ProcID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
+    end
+    object cdsProduto_Consumo_ProcID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
     end
   end
   object sdsConsBaixaProc: TSQLDataSet
@@ -5351,11 +5369,14 @@ object DMCadLote_Calc: TDMCadLote_Calc
       #13#10'P.NOME NOME_PROCESSO, S.NOME NOME_SETOR, PP.NOME NOME_POSICAO,' +
       ' B.QTD,'#13#10'B.qtd_pendente, B.qtd_produzido, MAT.NOME NOME_MATERIAL' +
       ', B.ITEM,'#13#10'L.num_lote, L.num_ordem, L.referencia, PED.pedido_cli' +
-      'ente, PED.num_pedido'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO' +
-      ' P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L' +
-      '.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SE' +
-      'TOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSIC' +
-      'AO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10#13#10
+      'ente, PED.num_pedido,'#13#10'B.ID_COR_MAT, CMAT.NOME NOME_COR_MAT, PRO' +
+      'D.NOME_MODELO'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO P'#13#10'ON ' +
+      'B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'IN' +
+      'NER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN PEDI' +
+      'DO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10'ON B.ID_SETO' +
+      'R = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP.ID'#13#10'LEFT JO' +
+      'IN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN COMBINACAO ' +
+      'CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5438,6 +5459,17 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsConsProcessoNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
     end
+    object cdsConsProcessoID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
+    end
+    object cdsConsProcessoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsProcessoNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
@@ -5457,6 +5489,44 @@ object DMCadLote_Calc: TDMCadLote_Calc
       FieldName = 'USA_TAM_REFER_GRADE'
       FixedChar = True
       Size = 1
+    end
+  end
+  object qVerBaixaProc: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_PROCESSO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_LOTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_MATERIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR_MAT'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT COUNT(1) CONTADOR'
+      'FROM BAIXA_PROCESSO B'
+      'WHERE B.ID_PROCESSO = :ID_PROCESSO'
+      '  AND B.ID_LOTE = :ID_LOTE'
+      '  AND B.ID_MATERIAL = :ID_MATERIAL'
+      '  AND B.ID_COR_MAT = :ID_COR_MAT')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1104
+    Top = 504
+    object qVerBaixaProcCONTADOR: TIntegerField
+      FieldName = 'CONTADOR'
+      Required = True
     end
   end
 end

@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43477.807084722220000000
+    ReportOptions.LastChange = 43429.853117013900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -899,8 +899,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ITEM=ITEM')
     DataSource = dsConsLote_Processo
     BCDToCurrency = False
-    Left = 616
-    Top = 383
+    Left = 632
+    Top = 351
   end
   object sdsConsProcesso: TSQLDataSet
     NoMetadata = True
@@ -911,13 +911,15 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       ' B.QTD,'#13#10'B.qtd_pendente, B.qtd_produzido, MAT.NOME NOME_MATERIAL' +
       ', B.ITEM,'#13#10'L.num_lote, L.num_ordem, L.referencia, PED.pedido_cli' +
       'ente, PED.num_pedido,'#13#10'PROD.NOME NOME_PRODUTO, COMB.NOME NOME_CO' +
-      'MBINACAO, B.dtentrada, B.dtbaixa'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER J' +
-      'OIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B' +
-      '.ID_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD' +
-      '.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SE' +
-      'TOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSIC' +
-      'AO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LE' +
-      'FT JOIN COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10#13#10
+      'MBINACAO, B.dtentrada, B.dtbaixa,'#13#10'b.id_cor_mat, CMAT.NOME NOME_' +
+      'COR_MAT, PROD.NOME_MODELO'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PRO' +
+      'CESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOT' +
+      'E = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LE' +
+      'FT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10 +
+      'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP' +
+      '.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN' +
+      ' COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'LEFT JOIN COMBIN' +
+      'ACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1015,6 +1017,17 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsProcessoDTBAIXA: TDateField
       FieldName = 'DTBAIXA'
     end
+    object cdsConsProcessoID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
+    end
+    object cdsConsProcessoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsProcessoNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
@@ -1045,11 +1058,16 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
       'NUM_PEDIDO=NUM_PEDIDO'
       'NOME_PRODUTO=NOME_PRODUTO'
-      'NOME_COMBINACAO=NOME_COMBINACAO')
+      'NOME_COMBINACAO=NOME_COMBINACAO'
+      'DTENTRADA=DTENTRADA'
+      'DTBAIXA=DTBAIXA'
+      'ID_COR_MAT=ID_COR_MAT'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'NOME_MODELO=NOME_MODELO')
     DataSource = dsConsProcesso
     BCDToCurrency = False
-    Left = 656
-    Top = 383
+    Left = 672
+    Top = 431
   end
   object sdsProcesso: TSQLDataSet
     NoMetadata = True

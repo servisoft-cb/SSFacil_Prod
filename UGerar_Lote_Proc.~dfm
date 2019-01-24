@@ -608,7 +608,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -625,7 +624,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -644,7 +642,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -867,7 +864,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -899,7 +895,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -907,7 +902,6 @@ object frmGerar_Lote_Proc: TfrmGerar_Lote_Proc
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item

@@ -184,6 +184,9 @@ type
     cdsConsProcessoDTBAIXA: TDateField;
     qParametros_LoteLOTE_CALCADO_NOVO: TStringField;
     cdsConsLote_NovoNOME_MODELO: TStringField;
+    cdsConsProcessoID_COR_MAT: TIntegerField;
+    cdsConsProcessoNOME_COR_MAT: TStringField;
+    cdsConsProcessoNOME_MODELO: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

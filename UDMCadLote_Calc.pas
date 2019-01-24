@@ -892,6 +892,14 @@ type
     cdsConsumoCalcID_GRADE_PROD: TIntegerField;
     qParametros_Prod: TSQLQuery;
     qParametros_ProdUSA_TAM_REFER_GRADE: TStringField;
+    sdsBaixa_ProcessoID_COR_MAT: TIntegerField;
+    cdsBaixa_ProcessoID_COR_MAT: TIntegerField;
+    cdsProduto_Consumo_ProcID_COR_MAT: TIntegerField;
+    qVerBaixaProc: TSQLQuery;
+    qVerBaixaProcCONTADOR: TIntegerField;
+    cdsConsProcessoID_COR_MAT: TIntegerField;
+    cdsConsProcessoNOME_COR_MAT: TStringField;
+    cdsConsProcessoNOME_MODELO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

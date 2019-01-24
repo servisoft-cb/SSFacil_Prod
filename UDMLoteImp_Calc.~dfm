@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43477.807084722220000000
+    ReportOptions.LastChange = 43429.853117013900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -899,8 +899,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ITEM=ITEM')
     DataSource = dsConsLote_Processo
     BCDToCurrency = False
-    Left = 616
-    Top = 383
+    Left = 632
+    Top = 351
   end
   object sdsConsProcesso: TSQLDataSet
     NoMetadata = True
@@ -911,13 +911,15 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       ' B.QTD,'#13#10'B.qtd_pendente, B.qtd_produzido, MAT.NOME NOME_MATERIAL' +
       ', B.ITEM,'#13#10'L.num_lote, L.num_ordem, L.referencia, PED.pedido_cli' +
       'ente, PED.num_pedido,'#13#10'PROD.NOME NOME_PRODUTO, COMB.NOME NOME_CO' +
-      'MBINACAO, B.dtentrada, B.dtbaixa'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER J' +
-      'OIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B' +
-      '.ID_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD' +
-      '.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SE' +
-      'TOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSIC' +
-      'AO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LE' +
-      'FT JOIN COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10#13#10
+      'MBINACAO, B.dtentrada, B.dtbaixa,'#13#10'b.id_cor_mat, CMAT.NOME NOME_' +
+      'COR_MAT, PROD.NOME_MODELO'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PRO' +
+      'CESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOT' +
+      'E = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LE' +
+      'FT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10 +
+      'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP' +
+      '.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN' +
+      ' COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'LEFT JOIN COMBIN' +
+      'ACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1015,6 +1017,17 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsProcessoDTBAIXA: TDateField
       FieldName = 'DTBAIXA'
     end
+    object cdsConsProcessoID_COR_MAT: TIntegerField
+      FieldName = 'ID_COR_MAT'
+    end
+    object cdsConsProcessoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsProcessoNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
@@ -1045,11 +1058,13 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
       'NUM_PEDIDO=NUM_PEDIDO'
       'NOME_PRODUTO=NOME_PRODUTO'
-      'NOME_COMBINACAO=NOME_COMBINACAO')
+      'NOME_COMBINACAO=NOME_COMBINACAO'
+      'DTENTRADA=DTENTRADA'
+      'DTBAIXA=DTBAIXA')
     DataSource = dsConsProcesso
     BCDToCurrency = False
-    Left = 656
-    Top = 383
+    Left = 672
+    Top = 431
   end
   object sdsProcesso: TSQLDataSet
     NoMetadata = True
@@ -1080,202 +1095,5 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     DataSet = cdsProcesso
     Left = 175
     Top = 200
-  end
-  object sdsMatLote: TSQLDataSet
-    NoMetadata = True
-    GetMetadata = False
-    CommandText = 
-      'SELECT L.ID ID_LOTE, PMAT.id_material, PMAT.id_cor ID_COR_MAT,'#13#10 +
-      'COMB.NOME NOME_COR_MAT, MAT.NOME NOME_MATERIAL, PMAT.qtd_consumo' +
-      ' ,'#13#10'S.NOME NOME_SETOR, PMAT.ID_SETOR, MAT.ID_GRADE ID_GRADE_MAT,' +
-      #13#10'PRO.ID_GRADE ID_GRADE_PROD, L.QTD'#13#10'FROM LOTE L'#13#10'INNER JOIN PRO' +
-      'DUTO PRO'#13#10'ON L.ID_PRODUTO = PRO.ID'#13#10'INNER JOIN PRODUTO_COMB PC'#13#10 +
-      'ON L.ID_PRODUTO = PC.ID'#13#10'AND L.id_combinacao = PC.id_cor_combina' +
-      'cao'#13#10'INNER JOIN PRODUTO_COMB_MAT PMAT'#13#10'ON PC.ID = PMAT.ID'#13#10'AND P' +
-      'C.item = PMAT.item'#13#10'INNER JOIN PRODUTO MAT'#13#10'ON PMAT.ID_MATERIAL ' +
-      '= MAT.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PMAT.ID_COR = COMB.ID'#13#10'L' +
-      'EFT JOIN SETOR S'#13#10'ON PMAT.ID_SETOR = S.ID'#13#10
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = dmDatabase.scoDados
-    Left = 512
-    Top = 568
-  end
-  object dspMatLote: TDataSetProvider
-    DataSet = sdsMatLote
-    Left = 552
-    Top = 568
-  end
-  object cdsMatLote: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspMatLote'
-    Left = 600
-    Top = 568
-    object cdsMatLoteID_MATERIAL: TIntegerField
-      FieldName = 'ID_MATERIAL'
-    end
-    object cdsMatLoteID_COR_MAT: TIntegerField
-      FieldName = 'ID_COR_MAT'
-    end
-    object cdsMatLoteNOME_COR_MAT: TStringField
-      FieldName = 'NOME_COR_MAT'
-      Size = 60
-    end
-    object cdsMatLoteNOME_MATERIAL: TStringField
-      FieldName = 'NOME_MATERIAL'
-      Size = 100
-    end
-    object cdsMatLoteQTD_CONSUMO: TFloatField
-      FieldName = 'QTD_CONSUMO'
-    end
-    object cdsMatLoteNOME_SETOR: TStringField
-      FieldName = 'NOME_SETOR'
-    end
-    object cdsMatLoteID_SETOR: TIntegerField
-      FieldName = 'ID_SETOR'
-    end
-    object cdsMatLoteID_LOTE: TIntegerField
-      FieldName = 'ID_LOTE'
-      Required = True
-    end
-    object cdsMatLoteID_GRADE_MAT: TIntegerField
-      FieldName = 'ID_GRADE_MAT'
-    end
-    object cdsMatLoteID_GRADE_PROD: TIntegerField
-      FieldName = 'ID_GRADE_PROD'
-    end
-    object cdsMatLoteQTD: TFloatField
-      FieldName = 'QTD'
-    end
-  end
-  object dsMatLote: TDataSource
-    DataSet = cdsMatLote
-    Left = 656
-    Top = 568
-  end
-  object mMat: TClientDataSet
-    Active = True
-    Aggregates = <>
-    Params = <>
-    Left = 528
-    Top = 512
-    Data = {
-      C00000009619E0BD010000001800000007000000000003000000C0000B49445F
-      4D6174657269616C04000100000000000649445F436F7204000100000000000D
-      4E6F6D655F4D6174657269616C01004900000001000557494454480200020064
-      00084E6F6D655F436F720100490000000100055749445448020002003C000B51
-      74645F436F6E73756D6F08000400000000000A4E6F6D655F5365746F72010049
-      00000001000557494454480200020028000849445F5365746F72040001000000
-      00000000}
-    object mMatID_Material: TIntegerField
-      FieldName = 'ID_Material'
-    end
-    object mMatID_Cor: TIntegerField
-      FieldName = 'ID_Cor'
-    end
-    object mMatNome_Material: TStringField
-      FieldName = 'Nome_Material'
-      Size = 100
-    end
-    object mMatNome_Cor: TStringField
-      FieldName = 'Nome_Cor'
-      Size = 60
-    end
-    object mMatQtd_Consumo: TFloatField
-      FieldName = 'Qtd_Consumo'
-    end
-    object mMatNome_Setor: TStringField
-      FieldName = 'Nome_Setor'
-      Size = 40
-    end
-    object mMatID_Setor: TIntegerField
-      FieldName = 'ID_Setor'
-    end
-  end
-  object dsMat: TDataSource
-    DataSet = mMat
-    Left = 560
-    Top = 512
-  end
-  object mMatGrade: TClientDataSet
-    Active = True
-    Aggregates = <>
-    IndexFieldNames = 'ID_Setor;ID_Material;ID_Cor'
-    MasterFields = 'ID_Setor;ID_Material;ID_Cor'
-    MasterSource = dsMat
-    PacketRecords = 0
-    Params = <>
-    Left = 640
-    Top = 512
-    Data = {
-      7E0000009619E0BD0100000018000000050000000000030000007E000849445F
-      5365746F7204000100000000000B49445F4D6174657269616C04000100000000
-      000649445F436F7204000100000000000754616D616E686F0100490000000100
-      055749445448020002000A000B5174645F436F6E73756D6F0800040000000000
-      0000}
-    object mMatGradeID_Setor: TIntegerField
-      FieldName = 'ID_Setor'
-    end
-    object mMatGradeID_Material: TIntegerField
-      FieldName = 'ID_Material'
-    end
-    object mMatGradeID_Cor: TIntegerField
-      FieldName = 'ID_Cor'
-    end
-    object mMatGradeTamanho: TStringField
-      FieldName = 'Tamanho'
-      Size = 10
-    end
-    object mMatGradeQtd_Consumo: TFloatField
-      FieldName = 'Qtd_Consumo'
-    end
-  end
-  object dsMatGrade: TDataSource
-    DataSet = mMatGrade
-    Left = 672
-    Top = 512
-  end
-  object sdsTalao: TSQLDataSet
-    NoMetadata = True
-    GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM TALAO'#13#10'WHERE ID = :ID'#13#10
-    MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftInteger
-        Name = 'ID'
-        ParamType = ptInput
-      end>
-    SQLConnection = dmDatabase.scoDados
-    Left = 512
-    Top = 616
-  end
-  object dspTalao: TDataSetProvider
-    DataSet = sdsTalao
-    Left = 560
-    Top = 616
-  end
-  object cdsTalao: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    ProviderName = 'dspTalao'
-    Left = 608
-    Top = 616
-    object cdsTalaoID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object cdsTalaoNUM_TALAO: TIntegerField
-      FieldName = 'NUM_TALAO'
-      Required = True
-    end
-    object cdsTalaoTAMANHO: TStringField
-      FieldName = 'TAMANHO'
-      Size = 10
-    end
-    object cdsTalaoQTD: TFloatField
-      FieldName = 'QTD'
-    end
   end
 end

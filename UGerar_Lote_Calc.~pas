@@ -111,6 +111,7 @@ type
     Processos1: TMenuItem;
     TS_Processo: TRzTabSheet;
     SMDBGrid6: TSMDBGrid;
+    NxButton1: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -144,6 +145,7 @@ type
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure Processos1Click(Sender: TObject);
     procedure SMDBGrid6TitleClick(Column: TColumn);
+    procedure NxButton1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadLote_Calc: TDMCadLote_Calc;
@@ -167,9 +169,9 @@ type
     procedure prc_Consultar_Lote;
     procedure prc_Consultar_Novo;
     procedure prc_Consultar_Processo;
-
+    procedure prc_Processos;
+    
     procedure prc_Le_mLote;
-
 
     procedure prc_Limpar_Auxiliar;
     procedure prc_Limpar_Var;
@@ -187,7 +189,7 @@ type
 
     procedure prc_Le_Original(ID : Integer);
 
-    procedure prc_Gravar_Processo;
+    procedure prc_Gravar_Processo(Regravar : Boolean = False);
 
     procedure prc_scroll(DataSet: TDataSet);
     procedure prc_Imprimir(Arq : String);
@@ -775,8 +777,8 @@ begin
   while not fDMCadLote_Calc.cdsConsumoCalc.Eof do
   begin
     ProgressBar4.Position := ProgressBar4.Position + 1;
-    if fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger = 11190 then
-      showmessage('material 11190');
+    //if fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger = 11190 then
+      //showmessage('material 11190');
 
     vCarimbo := fDMCadLote_Calc.cdsLoteCARIMBO.AsString;
     if (fDMCadLote_Calc.cdsConsumoCalcTRANSFER.AsString <> 'S') and (fDMCadLote_Calc.cdsConsumoCalcUSA_CARIMBO_OC.AsString <> 'S') then
@@ -910,6 +912,7 @@ begin
   end;
   if fnc_Ordem_Producao_OC then
     exit;
+
   prc_Atualizar_Material;
   CurrencyEdit8.AsInteger := 0;
 end;
@@ -949,6 +952,7 @@ begin
 
     prc_Abrir_Lote_Mat(CurrencyEdit8.AsInteger);
 
+    Label8.Caption := '..... Aguarde Gerando MATERIAIS .....';
     Label8.Visible := True;
     Label8.Refresh;
 
@@ -1392,17 +1396,40 @@ begin
       SMDBGrid1.Columns.Items[I].Title.Color := $00C6FFC6;
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Gravar_Processo;
+procedure TfrmGerar_Lote_Calc.prc_Gravar_Processo(Regravar : Boolean = False);
 var
   vItemAux : Integer;
+  vIDCor : Integer;
 begin
   fDMCadLote_Calc.cdsProduto_Consumo_Proc.Close;
-  fDMCadLote_Calc.sdsProduto_Consumo_Proc.ParamByName('ID').AsInteger := fDMCadLote_Calc.cdsLoteID_PRODUTO.AsInteger;
+  fDMCadLote_Calc.sdsProduto_Consumo_Proc.ParamByName('ID').AsInteger     := fDMCadLote_Calc.cdsLoteID_PRODUTO.AsInteger;
+  fDMCadLote_Calc.sdsProduto_Consumo_Proc.ParamByName('ID_COR').AsInteger := fDMCadLote_Calc.cdsLoteID_COMBINACAO.AsInteger;
   fDMCadLote_Calc.cdsProduto_Consumo_Proc.Open;
 
   fDMCadLote_Calc.cdsProduto_Consumo_Proc.First;
   while not fDMCadLote_Calc.cdsProduto_Consumo_Proc.Eof do
   begin
+    //24/01/2019
+    if Regravar then
+    begin
+      vIDCor := 0;
+      if fDMCadLote_Calc.cdsProduto_Consumo_ProcID_COR_MAT.AsInteger > 0 then
+        vIDCor := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_COR_MAT.AsInteger;
+
+      fDMCadLote_Calc.qVerBaixaProc.Close;
+      fDMCadLote_Calc.qVerBaixaProc.ParamByName('ID_PROCESSO').AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_PROCESSO.AsInteger;
+      fDMCadLote_Calc.qVerBaixaProc.ParamByName('ID_LOTE').AsInteger     := fDMCadLote_Calc.cdsLoteID.AsInteger;
+      fDMCadLote_Calc.qVerBaixaProc.ParamByName('ID_MATERIAL').AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_MATERIAL.AsInteger;
+      fDMCadLote_Calc.qVerBaixaProc.ParamByName('ID_COR_MAT').AsInteger  := vIDCor;
+      fDMCadLote_Calc.qVerBaixaProc.Open;
+      if fDMCadLote_Calc.qVerBaixaProcCONTADOR.AsInteger > 0 then
+      begin
+        fDMCadLote_Calc.cdsProduto_Consumo_Proc.Next;
+        Continue;
+      end;
+    end;
+    //**************************
+
     if vID_BaixaProcesso <= 0 then
     begin
       vID_BaixaProcesso := dmDatabase.ProximaSequencia('BAIXA_PROCESSO',0);
@@ -1433,11 +1460,14 @@ begin
     fDMCadLote_Calc.cdsBaixa_ProcessoID_POSICAO.AsInteger  := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_POSICAO.AsInteger;
     if fDMCadLote_Calc.cdsProduto_Consumo_ProcID_MATERIAL.AsInteger > 0 then
       fDMCadLote_Calc.cdsBaixa_ProcessoID_MATERIAL.AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_MATERIAL.AsInteger;
+    if fDMCadLote_Calc.cdsProduto_Consumo_ProcID_COR_MAT.AsInteger > 0 then
+      fDMCadLote_Calc.cdsBaixa_ProcessoID_COR_MAT.AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_COR_MAT.AsInteger
+    else
+      fDMCadLote_Calc.cdsBaixa_ProcessoID_COR_MAT.AsInteger := 0;
     fDMCadLote_Calc.cdsBaixa_Processo.Post;
 
     fDMCadLote_Calc.cdsProduto_Consumo_Proc.Next;
   end;
-
 end;
 
 procedure TfrmGerar_Lote_Calc.prc_scroll(DataSet: TDataSet);
@@ -1561,6 +1591,53 @@ begin
   for i := 0 to SMDBGrid6.Columns.Count - 1 do
     if not (SMDBGrid6.Columns.Items[I] = Column) then
       SMDBGrid6.Columns.Items[I].Title.Color := $0080FFFF;
+end;
+
+procedure TfrmGerar_Lote_Calc.NxButton1Click(Sender: TObject);
+begin
+  if MessageDlg('Gerar Processos?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+
+  Label8.Caption := '..... Aguarde Gerando PROCESSOS .....';
+
+  vID_BaixaProcesso := 0;
+
+  prc_Processos;
+
+  CurrencyEdit8.SetFocus;
+end;
+
+procedure TfrmGerar_Lote_Calc.prc_Processos;
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.Close;
+    sds.CommandText := 'SELECT ID FROM LOTE WHERE NUM_ORDEM = :NUM_ORDEM';
+    sds.ParamByName('NUM_ORDEM').AsInteger := CurrencyEdit8.AsInteger;
+    sds.Open;
+    sds.First;
+    while not sds.Eof do
+    begin
+      fDMCadLote_Calc.prc_Localizar(sds.FieldByName('ID').AsInteger);
+      if not fDMCadLote_Calc.cdsLote.IsEmpty then
+        prc_Gravar_Processo;
+      sds.Next;
+    end;
+
+    if (fDMCadLote_Calc.qParametros_LoteTIPO_PROCESSO.AsString = 'L') and (vID_BaixaProcesso > 0) then
+      fDMCadLote_Calc.cdsBaixa_Processo.ApplyUpdates(0);
+      
+  finally
+    FreeAndNil(sds);
+  end;
+  MessageDlg('*** Processos Gerados!', mtConfirmation, [mbOk], 0);
+
+  Label8.Visible := False;
 end;
 
 end.

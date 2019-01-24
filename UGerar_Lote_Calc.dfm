@@ -577,9 +577,9 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         Top = 157
         Width = 916
         Height = 358
-        ActivePage = TS_ConsLote_Talao
+        ActivePage = TS_Processo
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 2
         FixedDimension = 19
         object TS_ConsLote_Talao: TRzTabSheet
@@ -1054,7 +1054,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 14
+            ColCount = 16
             RowCount = 2
             Columns = <
               item
@@ -1122,6 +1122,15 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                 Visible = True
               end
               item
+                Expanded = False
+                FieldName = 'NOME_COR_MAT'
+                Title.Alignment = taCenter
+                Title.Caption = 'Cor Material'
+                Title.Color = 8454143
+                Width = 136
+                Visible = True
+              end
+              item
                 Alignment = taCenter
                 Expanded = False
                 FieldName = 'ID_PRODUTO'
@@ -1172,6 +1181,15 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                 Title.Alignment = taCenter
                 Title.Caption = 'Item Baixa'
                 Title.Color = 8454143
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_MODELO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Modelo'
+                Title.Color = 8454143
+                Width = 285
                 Visible = True
               end>
           end
@@ -2419,14 +2437,14 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object btnAtualizar_Mat: TNxButton
         Left = 108
         Top = 32
-        Width = 189
+        Width = 206
         Height = 30
         Hint = 'Atualiza Materiais conforme a ficha t'#233'cnica'
         Caption = 'Atualizar Materiais'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlue
         Font.Height = -16
-        Font.Name = 'Arial'
+        Font.Name = 'Verdana'
         Font.Style = []
         Glyph.Data = {
           AE060000424DAE06000000000000360000002800000017000000170000000100
@@ -2488,6 +2506,21 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         TabOrder = 1
         Transparent = True
         OnClick = btnAtualizar_MatClick
+      end
+      object NxButton1: TNxButton
+        Left = 323
+        Top = 32
+        Width = 206
+        Height = 30
+        Caption = 'Gerar Processos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -16
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        OnClick = NxButton1Click
       end
     end
   end

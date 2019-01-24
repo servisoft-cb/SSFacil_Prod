@@ -88,7 +88,10 @@ uses
   UConsProc in 'UConsProc.pas' {frmConsProc},
   UDMConsLote in 'UDMConsLote.pas' {DMConsLote: TDataModule},
   UConsMatLote2 in 'UConsMatLote2.pas' {frmConsMatLote2},
-  URelMatLote2 in 'URelMatLote2.pas' {frmRelMatLote2};
+  URelMatLote2 in 'URelMatLote2.pas' {fRelMatLote2},
+  UDMCadTab_TalaoAux in 'UDMCadTab_TalaoAux.pas' {DMCadTab_TalaoAux: TDataModule},
+  UCadTalaoAux in 'UCadTalaoAux.pas' {frmCadTalaoAux},
+  UCadTalaoAux_Pos in 'UCadTalaoAux_Pos.pas' {frmCadTalaoAux_Pos};
 
 {$R *.res}
 

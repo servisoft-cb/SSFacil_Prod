@@ -544,6 +544,8 @@ object fMenu: TfMenu
         Caption = 'Sa'#237'da do Estoque (C'#243'd. Barra)'
         OnClick = SadadoEstoqueCdBarra1Click
       end
+      object TMenuItem
+      end
       object N4: TMenuItem
         Caption = '-'
       end
@@ -7910,6 +7912,24 @@ object fMenu: TfMenu
         FormName = 'frmConfParcial'
         CompName = 'btnEncerrar'
         Caption = 'Encerrar Processo'
+      end
+      item
+        FormName = 'frmCadTalaoAux'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Tabela Tal'#227'o Auxiliar'
+      end
+      item
+        FormName = 'frmCadTalaoAux'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Tabela Tal'#227'o Auxiliar'
+      end
+      item
+        FormName = 'frmCadTalaoAux'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Tabela Tal'#227'o Auxiliar'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
