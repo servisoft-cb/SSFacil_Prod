@@ -1060,7 +1060,10 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'NOME_PRODUTO=NOME_PRODUTO'
       'NOME_COMBINACAO=NOME_COMBINACAO'
       'DTENTRADA=DTENTRADA'
-      'DTBAIXA=DTBAIXA')
+      'DTBAIXA=DTBAIXA'
+      'ID_COR_MAT=ID_COR_MAT'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'NOME_MODELO=NOME_MODELO')
     DataSource = dsConsProcesso
     BCDToCurrency = False
     Left = 672

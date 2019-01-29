@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43429.853117013900000000
+    ReportOptions.LastChange = 43490.473954351900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -597,7 +597,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object cdsProdMat: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'ORDEM_ORC;ID_POSICAO;NOME_MATERIAL'
+    IndexFieldNames = 'ORDEM_ORC;NOME_SETOR;NOME_POSICAO;NOME_MATERIAL'
     Params = <>
     ProviderName = 'dspProdMat'
     Left = 464

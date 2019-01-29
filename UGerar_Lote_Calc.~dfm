@@ -1054,7 +1054,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 15
+            ColCount = 16
             RowCount = 2
             Columns = <
               item
@@ -1122,6 +1122,15 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                 Visible = True
               end
               item
+                Expanded = False
+                FieldName = 'NOME_COR_MAT'
+                Title.Alignment = taCenter
+                Title.Caption = 'Cor Material'
+                Title.Color = 8454143
+                Width = 136
+                Visible = True
+              end
+              item
                 Alignment = taCenter
                 Expanded = False
                 FieldName = 'ID_PRODUTO'
@@ -1176,6 +1185,11 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
               end
               item
                 Expanded = False
+                FieldName = 'NOME_MODELO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Modelo'
+                Title.Color = 8454143
+                Width = 285
                 Visible = True
               end>
           end
