@@ -1,6 +1,6 @@
 object fRelMatLote2: TfRelMatLote2
-  Left = 201
-  Top = 105
+  Left = 240
+  Top = 96
   Width = 1041
   Height = 480
   Caption = 'fRelMatLote2'
@@ -35,7 +35,7 @@ object fRelMatLote2: TfRelMatLote2
       Left = 30
       Top = 30
       Width = 734
-      Height = 66
+      Height = 84
       BandType = btHeader
       object RLLabel1: TRLLabel
         Left = 192
@@ -104,7 +104,7 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLLabel4: TRLLabel
         Left = 6
-        Top = 32
+        Top = 27
         Width = 33
         Height = 12
         Caption = 'Op'#231#227'o:'
@@ -117,7 +117,7 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLLabel5: TRLLabel
         Left = 8
-        Top = 48
+        Top = 65
         Width = 15
         Height = 15
         Caption = 'ID'
@@ -130,14 +130,14 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLDraw1: TRLDraw
         Left = 1
-        Top = 44
+        Top = 61
         Width = 732
         Height = 7
         DrawKind = dkLine
       end
       object RLLabel6: TRLLabel
         Left = 64
-        Top = 48
+        Top = 65
         Width = 46
         Height = 15
         Caption = 'Material'
@@ -150,7 +150,7 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLLabel7: TRLLabel
         Left = 376
-        Top = 48
+        Top = 65
         Width = 23
         Height = 15
         Caption = 'Cor'
@@ -163,7 +163,7 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLLabel8: TRLLabel
         Left = 663
-        Top = 48
+        Top = 65
         Width = 67
         Height = 15
         Caption = 'Quantidade'
@@ -174,10 +174,53 @@ object fRelMatLote2: TfRelMatLote2
         Font.Style = []
         ParentFont = False
       end
+      object RLDBText8: TRLDBText
+        Left = 8
+        Top = 43
+        Width = 144
+        Height = 13
+        DataField = 'REFERENCIA_MODELO'
+        DataSource = DMConsLote.dsLoteProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object RLDBText9: TRLDBText
+        Left = 405
+        Top = 43
+        Width = 169
+        Height = 13
+        DataField = 'NOME_COMBINACAO'
+        DataSource = DMConsLote.dsLoteProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object RLDBText10: TRLDBText
+        Left = 681
+        Top = 43
+        Width = 49
+        Height = 13
+        Alignment = taRightJustify
+        DataField = 'QTD'
+        DataSource = DMConsLote.dsLoteProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
     end
     object RLGroup1: TRLGroup
       Left = 30
-      Top = 96
+      Top = 114
       Width = 734
       Height = 193
       DataFields = 'Nome_Setor'

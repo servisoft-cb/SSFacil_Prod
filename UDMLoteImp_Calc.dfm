@@ -321,12 +321,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       's, L.qtd, '#13#10'P.nome NOME_PRODUTO, P.REFERENCIA, P.nome_modelo NOM' +
       'E_MODELO, L.ID,'#13#10'CLI.NOME NOME_CLIENTE, PED.NUM_PEDIDO, PED.pedi' +
       'do_cliente, P.ID_FORMA,'#13#10'F.NOME NOME_FORMA, L.CARIMBO, L.CAIXINH' +
-      'A,'#13#10'P.ID_LINHA, LIN.NOME NOME_CONSTRUCAO'#13#10'FROM LOTE L'#13#10'INNER JOI' +
-      'N PRODUTO P'#13#10'ON L.ID_PRODUTO = P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10 +
-      'ON L.id_combinacao = COMB.ID'#13#10'left join PESSOA CLI'#13#10'ON L.ID_CLIE' +
-      'NTE = CLI.CODIGO'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13 +
-      #10'LEFT JOIN PRODUTO F'#13#10'ON P.ID_FORMA = F.ID'#13#10'LEFT JOIN LINHA LIN'#13 +
-      #10'ON P.ID_LINHA = LIN.ID'#13#10'WHERE L.ID = :ID'#13#10
+      'A,'#13#10'P.ID_LINHA, LIN.NOME NOME_CONSTRUCAO, P.FOTO'#13#10'FROM LOTE L'#13#10'I' +
+      'NNER JOIN PRODUTO P'#13#10'ON L.ID_PRODUTO = P.ID'#13#10'LEFT JOIN COMBINACA' +
+      'O COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'left join PESSOA CLI'#13#10'ON L' +
+      '.ID_CLIENTE = CLI.CODIGO'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO =' +
+      ' PED.ID'#13#10'LEFT JOIN PRODUTO F'#13#10'ON P.ID_FORMA = F.ID'#13#10'LEFT JOIN LI' +
+      'NHA LIN'#13#10'ON P.ID_LINHA = LIN.ID'#13#10'WHERE L.ID = :ID'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -430,6 +430,10 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsLote_NovoNOME_MODELO: TStringField
       FieldName = 'NOME_MODELO'
       Size = 100
+    end
+    object cdsConsLote_NovoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 150
     end
   end
   object dsConsLote_Novo: TDataSource

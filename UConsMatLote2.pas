@@ -73,7 +73,8 @@ end;
 
 procedure TfrmConsMatLote2.prc_Consultar;
 var
-  vComando : String;
+  vComando,
+  vCommandoLoteProduto : String;
 begin
   fDMConsLote.cdsMatLote.Close;
   if CurrencyEdit1.AsInteger > 0 then
@@ -84,6 +85,17 @@ begin
   fDMConsLote.cdsMatLote.Close;
   fDMConsLote.sdsMatLote.CommandText := vComando;
   fDMConsLote.cdsMatLote.Open;
+
+  fDMConsLote.cdsLoteProduto.Close;
+  if CurrencyEdit1.AsInteger > 0 then
+    vCommandoLoteProduto := ' WHERE L.NUM_LOTE >= ' + IntToStr(CurrencyEdit1.AsInteger) + ' AND L.NUM_LOTE <= ' + IntToStr(CurrencyEdit2.AsInteger)
+  else
+    vCommandoLoteProduto := ' WHERE L.NUM_LOTE in (' + Edit3.Text + ')';
+  vCommandoLoteProduto := fDMConsLote.ctLoteProduto + vCommandoLoteProduto;
+  fDMConsLote.cdsLoteProduto.Close;
+  fDMConsLote.sdsLoteProduto.CommandText := vCommandoLoteProduto;
+  fDMConsLote.cdsLoteProduto.Open;
+
 end;
 
 procedure TfrmConsMatLote2.SMDBGrid1TitleClick(Column: TColumn);

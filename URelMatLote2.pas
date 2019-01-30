@@ -35,6 +35,9 @@ type
     RLBand3: TRLBand;
     RLLabel9: TRLLabel;
     RLDBText7: TRLDBText;
+    RLDBText8: TRLDBText;
+    RLDBText9: TRLDBText;
+    RLDBText10: TRLDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);

@@ -4822,13 +4822,14 @@ object DMCadLote_Calc: TDMCadLote_Calc
       'E NOME_TIPOMATRIZ,'#13#10'COMB.nome NOME_COMBINACAO, L.NOME NOME_LOTE,' +
       #13#10'L.num_pedido, PED.pedido_cliente, CLI.nome NOME_CLIENTE, L.uni' +
       'dade UNIDADE_LOTE,'#13#10'PRO.id_forma, FORMA.NOME NOME_FORMA, L.OBS_P' +
-      'ED, L.NUM_REMESSA'#13#10'FROM LOTE L'#13#10'INNER JOIN FILIAL FIL'#13#10'ON L.FILI' +
-      'AL = FIL.ID'#13#10'LEFT JOIN PRODUTO PRO'#13#10'ON L.ID_PRODUTO = PRO.ID'#13#10'LE' +
-      'FT JOIN PRODUTO_PCP PCP'#13#10'ON L.ID_PRODUTO = PCP.ID'#13#10'LEFT JOIN TIP' +
-      'O_MATRIZ TM'#13#10'ON PCP.ID_TIPO_MATRIZ = TM.ID'#13#10'LEFT JOIN combinacao' +
-      ' COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'LEFT JOIN pedido PED'#13#10'ON L.' +
-      'id_pedido = PED.ID'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON PED.id_cliente = CL' +
-      'I.codigo'#13#10'LEFT JOIN PRODUTO FORMA'#13#10'ON PRO.ID_FORMA = FORMA.ID'#13#10
+      'ED, L.NUM_REMESSA, PRO.FOTO'#13#10'FROM LOTE L'#13#10'INNER JOIN FILIAL FIL'#13 +
+      #10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN PRODUTO PRO'#13#10'ON L.ID_PRODUTO = ' +
+      'PRO.ID'#13#10'LEFT JOIN PRODUTO_PCP PCP'#13#10'ON L.ID_PRODUTO = PCP.ID'#13#10'LEF' +
+      'T JOIN TIPO_MATRIZ TM'#13#10'ON PCP.ID_TIPO_MATRIZ = TM.ID'#13#10'LEFT JOIN ' +
+      'combinacao COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'LEFT JOIN pedido ' +
+      'PED'#13#10'ON L.id_pedido = PED.ID'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON PED.id_cl' +
+      'iente = CLI.codigo'#13#10'LEFT JOIN PRODUTO FORMA'#13#10'ON PRO.ID_FORMA = F' +
+      'ORMA.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -4972,6 +4973,10 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsConsLote_NovoNUM_REMESSA: TStringField
       FieldName = 'NUM_REMESSA'
       Size = 15
+    end
+    object cdsConsLote_NovoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 150
     end
   end
   object dsConsLote_Novo: TDataSource
