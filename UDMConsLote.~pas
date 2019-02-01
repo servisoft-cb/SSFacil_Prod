@@ -59,6 +59,18 @@ type
     frxRichObject1: TfrxRichObject;
     frxmMat: TfrxDBDataset;
     frxmMatGrade: TfrxDBDataset;
+    sdsLoteProduto: TSQLDataSet;
+    cdsLoteProduto: TClientDataSet;
+    dspLoteProduto: TDataSetProvider;
+    dsLoteProduto: TDataSource;
+    sdsLoteProdutoID_LOTE: TIntegerField;
+    sdsLoteProdutoQTD: TFloatField;
+    sdsLoteProdutoREFERENCIA_MODELO: TStringField;
+    sdsLoteProdutoNOME_COMBINACAO: TStringField;
+    cdsLoteProdutoID_LOTE: TIntegerField;
+    cdsLoteProdutoQTD: TFloatField;
+    cdsLoteProdutoREFERENCIA_MODELO: TStringField;
+    cdsLoteProdutoNOME_COMBINACAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);
@@ -71,7 +83,7 @@ type
   public
     { Public declarations }
     ctMatLote : String;
-    
+    ctLoteProduto : String;
   end;
 
 var
@@ -86,6 +98,7 @@ uses DmdDatabase;
 procedure TDMConsLote.DataModuleCreate(Sender: TObject);
 begin
   ctMatLote := sdsMatLote.CommandText;
+  ctLoteProduto := sdsLoteProduto.CommandText;
   qParametros.Open;
   qParametros_Lote.Open;
   qParametros_Prod.Open;

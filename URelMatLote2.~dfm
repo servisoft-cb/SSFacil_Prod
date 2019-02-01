@@ -1,6 +1,6 @@
 object fRelMatLote2: TfRelMatLote2
-  Left = 201
-  Top = 105
+  Left = 240
+  Top = 96
   Width = 1041
   Height = 480
   Caption = 'fRelMatLote2'
@@ -35,7 +35,7 @@ object fRelMatLote2: TfRelMatLote2
       Left = 30
       Top = 30
       Width = 734
-      Height = 66
+      Height = 63
       BandType = btHeader
       object RLLabel1: TRLLabel
         Left = 192
@@ -104,7 +104,7 @@ object fRelMatLote2: TfRelMatLote2
       end
       object RLLabel4: TRLLabel
         Left = 6
-        Top = 32
+        Top = 27
         Width = 33
         Height = 12
         Caption = 'Op'#231#227'o:'
@@ -115,32 +115,19 @@ object fRelMatLote2: TfRelMatLote2
         Font.Style = []
         ParentFont = False
       end
-      object RLLabel5: TRLLabel
-        Left = 8
-        Top = 48
-        Width = 15
-        Height = 15
-        Caption = 'ID'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-      end
       object RLDraw1: TRLDraw
         Left = 1
-        Top = 44
+        Top = 57
         Width = 732
         Height = 7
         DrawKind = dkLine
       end
-      object RLLabel6: TRLLabel
-        Left = 64
-        Top = 48
-        Width = 46
+      object RLLabel10: TRLLabel
+        Left = 3
+        Top = 42
+        Width = 63
         Height = 15
-        Caption = 'Material'
+        Caption = 'Refer'#234'ncia'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -12
@@ -148,9 +135,22 @@ object fRelMatLote2: TfRelMatLote2
         Font.Style = []
         ParentFont = False
       end
-      object RLLabel7: TRLLabel
-        Left = 376
-        Top = 48
+      object RLLabel11: TRLLabel
+        Left = 91
+        Top = 42
+        Width = 43
+        Height = 15
+        Caption = 'Modelo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object RLLabel12: TRLLabel
+        Left = 467
+        Top = 42
         Width = 23
         Height = 15
         Caption = 'Cor'
@@ -161,12 +161,12 @@ object fRelMatLote2: TfRelMatLote2
         Font.Style = []
         ParentFont = False
       end
-      object RLLabel8: TRLLabel
-        Left = 663
-        Top = 48
-        Width = 67
+      object RLLabel13: TRLLabel
+        Left = 699
+        Top = 42
+        Width = 32
         Height = 15
-        Caption = 'Quantidade'
+        Caption = 'Qtde.'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -12
@@ -177,7 +177,7 @@ object fRelMatLote2: TfRelMatLote2
     end
     object RLGroup1: TRLGroup
       Left = 30
-      Top = 96
+      Top = 118
       Width = 734
       Height = 193
       DataFields = 'Nome_Setor'
@@ -332,6 +332,65 @@ object fRelMatLote2: TfRelMatLote2
           Font.Style = [fsBold]
           ParentFont = False
         end
+      end
+    end
+    object RLBand4: TRLBand
+      Left = 30
+      Top = 93
+      Width = 734
+      Height = 25
+      BandType = btHeader
+      object RLLabel5: TRLLabel
+        Left = 8
+        Top = 7
+        Width = 15
+        Height = 15
+        Caption = 'ID'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object RLLabel6: TRLLabel
+        Left = 64
+        Top = 7
+        Width = 46
+        Height = 15
+        Caption = 'Material'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object RLLabel7: TRLLabel
+        Left = 376
+        Top = 7
+        Width = 23
+        Height = 15
+        Caption = 'Cor'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object RLLabel8: TRLLabel
+        Left = 663
+        Top = 7
+        Width = 67
+        Height = 15
+        Caption = 'Quantidade'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
       end
     end
   end

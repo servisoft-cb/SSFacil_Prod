@@ -63,13 +63,10 @@ type
     cdsLoteProduto: TClientDataSet;
     dspLoteProduto: TDataSetProvider;
     dsLoteProduto: TDataSource;
-    sdsLoteProdutoID_LOTE: TIntegerField;
-    sdsLoteProdutoQTD: TFloatField;
-    sdsLoteProdutoREFERENCIA_MODELO: TStringField;
-    sdsLoteProdutoNOME_COMBINACAO: TStringField;
     cdsLoteProdutoID_LOTE: TIntegerField;
     cdsLoteProdutoQTD: TFloatField;
-    cdsLoteProdutoREFERENCIA_MODELO: TStringField;
+    cdsLoteProdutoREFERENCIA: TStringField;
+    cdsLoteProdutoNOME_MODELO: TStringField;
     cdsLoteProdutoNOME_COMBINACAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);

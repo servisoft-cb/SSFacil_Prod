@@ -2,9 +2,9 @@ object DMConsLote: TDMConsLote
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 379
-  Top = 84
-  Height = 550
-  Width = 801
+  Top = 144
+  Height = 318
+  Width = 707
   object qParametros: TSQLQuery
     MaxBlobSize = -1
     Params = <>
@@ -12,7 +12,7 @@ object DMConsLote: TDMConsLote
       'SELECT GERAR_TALAO_AUXILIAR, USA_LOTE'
       'FROM PARAMETROS')
     SQLConnection = dmDatabase.scoDados
-    Left = 200
+    Left = 560
     Top = 56
     object qParametrosGERAR_TALAO_AUXILIAR: TStringField
       FieldName = 'GERAR_TALAO_AUXILIAR'
@@ -32,8 +32,8 @@ object DMConsLote: TDMConsLote
       'SELECT LOTE_TEXTIL'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
-    Left = 200
-    Top = 136
+    Left = 522
+    Top = 56
     object qParametros_LoteLOTE_TEXTIL: TStringField
       FieldName = 'LOTE_TEXTIL'
       FixedChar = True
@@ -57,20 +57,20 @@ object DMConsLote: TDMConsLote
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 144
-    Top = 352
+    Left = 40
+    Top = 16
   end
   object dspMatLote: TDataSetProvider
     DataSet = sdsMatLote
-    Left = 184
-    Top = 352
+    Left = 80
+    Top = 16
   end
   object cdsMatLote: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspMatLote'
-    Left = 232
-    Top = 352
+    Left = 121
+    Top = 16
     object cdsMatLoteID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
     end
@@ -110,16 +110,16 @@ object DMConsLote: TDMConsLote
   end
   object dsMatLote: TDataSource
     DataSet = cdsMatLote
-    Left = 288
-    Top = 352
+    Left = 164
+    Top = 16
   end
   object mMat: TClientDataSet
     Active = True
     Aggregates = <>
     Params = <>
     OnNewRecord = mMatNewRecord
-    Left = 160
-    Top = 296
+    Left = 312
+    Top = 56
     Data = {
       C00000009619E0BD010000001800000007000000000003000000C0000B49445F
       4D6174657269616C04000100000000000649445F436F7204000100000000000D
@@ -155,8 +155,8 @@ object DMConsLote: TDMConsLote
   end
   object dsmMat: TDataSource
     DataSet = mMat
-    Left = 192
-    Top = 296
+    Left = 344
+    Top = 56
   end
   object mMatGrade: TClientDataSet
     Active = True
@@ -167,8 +167,8 @@ object DMConsLote: TDMConsLote
     PacketRecords = 0
     Params = <>
     OnNewRecord = mMatGradeNewRecord
-    Left = 272
-    Top = 296
+    Left = 424
+    Top = 56
     Data = {
       7E0000009619E0BD0100000018000000050000000000030000007E000849445F
       5365746F7204000100000000000B49445F4D6174657269616C04000100000000
@@ -194,8 +194,8 @@ object DMConsLote: TDMConsLote
   end
   object dsmMatGrade: TDataSource
     DataSet = mMatGrade
-    Left = 304
-    Top = 296
+    Left = 456
+    Top = 56
   end
   object sdsTalao: TSQLDataSet
     NoMetadata = True
@@ -209,20 +209,20 @@ object DMConsLote: TDMConsLote
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 144
-    Top = 400
+    Left = 40
+    Top = 64
   end
   object dspTalao: TDataSetProvider
     DataSet = sdsTalao
-    Left = 192
-    Top = 400
+    Left = 80
+    Top = 64
   end
   object cdsTalao: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspTalao'
-    Left = 240
-    Top = 400
+    Left = 122
+    Top = 64
     object cdsTalaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -246,8 +246,8 @@ object DMConsLote: TDMConsLote
       'SELECT USA_TAM_REFER_GRADE'
       'FROM PARAMETROS_PROD')
     SQLConnection = dmDatabase.scoDados
-    Left = 304
-    Top = 212
+    Left = 599
+    Top = 57
     object qParametros_ProdUSA_TAM_REFER_GRADE: TStringField
       FieldName = 'USA_TAM_REFER_GRADE'
       FixedChar = True
@@ -268,8 +268,8 @@ object DMConsLote: TDMConsLote
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 560
-    Top = 319
+    Left = 504
+    Top = 143
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -292,8 +292,8 @@ object DMConsLote: TDMConsLote
     CenterWindow = False
     PrintScaling = False
     PdfA = False
-    Left = 600
-    Top = 319
+    Left = 544
+    Top = 143
   end
   object frxMailExport1: TfrxMailExport
     UseFileCache = True
@@ -307,12 +307,12 @@ object DMConsLote: TDMConsLote
     ConfurmReading = False
     UseMAPI = SMTP
     MAPISendFlag = 0
-    Left = 640
-    Top = 319
+    Left = 584
+    Top = 143
   end
   object frxRichObject1: TfrxRichObject
-    Left = 672
-    Top = 319
+    Left = 616
+    Top = 143
   end
   object frxmMat: TfrxDBDataset
     UserName = 'frxmMat'
@@ -330,8 +330,8 @@ object DMConsLote: TDMConsLote
     OnOpen = frxmMatOpen
     DataSource = dsmMat
     BCDToCurrency = False
-    Left = 560
-    Top = 375
+    Left = 504
+    Top = 199
   end
   object frxmMatGrade: TfrxDBDataset
     UserName = 'frxmMatGrade'
@@ -344,7 +344,69 @@ object DMConsLote: TDMConsLote
       'Qtd_Consumo=Qtd_Consumo')
     DataSource = dsmMatGrade
     BCDToCurrency = False
-    Left = 608
-    Top = 375
+    Left = 552
+    Top = 199
+  end
+  object sdsLoteProduto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select L.ID ID_LOTE, L.QTD, PRO.REFERENCIA||'#39' / '#39'|| PRO.NOME_MOD' +
+      'ELO REFERENCIA_MODELO, COMB.NOME NOME_COMBINACAO'#13#10'from LOTE L'#13#10'i' +
+      'nner join PRODUTO PRO on L.ID_PRODUTO = PRO.ID'#13#10'left join COMBIN' +
+      'ACAO COMB on L.ID_COMBINACAO = COMB.ID'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 48
+    Top = 120
+    object sdsLoteProdutoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+      Required = True
+    end
+    object sdsLoteProdutoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsLoteProdutoREFERENCIA_MODELO: TStringField
+      FieldName = 'REFERENCIA_MODELO'
+      Size = 123
+    end
+    object sdsLoteProdutoNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 60
+    end
+  end
+  object cdsLoteProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspLoteProduto'
+    Left = 125
+    Top = 120
+    object cdsLoteProdutoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+      Required = True
+    end
+    object cdsLoteProdutoQTD: TFloatField
+      FieldName = 'QTD'
+      DisplayFormat = '##0.00'
+    end
+    object cdsLoteProdutoREFERENCIA_MODELO: TStringField
+      FieldName = 'REFERENCIA_MODELO'
+      Size = 123
+    end
+    object cdsLoteProdutoNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 60
+    end
+  end
+  object dspLoteProduto: TDataSetProvider
+    DataSet = sdsLoteProduto
+    Left = 88
+    Top = 120
+  end
+  object dsLoteProduto: TDataSource
+    DataSet = cdsLoteProduto
+    Left = 165
+    Top = 120
   end
 end

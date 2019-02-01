@@ -16,11 +16,7 @@ type
     RLLabel3: TRLLabel;
     RLSystemInfo2: TRLSystemInfo;
     RLLabel4: TRLLabel;
-    RLLabel5: TRLLabel;
     RLDraw1: TRLDraw;
-    RLLabel6: TRLLabel;
-    RLLabel7: TRLLabel;
-    RLLabel8: TRLLabel;
     RLGroup1: TRLGroup;
     RLBand2: TRLBand;
     RLDBText1: TRLDBText;
@@ -35,6 +31,15 @@ type
     RLBand3: TRLBand;
     RLLabel9: TRLLabel;
     RLDBText7: TRLDBText;
+    RLBand4: TRLBand;
+    RLLabel5: TRLLabel;
+    RLLabel6: TRLLabel;
+    RLLabel7: TRLLabel;
+    RLLabel8: TRLLabel;
+    RLLabel10: TRLLabel;
+    RLLabel11: TRLLabel;
+    RLLabel12: TRLLabel;
+    RLLabel13: TRLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
