@@ -66,8 +66,7 @@ type
     cdsLoteProdutoID_LOTE: TIntegerField;
     cdsLoteProdutoQTD: TFloatField;
     cdsLoteProdutoREFERENCIA: TStringField;
-    cdsLoteProdutoNOME_MODELO: TStringField;
-    cdsLoteProdutoNOME_COMBINACAO: TStringField;
+    cdsLoteProdutoMODELO_COMBINACAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);

@@ -351,10 +351,10 @@ object DMConsLote: TDMConsLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select L.ID ID_LOTE, L.QTD, PRO.REFERENCIA, PRO.NOME_MODELO, COM' +
-      'B.NOME NOME_COMBINACAO'#13#10'from LOTE L'#13#10'inner join PRODUTO PRO on L' +
-      '.ID_PRODUTO = PRO.ID'#13#10'left join COMBINACAO COMB on L.ID_COMBINAC' +
-      'AO = COMB.ID'#13#10
+      'select L.ID ID_LOTE, L.QTD, PRO.REFERENCIA, PRO.NOME_MODELO||'#39' -' +
+      ' '#39'|| COMB.NOME AS MODELO_COMBINACAO'#13#10'from LOTE L'#13#10'inner join PRO' +
+      'DUTO PRO on L.ID_PRODUTO = PRO.ID'#13#10'left join COMBINACAO COMB on ' +
+      'L.ID_COMBINACAO = COMB.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -377,13 +377,9 @@ object DMConsLote: TDMConsLote
     object cdsLoteProdutoREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
     end
-    object cdsLoteProdutoNOME_MODELO: TStringField
-      FieldName = 'NOME_MODELO'
-      Size = 100
-    end
-    object cdsLoteProdutoNOME_COMBINACAO: TStringField
-      FieldName = 'NOME_COMBINACAO'
-      Size = 60
+    object cdsLoteProdutoMODELO_COMBINACAO: TStringField
+      FieldName = 'MODELO_COMBINACAO'
+      Size = 163
     end
   end
   object dspLoteProduto: TDataSetProvider
