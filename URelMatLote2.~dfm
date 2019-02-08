@@ -1,6 +1,6 @@
 object fRelMatLote2: TfRelMatLote2
-  Left = 279
-  Top = 101
+  Left = 255
+  Top = 148
   Width = 1256
   Height = 657
   Caption = 'fRelMatLote2'
@@ -40,7 +40,7 @@ object fRelMatLote2: TfRelMatLote2
         Left = 0
         Top = 45
         Width = 734
-        Height = 57
+        Height = 67
         DataSource = DMConsLote.dsLoteProduto
         object RLBand1: TRLBand
           Left = 0
@@ -100,10 +100,10 @@ object fRelMatLote2: TfRelMatLote2
           Left = 0
           Top = 32
           Width = 734
-          Height = 22
+          Height = 17
           object RLDBText8: TRLDBText
             Left = 3
-            Top = 3
+            Top = 1
             Width = 80
             Height = 15
             DataField = 'REFERENCIA'
@@ -117,7 +117,7 @@ object fRelMatLote2: TfRelMatLote2
           end
           object RLDBText9: TRLDBText
             Left = 195
-            Top = 2
+            Top = 1
             Width = 140
             Height = 15
             DataField = 'MODELO_COMBINACAO'
@@ -131,7 +131,7 @@ object fRelMatLote2: TfRelMatLote2
           end
           object RLDBText10: TRLDBText
             Left = 695
-            Top = 2
+            Top = 1
             Width = 28
             Height = 15
             Alignment = taRightJustify
@@ -145,10 +145,26 @@ object fRelMatLote2: TfRelMatLote2
             ParentFont = False
           end
         end
+        object RLBand7: TRLBand
+          Left = 0
+          Top = 49
+          Width = 734
+          Height = 17
+          BandType = btFooter
+          object RLDBResult1: TRLDBResult
+            Left = 641
+            Top = 1
+            Width = 82
+            Height = 16
+            Alignment = taRightJustify
+            DataField = 'QTD'
+            DataSource = DMConsLote.dsLoteProduto
+          end
+        end
       end
       object RLSubDetail2: TRLSubDetail
         Left = 0
-        Top = 102
+        Top = 112
         Width = 734
         Height = 409
         DataSource = DMConsLote.dsmMat
@@ -376,6 +392,7 @@ object fRelMatLote2: TfRelMatLote2
         Top = 0
         Width = 734
         Height = 45
+        BandType = btHeader
         object RLLabel1: TRLLabel
           Left = 192
           Top = 8

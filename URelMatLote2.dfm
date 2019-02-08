@@ -1,6 +1,6 @@
 object fRelMatLote2: TfRelMatLote2
-  Left = 279
-  Top = 101
+  Left = 255
+  Top = 148
   Width = 1256
   Height = 657
   Caption = 'fRelMatLote2'
@@ -40,7 +40,7 @@ object fRelMatLote2: TfRelMatLote2
         Left = 0
         Top = 45
         Width = 734
-        Height = 57
+        Height = 71
         DataSource = DMConsLote.dsLoteProduto
         object RLBand1: TRLBand
           Left = 0
@@ -100,10 +100,10 @@ object fRelMatLote2: TfRelMatLote2
           Left = 0
           Top = 32
           Width = 734
-          Height = 22
+          Height = 17
           object RLDBText8: TRLDBText
             Left = 3
-            Top = 3
+            Top = 1
             Width = 80
             Height = 15
             DataField = 'REFERENCIA'
@@ -117,7 +117,7 @@ object fRelMatLote2: TfRelMatLote2
           end
           object RLDBText9: TRLDBText
             Left = 195
-            Top = 2
+            Top = 1
             Width = 140
             Height = 15
             DataField = 'MODELO_COMBINACAO'
@@ -131,7 +131,7 @@ object fRelMatLote2: TfRelMatLote2
           end
           object RLDBText10: TRLDBText
             Left = 695
-            Top = 2
+            Top = 1
             Width = 28
             Height = 15
             Alignment = taRightJustify
@@ -145,10 +145,46 @@ object fRelMatLote2: TfRelMatLote2
             ParentFont = False
           end
         end
+        object RLBand7: TRLBand
+          Left = 0
+          Top = 49
+          Width = 734
+          Height = 21
+          BandType = btFooter
+          Borders.Sides = sdCustom
+          Borders.DrawLeft = False
+          Borders.DrawTop = False
+          Borders.DrawRight = False
+          Borders.DrawBottom = True
+          Borders.FixedBottom = True
+          object RLDBResult1: TRLDBResult
+            Left = 654
+            Top = 1
+            Width = 69
+            Height = 16
+            Alignment = taRightJustify
+            DataField = 'QTD'
+            DataSource = DMConsLote.dsLoteProduto
+            Info = riSum
+          end
+          object RLLabel12: TRLLabel
+            Left = 544
+            Top = 2
+            Width = 66
+            Height = 15
+            Caption = 'Total Geral:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+        end
       end
       object RLSubDetail2: TRLSubDetail
         Left = 0
-        Top = 102
+        Top = 116
         Width = 734
         Height = 409
         DataSource = DMConsLote.dsmMat

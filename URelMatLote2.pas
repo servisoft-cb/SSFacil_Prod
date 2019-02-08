@@ -47,6 +47,9 @@ type
     RLLabel3: TRLLabel;
     RLSystemInfo2: TRLSystemInfo;
     RLLabel4: TRLLabel;
+    RLBand7: TRLBand;
+    RLDBResult1: TRLDBResult;
+    RLLabel12: TRLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
