@@ -112,6 +112,7 @@ type
     TS_Processo: TRzTabSheet;
     SMDBGrid6: TSMDBGrid;
     NxButton1: TNxButton;
+    NxButton2: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -146,6 +147,7 @@ type
     procedure Processos1Click(Sender: TObject);
     procedure SMDBGrid6TitleClick(Column: TColumn);
     procedure NxButton1Click(Sender: TObject);
+    procedure NxButton2Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadLote_Calc: TDMCadLote_Calc;
@@ -170,7 +172,8 @@ type
     procedure prc_Consultar_Novo;
     procedure prc_Consultar_Processo;
     procedure prc_Processos;
-    
+    procedure prc_Gravar_Talao_Setor;
+
     procedure prc_Le_mLote;
 
     procedure prc_Limpar_Auxiliar;
@@ -1292,20 +1295,7 @@ begin
     fDMCadLote_Calc.mAcum_Ped.Next;
   end;
 
-  fDMCadLote_Calc.cdsSetor_Talao.First;
-  while not fDMCadLote_Calc.cdsSetor_Talao.Eof do
-  begin
-    fDMCadLote_Calc.cdsTalao_Setor.Insert;
-    fDMCadLote_Calc.cdsTalao_SetorID.AsInteger            := fDMCadLote_Calc.cdsTalaoID.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorNUM_TALAO.AsInteger     := fDMCadLote_Calc.cdsTalaoNUM_TALAO.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorITEM.AsInteger          := fDMCadLote_Calc.cdsSetor_TalaoORDEM_ORC.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorID_SETOR.AsInteger      := fDMCadLote_Calc.cdsSetor_TalaoID.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorQTD.AsInteger           := fDMCadLote_Calc.cdsTalaoQTD.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorQTD_PENDENTE.AsInteger  := fDMCadLote_Calc.cdsTalao_SetorQTD.AsInteger;
-    fDMCadLote_Calc.cdsTalao_SetorQTD_PRODUZIDO.AsInteger := 0;
-    fDMCadLote_Calc.cdsTalao_Setor.Post;
-    fDMCadLote_Calc.cdsSetor_Talao.Next;
-  end;
+  prc_Gravar_Talao_Setor;
 
   fDMCadLote_Calc.cdsLote.Edit;
   fDMCadLote_Calc.cdsLoteQTD.AsInteger          := fDMCadLote_Calc.cdsLoteQTD.AsInteger + Qtd;
@@ -1631,13 +1621,78 @@ begin
 
     if (fDMCadLote_Calc.qParametros_LoteTIPO_PROCESSO.AsString = 'L') and (vID_BaixaProcesso > 0) then
       fDMCadLote_Calc.cdsBaixa_Processo.ApplyUpdates(0);
-      
+
   finally
     FreeAndNil(sds);
   end;
   MessageDlg('*** Processos Gerados!', mtConfirmation, [mbOk], 0);
 
   Label8.Visible := False;
+end;
+
+procedure TfrmGerar_Lote_Calc.prc_Gravar_Talao_Setor;
+begin
+  fDMCadLote_Calc.cdsSetor_Talao.First;
+  while not fDMCadLote_Calc.cdsSetor_Talao.Eof do
+  begin
+    fDMCadLote_Calc.cdsTalao_Setor.Insert;
+    fDMCadLote_Calc.cdsTalao_SetorID.AsInteger            := fDMCadLote_Calc.cdsTalaoID.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorNUM_TALAO.AsInteger     := fDMCadLote_Calc.cdsTalaoNUM_TALAO.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorITEM.AsInteger          := fDMCadLote_Calc.cdsSetor_TalaoORDEM_ORC.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorID_SETOR.AsInteger      := fDMCadLote_Calc.cdsSetor_TalaoID.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorQTD.AsInteger           := fDMCadLote_Calc.cdsTalaoQTD.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorQTD_PENDENTE.AsInteger  := fDMCadLote_Calc.cdsTalao_SetorQTD.AsInteger;
+    fDMCadLote_Calc.cdsTalao_SetorQTD_PRODUZIDO.AsInteger := 0;
+    fDMCadLote_Calc.cdsTalao_Setor.Post;
+    fDMCadLote_Calc.cdsSetor_Talao.Next;
+  end;
+end;
+
+procedure TfrmGerar_Lote_Calc.NxButton2Click(Sender: TObject);
+var
+  sds: TSQLDataSet;
+begin
+  if MessageDlg('Gerar Setores?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+
+  Label8.Caption := '..... Aguarde Gerando SETORES .....';
+  Refresh;
+
+  fDMCadLote_Calc.cdsSetor_Talao.Close;
+  fDMCadLote_Calc.cdsSetor_Talao.Open;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.Close;
+    sds.CommandText := 'SELECT ID FROM LOTE WHERE NUM_ORDEM = :NUM_ORDEM';
+    sds.ParamByName('NUM_ORDEM').AsInteger := CurrencyEdit8.AsInteger;
+    sds.Open;
+    sds.First;
+    while not sds.Eof do
+    begin
+      fDMCadLote_Calc.prc_Localizar(sds.FieldByName('ID').AsInteger);
+      if not fDMCadLote_Calc.cdsLote.IsEmpty then
+      begin
+        fDMCadLote_Calc.cdsTalao.First;
+        while not fDMCadLote_Calc.cdsTalao.Eof do
+        begin
+          prc_Gravar_Talao_Setor;
+          fDMCadLote_Calc.cdsTalao.Next;
+        end;
+      end;
+      fDMCadLote_Calc.cdsTalao_Setor.ApplyUpdates(0);
+      sds.Next;
+    end;
+
+  finally
+    FreeAndNil(sds);
+  end;
+  MessageDlg('*** Setores Gerados!', mtConfirmation, [mbOk], 0);
+
+  Label8.Visible := False;
+
 end;
 
 end.

@@ -22,7 +22,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Atualizar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -30,7 +30,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -2521,6 +2521,21 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         ParentFont = False
         TabOrder = 2
         OnClick = NxButton1Click
+      end
+      object NxButton2: TNxButton
+        Left = 539
+        Top = 32
+        Width = 206
+        Height = 30
+        Caption = 'Gerar Setores'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -16
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        OnClick = NxButton2Click
       end
     end
   end
