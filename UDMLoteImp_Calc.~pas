@@ -187,6 +187,8 @@ type
     cdsConsProcessoID_COR_MAT: TIntegerField;
     cdsConsProcessoNOME_COR_MAT: TStringField;
     cdsConsProcessoNOME_MODELO: TStringField;
+    cdsConsLote_NovoFOTO: TStringField;
+    mImpAuxNum_Lote: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -253,6 +255,12 @@ begin
   cdsConsLote_Processo.Close;
   sdsConsLote_Processo.ParamByName('ID_LOTE').AsInteger := cdsConsLote_NovoID.AsInteger;
   cdsConsLote_Processo.Open;
+
+  if FileExists(cdsConsLote_NovoFOTO.AsString) then
+  begin
+    if frxReport1.FindComponent('Picture1')<> nil then
+      TfrxPictureView(frxReport1.FindComponent('Picture1')).Picture.LoadFromFile(cdsConsLote_NovoFOTO.AsString);
+  end;
 end;
 
 procedure TDMLoteImp_Calc.cdsConsTalao_NovoCalcFields(DataSet: TDataSet);

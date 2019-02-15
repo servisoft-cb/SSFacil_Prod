@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43429.853117013900000000
+    ReportOptions.LastChange = 43490.473954351900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -66,8 +66,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Top = 335
   end
   object frxBarCodeObject1: TfrxBarCodeObject
-    Left = 312
-    Top = 304
+    Left = 512
+    Top = 336
   end
   object sdsConsulta_Lote: TSQLDataSet
     NoMetadata = True
@@ -316,17 +316,19 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT L.id_produto, L.id_combinacao, COMB.nome NOME_COMBINACAO,' +
-      ' L.num_lote,'#13#10'L.num_ordem, l.dtentrega, L.dtemissao, L.qtd_taloe' +
-      's, L.qtd, '#13#10'P.nome NOME_PRODUTO, P.REFERENCIA, P.nome_modelo NOM' +
-      'E_MODELO, L.ID,'#13#10'CLI.NOME NOME_CLIENTE, PED.NUM_PEDIDO, PED.pedi' +
-      'do_cliente, P.ID_FORMA,'#13#10'F.NOME NOME_FORMA, L.CARIMBO, L.CAIXINH' +
-      'A,'#13#10'P.ID_LINHA, LIN.NOME NOME_CONSTRUCAO'#13#10'FROM LOTE L'#13#10'INNER JOI' +
-      'N PRODUTO P'#13#10'ON L.ID_PRODUTO = P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10 +
-      'ON L.id_combinacao = COMB.ID'#13#10'left join PESSOA CLI'#13#10'ON L.ID_CLIE' +
-      'NTE = CLI.CODIGO'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13 +
-      #10'LEFT JOIN PRODUTO F'#13#10'ON P.ID_FORMA = F.ID'#13#10'LEFT JOIN LINHA LIN'#13 +
-      #10'ON P.ID_LINHA = LIN.ID'#13#10'WHERE L.ID = :ID'#13#10
+      'select L.ID_PRODUTO, L.ID_COMBINACAO, COMB.NOME NOME_COMBINACAO,' +
+      ' L.NUM_LOTE, L.NUM_ORDEM, L.DTENTREGA, L.DTEMISSAO,'#13#10'       L.QT' +
+      'D_TALOES, L.QTD,'#13#10'       case'#13#10'         when P.NOME_MODELO <> '#39#39 +
+      ' then P.NOME_MODELO'#13#10'         else P.NOME'#13#10'       end NOME_PRODU' +
+      'TO,'#13#10'       P.REFERENCIA, P.NOME_MODELO NOME_MODELO, L.ID, CLI.N' +
+      'OME NOME_CLIENTE, PED.NUM_PEDIDO, PED.PEDIDO_CLIENTE,'#13#10'       P.' +
+      'ID_FORMA, F.NOME NOME_FORMA, L.CARIMBO, L.CAIXINHA, P.ID_LINHA, ' +
+      'LIN.NOME NOME_CONSTRUCAO, P.FOTO'#13#10'from LOTE L'#13#10'inner join PRODUT' +
+      'O P on L.ID_PRODUTO = P.ID'#13#10'left join COMBINACAO COMB on L.ID_CO' +
+      'MBINACAO = COMB.ID'#13#10'left join PESSOA CLI on L.ID_CLIENTE = CLI.C' +
+      'ODIGO'#13#10'left join PEDIDO PED on L.ID_PEDIDO = PED.ID'#13#10'left join P' +
+      'RODUTO F on P.ID_FORMA = F.ID'#13#10'left join LINHA LIN on P.ID_LINHA' +
+      ' = LIN.ID'#13#10'where L.ID = :ID  '
     MaxBlobSize = -1
     Params = <
       item
@@ -430,6 +432,10 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsLote_NovoNOME_MODELO: TStringField
       FieldName = 'NOME_MODELO'
       Size = 100
+    end
+    object cdsConsLote_NovoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 150
     end
   end
   object dsConsLote_Novo: TDataSource
@@ -597,7 +603,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object cdsProdMat: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'ORDEM_ORC;ID_POSICAO;NOME_MATERIAL'
+    IndexFieldNames = 'ORDEM_ORC;NOME_SETOR;NOME_POSICAO;NOME_MATERIAL'
     Params = <>
     ProviderName = 'dspProdMat'
     Left = 464
@@ -769,6 +775,10 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       item
         Name = 'Item'
         DataType = ftInteger
+      end
+      item
+        Name = 'Num_Lote'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     Params = <>
@@ -776,13 +786,17 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Left = 296
     Top = 448
     Data = {
-      320000009619E0BD010000001800000002000000000003000000320002494404
-      00010000000000044974656D04000100000000000000}
+      430000009619E0BD010000001800000003000000000003000000430002494404
+      00010000000000044974656D0400010000000000084E756D5F4C6F7465040001
+      00000000000000}
     object mImpAuxID: TIntegerField
       FieldName = 'ID'
     end
     object mImpAuxItem: TIntegerField
       FieldName = 'Item'
+    end
+    object mImpAuxNum_Lote: TIntegerField
+      FieldName = 'Num_Lote'
     end
   end
   object dsmImpAux: TDataSource

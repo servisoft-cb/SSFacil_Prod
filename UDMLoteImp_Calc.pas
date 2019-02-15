@@ -188,6 +188,7 @@ type
     cdsConsProcessoNOME_COR_MAT: TStringField;
     cdsConsProcessoNOME_MODELO: TStringField;
     cdsConsLote_NovoFOTO: TStringField;
+    mImpAuxNum_Lote: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

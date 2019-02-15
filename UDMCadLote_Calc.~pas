@@ -897,6 +897,10 @@ type
     cdsProduto_Consumo_ProcID_COR_MAT: TIntegerField;
     qVerBaixaProc: TSQLQuery;
     qVerBaixaProcCONTADOR: TIntegerField;
+    cdsConsProcessoID_COR_MAT: TIntegerField;
+    cdsConsProcessoNOME_COR_MAT: TStringField;
+    cdsConsProcessoNOME_MODELO: TStringField;
+    cdsConsLote_NovoFOTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

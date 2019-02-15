@@ -1484,6 +1484,7 @@ begin
       begin
         fDMLoteImp_Calc.mImpAux.Insert;
         fDMLoteImp_Calc.mImpAuxID.AsInteger := fDMCadLote_Calc.cdsConsLote_NovoID.AsInteger;
+        fDMLoteImp_Calc.mImpAuxNum_Lote.AsInteger := fDMCadLote_Calc.cdsConsLote_NovoNUM_LOTE.AsInteger;
         fDMLoteImp_Calc.mImpAux.Post;
       end;
       fDMCadLote_Calc.cdsConsLote_Novo.Next;
@@ -1504,7 +1505,7 @@ begin
       fDMCadLote_Calc.cdsConsProcesso.Next;
     end;
   end;
-
+  fDMLoteImp_Calc.mImpAux.First;
   fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(Arq);
   fDMLoteImp_Calc.frxReport1.ShowReport;
 end;
@@ -1685,8 +1686,6 @@ begin
       fDMCadLote_Calc.cdsTalao_Setor.ApplyUpdates(0);
       sds.Next;
     end;
-
-    fDMCadLote_Calc.cdsTalao_Setor.ApplyUpdates(0);
 
   finally
     FreeAndNil(sds);
