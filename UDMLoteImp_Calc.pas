@@ -189,6 +189,20 @@ type
     cdsConsProcessoNOME_MODELO: TStringField;
     cdsConsLote_NovoFOTO: TStringField;
     mImpAuxNum_Lote: TIntegerField;
+    mMaterial: TClientDataSet;
+    mMaterialItem: TIntegerField;
+    mMaterialNome_Setor1: TStringField;
+    mMaterialNome_Material1: TStringField;
+    mMaterialNome_Cor1: TStringField;
+    mMaterialNome_Posicao1: TStringField;
+    mMaterialQtd_Consumo1: TFloatField;
+    mMaterialNome_Setor2: TStringField;
+    mMaterialNome_Material2: TStringField;
+    mMaterialNome_Cor2: TStringField;
+    mMaterialNome_Posicao2: TStringField;
+    mMaterialQtd_Consumo2: TFloatField;
+    dsmMaterial: TDataSource;
+    frxmMaterial: TfrxDBDataset;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -238,6 +252,9 @@ begin
 end;
 
 procedure TDMLoteImp_Calc.frxConsLote_NovoFirst(Sender: TObject);
+var
+  vItem : Integer;
+  i : Integer;
 begin
   cdsConsTalao_Novo.Close;
   sdsConsTalao_Novo.ParamByName('ID').AsInteger := cdsConsLote_NovoID.AsInteger;
@@ -247,6 +264,35 @@ begin
   sdsProdMat.ParamByName('ID').AsInteger                := cdsConsLote_NovoID_PRODUTO.AsInteger;
   sdsProdMat.ParamByName('ID_COR_COMBINACAO').AsInteger := cdsConsLote_NovoID_COMBINACAO.AsInteger;
   cdsProdMat.Open;
+
+  vItem := 0;
+  mMaterial.EmptyDataSet;
+  cdsProdMat.First;
+  while not cdsProdMat.Eof do
+  begin
+    vItem := vItem + 1;
+    i := 1;
+    if vItem > 14 then
+    begin
+      i := 2;
+      mMaterial.Locate('Item',(vItem - 14),[loCaseInsensitive]);
+      mMaterial.Edit;
+    end
+    else
+    begin
+      mMaterial.Insert;
+      mMaterialItem.AsInteger := vItem;
+    end;
+
+    mMaterial.FieldByName('Nome_Setor'+IntToStr(i)).AsString := cdsProdMatNOME_SETOR.AsString;
+    mMaterial.FieldByName('Nome_Material'+IntToStr(i)).AsString := cdsProdMatNOME_MATERIAL.AsString;
+    mMaterial.FieldByName('Nome_Cor'+IntToStr(i)).AsString := cdsProdMatNOME_COR_MAT.AsString;
+    mMaterial.FieldByName('Nome_Posicao'+IntToStr(i)).AsString := cdsProdMatNOME_POSICAO.AsString;
+    mMaterial.FieldByName('Qtd_Consumo'+IntToStr(i)).AsFloat := cdsProdMatQTD_CONSUMO.AsFloat;
+    mMaterial.Post;
+
+    cdsProdMat.Next;
+  end;
 
   cdsConsTalao_Tam.Close;
   sdsConsTalao_Tam.ParamByName('ID').AsInteger := cdsConsLote_NovoID.AsInteger;

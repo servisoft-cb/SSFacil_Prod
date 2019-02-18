@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43490.473954351900000000
+    ReportOptions.LastChange = 43514.639137094910000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1119,5 +1119,93 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     DataSet = cdsProcesso
     Left = 175
     Top = 200
+  end
+  object mMaterial: TClientDataSet
+    Active = True
+    Aggregates = <>
+    IndexFieldNames = 'Item'
+    Params = <>
+    Left = 440
+    Top = 496
+    Data = {
+      570100009619E0BD01000000180000000B000000000003000000570104497465
+      6D04000100000000000B4E6F6D655F5365746F72310100490000000100055749
+      4454480200020028000E4E6F6D655F4D6174657269616C310100490000000100
+      055749445448020002006400094E6F6D655F436F723101004900000001000557
+      49445448020002003C000D4E6F6D655F506F736963616F310100490000000100
+      0557494454480200020028000C5174645F436F6E73756D6F3108000400000000
+      000B4E6F6D655F5365746F72320100490000000100055749445448020002003C
+      000E4E6F6D655F4D6174657269616C3201004900000001000557494454480200
+      02006400094E6F6D655F436F7232010049000000010005574944544802000200
+      3C000D4E6F6D655F506F736963616F3201004900000001000557494454480200
+      020028000C5174645F436F6E73756D6F3208000400000000000000}
+    object mMaterialItem: TIntegerField
+      FieldName = 'Item'
+    end
+    object mMaterialNome_Setor1: TStringField
+      FieldName = 'Nome_Setor1'
+      Size = 40
+    end
+    object mMaterialNome_Material1: TStringField
+      FieldName = 'Nome_Material1'
+      Size = 100
+    end
+    object mMaterialNome_Cor1: TStringField
+      FieldName = 'Nome_Cor1'
+      Size = 60
+    end
+    object mMaterialNome_Posicao1: TStringField
+      FieldName = 'Nome_Posicao1'
+      Size = 40
+    end
+    object mMaterialQtd_Consumo1: TFloatField
+      FieldName = 'Qtd_Consumo1'
+    end
+    object mMaterialNome_Setor2: TStringField
+      FieldName = 'Nome_Setor2'
+      Size = 60
+    end
+    object mMaterialNome_Material2: TStringField
+      FieldName = 'Nome_Material2'
+      Size = 100
+    end
+    object mMaterialNome_Cor2: TStringField
+      FieldName = 'Nome_Cor2'
+      Size = 60
+    end
+    object mMaterialNome_Posicao2: TStringField
+      FieldName = 'Nome_Posicao2'
+      Size = 40
+    end
+    object mMaterialQtd_Consumo2: TFloatField
+      FieldName = 'Qtd_Consumo2'
+    end
+  end
+  object dsmMaterial: TDataSource
+    DataSet = mMaterial
+    Left = 472
+    Top = 496
+  end
+  object frxmMaterial: TfrxDBDataset
+    UserName = 'frxmMaterial'
+    OnFirst = frxmImpAuxFirst
+    OnNext = frxmImpAuxFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'Item=Item'
+      'Nome_Setor1=Nome_Setor1'
+      'Nome_Material1=Nome_Material1'
+      'Nome_Cor1=Nome_Cor1'
+      'Nome_Posicao1=Nome_Posicao1'
+      'Qtd_Consumo1=Qtd_Consumo1'
+      'Nome_Setor2=Nome_Setor2'
+      'Nome_Material2=Nome_Material2'
+      'Nome_Cor2=Nome_Cor2'
+      'Nome_Posicao2=Nome_Posicao2'
+      'Qtd_Consumo2=Qtd_Consumo2')
+    DataSource = dsmMaterial
+    BCDToCurrency = False
+    Left = 496
+    Top = 495
   end
 end
