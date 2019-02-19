@@ -901,6 +901,8 @@ type
     cdsConsProcessoNOME_COR_MAT: TStringField;
     cdsConsProcessoNOME_MODELO: TStringField;
     cdsConsLote_NovoFOTO: TStringField;
+    cdsConsProcessoID_PRODUTO: TIntegerField;
+    cdsConsProcessoID_COMBINACAO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

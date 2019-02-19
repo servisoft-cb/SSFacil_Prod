@@ -4813,23 +4813,25 @@ object DMCadLote_Calc: TDMCadLote_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT L.ID, L.dtemissao, L.num_lote, L.filial, L.hremissao, L.D' +
-      'TENTREGA,'#13#10'L.qtd_taloes, L.NUM_ORDEM, L.CARIMBO, L.TALAO_AUX_GER' +
-      'ADO,'#13#10'L.id_produto, L.qtd, L.qtd_pendente, L.qtd_produzido,'#13#10'L.d' +
-      'tbaixa, L.hrbaixa, L.impresso, L.id_combinacao, l.id_pedido, l.i' +
-      'tem_pedido,'#13#10'PRO.REFERENCIA, PRO.NOME NOME_PRODUTO, PRO.UNIDADE,' +
-      ' FIL.NOME NOME_FILIAL, PRO.ID_GRADE,'#13#10'PCP.id_tipo_matriz, TM.NOM' +
-      'E NOME_TIPOMATRIZ,'#13#10'COMB.nome NOME_COMBINACAO, L.NOME NOME_LOTE,' +
-      #13#10'L.num_pedido, PED.pedido_cliente, CLI.nome NOME_CLIENTE, L.uni' +
-      'dade UNIDADE_LOTE,'#13#10'PRO.id_forma, FORMA.NOME NOME_FORMA, L.OBS_P' +
-      'ED, L.NUM_REMESSA, PRO.FOTO'#13#10'FROM LOTE L'#13#10'INNER JOIN FILIAL FIL'#13 +
-      #10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN PRODUTO PRO'#13#10'ON L.ID_PRODUTO = ' +
-      'PRO.ID'#13#10'LEFT JOIN PRODUTO_PCP PCP'#13#10'ON L.ID_PRODUTO = PCP.ID'#13#10'LEF' +
-      'T JOIN TIPO_MATRIZ TM'#13#10'ON PCP.ID_TIPO_MATRIZ = TM.ID'#13#10'LEFT JOIN ' +
-      'combinacao COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'LEFT JOIN pedido ' +
-      'PED'#13#10'ON L.id_pedido = PED.ID'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON PED.id_cl' +
-      'iente = CLI.codigo'#13#10'LEFT JOIN PRODUTO FORMA'#13#10'ON PRO.ID_FORMA = F' +
-      'ORMA.ID'#13#10
+      'select L.ID, L.DTEMISSAO, L.NUM_LOTE, L.FILIAL, L.HREMISSAO, L.D' +
+      'TENTREGA, L.QTD_TALOES, L.NUM_ORDEM, L.CARIMBO,'#13#10'       L.TALAO_' +
+      'AUX_GERADO, L.ID_PRODUTO, L.QTD, L.QTD_PENDENTE, L.QTD_PRODUZIDO' +
+      ', L.DTBAIXA, L.HRBAIXA, L.IMPRESSO,'#13#10'       L.ID_COMBINACAO, L.I' +
+      'D_PEDIDO, L.ITEM_PEDIDO, PRO.REFERENCIA,'#13#10'       case'#13#10'         ' +
+      'when PRO.NOME_MODELO <> '#39#39' then PRO.NOME_MODELO'#13#10'         else P' +
+      'RO.NOME'#13#10'       end NOME_PRODUTO,'#13#10'       PRO.NOME NOME_PRODUTO,' +
+      ' PRO.UNIDADE, FIL.NOME NOME_FILIAL, PRO.ID_GRADE, PCP.ID_TIPO_MA' +
+      'TRIZ,'#13#10'       TM.NOME NOME_TIPOMATRIZ, COMB.NOME NOME_COMBINACAO' +
+      ', L.NOME NOME_LOTE, L.NUM_PEDIDO, PED.PEDIDO_CLIENTE,'#13#10'       CL' +
+      'I.NOME NOME_CLIENTE, L.UNIDADE UNIDADE_LOTE, PRO.ID_FORMA, FORMA' +
+      '.NOME NOME_FORMA, L.OBS_PED, L.NUM_REMESSA,'#13#10'       PRO.FOTO'#13#10'fr' +
+      'om LOTE L'#13#10'inner join FILIAL FIL on L.FILIAL = FIL.ID'#13#10'left join' +
+      ' PRODUTO PRO on L.ID_PRODUTO = PRO.ID'#13#10'left join PRODUTO_PCP PCP' +
+      ' on L.ID_PRODUTO = PCP.ID'#13#10'left join TIPO_MATRIZ TM on PCP.ID_TI' +
+      'PO_MATRIZ = TM.ID'#13#10'left join COMBINACAO COMB on L.ID_COMBINACAO ' +
+      '= COMB.ID'#13#10'left join PEDIDO PED on L.ID_PEDIDO = PED.ID'#13#10'left jo' +
+      'in PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'left join PRODUTO ' +
+      'FORMA on PRO.ID_FORMA = FORMA.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5375,13 +5377,14 @@ object DMCadLote_Calc: TDMCadLote_Calc
       ' B.QTD,'#13#10'B.qtd_pendente, B.qtd_produzido, MAT.NOME NOME_MATERIAL' +
       ', B.ITEM,'#13#10'L.num_lote, L.num_ordem, L.referencia, PED.pedido_cli' +
       'ente, PED.num_pedido,'#13#10'B.ID_COR_MAT, CMAT.NOME NOME_COR_MAT, PRO' +
-      'D.NOME_MODELO'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO P'#13#10'ON ' +
-      'B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'IN' +
-      'NER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN PEDI' +
-      'DO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10'ON B.ID_SETO' +
-      'R = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP.ID'#13#10'LEFT JO' +
-      'IN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN COMBINACAO ' +
-      'CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
+      'D.NOME_MODELO, l.id_produto, l.id_combinacao'#13#10'FROM BAIXA_PROCESS' +
+      'O B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN ' +
+      'LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PR' +
+      'ODUTO = PROD.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10 +
+      'LEFT JOIN SETOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'O' +
+      'N B.ID_POSICAO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL ' +
+      '= MAT.ID'#13#10'LEFT JOIN COMBINACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10 +
+      #13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5474,6 +5477,12 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsConsProcessoNOME_MODELO: TStringField
       FieldName = 'NOME_MODELO'
       Size = 100
+    end
+    object cdsConsProcessoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsProcessoID_COMBINACAO: TIntegerField
+      FieldName = 'ID_COMBINACAO'
     end
   end
   object dsConsProcesso: TDataSource

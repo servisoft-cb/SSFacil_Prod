@@ -203,6 +203,16 @@ type
     mMaterialQtd_Consumo2: TFloatField;
     dsmMaterial: TDataSource;
     frxmMaterial: TfrxDBDataset;
+    sdsMatProc: TSQLDataSet;
+    dspMatProc: TDataSetProvider;
+    cdsMatProc: TClientDataSet;
+    dsMatProc: TDataSource;
+    cdsMatProcNOME: TStringField;
+    cdsMatProcNOME_POSICAO: TStringField;
+    frxMatProc: TfrxDBDataset;
+    cdsConsProcessoID_PRODUTO: TIntegerField;
+    cdsConsProcessoID_COMBINACAO: TIntegerField;
+    cdsConsProcessoID_POSICAO_IMP: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -212,6 +222,7 @@ type
     procedure cdsConsLote_NovoCalcFields(DataSet: TDataSet);
     procedure frxmImpAuxFirst(Sender: TObject);
     procedure cdsConsProcessoCalcFields(DataSet: TDataSet);
+    procedure frxConsProcessoNext(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Montra_SQL_ConsProcesso;
@@ -342,6 +353,7 @@ begin
     sdsConsTalao_Tam.ParamByName('ID').AsInteger := cdsConsProcessoID_LOTE.AsInteger;
     cdsConsTalao_Tam.Open;
     cdsConsTalao_Tam.First;
+    
   end;
 end;
 
@@ -358,6 +370,15 @@ begin
             + ' WHERE B.ID = :ID  AND B.ITEM = :ITEM ';
   cdsConsProcesso.Close;
   sdsConsProcesso.CommandText := vComando;
+end;
+
+procedure TDMLoteImp_Calc.frxConsProcessoNext(Sender: TObject);
+begin
+  cdsMatProc.Close;
+  sdsMatProc.ParamByName('ID_POSICAO').AsInteger        := cdsConsProcessoID_POSICAO_IMP.AsInteger;
+  sdsMatProc.ParamByName('ID_COR_COMBINACAO').AsInteger := cdsConsProcessoID_COMBINACAO.AsInteger;
+  sdsMatProc.ParamByName('ID').AsInteger                := cdsConsProcessoID_PRODUTO.AsInteger;
+  cdsMatProc.Open;
 end;
 
 end.

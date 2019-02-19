@@ -5377,13 +5377,14 @@ object DMCadLote_Calc: TDMCadLote_Calc
       ' B.QTD,'#13#10'B.qtd_pendente, B.qtd_produzido, MAT.NOME NOME_MATERIAL' +
       ', B.ITEM,'#13#10'L.num_lote, L.num_ordem, L.referencia, PED.pedido_cli' +
       'ente, PED.num_pedido,'#13#10'B.ID_COR_MAT, CMAT.NOME NOME_COR_MAT, PRO' +
-      'D.NOME_MODELO'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO P'#13#10'ON ' +
-      'B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'IN' +
-      'NER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN PEDI' +
-      'DO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10'ON B.ID_SETO' +
-      'R = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP.ID'#13#10'LEFT JO' +
-      'IN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN COMBINACAO ' +
-      'CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
+      'D.NOME_MODELO, l.id_produto, l.id_combinacao'#13#10'FROM BAIXA_PROCESS' +
+      'O B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN ' +
+      'LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PR' +
+      'ODUTO = PROD.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10 +
+      'LEFT JOIN SETOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'O' +
+      'N B.ID_POSICAO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL ' +
+      '= MAT.ID'#13#10'LEFT JOIN COMBINACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10 +
+      #13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5476,6 +5477,12 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsConsProcessoNOME_MODELO: TStringField
       FieldName = 'NOME_MODELO'
       Size = 100
+    end
+    object cdsConsProcessoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsProcessoID_COMBINACAO: TIntegerField
+      FieldName = 'ID_COMBINACAO'
     end
   end
   object dsConsProcesso: TDataSource
