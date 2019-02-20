@@ -63,7 +63,6 @@ type
     cdsLoteProduto: TClientDataSet;
     dspLoteProduto: TDataSetProvider;
     dsLoteProduto: TDataSource;
-    cdsLoteProdutoID_LOTE: TIntegerField;
     cdsLoteProdutoQTD: TFloatField;
     cdsLoteProdutoREFERENCIA: TStringField;
     cdsLoteProdutoMODELO_COMBINACAO: TStringField;

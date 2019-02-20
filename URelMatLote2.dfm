@@ -51,12 +51,12 @@ object fRelMatLote2: TfRelMatLote2
           object RLLabel10: TRLLabel
             Left = 3
             Top = 9
-            Width = 63
-            Height = 15
+            Width = 54
+            Height = 13
             Caption = 'Refer'#234'ncia'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -12
+            Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
@@ -64,26 +64,26 @@ object fRelMatLote2: TfRelMatLote2
           object RLLabel11: TRLLabel
             Left = 195
             Top = 9
-            Width = 43
-            Height = 15
+            Width = 39
+            Height = 13
             Caption = 'Modelo'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -12
+            Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
           end
           object RLLabel13: TRLLabel
-            Left = 691
+            Left = 694
             Top = 9
-            Width = 32
-            Height = 15
+            Width = 29
+            Height = 13
             Alignment = taRightJustify
             Caption = 'Qtde.'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -12
+            Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
@@ -100,17 +100,17 @@ object fRelMatLote2: TfRelMatLote2
           Left = 0
           Top = 32
           Width = 734
-          Height = 15
+          Height = 13
           object RLDBText8: TRLDBText
             Left = 3
             Top = 1
-            Width = 68
-            Height = 13
+            Width = 53
+            Height = 10
             DataField = 'REFERENCIA'
             DataSource = DMConsLote.dsLoteProduto
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -10
+            Font.Height = -8
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
@@ -118,28 +118,28 @@ object fRelMatLote2: TfRelMatLote2
           object RLDBText9: TRLDBText
             Left = 195
             Top = 1
-            Width = 124
-            Height = 13
+            Width = 94
+            Height = 10
             DataField = 'MODELO_COMBINACAO'
             DataSource = DMConsLote.dsLoteProduto
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -10
+            Font.Height = -8
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
           end
           object RLDBText10: TRLDBText
-            Left = 698
+            Left = 704
             Top = 1
-            Width = 25
-            Height = 13
+            Width = 19
+            Height = 10
             Alignment = taRightJustify
             DataField = 'QTD'
             DataSource = DMConsLote.dsLoteProduto
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
-            Font.Height = -10
+            Font.Height = -8
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
@@ -147,7 +147,7 @@ object fRelMatLote2: TfRelMatLote2
         end
         object RLBand7: TRLBand
           Left = 0
-          Top = 47
+          Top = 45
           Width = 734
           Height = 17
           BandType = btFooter
@@ -161,8 +161,13 @@ object fRelMatLote2: TfRelMatLote2
             Left = 667
             Top = 1
             Width = 56
-            Height = 13
+            Height = 15
             Alignment = taRightJustify
+            Borders.Sides = sdCustom
+            Borders.DrawLeft = False
+            Borders.DrawTop = True
+            Borders.DrawRight = False
+            Borders.DrawBottom = False
             DataField = 'QTD'
             DataSource = DMConsLote.dsLoteProduto
             Font.Charset = DEFAULT_CHARSET
@@ -202,63 +207,63 @@ object fRelMatLote2: TfRelMatLote2
           DataFields = 'Nome_Setor'
           object RLBand3: TRLBand
             Left = 0
-            Top = 20
+            Top = 18
             Width = 734
-            Height = 16
+            Height = 14
             object RLDBText1: TRLDBText
-              Left = 4
-              Top = 2
-              Width = 58
-              Height = 13
+              Left = 12
+              Top = 3
+              Width = 42
+              Height = 10
               Alignment = taCenter
               DataField = 'ID_Material'
               DataSource = DMConsLote.dsmMat
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -10
+              Font.Height = -8
               Font.Name = 'Arial'
               Font.Style = []
               ParentFont = False
             end
             object RLDBText2: TRLDBText
               Left = 65
-              Top = 2
-              Width = 76
-              Height = 13
+              Top = 3
+              Width = 55
+              Height = 10
               DataField = 'Nome_Material'
               DataSource = DMConsLote.dsmMat
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -10
+              Font.Height = -8
               Font.Name = 'Arial'
               Font.Style = []
               ParentFont = False
             end
             object RLDBText3: TRLDBText
               Left = 426
-              Top = 2
-              Width = 53
-              Height = 13
+              Top = 3
+              Width = 40
+              Height = 10
               DataField = 'Nome_Cor'
               DataSource = DMConsLote.dsmMat
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -10
+              Font.Height = -8
               Font.Name = 'Arial'
               Font.Style = []
               ParentFont = False
             end
             object RLDBText4: TRLDBText
-              Left = 662
-              Top = 2
-              Width = 70
-              Height = 13
+              Left = 681
+              Top = 3
+              Width = 51
+              Height = 10
               Alignment = taRightJustify
               DataField = 'Qtd_Consumo'
               DataSource = DMConsLote.dsmMat
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -10
+              Font.Height = -8
               Font.Name = 'Arial'
               Font.Style = []
               ParentFont = False
@@ -273,7 +278,7 @@ object fRelMatLote2: TfRelMatLote2
           end
           object RLSubDetail3: TRLSubDetail
             Left = 0
-            Top = 36
+            Top = 32
             Width = 734
             Height = 64
             DataSource = DMConsLote.dsmMatGrade
@@ -281,7 +286,7 @@ object fRelMatLote2: TfRelMatLote2
               Left = 0
               Top = 0
               Width = 734
-              Height = 39
+              Height = 29
               ColCount = 12
               ColWidth = 16.000000000000000000
               Font.Charset = DEFAULT_CHARSET
@@ -301,20 +306,26 @@ object fRelMatLote2: TfRelMatLote2
                 DataSource = DMConsLote.dsmMatGrade
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
-                Font.Height = -12
+                Font.Height = -8
                 Font.Name = 'Arial'
                 Font.Style = [fsUnderline]
                 ParentFont = False
               end
               object RLDBText6: TRLDBText
                 Left = 2
-                Top = 19
+                Top = 14
                 Width = 54
-                Height = 15
+                Height = 13
                 Alignment = taCenter
                 AutoSize = False
                 DataField = 'Qtd_Consumo'
                 DataSource = DMConsLote.dsmMatGrade
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -8
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
               end
             end
           end
@@ -322,17 +333,17 @@ object fRelMatLote2: TfRelMatLote2
             Left = 0
             Top = 0
             Width = 734
-            Height = 20
+            Height = 18
             BandType = btHeader
             object RLLabel9: TRLLabel
               Left = 88
               Top = 3
-              Width = 45
-              Height = 14
+              Width = 38
+              Height = 12
               Caption = 'Setor:'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -12
+              Font.Height = -10
               Font.Name = 'Verdana'
               Font.Style = [fsBold]
               ParentFont = False
@@ -340,13 +351,13 @@ object fRelMatLote2: TfRelMatLote2
             object RLDBText7: TRLDBText
               Left = 136
               Top = 3
-              Width = 87
-              Height = 14
+              Width = 74
+              Height = 12
               DataField = 'Nome_Setor'
               DataSource = DMConsLote.dsmMat
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clBlack
-              Font.Height = -12
+              Font.Height = -10
               Font.Name = 'Verdana'
               Font.Style = [fsBold]
               ParentFont = False

@@ -351,10 +351,10 @@ object DMConsLote: TDMConsLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select L.ID ID_LOTE, L.QTD, PRO.REFERENCIA, PRO.NOME_MODELO||'#39' -' +
-      ' '#39'|| COMB.NOME AS MODELO_COMBINACAO'#13#10'from LOTE L'#13#10'inner join PRO' +
-      'DUTO PRO on L.ID_PRODUTO = PRO.ID'#13#10'left join COMBINACAO COMB on ' +
-      'L.ID_COMBINACAO = COMB.ID'#13#10
+      'select sum(L.QTD) QTD, PRO.REFERENCIA, PRO.NOME_MODELO ||'#39' - '#39'||' +
+      ' COMB.NOME AS MODELO_COMBINACAO'#13#10'from LOTE L'#13#10'inner join PRODUTO' +
+      ' PRO on L.ID_PRODUTO = PRO.ID'#13#10'left join COMBINACAO COMB on L.ID' +
+      '_COMBINACAO = COMB.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -367,10 +367,6 @@ object DMConsLote: TDMConsLote
     ProviderName = 'dspLoteProduto'
     Left = 125
     Top = 120
-    object cdsLoteProdutoID_LOTE: TIntegerField
-      FieldName = 'ID_LOTE'
-      Required = True
-    end
     object cdsLoteProdutoQTD: TFloatField
       FieldName = 'QTD'
     end

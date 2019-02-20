@@ -1,6 +1,6 @@
 object frmConsMatLote2: TfrmConsMatLote2
-  Left = 270
-  Top = 64
+  Left = 168
+  Top = 56
   Width = 1013
   Height = 570
   Caption = 'Consulta Materiais Por Lote'
