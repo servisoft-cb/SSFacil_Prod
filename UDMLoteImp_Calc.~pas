@@ -213,6 +213,7 @@ type
     cdsConsProcessoID_PRODUTO: TIntegerField;
     cdsConsProcessoID_COMBINACAO: TIntegerField;
     cdsConsProcessoID_POSICAO_IMP: TIntegerField;
+    cdsConsProcessoID_POSICAO_IMP2: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -373,12 +374,25 @@ begin
 end;
 
 procedure TDMLoteImp_Calc.frxConsProcessoNext(Sender: TObject);
+var
+  vObsAux : String;
 begin
   cdsMatProc.Close;
   sdsMatProc.ParamByName('ID_POSICAO').AsInteger        := cdsConsProcessoID_POSICAO_IMP.AsInteger;
+  sdsMatProc.ParamByName('ID_POSICAO2').AsInteger       := cdsConsProcessoID_POSICAO_IMP2.AsInteger;
   sdsMatProc.ParamByName('ID_COR_COMBINACAO').AsInteger := cdsConsProcessoID_COMBINACAO.AsInteger;
   sdsMatProc.ParamByName('ID').AsInteger                := cdsConsProcessoID_PRODUTO.AsInteger;
   cdsMatProc.Open;
+  vObsAux := '';
+  cdsMatProc.First;
+  while not cdsMatProc.Eof do
+  begin
+    if trim(vObsAux) <> '' then
+      vObsAux := vObsAux + ' /  ';
+    vObsAux := vObsAux + cdsMatProcNOME_POSICAO.AsString + ': ' + cdsMatProcNOME.AsString;
+    cdsMatProc.Next;
+  end;
+  frxReport1.variables['PosicaoMaterial'] := QuotedStr(vObsAux);
 end;
 
 end.

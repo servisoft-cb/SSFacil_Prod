@@ -934,14 +934,14 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ente, PED.num_pedido,'#13#10'PROD.NOME NOME_PRODUTO, COMB.NOME NOME_CO' +
       'MBINACAO, B.dtentrada, B.dtbaixa,'#13#10'b.id_cor_mat, CMAT.NOME NOME_' +
       'COR_MAT, PROD.NOME_MODELO, L.ID_PRODUTO, L.id_combinacao,'#13#10'P.ID_' +
-      'POSICAO_IMP'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.' +
-      'ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'INNE' +
-      'R JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN PEDIDO' +
-      ' PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10'ON B.ID_SETOR ' +
-      '= S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP.ID'#13#10'LEFT JOIN' +
-      ' PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN COMBINACAO CO' +
-      'MB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'LEFT JOIN COMBINACAO CMAT'#13#10'ON ' +
-      'B.ID_COR_MAT = CMAT.ID'#13#10#13#10
+      'POSICAO_IMP, P.ID_POSICAO_IMP2'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOI' +
+      'N PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.I' +
+      'D_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.I' +
+      'D'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETO' +
+      'R S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO' +
+      ' = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT' +
+      ' JOIN COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'LEFT JOIN C' +
+      'OMBINACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1059,6 +1059,9 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsProcessoID_POSICAO_IMP: TIntegerField
       FieldName = 'ID_POSICAO_IMP'
     end
+    object cdsConsProcessoID_POSICAO_IMP2: TIntegerField
+      FieldName = 'ID_POSICAO_IMP2'
+    end
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
@@ -1099,7 +1102,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'NOME_MODELO=NOME_MODELO'
       'ID_PRODUTO=ID_PRODUTO'
       'ID_COMBINACAO=ID_COMBINACAO'
-      'ID_POSICAO_IMP=ID_POSICAO_IMP')
+      'ID_POSICAO_IMP=ID_POSICAO_IMP'
+      'ID_POSICAO_IMP2=ID_POSICAO_IMP2')
     OnOpen = frxConsProcessoNext
     DataSource = dsConsProcesso
     BCDToCurrency = False
@@ -1232,8 +1236,9 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'nner JOIN PRODUTO_COMB_MAT PMAT'#13#10'ON PCOMB.ID = PMAT.ID'#13#10'AND PCOM' +
       'B.ITEM = PMAT.ITEM'#13#10'AND PMAT.ID_POSICAO = :ID_POSICAO'#13#10'INNER JOI' +
       'N PRODUTO MAT'#13#10'ON PMAT.ID_MATERIAL = MAT.ID'#13#10'INNER JOIN POSICAO ' +
-      'P'#13#10'ON P.ID = :ID_POSICAO'#13#10'WHERE PCOMB.ID_COR_COMBINACAO = :ID_CO' +
-      'R_COMBINACAO'#13#10'  AND PCOMB.ID = :ID'#13#10
+      'P'#13#10'ON ((P.ID = :ID_POSICAO) or (P.ID = :ID_POSICAO2))'#13#10'WHERE PCO' +
+      'MB.ID_COR_COMBINACAO = :ID_COR_COMBINACAO'#13#10'  AND PCOMB.ID = :ID'#13 +
+      #10
     MaxBlobSize = -1
     Params = <
       item
@@ -1244,6 +1249,11 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       item
         DataType = ftInteger
         Name = 'ID_POSICAO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_POSICAO2'
         ParamType = ptInput
       end
       item
