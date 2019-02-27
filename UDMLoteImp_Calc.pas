@@ -214,6 +214,7 @@ type
     cdsConsProcessoID_COMBINACAO: TIntegerField;
     cdsConsProcessoID_POSICAO_IMP: TIntegerField;
     cdsConsProcessoID_POSICAO_IMP2: TIntegerField;
+    cdsMatProcNOME_COR: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -389,7 +390,9 @@ begin
   begin
     if trim(vObsAux) <> '' then
       vObsAux := vObsAux + ' /  ';
-    vObsAux := vObsAux + cdsMatProcNOME_POSICAO.AsString + ': ' + cdsMatProcNOME.AsString;
+    vObsAux := vObsAux + cdsMatProcNOME.AsString;
+    if cdsMatProcNome_Cor.asString <> '' then
+      vObsAux := vObsAux + ' - ' + cdsMatProcNOME_COR.AsString;
     cdsMatProc.Next;
   end;
   frxReport1.variables['PosicaoMaterial'] := QuotedStr(vObsAux);

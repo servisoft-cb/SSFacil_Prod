@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43515.547754618060000000
+    ReportOptions.LastChange = 43515.903146504600000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1232,20 +1232,16 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT MAT.NOME, P.NOME NOME_POSICAO'#13#10'from PRODUTO_COMB PCOMB'#13#10'i' +
-      'nner JOIN PRODUTO_COMB_MAT PMAT'#13#10'ON PCOMB.ID = PMAT.ID'#13#10'AND PCOM' +
-      'B.ITEM = PMAT.ITEM'#13#10'AND PMAT.ID_POSICAO = :ID_POSICAO'#13#10'INNER JOI' +
-      'N PRODUTO MAT'#13#10'ON PMAT.ID_MATERIAL = MAT.ID'#13#10'INNER JOIN POSICAO ' +
-      'P'#13#10'ON ((P.ID = :ID_POSICAO) or (P.ID = :ID_POSICAO2))'#13#10'WHERE PCO' +
-      'MB.ID_COR_COMBINACAO = :ID_COR_COMBINACAO'#13#10'  AND PCOMB.ID = :ID'#13 +
-      #10
+      'select MAT.NOME, P.NOME NOME_POSICAO, COMB.NOME NOME_COR'#13#10'from P' +
+      'RODUTO_COMB PCOMB'#13#10'inner join PRODUTO_COMB_MAT PMAT on PCOMB.ID ' +
+      '= PMAT.ID and PCOMB.ITEM = PMAT.ITEM'#13#10'inner join PRODUTO MAT on ' +
+      'PMAT.ID_MATERIAL = MAT.ID'#13#10'inner join POSICAO P on ((P.ID = :ID_' +
+      'POSICAO) or (P.ID = :ID_POSICAO2))'#13#10'left join COMBINACAO COMB on' +
+      ' COMB.ID = PMAT.ID_COR'#13#10'where PCOMB.ID_COR_COMBINACAO = :ID_COR_' +
+      'COMBINACAO and'#13#10'      PCOMB.ID = :ID and'#13#10'      PMAT.ID_POSICAO ' +
+      '= P.ID'#13#10
     MaxBlobSize = -1
     Params = <
-      item
-        DataType = ftInteger
-        Name = 'ID_POSICAO'
-        ParamType = ptInput
-      end
       item
         DataType = ftInteger
         Name = 'ID_POSICAO'
@@ -1289,6 +1285,10 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsMatProcNOME_POSICAO: TStringField
       FieldName = 'NOME_POSICAO'
       Size = 30
+    end
+    object cdsMatProcNOME_COR: TStringField
+      FieldName = 'NOME_COR'
+      Size = 60
     end
   end
   object dsMatProc: TDataSource
