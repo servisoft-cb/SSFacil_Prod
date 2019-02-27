@@ -24,8 +24,8 @@ object fMenu: TfMenu
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    829
-    634)
+    821
+    626)
   PixelsPerInch = 96
   TextHeight = 13
   object Image2: TImage
@@ -473,7 +473,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 85
-    Height = 634
+    Height = 626
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -7930,6 +7930,24 @@ object fMenu: TfMenu
         CompName = 'btnAlterar'
         Caption = 'Alterar'
         GroupName = 'Tabela Tal'#227'o Auxiliar'
+      end
+      item
+        FormName = 'frmCadPreFat'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Pr'#233' Faturamento'
+      end
+      item
+        FormName = 'frmCadPreFat'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Pr'#233' Faturamento'
+      end
+      item
+        FormName = 'frmCadPreFat'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Pr'#233' Faturamento'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
