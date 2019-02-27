@@ -135,7 +135,7 @@ ProductName=
 ProductVersion=1.0.0.0
 Comments=
 [Excluded Packages]
-c:\program files (x86)\borland\delphi7\Projects\Bpl\ZMstr191D7.bpl=ZipMaster 1.9.1 
+c:\program files (x86)\borland\delphi7\Projects\Bpl\ZMstr191D7.bpl=ZipMaster 1.9.1
 c:\program files (x86)\borland\delphi7\Projects\Bpl\Dclqrt50.bpl=QuickReport Components
 C:\Acbr\Lib\Delphi\LibD7\ACBrNFeDanfeFRpkg.bpl=ACBr - DANFe em FastReport - (http://www.projetoacbr.com.br/)
 C:\Acbr\Lib\Delphi\LibD7\ACBrCTeDacteFRpkg.bpl=ACBr - DACTe em FastReport - (http://www.projetoacbr.com.br/)
