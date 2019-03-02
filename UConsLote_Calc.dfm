@@ -539,7 +539,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 18
+        ColCount = 19
         RowCount = 2
         Columns = <
           item
@@ -708,6 +708,14 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             FieldName = 'DTENTREGA'
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Entrega'
+            Title.Color = 12058551
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_PRODUTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Produto'
             Title.Color = 12058551
             Visible = True
           end>

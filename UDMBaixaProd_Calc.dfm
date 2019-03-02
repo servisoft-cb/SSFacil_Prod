@@ -1380,4 +1380,89 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
       Required = True
     end
   end
+  object qParametros_Lote: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select ID_SETOR_EST'
+      'from parametros_lote')
+    SQLConnection = dmDatabase.scoDados
+    Left = 464
+    Top = 96
+    object qParametros_LoteID_SETOR_EST: TIntegerField
+      FieldName = 'ID_SETOR_EST'
+    end
+  end
+  object sdsTalao_Estoque: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM TALAO_ESTOQUE'#13#10'WHERE ID = :ID'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 120
+    Top = 272
+    object sdsTalao_EstoqueID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object sdsTalao_EstoqueID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object sdsTalao_EstoqueNUM_TALAO: TIntegerField
+      FieldName = 'NUM_TALAO'
+    end
+    object sdsTalao_EstoqueID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object sdsTalao_EstoqueQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsTalao_EstoqueID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object sdsTalao_EstoqueDATA: TDateField
+      FieldName = 'DATA'
+    end
+  end
+  object dspTalao_Estoque: TDataSetProvider
+    DataSet = sdsTalao_Estoque
+    Left = 168
+    Top = 272
+  end
+  object cdsTalao_Estoque: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspTalao_Estoque'
+    Left = 208
+    Top = 272
+    object cdsTalao_EstoqueID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsTalao_EstoqueID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object cdsTalao_EstoqueNUM_TALAO: TIntegerField
+      FieldName = 'NUM_TALAO'
+    end
+    object cdsTalao_EstoqueID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsTalao_EstoqueQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsTalao_EstoqueID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsTalao_EstoqueDATA: TDateField
+      FieldName = 'DATA'
+    end
+  end
 end

@@ -1358,7 +1358,7 @@ begin
     fDMCadLote.cdsSaldoEst.First;
     while not fDMCadLote.cdsSaldoEst.Eof do
     begin
-      if (fDMCadLote.cdsSaldoEstTIPO.AsString = 'A') then
+      if (fDMCadLote.cdsSaldoEstTIPO.AsString = 'L') then
       begin
         fDMCadLote.mAuxLoteQtd_Estoque.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadLote.cdsSaldoEstQTD.AsFloat));
         if StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) > 0 then

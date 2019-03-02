@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids,
   FMTBcd, DB, RxLookup, UCBase, Mask, ToolEdit, NxCollection, NxEdit, CurrEdit, ComCtrls, RzDTP, RzEdit,
-  RzPanel, SqlExpr, dbXPress, UDMBaixaProd_Calc, DBGrids, SMDBGrid;
+  RzPanel, SqlExpr, dbXPress, UDMBaixaProd_Calc, DBGrids, SMDBGrid, UDMEstoque;
 
 type
   TfrmBaixaTalao_Calc2 = class(TForm)
@@ -37,6 +37,8 @@ type
   private
     { Private declarations }
     fDMBaixaProd_Calc: TDMBaixaProd_Calc;
+    fDMEstoque: TDMEstoque;
+
     vMSGLocal : WideString;
     vDigitoIni : String;
     vNumPedido_Loc : Integer;
@@ -61,6 +63,7 @@ type
 
     procedure prc_Abrir_Talao(Talao : Integer);
     procedure prc_Gravar_mLote_Setor;
+    procedure prc_Gravar_Talao_Estoque(Qtd : Real);
 
   public
     { Public declarations }
@@ -472,6 +475,9 @@ begin
   end;
 
   fDMBaixaProd_Calc.cdsTalao_Setor.Post;
+
+  if fDMBaixaProd_Calc.qParametros_LoteID_SETOR_EST.AsInteger = fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR.AsInteger then
+    prc_Gravar_Talao_Estoque(vQtd);
 end;
 
 procedure TfrmBaixaTalao_Calc2.prc_Abrir_Funcionario_Setor(Talao, ID_SETOR : Integer);
@@ -621,6 +627,49 @@ begin
   Label5.Caption := vMSGLocal;
   Edit1.SetFocus;
   Edit1.SelectAll;
+end;
+
+procedure TfrmBaixaTalao_Calc2.prc_Gravar_Talao_Estoque(Qtd: Real);
+var
+  vAux : Integer;
+begin
+  fDMEstoque := TDMEstoque.Create(Self);
+
+  if not fDMBaixaProd_Calc.cdsTalao_Estoque.Active then
+    fDMBaixaProd_Calc.prc_Abrir_Talao_Estoque(-1);
+  vAux := dmDatabase.ProximaSequencia('TALAO_ESTOQUE',0);
+
+  fDMBaixaProd_Calc.cdsTalao_Estoque.Insert;
+  fDMBaixaProd_Calc.cdsTalao_EstoqueID.AsInteger        := vAux;
+  fDMBaixaProd_Calc.cdsTalao_EstoqueID_LOTE.AsInteger   := fDMBaixaProd_Calc.cdsTalao_SetorID.AsInteger;
+  fDMBaixaProd_Calc.cdsTalao_EstoqueNUM_TALAO.AsInteger := fDMBaixaProd_Calc.cdsTalao_SetorNUM_TALAO.AsInteger;
+  fDMBaixaProd_Calc.cdsTalao_EstoqueID_SETOR.AsInteger  := fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR.AsInteger;
+  fDMBaixaProd_Calc.cdsTalao_EstoqueQTD.AsFloat         := StrToFloat(FormatFloat('0.0000',Qtd));
+  fDMBaixaProd_Calc.cdsTalao_EstoqueDATA.AsDateTime     := DateEdit1.Date;
+                                          
+  fDMBaixaProd_Calc.cdsTalao_EstoqueID_MOVESTOQUE.AsInteger := fDMEstoque.fnc_Gravar_Estoque(0,
+                                          fDMBaixaProd_Calc.cdsLoteFILIAL.AsInteger,
+                                          1,
+                                          fDMBaixaProd_Calc.cdsLoteID_PRODUTO.AsInteger,
+                                          fDMBaixaProd_Calc.cdsLoteNUM_LOTE.AsInteger,
+                                          0,0,fDMBaixaProd_Calc.cdsLoteID.AsInteger,
+                                          0,
+                                          'E','LOT',
+                                          fDMBaixaProd_Calc.cdsLoteUNIDADE.AsString,
+                                          fDMBaixaProd_Calc.cdsLoteUNIDADE.AsString ,'',
+                                          fDMBaixaProd_Calc.cdsTalaoTAMANHO.AsString,
+                                          fDMBaixaProd_Calc.cdsTalao_EstoqueDATA.AsDateTime,
+                                          0,
+                                          fDMBaixaProd_Calc.cdsTalao_EstoqueQTD.AsFloat,0,0,0,0,0,
+                                          fDMBaixaProd_Calc.cdsTalao_EstoqueQTD.AsFloat,
+                                          0,0,0,
+                                          fDMBaixaProd_Calc.cdsLoteUNIDADE.AsString,
+                                          fDMBaixaProd_Calc.cdsLoteID_COMBINACAO.AsInteger,
+                                          '','N',0,0);
+  fDMBaixaProd_Calc.cdsTalao_Estoque.Post;
+  fDMBaixaProd_Calc.cdsTalao_Estoque.ApplyUpdates(0);
+
+  FreeAndNil(fDMEstoque);
 end;
 
 end.

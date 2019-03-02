@@ -301,6 +301,25 @@ type
     cdsLotePROCESSO_BAIXADO: TStringField;
     qProcLote: TSQLQuery;
     qProcLoteCONTADOR: TIntegerField;
+    qParametros_Lote: TSQLQuery;
+    qParametros_LoteID_SETOR_EST: TIntegerField;
+    sdsTalao_Estoque: TSQLDataSet;
+    dspTalao_Estoque: TDataSetProvider;
+    cdsTalao_Estoque: TClientDataSet;
+    sdsTalao_EstoqueID: TIntegerField;
+    sdsTalao_EstoqueID_LOTE: TIntegerField;
+    sdsTalao_EstoqueNUM_TALAO: TIntegerField;
+    sdsTalao_EstoqueID_SETOR: TIntegerField;
+    sdsTalao_EstoqueQTD: TFloatField;
+    sdsTalao_EstoqueID_MOVESTOQUE: TIntegerField;
+    sdsTalao_EstoqueDATA: TDateField;
+    cdsTalao_EstoqueID: TIntegerField;
+    cdsTalao_EstoqueID_LOTE: TIntegerField;
+    cdsTalao_EstoqueNUM_TALAO: TIntegerField;
+    cdsTalao_EstoqueID_SETOR: TIntegerField;
+    cdsTalao_EstoqueQTD: TFloatField;
+    cdsTalao_EstoqueID_MOVESTOQUE: TIntegerField;
+    cdsTalao_EstoqueDATA: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsTalao_SetorCalcFields(DataSet: TDataSet);
     procedure mLote_SetorNewRecord(DataSet: TDataSet);
@@ -320,6 +339,7 @@ type
     procedure prc_Abrir_Baixa_Processo(ID_Lote, Num_Talao, ID_Setor : Integer);
     procedure prc_Gravar_Talao_Setor;
     procedure prc_Gravar_Lote_BaixaProcesso(Baixado : String ; ID_Lote : Integer);
+    procedure prc_Abrir_Talao_Estoque(ID : Integer);
 
   end;
 
@@ -343,6 +363,7 @@ begin
   //ctBaixa_Processo := sdsBaixa_Processo.CommandText;
   ctTalao_Setor       := sdsTalao_Setor.CommandText;
   ctFuncionario_Setor := sdsFuncionario_Setor.CommandText;
+  qParametros_Lote.Open;
 
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do
@@ -448,6 +469,13 @@ begin
     FreeAndNil(sds);
   end;
 
+end;
+
+procedure TDMBaixaProd_Calc.prc_Abrir_Talao_Estoque(ID: Integer);
+begin
+  cdsTalao_Estoque.Close;
+  sdsTalao_Estoque.ParamByName('ID').AsInteger := ID;
+  cdsTalao_Estoque.Open;
 end;
 
 end.
