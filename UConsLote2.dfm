@@ -19,7 +19,7 @@ object frmConsLote2: TfrmConsLote2
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 912
+    Width = 920
     Height = 140
     Align = alTop
     Color = clSilver
@@ -713,8 +713,8 @@ object frmConsLote2: TfrmConsLote2
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 140
-    Width = 912
-    Height = 385
+    Width = 920
+    Height = 393
     ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
@@ -726,8 +726,8 @@ object frmConsLote2: TfrmConsLote2
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 908
-        Height = 344
+        Width = 916
+        Height = 352
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsConsulta_Lote
@@ -761,7 +761,7 @@ object frmConsLote2: TfrmConsLote2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 27
+        ColCount = 28
         RowCount = 2
         Columns = <
           item
@@ -1009,12 +1009,19 @@ object frmConsLote2: TfrmConsLote2
             Title.Color = 12058551
             Width = 37
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_PRODUTO'
+            Title.Caption = 'ID Produto'
+            Title.Color = 12058551
+            Visible = True
           end>
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 344
-        Width = 908
+        Top = 352
+        Width = 916
         Height = 18
         Align = alBottom
         Caption = 'F7 Gerar Tal'#227'o de Ajuste     F8 Retrabalho'
@@ -1034,8 +1041,8 @@ object frmConsLote2: TfrmConsLote2
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 908
-        Height = 362
+        Width = 916
+        Height = 370
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsLote_Ped
