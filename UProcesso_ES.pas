@@ -1000,7 +1000,8 @@ begin
     fDMBaixaProd.cdsBaixa_ParcialID_FUNCIONARIO_BAIXA.AsInteger := fDMBaixaProd.qFuncionarioCODIGO.AsInteger;
 
   //Baixa estoque do processo do produto semi acabado   28/11/2018
-  if (fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger)
+  if ((fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) or
+     (fDMBaixaProd.qProcessoESTOQUE.AsString = 'E')or (fDMBaixaProd.qProcessoESTOQUE.AsString = 'S'))
     and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10) then
     prc_Baixa_Estoque('S');
   //**********************
@@ -1169,17 +1170,22 @@ begin
   begin
     if (Tipo = 'S') then
     begin
-      vES            := 'E';
+      vES := 'E';
+      if fDMBaixaProd.qProcessoESTOQUE.AsString = 'S' then
+        vES := 'S';
       vQtd := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ParcialQTD.AsFloat));
       fDMBaixaProd.qProd.Close;
       fDMBaixaProd.qProd.ParamByName('ID').AsInteger := fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger;
       fDMBaixaProd.qProd.Open;
       if (StrToFloat(FormatFloat('0.00000',vPreco)) > 0) then
         vPreco := StrToFloat(FormatFloat('0.00000',fDMBaixaProd.qProdPRECO_CUSTO.AsFloat));
-      vGeraCusto := 'S';
+      vGeraCusto := 'N';
+      if vES = 'E' then
+        vGeraCusto := 'S';
+
     end;
     vLote_Controle := '';
-    if (fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger <= 0) then
+    if (fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger <= 0) or (fDMBaixaProd.qProcessoESTOQUE_CRU.AsString = 'S') then
       vID_Cor := StrToInt(FormatFloat('0',fDMBaixaProd.qParametros_LoteID_COR_CRU.AsInteger));
   end;
   //else

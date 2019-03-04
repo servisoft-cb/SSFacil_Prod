@@ -1763,6 +1763,10 @@ begin
   sdsSaldoEst.CommandText := vComandoAux2 + vComandoAux;
   sdsSaldoEst.ParamByName('ID_PRODUTO').AsInteger := ID_Produto;
   sdsSaldoEst.ParamByName('ID_COR').AsInteger     := ID_COR;
+  if id_cor = qParametros_LoteID_COR_CRU.AsInteger then
+    sdsSaldoEst.ParamByName('ID_COR2').AsInteger := 0
+  else
+    sdsSaldoEst.ParamByName('ID_COR2').AsInteger := -1;
   cdsSaldoEst.Open;
 end;
 

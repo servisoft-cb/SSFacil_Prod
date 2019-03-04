@@ -353,6 +353,8 @@ type
     cdsLoteTIPO_LOTE_ESTOQUE: TStringField;
     sdsBaixa_ProcessoRETRABALHO: TStringField;
     cdsBaixa_ProcessoRETRABALHO: TStringField;
+    qProcessoESTOQUE: TStringField;
+    qProcessoESTOQUE_CRU: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

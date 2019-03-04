@@ -534,6 +534,14 @@ object DMBaixaProd: TDMBaixaProd
       FixedChar = True
       Size = 1
     end
+    object qProcessoESTOQUE: TStringField
+      FieldName = 'ESTOQUE'
+      Size = 1
+    end
+    object qProcessoESTOQUE_CRU: TStringField
+      FieldName = 'ESTOQUE_CRU'
+      Size = 1
+    end
   end
   object sdsBaixa_Processo: TSQLDataSet
     NoMetadata = True

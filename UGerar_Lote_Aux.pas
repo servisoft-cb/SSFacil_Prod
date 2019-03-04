@@ -538,7 +538,7 @@ var
   vIDProd : Integer;
   vQtdAux : Real;
 begin
-  if StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) <= 0 then
+  if (StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) <= 0) and (fDMCadLote.mAuxLoteTipo_Lote.AsString = 'L') then
   begin
     MessageDlg('*** Não existe estoque para ser aproveitado nesta Referência / Cor !', mtInformation, [mbok], 0);
     exit;
