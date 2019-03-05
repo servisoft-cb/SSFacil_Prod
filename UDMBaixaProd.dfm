@@ -542,6 +542,10 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'ESTOQUE_CRU'
       Size = 1
     end
+    object qProcessoESTOQUE_DT_ES: TStringField
+      FieldName = 'ESTOQUE_DT_ES'
+      Size = 1
+    end
   end
   object sdsBaixa_Processo: TSQLDataSet
     NoMetadata = True
@@ -1647,5 +1651,12 @@ object DMBaixaProd: TDMBaixaProd
     object qProdPRECO_CUSTO: TFloatField
       FieldName = 'PRECO_CUSTO'
     end
+  end
+  object qTingimento: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 552
+    Top = 488
   end
 end

@@ -642,6 +642,9 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     object sdsTalao_SetorQTD_PENDENTE: TFloatField
       FieldName = 'QTD_PENDENTE'
     end
+    object sdsTalao_SetorID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
   end
   object dspTalao_Setor: TDataSetProvider
     DataSet = sdsTalao_Setor
@@ -726,6 +729,9 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
       ProviderFlags = []
       Size = 1
       Calculated = True
+    end
+    object cdsTalao_SetorID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
     end
   end
   object dsTalao_Setor: TDataSource
@@ -857,6 +863,15 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
       item
         Name = 'DtSaida'
         DataType = ftDate
+      end
+      item
+        Name = 'ID_Esteira'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Esteira'
+        DataType = ftString
+        Size = 40
       end>
     IndexDefs = <>
     IndexFieldNames = 'Item'
@@ -866,13 +881,15 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     Left = 328
     Top = 392
     Data = {
-      DA0000009619E0BD01000000180000000B000000000003000000DA000849445F
+      0E0100009619E0BD01000000180000000D0000000000030000000E010849445F
       5365746F7204000100000000000351746404000100000000000A4E6F6D655F53
       65746F720100490000000100055749445448020002002800084E756D5F4C6F74
       650400010000000000044974656D0400010000000000074261697861646F0200
       0300000000000B53656C6563696F6E61646F0200030000000000024944040001
       00000000000C5174645F50656E64656E74650800040000000000094474456E74
-      726164610400060000000000074474536169646104000600000000000000}
+      726164610400060000000000074474536169646104000600000000000A49445F
+      4573746569726104000100000000000C4E6F6D655F4573746569726101004900
+      000001000557494454480200020028000000}
     object mLote_SetorID_Setor: TIntegerField
       FieldName = 'ID_Setor'
     end
@@ -906,6 +923,13 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     end
     object mLote_SetorDtSaida: TDateField
       FieldName = 'DtSaida'
+    end
+    object mLote_SetorID_Esteira: TIntegerField
+      FieldName = 'ID_Esteira'
+    end
+    object mLote_SetorNome_Esteira: TStringField
+      FieldName = 'Nome_Esteira'
+      Size = 40
     end
   end
   object dsmLote_Setor: TDataSource
@@ -946,19 +970,24 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     CommandText = 
       'SELECT FS.*, TS.ID ID_LOTE, TS.num_talao, TS.dtentrada, TS.dtsai' +
       'da,'#13#10'TS.item item_talao, TS.qtd, S.TIPO_LEITURA, S.NOME NOME_SET' +
-      'OR, TS.qtd_pendente,'#13#10'TS.qtd_produzido'#13#10'FROM FUNCIONARIO_SETOR F' +
-      'S'#13#10'INNER JOIN TALAO_SETOR TS'#13#10'ON FS.ID_SETOR = TS.id_setor'#13#10'INNE' +
-      'R JOIN SETOR S'#13#10'ON TS.ID_SETOR = S.ID'#13#10'WHERE FS.CODIGO = :CODIGO' +
-      #13#10'  AND TS.ID = :ID'#13#10'  AND TS.dtsaida IS NULL'#13#10
+      'OR, TS.qtd_pendente,'#13#10'TS.qtd_produzido,'#13#10'case'#13#10'  when ts.id_seto' +
+      'r2 > 0 then TS.ID_SETOR2'#13#10'  ELSE FS.id_esteira'#13#10'  END ID_ESTEIRA' +
+      '_TAL,'#13#10'CASE'#13#10'  when ts.id_setor2 > 0 then (SELECT E2.NOME FROM S' +
+      'ETOR E2 WHERE E2.ID = TS.ID_SETOR2)'#13#10'  ELSE (SELECT E2.NOME FROM' +
+      ' SETOR E2 WHERE E2.ID = fs.id_esteira)'#13#10'  END NOME_ESTEIRA_TAL'#13#10 +
+      'FROM FUNCIONARIO_SETOR FS'#13#10'INNER JOIN TALAO_SETOR TS'#13#10'ON FS.ID_S' +
+      'ETOR = TS.id_setor'#13#10'INNER JOIN SETOR S'#13#10'ON TS.ID_SETOR = S.ID'#13#10'W' +
+      'HERE FS.CODIGO = :CODIGO'#13#10'  AND TS.ID = :ID'#13#10'  AND TS.dtsaida IS' +
+      ' NULL'#13#10
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'CODIGO'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
       end>
@@ -1023,6 +1052,15 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     object cdsFuncionario_SetorQTD_PRODUZIDO: TFloatField
       FieldName = 'QTD_PRODUZIDO'
     end
+    object cdsFuncionario_SetorID_ESTEIRA: TIntegerField
+      FieldName = 'ID_ESTEIRA'
+    end
+    object cdsFuncionario_SetorID_ESTEIRA_TAL: TIntegerField
+      FieldName = 'ID_ESTEIRA_TAL'
+    end
+    object cdsFuncionario_SetorNOME_ESTEIRA_TAL: TStringField
+      FieldName = 'NOME_ESTEIRA_TAL'
+    end
   end
   object dsFuncionario_Setor: TDataSource
     DataSet = cdsFuncionario_Setor
@@ -1033,11 +1071,15 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT distinct FS.codigo, fs.id_setor, S.NOME NOME_SETOR'#13#10'FROM ' +
-      'FUNCIONARIO_SETOR FS'#13#10'INNER JOIN TALAO_SETOR TS'#13#10'ON FS.ID_SETOR ' +
-      '= TS.id_setor'#13#10'INNER JOIN SETOR S'#13#10'ON TS.ID_SETOR = S.ID'#13#10'WHERE ' +
-      'FS.CODIGO = :CODIGO'#13#10'  AND TS.ID = :ID'#13#10'  AND TS.dtsaida IS NULL' +
-      #13#10
+      'SELECT distinct FS.codigo, fs.id_setor, S.NOME NOME_SETOR, fs.id' +
+      '_esteira,'#13#10'case'#13#10'  when ts.id_setor2 > 0 then TS.ID_SETOR2'#13#10'  EL' +
+      'SE FS.id_esteira'#13#10'  END ID_ESTEIRA_TAL,'#13#10'CASE'#13#10'  when ts.id_seto' +
+      'r2 > 0 then (SELECT E2.NOME FROM SETOR E2 WHERE E2.ID = TS.ID_SE' +
+      'TOR2)'#13#10'  ELSE (SELECT E2.NOME FROM SETOR E2 WHERE E2.ID = fs.id_' +
+      'esteira)'#13#10'  END NOME_ESTEIRA_TAL'#13#10'FROM FUNCIONARIO_SETOR FS'#13#10'INN' +
+      'ER JOIN TALAO_SETOR TS'#13#10'ON FS.ID_SETOR = TS.id_setor'#13#10'INNER JOIN' +
+      ' SETOR S'#13#10'ON TS.ID_SETOR = S.ID'#13#10'WHERE FS.CODIGO = :CODIGO'#13#10'  AN' +
+      'D TS.ID = :ID'#13#10'  AND TS.dtsaida IS NULL'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -1074,6 +1116,15 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     end
     object cdsFuncLote_SetorNOME_SETOR: TStringField
       FieldName = 'NOME_SETOR'
+    end
+    object cdsFuncLote_SetorID_ESTEIRA: TIntegerField
+      FieldName = 'ID_ESTEIRA'
+    end
+    object cdsFuncLote_SetorID_ESTEIRA_TAL: TIntegerField
+      FieldName = 'ID_ESTEIRA_TAL'
+    end
+    object cdsFuncLote_SetorNOME_ESTEIRA_TAL: TStringField
+      FieldName = 'NOME_ESTEIRA_TAL'
     end
   end
   object dsFuncLote_Setor: TDataSource
@@ -1429,6 +1480,9 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     object sdsTalao_EstoqueDATA: TDateField
       FieldName = 'DATA'
     end
+    object sdsTalao_EstoqueID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
   end
   object dspTalao_Estoque: TDataSetProvider
     DataSet = sdsTalao_Estoque
@@ -1464,5 +1518,49 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     object cdsTalao_EstoqueDATA: TDateField
       FieldName = 'DATA'
     end
+    object cdsTalao_EstoqueID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
+  end
+  object sdsEsteira: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select s.id, s.nome'#13#10'from setor s'#13#10'where S.ID_SETOR_PRINCIPAL = ' +
+      ':ID_SETOR_PRINCIPAL'#13#10'  AND S.tipo_setor = '#39'E'#39#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_SETOR_PRINCIPAL'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 760
+    Top = 328
+  end
+  object dspEsteira: TDataSetProvider
+    DataSet = sdsEsteira
+    Left = 800
+    Top = 328
+  end
+  object cdsEsteira: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEsteira'
+    Left = 840
+    Top = 328
+    object cdsEsteiraID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsEsteiraNOME: TStringField
+      FieldName = 'NOME'
+    end
+  end
+  object dsEsteira: TDataSource
+    DataSet = cdsEsteira
+    Left = 888
+    Top = 328
   end
 end

@@ -320,6 +320,24 @@ type
     cdsTalao_EstoqueQTD: TFloatField;
     cdsTalao_EstoqueID_MOVESTOQUE: TIntegerField;
     cdsTalao_EstoqueDATA: TDateField;
+    sdsEsteira: TSQLDataSet;
+    dspEsteira: TDataSetProvider;
+    cdsEsteira: TClientDataSet;
+    dsEsteira: TDataSource;
+    cdsEsteiraID: TIntegerField;
+    cdsEsteiraNOME: TStringField;
+    sdsTalao_SetorID_SETOR2: TIntegerField;
+    cdsTalao_SetorID_SETOR2: TIntegerField;
+    sdsTalao_EstoqueID_SETOR2: TIntegerField;
+    cdsTalao_EstoqueID_SETOR2: TIntegerField;
+    mLote_SetorID_Esteira: TIntegerField;
+    mLote_SetorNome_Esteira: TStringField;
+    cdsFuncionario_SetorID_ESTEIRA: TIntegerField;
+    cdsFuncLote_SetorID_ESTEIRA: TIntegerField;
+    cdsFuncionario_SetorID_ESTEIRA_TAL: TIntegerField;
+    cdsFuncionario_SetorNOME_ESTEIRA_TAL: TStringField;
+    cdsFuncLote_SetorID_ESTEIRA_TAL: TIntegerField;
+    cdsFuncLote_SetorNOME_ESTEIRA_TAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsTalao_SetorCalcFields(DataSet: TDataSet);
     procedure mLote_SetorNewRecord(DataSet: TDataSet);
@@ -335,6 +353,7 @@ type
     vHoraBaixa : TTime;
     vDataBaixa : TDate;
     vID_Setor_Tal : Integer;
+    vID_Esteira_Tal : Integer;
 
     procedure prc_Abrir_Baixa_Processo(ID_Lote, Num_Talao, ID_Setor : Integer);
     procedure prc_Gravar_Talao_Setor;

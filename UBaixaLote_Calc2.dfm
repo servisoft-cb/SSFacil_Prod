@@ -1,6 +1,6 @@
 object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
-  Left = 283
-  Top = 126
+  Left = 207
+  Top = 195
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Seleciona os Setores para dar Baixa'
@@ -122,14 +122,13 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 8
+        ColCount = 10
         RowCount = 2
         Columns = <
           item
             Expanded = False
             FieldName = 'Selecionado'
             Title.Color = 13565902
-            Width = 77
             Visible = True
           end
           item
@@ -139,6 +138,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Title.Alignment = taCenter
             Title.Caption = 'ID Setor'
             Title.Color = 13565902
+            Width = 44
             Visible = True
           end
           item
@@ -147,7 +147,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             FieldName = 'Item'
             Title.Alignment = taCenter
             Title.Color = 13565902
-            Width = 87
+            Width = 39
             Visible = True
           end
           item
@@ -156,7 +156,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 13565902
-            Width = 239
+            Width = 218
             Visible = True
           end
           item
@@ -175,11 +175,12 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Title.Alignment = taCenter
             Title.Caption = 'Qtde'
             Title.Color = 13565902
-            Width = 88
+            Width = 74
             Visible = True
           end
           item
             Alignment = taCenter
+            Color = 11599871
             Expanded = False
             FieldName = 'Qtd_Pendente'
             Font.Charset = DEFAULT_CHARSET
@@ -195,6 +196,24 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = [fsBold]
+            Width = 66
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_Esteira'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Est.'
+            Title.Color = 13565902
+            Width = 35
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Esteira'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Esteira'
+            Title.Color = 13565902
             Visible = True
           end>
       end

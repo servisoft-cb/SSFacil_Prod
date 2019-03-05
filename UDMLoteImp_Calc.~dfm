@@ -77,11 +77,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       ' TS.dtentrada, TS.hrentrada,'#13#10'TS.dtsaida, TS.hrsaida, TS.qtd, TS' +
       '.total_horas, T.id_produto, T.tamanho,'#13#10'T.referencia, L.num_lote' +
       ', L.num_ordem, t.id_combinacao,  S.nome NOME_SETOR,'#13#10'COMB.nome N' +
-      'OME_COMBINACAO, l.dtentrega, ts.qtd_produzido, ts.qtd_pendente'#13#10 +
-      'FROM TALAO_SETOR TS'#13#10'INNER JOIN TALAO T'#13#10'ON TS.ID = T.id'#13#10'AND TS' +
-      '.NUM_TALAO = T.NUM_TALAO'#13#10'INNER JOIN LOTE L'#13#10'ON TS.ID = L.ID'#13#10'IN' +
-      'NER JOIN SETOR S'#13#10'ON TS.ID_SETOR = S.ID'#13#10'LEFT JOIN COMBINACAO CO' +
-      'MB'#13#10'ON T.id_combinacao = COMB.ID'#13#10
+      'OME_COMBINACAO, l.dtentrega, ts.qtd_produzido, ts.qtd_pendente, ' +
+      'TS.ID_SETOR2,'#13#10'E2.NOME NOME_ESTEIRA'#13#10'FROM TALAO_SETOR TS'#13#10'INNER ' +
+      'JOIN TALAO T'#13#10'ON TS.ID = T.id'#13#10'AND TS.NUM_TALAO = T.NUM_TALAO'#13#10'I' +
+      'NNER JOIN LOTE L'#13#10'ON TS.ID = L.ID'#13#10'INNER JOIN SETOR S'#13#10'ON TS.ID_' +
+      'SETOR = S.ID'#13#10'LEFT JOIN setor E2'#13#10'ON TS.ID_SETOR2 = E2.ID'#13#10'LEFT ' +
+      'JOIN COMBINACAO COMB'#13#10'ON T.id_combinacao = COMB.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -174,6 +175,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsulta_LoteQTD_PENDENTE: TFloatField
       FieldName = 'QTD_PENDENTE'
       DisplayFormat = '#'
+    end
+    object cdsConsulta_LoteID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
+    object cdsConsulta_LoteNOME_ESTEIRA: TStringField
+      FieldName = 'NOME_ESTEIRA'
     end
   end
   object dsConsulta_Lote: TDataSource

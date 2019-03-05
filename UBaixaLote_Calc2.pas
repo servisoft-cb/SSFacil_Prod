@@ -61,7 +61,7 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, Math;
+uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, Math, USel_Esteira;
 
 {$R *.dfm}
 
@@ -247,10 +247,36 @@ begin
     exit;
   fDMBaixaProd_Calc.mLote_Setor.Edit;
   fDMBaixaProd_Calc.mLote_SetorSelecionado.AsBoolean := not(fDMBaixaProd_Calc.mLote_SetorSelecionado.AsBoolean);
+  if fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger <= 0 then
+  begin
+    fDMBaixaProd_Calc.cdsEsteira.Close;
+    fDMBaixaProd_Calc.sdsEsteira.ParamByName('ID_SETOR_PRINCIPAL').AsInteger := fDMBaixaProd_Calc.vID_Setor_Tal;
+    fDMBaixaProd_Calc.cdsEsteira.Open;
+    if fDMBaixaProd_Calc.cdsEsteira.RecordCount > 1 then
+    begin
+      frmSel_Esteira := TfrmSel_Esteira.Create(self);
+      frmSel_Esteira.fDMBaixaProd_Calc := fDMBaixaProd_Calc;
+      frmSel_Esteira.ShowModal;
+      FreeAndNil(frmSel_Esteira);
+    end
+    else
+    if fDMBaixaProd_Calc.cdsEsteiraID.AsInteger > 0 then
+      fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsEsteiraID.AsInteger
+    else
+      fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.mLote_SetorID_Setor.AsInteger;
+    if fDMBaixaProd_Calc.vID_Esteira_Tal > 0 then
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger := fDMBaixaProd_Calc.vID_Esteira_Tal
+    else
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger := fDMBaixaProd_Calc.mLote_SetorID_Setor.AsInteger;
+
+  end;
+
   fDMBaixaProd_Calc.mLote_Setor.Post;
+
   if (vDig = '2') and (fDMBaixaProd_Calc.mLote_SetorSelecionado.AsBoolean) then
   begin
-    fDMBaixaProd_Calc.vID_Setor_Tal := fDMBaixaProd_Calc.mLote_SetorID_Setor.AsInteger;
+    fDMBaixaProd_Calc.vID_Setor_Tal   := fDMBaixaProd_Calc.mLote_SetorID_Setor.AsInteger;
+    fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger;
     Close;
   end;
 end;
@@ -272,6 +298,8 @@ begin
       fDMBaixaProd_Calc.mLote_SetorID.AsInteger           := 0;
       fDMBaixaProd_Calc.mLote_SetorQtd_Pendente.AsInteger := 0;
       fDMBaixaProd_Calc.mLote_SetorBaixado.AsBoolean      := False;
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger   := fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA_TAL.AsInteger;
+      fDMBaixaProd_Calc.mLote_SetorNome_Esteira.AsString  := fDMBaixaProd_Calc.cdsFuncLote_SetorNOME_ESTEIRA_TAL.AsString;
       fDMBaixaProd_Calc.mLote_Setor.Post;
 
       fDMBaixaProd_Calc.cdsFuncLote_Setor.Next;
@@ -299,6 +327,8 @@ begin
         fDMBaixaProd_Calc.mLote_SetorBaixado.AsBoolean := False
       else
         fDMBaixaProd_Calc.mLote_SetorBaixado.AsBoolean := True;
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger   := fDMBaixaProd_Calc.cdsFuncionario_SetorID_ESTEIRA_TAL.AsInteger;
+      fDMBaixaProd_Calc.mLote_SetorNome_Esteira.AsString  := fDMBaixaProd_Calc.cdsFuncionario_SetorNOME_ESTEIRA_TAL.AsString;
       fDMBaixaProd_Calc.mLote_Setor.Post;
 
       fDMBaixaProd_Calc.cdsFuncionario_Setor.Next;

@@ -538,11 +538,11 @@ var
   vIDProd : Integer;
   vQtdAux : Real;
 begin
-  if (StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) <= 0) and (fDMCadLote.mAuxLoteTipo_Lote.AsString = 'L') then
-  begin
-    MessageDlg('*** Não existe estoque para ser aproveitado nesta Referência / Cor !', mtInformation, [mbok], 0);
-    exit;
-  end;
+  //if (StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) <= 0) and (fDMCadLote.mAuxLoteTipo_Lote.AsString = 'L') then
+  //begin
+  //  MessageDlg('*** Não existe estoque para ser aproveitado nesta Referência / Cor !', mtInformation, [mbok], 0);
+  //  exit;
+  //end;
   if fDMCadLote.mAuxLoteUsa_Estoque.AsString = 'S' then
   begin
     if MessageDlg('Desmarcar que Usa o Estoque' ,mtConfirmation,[mbYes,mbNo],0) = mrYes then

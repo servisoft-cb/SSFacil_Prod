@@ -539,7 +539,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 19
+        ColCount = 20
         RowCount = 2
         Columns = <
           item
@@ -623,6 +623,14 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Caption = 'Nome Setor'
             Title.Color = 12058551
             Width = 190
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_ESTEIRA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Esteira'
+            Title.Color = 12058551
             Visible = True
           end
           item

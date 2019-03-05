@@ -701,7 +701,13 @@ end;
 procedure TfrmProcesso_ES.CurrencyEdit1Enter(Sender: TObject);
 begin
   vQtdAnt := CurrencyEdit1.Text;
-  CurrencyEdit1.ReadOnly := (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.IsNull);
+  fDMBaixaProd.qProcesso.Close;
+  fDMBaixaProd.qProcesso.ParamByName('ID').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger;
+  fDMBaixaProd.qProcesso.Open;
+  if (fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString = 'E') and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.IsNull) then
+    CurrencyEdit1.ReadOnly := False
+  else
+    CurrencyEdit1.ReadOnly := (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.IsNull);
   if (trim(RxDBLookupCombo1.Text) <> '') and (fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger = RxDBLookupCombo1.KeyValue) then
     CurrencyEdit1.ReadOnly := True;
 end;
@@ -1001,9 +1007,14 @@ begin
 
   //Baixa estoque do processo do produto semi acabado   28/11/2018
   if ((fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) or
-     (fDMBaixaProd.qProcessoESTOQUE.AsString = 'E')or (fDMBaixaProd.qProcessoESTOQUE.AsString = 'S'))
-    and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10) then
-    prc_Baixa_Estoque('S');
+     (fDMBaixaProd.qProcessoESTOQUE.AsString = 'E')or (fDMBaixaProd.qProcessoESTOQUE.AsString = 'S')) then
+  begin
+    if (fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString = 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime < 10) then
+      prc_Baixa_Estoque('S')
+    else
+    if (Trim(fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString) <> 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10) then
+      prc_Baixa_Estoque('S');
+  end;
   //**********************
 
   fDMBaixaProd.cdsBaixa_Parcial.Post;
@@ -1173,6 +1184,7 @@ begin
       vES := 'E';
       if fDMBaixaProd.qProcessoESTOQUE.AsString = 'S' then
         vES := 'S';
+
       vQtd := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ParcialQTD.AsFloat));
       fDMBaixaProd.qProd.Close;
       fDMBaixaProd.qProd.ParamByName('ID').AsInteger := fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger;
@@ -1182,7 +1194,6 @@ begin
       vGeraCusto := 'N';
       if vES = 'E' then
         vGeraCusto := 'S';
-
     end;
     vLote_Controle := '';
     if (fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger <= 0) or (fDMBaixaProd.qProcessoESTOQUE_CRU.AsString = 'S') then

@@ -215,6 +215,8 @@ type
     cdsConsProcessoID_POSICAO_IMP: TIntegerField;
     cdsConsProcessoID_POSICAO_IMP2: TIntegerField;
     cdsMatProcNOME_COR: TStringField;
+    cdsConsulta_LoteID_SETOR2: TIntegerField;
+    cdsConsulta_LoteNOME_ESTEIRA: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
