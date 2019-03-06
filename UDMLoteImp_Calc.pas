@@ -217,6 +217,10 @@ type
     cdsMatProcNOME_COR: TStringField;
     cdsConsulta_LoteID_SETOR2: TIntegerField;
     cdsConsulta_LoteNOME_ESTEIRA: TStringField;
+    sdsConsProdutividade: TSQLDataSet;
+    dspConsProdutividade: TDataSetProvider;
+    cdsConsProdutividade: TClientDataSet;
+    dsConsProdutividade: TDataSource;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

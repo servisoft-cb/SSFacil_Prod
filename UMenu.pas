@@ -70,6 +70,7 @@ type
     PrFaturamento1: TMenuItem;
     ConsultaControlePorProcesso1: TMenuItem;
     ConsultaMateriaisPorLote1: TMenuItem;
+    ConsultaProdutividade1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EfetuarLogoff1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -96,6 +97,7 @@ type
     procedure PrFaturamento1Click(Sender: TObject);
     procedure ConsultaControlePorProcesso1Click(Sender: TObject);
     procedure ConsultaMateriaisPorLote1Click(Sender: TObject);
+    procedure ConsultaProdutividade1Click(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Habilita_Menu;
@@ -123,7 +125,7 @@ uses DmdDatabase, uUtilPadrao, UGerar_Lote_SL, UProcesso_ES, UConsLote2,
   ULiberacao_Fat2, UGerar_Lote_Bol, UCancelaLote, UGerar_Lote_Proc,
   UConsLoteProc, UConsRemessa_Prod, UGerar_Pedido_Talao, uCadPreFat,
   UConsRefDtEntr, UGerar_Lote_Ped, UConsPedidoProc, UBaixaLote_Ped,
-  UBaixaTalao_Calc2, UConsProc, UConsMatLote2;
+  UBaixaTalao_Calc2, UConsProc, UConsMatLote2, UConsProdutividade;
 
 
 {$R *.dfm}
@@ -399,6 +401,11 @@ end;
 procedure TfMenu.ConsultaMateriaisPorLote1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsMatLote2, wsMaximized);
+end;
+
+procedure TfMenu.ConsultaProdutividade1Click(Sender: TObject);
+begin
+  OpenForm(TfrmConsProdutividade, wsMaximized);
 end;
 
 initialization

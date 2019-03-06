@@ -1,8 +1,8 @@
 object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 363
-  Top = 5
+  Left = 263
+  Top = 32
   Height = 713
   Width = 798
   object frxReport1: TfrxReport
@@ -306,8 +306,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'SELECT USA_REMESSA, LOTE_CALCADO_NOVO'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
-    Left = 88
-    Top = 264
+    Left = 648
+    Top = 32
     object qParametros_LoteUSA_REMESSA: TStringField
       FieldName = 'USA_REMESSA'
       FixedChar = True
@@ -1314,5 +1314,44 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     BCDToCurrency = False
     Left = 728
     Top = 583
+  end
+  object sdsConsProdutividade: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT L.NUM_REMESSA, TS.id, TS.num_talao, TS.item, TS.id_setor,' +
+      ' TS.dtentrada, TS.hrentrada,'#13#10'TS.dtsaida, TS.hrsaida, TS.qtd, TS' +
+      '.total_horas, T.id_produto, T.tamanho,'#13#10'T.referencia, L.num_lote' +
+      ', L.num_ordem, t.id_combinacao,  S.nome NOME_SETOR,'#13#10'COMB.nome N' +
+      'OME_COMBINACAO, l.dtentrega, ts.qtd_produzido, ts.qtd_pendente, ' +
+      'TS.ID_SETOR2,'#13#10'E2.NOME NOME_ESTEIRA'#13#10'FROM TALAO_SETOR TS'#13#10'INNER ' +
+      'JOIN TALAO T'#13#10'ON TS.ID = T.id'#13#10'AND TS.NUM_TALAO = T.NUM_TALAO'#13#10'I' +
+      'NNER JOIN LOTE L'#13#10'ON TS.ID = L.ID'#13#10'INNER JOIN SETOR S'#13#10'ON TS.ID_' +
+      'SETOR = S.ID'#13#10'LEFT JOIN setor E2'#13#10'ON TS.ID_SETOR2 = E2.ID'#13#10'LEFT ' +
+      'JOIN COMBINACAO COMB'#13#10'ON T.id_combinacao = COMB.ID'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 32
+    Top = 296
+  end
+  object dspConsProdutividade: TDataSetProvider
+    DataSet = sdsConsProdutividade
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 72
+    Top = 296
+  end
+  object cdsConsProdutividade: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsProdutividade'
+    Left = 135
+    Top = 296
+  end
+  object dsConsProdutividade: TDataSource
+    DataSet = cdsConsProdutividade
+    Left = 183
+    Top = 296
   end
 end

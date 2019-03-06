@@ -89,7 +89,8 @@ uses
   UDMConsLote in 'UDMConsLote.pas' {DMConsLote: TDataModule},
   UConsMatLote2 in 'UConsMatLote2.pas' {frmConsMatLote2},
   URelMatLote2 in 'URelMatLote2.pas' {fRelMatLote2},
-  USel_Esteira in 'USel_Esteira.pas' {frmSel_Esteira};
+  USel_Esteira in 'USel_Esteira.pas' {frmSel_Esteira},
+  UConsProdutividade in 'UConsProdutividade.pas' {frmConsProdutividade};
 
 {$R *.res}
 

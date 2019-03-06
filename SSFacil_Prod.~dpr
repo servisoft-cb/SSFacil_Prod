@@ -88,7 +88,9 @@ uses
   UConsProc in 'UConsProc.pas' {frmConsProc},
   UDMConsLote in 'UDMConsLote.pas' {DMConsLote: TDataModule},
   UConsMatLote2 in 'UConsMatLote2.pas' {frmConsMatLote2},
-  URelMatLote2 in 'URelMatLote2.pas' {fRelMatLote2};
+  URelMatLote2 in 'URelMatLote2.pas' {fRelMatLote2},
+  USel_Esteira in 'USel_Esteira.pas' {frmSel_Esteira},
+  UConsProdutividade in 'UConsProdutividade.pas' {frmConsProdutividade};
 
 {$R *.res}
 
@@ -97,5 +99,6 @@ begin
   Application.Title := 'SSFacil - Produção';
   Application.CreateForm(TdmDatabase, dmDatabase);
   Application.CreateForm(TfMenu, fMenu);
+  Application.CreateForm(TfrmConsProdutividade, frmConsProdutividade);
   Application.Run;
 end.

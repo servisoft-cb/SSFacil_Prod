@@ -150,6 +150,7 @@ begin
         end
         else
         begin
+          fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA.AsInteger;
           prc_Gravar_mLote_Setor;
         end;
       end;
@@ -544,8 +545,8 @@ begin
   begin
     prc_Abrir_Talao_Setor(fDMBaixaProd_Calc.cdsLoteID.AsInteger,fDMBaixaProd_Calc.cdsTalaoNUM_TALAO.AsInteger);
     //fDMBaixaProd_Calc.cdsTalao_Setor.Locate('ID_SETOR',ID_Setor,[loCaseInsensitive]);
-
-    fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger;
+    if fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger > 0 then
+      fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger;
     if fDMBaixaProd_Calc.cdsTalao_Setor.IsEmpty then
       vMSGLocal := vMSGLocal + #13 + '*** Lote/Talão ' + fDMBaixaProd_Calc.cdsLoteNUM_LOTE.AsString + '/' + IntToStr(Talao) + ', não encontrado os setores';
   end;
