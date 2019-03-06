@@ -744,9 +744,6 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'RETRABALHO'
       Size = 1
     end
-    object cdsBaixa_ProcessoclQtdPendente: TFloatField
-      FieldName = 'clQtdPendente'
-    end
   end
   object dsBaixa_Processo: TDataSource
     DataSet = cdsBaixa_Processo
