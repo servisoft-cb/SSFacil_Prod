@@ -250,7 +250,7 @@ begin
   if fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger <= 0 then
   begin
     fDMBaixaProd_Calc.cdsEsteira.Close;
-    fDMBaixaProd_Calc.sdsEsteira.ParamByName('ID_SETOR_PRINCIPAL').AsInteger := fDMBaixaProd_Calc.vID_Setor_Tal;
+    fDMBaixaProd_Calc.sdsEsteira.ParamByName('ID_SETOR_PRINCIPAL').AsInteger := fDMBaixaProd_Calc.mLote_SetorID_Setor.AsInteger;
     fDMBaixaProd_Calc.cdsEsteira.Open;
     if fDMBaixaProd_Calc.cdsEsteira.RecordCount > 1 then
     begin
@@ -348,7 +348,8 @@ begin
     end
     else
     begin
-      fDMBaixaProd_Calc.vID_Setor_Tal := CurrencyEdit1.AsInteger;
+      fDMBaixaProd_Calc.vID_Setor_Tal   := CurrencyEdit1.AsInteger;
+      fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger;
       Close;
     end;
   end;

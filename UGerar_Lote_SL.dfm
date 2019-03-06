@@ -21,7 +21,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Tingimento
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -640,6 +640,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
             Title.Color = 13041606
+            Width = 64
             Visible = True
           end
           item
@@ -658,6 +659,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
             Title.Color = 13041606
+            Width = 64
             Visible = True
           end
           item
@@ -846,6 +848,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Encerado'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -855,6 +858,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -890,6 +894,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = [fsBold]
+            Width = 64
             Visible = True
           end
           item
@@ -924,6 +929,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -931,6 +937,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -939,6 +946,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Consumo Unit'#225'rio'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -2123,161 +2131,14 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
         Top = 65
         Width = 916
         Height = 450
-        ActivePage = TS_TingAcum
+        ActivePage = TS_TingDet
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object TS_TingDet: TRzTabSheet
           Caption = 'Detalhado'
           object SMDBGrid6: TSMDBGrid
-            Left = 0
-            Top = 0
-            Width = 912
-            Height = 427
-            Align = alClient
-            Ctl3D = False
-            DataSource = DMCadLote.dsTingimento
-            Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
-            ParentCtl3D = False
-            ReadOnly = True
-            TabOrder = 0
-            TitleFont.Charset = DEFAULT_CHARSET
-            TitleFont.Color = clWindowText
-            TitleFont.Height = -11
-            TitleFont.Name = 'MS Sans Serif'
-            TitleFont.Style = []
-            Flat = True
-            BandsFont.Charset = DEFAULT_CHARSET
-            BandsFont.Color = clWindowText
-            BandsFont.Height = -11
-            BandsFont.Name = 'MS Sans Serif'
-            BandsFont.Style = []
-            Groupings = <>
-            GridStyle.Style = gsCustom
-            GridStyle.OddColor = clWindow
-            GridStyle.EvenColor = clWindow
-            TitleHeight.PixelCount = 24
-            FooterColor = clBtnFace
-            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-            OnGetCellParams = SMDBGrid1GetCellParams
-            RegistryKey = 'Software\Scalabium'
-            RegistrySection = 'SMDBGrid'
-            WidthOfIndicator = 11
-            DefaultRowHeight = 16
-            ScrollBars = ssHorizontal
-            ColCount = 9
-            RowCount = 2
-            Columns = <
-              item
-                Alignment = taCenter
-                Expanded = False
-                FieldName = 'NUM_ORDEM'
-                Title.Alignment = taCenter
-                Title.Caption = 'N'#186' Ordem'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Visible = True
-              end
-              item
-                Alignment = taCenter
-                Expanded = False
-                FieldName = 'ID_MATERIAL'
-                Title.Alignment = taCenter
-                Title.Caption = 'ID Material'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Width = 73
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'NOME_MATERIAL'
-                Title.Alignment = taCenter
-                Title.Caption = 'Nome Material'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Width = 363
-                Visible = True
-              end
-              item
-                Alignment = taCenter
-                Expanded = False
-                FieldName = 'ID_COR'
-                Title.Alignment = taCenter
-                Title.Caption = 'ID Cor'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Width = 51
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'NOME_COR'
-                Title.Alignment = taCenter
-                Title.Caption = 'Nome Cor'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Width = 166
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'QTD'
-                Title.Alignment = taCenter
-                Title.Caption = 'Qtd. Para Tingimento'
-                Title.Color = 11586303
-                Title.Font.Charset = DEFAULT_CHARSET
-                Title.Font.Color = clWindowText
-                Title.Font.Height = -11
-                Title.Font.Name = 'Verdana'
-                Title.Font.Style = []
-                Width = 112
-                Visible = True
-              end
-              item
-                Alignment = taCenter
-                Expanded = False
-                FieldName = 'UNIDADE'
-                Title.Alignment = taCenter
-                Title.Caption = 'Unid.'
-                Title.Color = 11586303
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'QTD_ESTOQUE'
-                Title.Alignment = taCenter
-                Title.Caption = 'Qtd. No Estoque'
-                Title.Color = 11586303
-                Width = 130
-                Visible = True
-              end>
-          end
-        end
-        object TS_TingAcum: TRzTabSheet
-          Caption = 'Acumulado'
-          object SMDBGrid5: TSMDBGrid
             Left = 0
             Top = 0
             Width = 912

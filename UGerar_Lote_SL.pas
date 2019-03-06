@@ -95,8 +95,6 @@ type
     RzPageControl1: TRzPageControl;
     TS_TingDet: TRzTabSheet;
     SMDBGrid6: TSMDBGrid;
-    TS_TingAcum: TRzTabSheet;
-    SMDBGrid5: TSMDBGrid;
     Label9: TLabel;
     Shape13: TShape;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
