@@ -150,7 +150,6 @@ begin
         end
         else
         begin
-          fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA.AsInteger;
           prc_Gravar_mLote_Setor;
         end;
       end;
@@ -159,7 +158,8 @@ begin
       else
       begin
         //05/03/2019
-        prc_Verificar_Esteira;
+        if (vDigitoIni = '2') or ((vDigitoIni = '9') and (fDMBaixaProd_Calc.mLote_Setor.RecordCount = 1))   then
+          prc_Verificar_Esteira;
         //*******************
         prc_Gravar_ES;
       end
@@ -432,6 +432,9 @@ var
   vSaida : Boolean;
   vQtd : Integer;
 begin
+  if ID_Esteira > 0 then
+    fDMBaixaProd_Calc.vID_Esteira_Tal := ID_Esteira;
+
   if vDigitoIni = '2' then
   begin
     vMSGLocal := vMSGLocal + '  Lote/Talão: ' + fDMBaixaProd_Calc.cdsLoteNUM_LOTE.AsString + '/' + fDMBaixaProd_Calc.cdsTalaoNUM_TALAO.AsString
@@ -545,16 +548,19 @@ begin
   begin
     prc_Abrir_Talao_Setor(fDMBaixaProd_Calc.cdsLoteID.AsInteger,fDMBaixaProd_Calc.cdsTalaoNUM_TALAO.AsInteger);
     //fDMBaixaProd_Calc.cdsTalao_Setor.Locate('ID_SETOR',ID_Setor,[loCaseInsensitive]);
-    if fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger > 0 then
-      fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger;
+
+    fDMBaixaProd_Calc.vID_Esteira_Tal := fDMBaixaProd_Calc.cdsTalao_SetorID_SETOR2.AsInteger;
     if fDMBaixaProd_Calc.cdsTalao_Setor.IsEmpty then
       vMSGLocal := vMSGLocal + #13 + '*** Lote/Talão ' + fDMBaixaProd_Calc.cdsLoteNUM_LOTE.AsString + '/' + IntToStr(Talao) + ', não encontrado os setores';
   end;
 end;
 
 procedure TfrmBaixaTalao_Calc2.prc_Gravar_mLote_Setor;
+var
+  vAux : Integer;
 begin
   fDMBaixaProd_Calc.mLote_Setor.EmptyDataSet;
+  vAux := fDMBaixaProd_Calc.cdsFuncLote_Setor.RecordCount;
   fDMBaixaProd_Calc.cdsFuncLote_Setor.First;
   while not fDMBaixaProd_Calc.cdsFuncLote_Setor.Eof do
   begin
@@ -568,8 +574,25 @@ begin
     fDMBaixaProd_Calc.mLote_SetorQtd_Pendente.AsInteger := 0;
     fDMBaixaProd_Calc.mLote_SetorBaixado.AsBoolean      := False;
     fDMBaixaProd_Calc.mLote_SetorSelecionado.AsBoolean  := True;
-    fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger   := fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA_TAL.AsInteger;
-    fDMBaixaProd_Calc.mLote_SetorNome_Esteira.AsString  := fDMBaixaProd_Calc.cdsFuncLote_SetorNOME_ESTEIRA_TAL.AsString;
+
+    if (vAux = 1) and (fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA_TAL.AsInteger <= 0) then
+    begin
+      fDMBaixaProd_Calc.cdsEsteira.Close;
+      fDMBaixaProd_Calc.sdsEsteira.ParamByName('ID_SETOR_PRINCIPAL').AsInteger := fDMBaixaProd_Calc.cdsFuncLote_SetorID_SETOR.AsInteger;
+      fDMBaixaProd_Calc.cdsEsteira.Open;
+
+      frmSel_Esteira := TfrmSel_Esteira.Create(self);
+      frmSel_Esteira.fDMBaixaProd_Calc := fDMBaixaProd_Calc;
+      frmSel_Esteira.ShowModal;
+      FreeAndNil(frmSel_Esteira);
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger   := fDMBaixaProd_Calc.vID_Esteira_Tal;
+      fDMBaixaProd_Calc.mLote_SetorNome_Esteira.AsString  := '';
+    end
+    else
+    begin
+      fDMBaixaProd_Calc.mLote_SetorID_Esteira.AsInteger   := fDMBaixaProd_Calc.cdsFuncLote_SetorID_ESTEIRA_TAL.AsInteger;
+      fDMBaixaProd_Calc.mLote_SetorNome_Esteira.AsString  := fDMBaixaProd_Calc.cdsFuncLote_SetorNOME_ESTEIRA_TAL.AsString;
+    end;
     fDMBaixaProd_Calc.mLote_Setor.Post;
 
     fDMBaixaProd_Calc.cdsFuncLote_Setor.Next;

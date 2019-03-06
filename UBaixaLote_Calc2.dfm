@@ -94,7 +94,6 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
         ParentFont = False
-        ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -115,7 +114,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
         GridStyle.EvenColor = clWindow
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
-        ExOptions = [eoBooleanAsCheckBox, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+        ExOptions = [eoBooleanAsCheckBox, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
         OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
@@ -128,6 +127,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
           item
             Expanded = False
             FieldName = 'Selecionado'
+            ReadOnly = True
             Title.Color = 13565902
             Visible = True
           end
@@ -135,6 +135,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Alignment = taCenter
             Expanded = False
             FieldName = 'ID_Setor'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'ID Setor'
             Title.Color = 13565902
@@ -145,6 +146,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Alignment = taCenter
             Expanded = False
             FieldName = 'Item'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Color = 13565902
             Width = 39
@@ -153,6 +155,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
           item
             Expanded = False
             FieldName = 'Nome_Setor'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 13565902
@@ -162,6 +165,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
           item
             Expanded = False
             FieldName = 'DtEntrada'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Inicio'
             Title.Color = 13565902
@@ -172,6 +176,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Alignment = taCenter
             Expanded = False
             FieldName = 'Qtd'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Qtde'
             Title.Color = 13565902
@@ -188,6 +193,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
             Font.Height = -12
             Font.Name = 'Verdana'
             Font.Style = [fsBold]
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Pendente'
             Title.Color = 13565902
@@ -211,6 +217,7 @@ object frmBaixaLote_Calc2: TfrmBaixaLote_Calc2
           item
             Expanded = False
             FieldName = 'Nome_Esteira'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 13565902
