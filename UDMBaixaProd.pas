@@ -357,6 +357,7 @@ type
     qProcessoESTOQUE_CRU: TStringField;
     qProcessoESTOQUE_DT_ES: TStringField;
     qTingimento: TSQLQuery;
+    cdsBaixa_ProcessoclQtdPendente: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private
