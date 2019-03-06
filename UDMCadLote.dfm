@@ -5514,9 +5514,9 @@ object DMCadLote: TDMCadLote
       ' and ((V2.ID_COR = :ID_COR) or (V2.ID_COR = :ID_COR2))'#13#10'        ' +
       '         and V2.TIPO = '#39'L'#39') QTD_LOTE'#13#10'               from VESTOQ' +
       'UE_RES_LOTE V '#13#10'               where V.ID_PRODUTO = :ID_PRODUTO ' +
-      ' and'#13#10'                     V.ID_COR = :ID_COR '#13#10'               g' +
-      'roup by V.TIPO, V.NUM_LOTE_CONTROLE ) AUX) AUX2'#13#10'WHERE AUX2.QTD2' +
-      ' > 0'#13#10
+      ' and'#13#10'                     ((V.ID_COR = :ID_COR) or (V.ID_COR = ' +
+      ':ID_COR2))'#13#10'               group by V.TIPO, V.NUM_LOTE_CONTROLE ' +
+      ') AUX) AUX2'#13#10'WHERE AUX2.QTD2 > 0'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -5542,6 +5542,11 @@ object DMCadLote: TDMCadLote
       item
         DataType = ftInteger
         Name = 'ID_COR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR2'
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
