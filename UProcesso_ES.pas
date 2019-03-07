@@ -430,7 +430,8 @@ begin
     vMSGLocal := vMSGLocal + #13 + '*** Lote ' + IntToStr(vLote) + '  não encontrado!';
     exit;
   end;
-  vFilial_Loc := fDMBaixaProd.cdsLoteFILIAL.AsInteger; 
+
+  vFilial_Loc := fDMBaixaProd.cdsLoteFILIAL.AsInteger;
   prc_Abrir_Baixa_Processo(fDMBaixaProd.cdsLoteID.AsInteger,0,0,0);
   if fDMBaixaProd.cdsBaixa_Processo.IsEmpty then
   begin
@@ -560,6 +561,22 @@ begin
       MessageDlg('*** Funcionário não tem permissão para baixar esse processo!', mtError, [mbOk], 0);
       exit;
     end;
+
+    //07/03/2019
+    if fDMBaixaProd.qParametros_LoteCONT_LOTE_ANT.AsString = 'S' then
+    begin
+      fDMBaixaProd.qVerAnt.Close;
+      fDMBaixaProd.qVerAnt.ParamByName('NUM_ORDEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsInteger;
+      fDMBaixaProd.qVerAnt.ParamByName('ITEM').AsInteger      := vItem_BaixaProcesso;
+      fDMBaixaProd.qVerAnt.Open;
+      if fDMBaixaProd.qVerAntCONTADOR.AsInteger > 0 then
+      begin
+        MessageDlg('*** Existe Talão anterior NÃO Encerrado !' + #13 + '  Na  OP: ' + fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsString, mtError, [mbOk], 0);
+        exit;
+      end;
+    end;
+    //*******************
+
   end;
   if fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime > 0 then
   begin

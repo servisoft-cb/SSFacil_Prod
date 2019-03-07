@@ -821,7 +821,7 @@ object DMBaixaProd: TDMBaixaProd
       
         'SELECT P.LOTE_PROCESSO, P.LOTE_TEXTIL, R.NOME NOME_PROCESSO_CONF' +
         ', USA_LOTE_PEDIDO, '
-      'ID_PROCESSO_EST, ID_PROCESSO_SEMI_EST, ID_COR_CRU'
+      'ID_PROCESSO_EST, ID_PROCESSO_SEMI_EST, ID_COR_CRU, CONT_LOTE_ANT'
       'FROM PARAMETROS_LOTE P'
       'LEFT JOIN PROCESSO R'
       'ON P.ID_PROCESSO_CONF = R.ID')
@@ -855,6 +855,10 @@ object DMBaixaProd: TDMBaixaProd
     end
     object qParametros_LoteID_COR_CRU: TIntegerField
       FieldName = 'ID_COR_CRU'
+    end
+    object qParametros_LoteCONT_LOTE_ANT: TStringField
+      FieldName = 'CONT_LOTE_ANT'
+      Size = 1
     end
   end
   object sdsPedido_Talao: TSQLDataSet
@@ -1658,5 +1662,32 @@ object DMBaixaProd: TDMBaixaProd
     SQLConnection = dmDatabase.scoDados
     Left = 552
     Top = 488
+  end
+  object qVerAnt: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'NUM_ORDEM'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT count(1) contador'
+      'FROM baixa_processo B'
+      'WHERE B.NUM_ORDEM = :NUM_ORDEM'
+      ' AND B.ITEM < :ITEM'
+      ' AND (B.dtbaixa IS NULL) AND (B.qtd_produzido <= 0)')
+    SQLConnection = dmDatabase.scoDados
+    Left = 792
+    Top = 496
+    object qVerAntCONTADOR: TIntegerField
+      FieldName = 'CONTADOR'
+      Required = True
+    end
   end
 end
