@@ -21,6 +21,7 @@ type
     Label2: TLabel;
     RxDBLookupCombo1: TRxDBLookupCombo;
     SpeedButton3: TSpeedButton;
+    Label3: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -56,6 +57,7 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPreFat);
   fDMCadPreFat.cdsClienteLib.Close;
   fDMCadPreFat.cdsClienteLib.Open;
+  fDMCadPreFat.cdsPendente_Lib.Close;
   if vID_Cliente_Loc > 0 then
   begin
     if fDmCadPreFat.cdsClienteLib.Locate('CODIGO',vID_Cliente_Loc,[loCaseInsensitive]) then
@@ -83,6 +85,12 @@ begin
   if trim(RxDBLookupCombo1.Text) <> '' then
     fDMCadPreFat.sdsPendente_Lib.CommandText := fDMCadPreFat.sdsPendente_Lib.CommandText
                                               + ' AND PED.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+  //09/03/2019
+  if fDMCadPreFat.cdsPreFatFILIAL.AsInteger > 0 then
+    fDMCadPreFat.sdsPendente_Lib.CommandText := fDMCadPreFat.sdsPendente_Lib.CommandText
+                                              + ' AND PED.FILIAL = ' + IntToStr(fDMCadPreFat.cdsPreFatFILIAL.AsInteger);
+  //*********************
+
   fDMCadPreFat.cdsPendente_Lib.Open
 end;
 
@@ -105,6 +113,8 @@ begin
       if (fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger > 0) and (fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger <> fDMCadPreFat.cdsPendente_LibID_CLIENTE.AsInteger) then
         vMSGAux := 'Pedido: ' + fDMCadPreFat.cdsPendente_LibPEDIDO_CLIENTE.AsString + ' com cliente diferente do Pré Faturamento'
       else
+      if fDMCadPreFat.cdsPreFatFILIAL.AsInteger <> fDMCadPreFat.cdsPendente_LibFILIAL.AsInteger then
+        vMSGAux := 'Pedido: ' + fDMCadPreFat.cdsPendente_LibPEDIDO_CLIENTE.AsString + ' com Filial diferente do Pré Faturamento'
       begin
         //if fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger <= 0 then
         fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger := fDMCadPreFat.cdsPendente_LibID_CLIENTE.AsInteger;
@@ -132,8 +142,7 @@ begin
     fDMCadPreFat.cdsPendente_Lib.Next;
   end;
   if Trim(vMSGAux) <> '' then
-    MessageDlg('*** Existe Pedido com cliente diferente ... ' + vMSGAux, mtError, [mbOk], 0);
-
+    MessageDlg('*** Existe Pedido com cliente/Filial diferente ... ' + vMSGAux, mtError, [mbOk], 0);
 
   Close;
 end;

@@ -563,15 +563,15 @@ begin
     end;
 
     //07/03/2019
-    if fDMBaixaProd.qParametros_LoteCONT_LOTE_ANT.AsString = 'S' then
+    if (fDMBaixaProd.qParametros_LoteCONT_LOTE_ANT.AsString = 'S') and (trim(fDMBaixaProd.qParametros_UsuarioLIBERA_TALAO_ANT.AsString) <> 'S') then
     begin
       fDMBaixaProd.qVerAnt.Close;
-      fDMBaixaProd.qVerAnt.ParamByName('NUM_ORDEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsInteger; 
+      fDMBaixaProd.qVerAnt.ParamByName('NUM_ORDEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsInteger;
       fDMBaixaProd.qVerAnt.ParamByName('ITEM').AsInteger      := vItem_BaixaProcesso;
       fDMBaixaProd.qVerAnt.Open;
       if fDMBaixaProd.qVerAntCONTADOR.AsInteger > 0 then
       begin
-        MessageDlg('*** Existe Talão anterior NÃO Encerrado !', mtError, [mbOk], 0);
+        MessageDlg('*** Existe Talão anterior NÃO Encerrado !' + #13 + '  Na  OP: ' + fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsString, mtError, [mbOk], 0);
         exit;
       end;
     end;

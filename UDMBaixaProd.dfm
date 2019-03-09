@@ -463,7 +463,9 @@ object DMBaixaProd: TDMBaixaProd
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT P.ID, P.ID_CLIENTE, CLI.baixar_etiq_prefat, CLI.NOME'
+      
+        'SELECT P.ID, P.ID_CLIENTE, CLI.baixar_etiq_prefat, CLI.NOME, P.F' +
+        'ILIAL'
       'FROM PEDIDO P'
       'INNER JOIN PESSOA CLI'
       'ON P.ID_CLIENTE = CLI.CODIGO'
@@ -486,6 +488,9 @@ object DMBaixaProd: TDMBaixaProd
     object qPedNOME: TStringField
       FieldName = 'NOME'
       Size = 60
+    end
+    object qPedFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object qProcesso: TSQLQuery
@@ -1568,7 +1573,9 @@ object DMBaixaProd: TDMBaixaProd
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT MOSTRAR_CONS_ETIQ'
+      
+        'SELECT MOSTRAR_CONS_ETIQ, coalesce(LIBERA_TALAO_ANT,'#39'N'#39') LIBERA_' +
+        'TALAO_ANT'
       'FROM PARAMETROS_USUARIO'
       'WHERE USUARIO = :USUARIO')
     SQLConnection = dmDatabase.scoDados
@@ -1576,6 +1583,11 @@ object DMBaixaProd: TDMBaixaProd
     Top = 112
     object qParametros_UsuarioMOSTRAR_CONS_ETIQ: TStringField
       FieldName = 'MOSTRAR_CONS_ETIQ'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_UsuarioLIBERA_TALAO_ANT: TStringField
+      FieldName = 'LIBERA_TALAO_ANT'
       FixedChar = True
       Size = 1
     end

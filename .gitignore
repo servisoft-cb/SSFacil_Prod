@@ -25,3 +25,7 @@ UProcesso_ES.~pas
 UMenu.~dfm
 UProcesso_ES.~dfm
 UProcesso_ES.~pas
+*.~dfm
+*.~ddp
+UProcesso_ES.~dfm
+UProcesso_ES.~pas

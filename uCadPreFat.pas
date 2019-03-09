@@ -424,6 +424,7 @@ var
 begin
   ffrmLiberacao_Ped := TfrmLiberacao_Ped.Create(Self);
   ffrmLiberacao_Ped.fDMCadPreFat := fDmCadPreFat;
+  ffrmLiberacao_Ped.Label3.Caption := 'Pedido(s) da Filial: ' + #13 + lblNome_Filial.Caption;
   if fDmCadPreFat.cdsPreFatID_CLIENTE.AsInteger > 0 then
     ffrmLiberacao_Ped.vID_Cliente_Loc := fDmCadPreFat.cdsPreFatID_CLIENTE.AsInteger
   else

@@ -563,7 +563,7 @@ begin
     end;
 
     //07/03/2019
-    if fDMBaixaProd.qParametros_LoteCONT_LOTE_ANT.AsString = 'S' then
+    if (fDMBaixaProd.qParametros_LoteCONT_LOTE_ANT.AsString = 'S') and (trim(fDMBaixaProd.qParametros_UsuarioLIBERA_TALAO_ANT.AsString) <> 'S') then
     begin
       fDMBaixaProd.qVerAnt.Close;
       fDMBaixaProd.qVerAnt.ParamByName('NUM_ORDEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoNUM_ORDEM.AsInteger;

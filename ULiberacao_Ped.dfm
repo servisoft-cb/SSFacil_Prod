@@ -434,6 +434,20 @@ object frmLiberacao_Ped: TfrmLiberacao_Ped
       Margin = 0
       OnClick = SpeedButton3Click
     end
+    object Label3: TLabel
+      Left = 781
+      Top = 22
+      Width = 338
+      Height = 33
+      AutoSize = False
+      Caption = 'Pedido(s) da FILIAL: '#13#10
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+    end
     object CurrencyEdit1: TCurrencyEdit
       Left = 138
       Top = 8

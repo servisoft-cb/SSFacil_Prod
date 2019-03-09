@@ -22,8 +22,8 @@ object frmCadPreFat: TfrmCadPreFat
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 798
-    Height = 564
+    Width = 806
+    Height = 572
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,8 +41,8 @@ object frmCadPreFat: TfrmCadPreFat
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 127
-        Width = 794
-        Height = 373
+        Width = 802
+        Height = 381
         Align = alClient
         Ctl3D = False
         DataSource = DMCadPreFat.dsConsulta
@@ -161,7 +161,7 @@ object frmCadPreFat: TfrmCadPreFat
       object pnlPesquisa: TPanel
         Left = 0
         Top = 33
-        Width = 794
+        Width = 802
         Height = 94
         Align = alTop
         Color = clSilver
@@ -353,8 +353,8 @@ object frmCadPreFat: TfrmCadPreFat
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 524
-        Width = 794
+        Top = 532
+        Width = 802
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -370,7 +370,7 @@ object frmCadPreFat: TfrmCadPreFat
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 794
+        Width = 802
         Height = 33
         Align = alTop
         Color = clSilver
@@ -671,8 +671,8 @@ object frmCadPreFat: TfrmCadPreFat
       end
       object Panel4: TPanel
         Left = 0
-        Top = 500
-        Width = 794
+        Top = 508
+        Width = 802
         Height = 24
         Align = alBottom
         Color = clSilver
@@ -724,7 +724,7 @@ object frmCadPreFat: TfrmCadPreFat
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 794
+        Width = 802
         Height = 34
         Align = alTop
         Color = 8404992
@@ -950,7 +950,7 @@ object frmCadPreFat: TfrmCadPreFat
       object pnlCadastro: TPanel
         Left = 0
         Top = 34
-        Width = 794
+        Width = 802
         Height = 136
         Align = alTop
         Enabled = False
@@ -958,7 +958,7 @@ object frmCadPreFat: TfrmCadPreFat
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 792
+          Width = 800
           Height = 31
           Align = alTop
           Color = clSilver
@@ -991,7 +991,7 @@ object frmCadPreFat: TfrmCadPreFat
         object pnlCliente: TPanel
           Left = 1
           Top = 32
-          Width = 792
+          Width = 800
           Height = 103
           Align = alClient
           TabOrder = 1
@@ -1137,8 +1137,8 @@ object frmCadPreFat: TfrmCadPreFat
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 170
-        Width = 794
-        Height = 371
+        Width = 802
+        Height = 379
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -1155,8 +1155,8 @@ object frmCadPreFat: TfrmCadPreFat
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 33
-            Width = 790
-            Height = 315
+            Width = 798
+            Height = 323
             Align = alClient
             Ctl3D = False
             DataSource = DMCadPreFat.dsPedFat_Itens
@@ -1262,7 +1262,7 @@ object frmCadPreFat: TfrmCadPreFat
           object pnlItem: TPanel
             Left = 0
             Top = 0
-            Width = 790
+            Width = 798
             Height = 33
             Align = alTop
             Color = clSilver

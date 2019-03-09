@@ -360,6 +360,8 @@ type
     qVerAnt: TSQLQuery;
     qVerAntCONTADOR: TIntegerField;
     qParametros_LoteCONT_LOTE_ANT: TStringField;
+    qPedFILIAL: TIntegerField;
+    qParametros_UsuarioLIBERA_TALAO_ANT: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

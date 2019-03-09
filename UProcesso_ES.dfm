@@ -446,7 +446,6 @@ object frmProcesso_ES: TfrmProcesso_ES
             Title.Alignment = taCenter
             Title.Caption = 'Ret.'
             Title.Color = 13565902
-            Width = 64
             Visible = True
           end>
       end

@@ -144,6 +144,13 @@ begin
     Label5.Caption := 'Talão com cliente diferente da Pré Nota';
     exit;
   end;
+  //09/03/2019
+  if (fDMCadPreFat.cdsPreFatFILIAL.AsInteger <> fDMBaixaProd.qPedFILIAL.AsInteger) and (fDMCadPreFat.cdsPreFatFILIAL.AsInteger > 0)  then
+  begin
+    Label5.Caption := 'Filial Diferente da informada!';
+    exit;
+  end;
+  //*************
 
   fDMBaixaProd.cdsPedido_Item.Close;
   fDMBaixaProd.sdsPedido_Item.ParamByName('ID').AsInteger   := fDMBaixaProd.qPedID.AsInteger;
@@ -154,7 +161,7 @@ begin
     Label5.Caption := 'Pedido: ' + IntToStr(vPed) + ' Item: ' + IntToStr(vItem) + ' já faturados';
     exit;
   end;
-
+           
   //precisa estar com o processo lido (Talão dos itens do pedido)
   fDMBaixaProd.qConf_Proc.Close;
   fDMBaixaProd.qConf_Proc.ParamByName('ID_PEDIDO').AsInteger   := fDMBaixaProd.qPedID.AsInteger;
