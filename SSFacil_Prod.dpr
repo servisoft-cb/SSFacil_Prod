@@ -90,7 +90,9 @@ uses
   UConsMatLote2 in 'UConsMatLote2.pas' {frmConsMatLote2},
   URelMatLote2 in 'URelMatLote2.pas' {fRelMatLote2},
   USel_Esteira in 'USel_Esteira.pas' {frmSel_Esteira},
-  UConsProdutividade in 'UConsProdutividade.pas' {frmConsProdutividade};
+  UConsProdutividade in 'UConsProdutividade.pas' {frmConsProdutividade},
+  UAltSenhaFunc in 'UAltSenhaFunc.pas' {frmAltSenhaFunc},
+  USenhaAux in 'USenhaAux.pas' {frmSenhaAux};
 
 {$R *.res}
 

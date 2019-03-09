@@ -117,7 +117,7 @@ object frmProcesso_ES: TfrmProcesso_ES
       ParentFont = False
     end
     object lblFuncionario: TLabel
-      Left = 314
+      Left = 351
       Top = 41
       Width = 6
       Height = 18
@@ -128,6 +128,15 @@ object frmProcesso_ES: TfrmProcesso_ES
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 311
+      Top = 37
+      Width = 23
+      Height = 22
+      Hint = 'Alterar a Senha'
+      Caption = '...'
+      OnClick = SpeedButton1Click
     end
     object Edit1: TEdit
       Left = 108
@@ -568,6 +577,7 @@ object frmProcesso_ES: TfrmProcesso_ES
       ParentFont = False
       TabOrder = 2
       OnChange = CurrencyEdit2Change
+      OnEnter = CurrencyEdit2Enter
       OnKeyDown = CurrencyEdit2KeyDown
     end
     object btnTalaoEtiqueta: TNxButton

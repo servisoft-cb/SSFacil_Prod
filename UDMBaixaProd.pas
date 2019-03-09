@@ -362,6 +362,18 @@ type
     qParametros_LoteCONT_LOTE_ANT: TStringField;
     qPedFILIAL: TIntegerField;
     qParametros_UsuarioLIBERA_TALAO_ANT: TStringField;
+    qFuncionarioSENHA: TStringField;
+    sdsFuncionario: TSQLDataSet;
+    dspFuncionario: TDataSetProvider;
+    cdsFuncionario: TClientDataSet;
+    sdsFuncionarioCODIGO: TIntegerField;
+    sdsFuncionarioNOME: TStringField;
+    sdsFuncionarioSENHA: TStringField;
+    sdsFuncionarioNUM_CARTAO: TIntegerField;
+    cdsFuncionarioCODIGO: TIntegerField;
+    cdsFuncionarioNOME: TStringField;
+    cdsFuncionarioSENHA: TStringField;
+    cdsFuncionarioNUM_CARTAO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

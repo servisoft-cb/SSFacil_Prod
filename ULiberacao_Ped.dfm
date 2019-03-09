@@ -235,6 +235,7 @@ object frmLiberacao_Ped: TfrmLiberacao_Ped
             Title.Font.Height = -12
             Title.Font.Name = 'Verdana'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -253,6 +254,7 @@ object frmLiberacao_Ped: TfrmLiberacao_Ped
             Title.Font.Height = -12
             Title.Font.Name = 'Verdana'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -271,6 +273,7 @@ object frmLiberacao_Ped: TfrmLiberacao_Ped
             Title.Font.Height = -12
             Title.Font.Name = 'Verdana'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end>
       end

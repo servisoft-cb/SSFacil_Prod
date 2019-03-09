@@ -40,6 +40,7 @@ type
     NxButton1: TNxButton;
     Panel4: TPanel;
     Label12: TLabel;
+    SpeedButton1: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
@@ -63,6 +64,8 @@ type
     procedure CurrencyEdit3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure NxButton1Click(Sender: TObject);
+    procedure CurrencyEdit2Enter(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
     fDMBaixaProd: TDMBaixaProd;
@@ -112,7 +115,7 @@ var
 implementation
 
 uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, UConfParcial,
-  UConsTalao_Etiq, USel_PedItem;
+  UConsTalao_Etiq, USel_PedItem, USenhaAux, UAltSenhaFunc;
 
 {$R *.dfm}
 
@@ -674,6 +677,7 @@ begin
       fDMBaixaProd.qFuncionario.Close;
       fDMBaixaProd.qFuncionario.ParamByName('NUM_CARTAO').AsInteger := CurrencyEdit2.AsInteger;
       fDMBaixaProd.qFuncionario.Open;
+
       lblFuncionario.Caption := '';
       if fDMBaixaProd.qFuncionarioCODIGO.AsInteger <= 0 then
       begin
@@ -683,6 +687,21 @@ begin
       end
       else
       begin
+        if Trim(fDMBaixaProd.qFuncionarioSENHA.AsString) <> '' then
+        begin
+          vSenha := '';
+          frmSenhaAux := TfrmSenhaAux.Create(Self);
+          frmSenhaAux.Label2.Caption := fDMBaixaProd.qFuncionarioNOME.AsString;
+          frmSenhaAux.ShowModal;
+          FreeAndNil(frmSenhaAux);
+          if vSenha <> fDMBaixaProd.qFuncionarioSENHA.AsString then
+          begin
+            CurrencyEdit2.Clear;
+            CurrencyEdit2.SetFocus;
+            fDMBaixaProd.qFuncionario.Close;
+            exit;
+          end;
+        end;
         lblFuncionario.Caption := fDMBaixaProd.qFuncionarioNOME.AsString;
         Label1.Visible         := True;
         Edit1.Visible          := True;
@@ -1278,6 +1297,20 @@ begin
   end
   else
     fDMBaixaProd.cdsBaixa_ParcialID_ESTOQUE.AsInteger := vID_MovEstoque; 
+end;
+
+procedure TfrmProcesso_ES.CurrencyEdit2Enter(Sender: TObject);
+begin
+  fDMBaixaProd.qFuncionario.Close;
+end;
+
+procedure TfrmProcesso_ES.SpeedButton1Click(Sender: TObject);
+begin
+  frmAltSenhaFunc := TfrmAltSenhaFunc.Create(Self);
+  frmAltSenhaFunc.fDMBaixaProd := fDMBaixaProd;
+  frmAltSenhaFunc.CurrencyEdit2.AsInteger := CurrencyEdit2.AsInteger;
+  frmAltSenhaFunc.ShowModal;
+  FreeAndNil(frmAltSenhaFunc);
 end;
 
 end.

@@ -115,6 +115,7 @@ begin
       else
       if fDMCadPreFat.cdsPreFatFILIAL.AsInteger <> fDMCadPreFat.cdsPendente_LibFILIAL.AsInteger then
         vMSGAux := 'Pedido: ' + fDMCadPreFat.cdsPendente_LibPEDIDO_CLIENTE.AsString + ' com Filial diferente do Pré Faturamento'
+      else
       begin
         //if fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger <= 0 then
         fDMCadPreFat.cdsPreFatID_CLIENTE.AsInteger := fDMCadPreFat.cdsPendente_LibID_CLIENTE.AsInteger;

@@ -766,7 +766,7 @@ object DMBaixaProd: TDMBaixaProd
     SQL.Strings = (
       
         'SELECT F.CODIGO, F.NOME, F.NUM_CARTAO, F.LIBERA_PED, F.baixa_eti' +
-        'q_prefat'
+        'q_prefat, F.SENHA'
       'FROM FUNCIONARIO F'
       'WHERE INATIVO = '#39'N'#39
       '  AND NUM_CARTAO = :NUM_CARTAO')
@@ -793,6 +793,10 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'BAIXA_ETIQ_PREFAT'
       FixedChar = True
       Size = 1
+    end
+    object qFuncionarioSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 15
     end
   end
   object qFuncionario_Processo: TSQLQuery
@@ -1700,6 +1704,68 @@ object DMBaixaProd: TDMBaixaProd
     object qVerAntCONTADOR: TIntegerField
       FieldName = 'CONTADOR'
       Required = True
+    end
+  end
+  object sdsFuncionario: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT F.CODIGO, F.NOME, F.SENHA, F.NUM_CARTAO'#13#10'FROM FUNCIONARIO' +
+      ' F'#13#10'WHERE F.NUM_CARTAO = :NUM_CARTAO'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'NUM_CARTAO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 336
+    Top = 24
+    object sdsFuncionarioCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsFuncionarioNOME: TStringField
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object sdsFuncionarioSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 15
+    end
+    object sdsFuncionarioNUM_CARTAO: TIntegerField
+      FieldName = 'NUM_CARTAO'
+    end
+  end
+  object dspFuncionario: TDataSetProvider
+    DataSet = sdsFuncionario
+    UpdateMode = upWhereKeyOnly
+    Left = 384
+    Top = 24
+  end
+  object cdsFuncionario: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspFuncionario'
+    Left = 424
+    Top = 24
+    object cdsFuncionarioCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsFuncionarioNOME: TStringField
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object cdsFuncionarioSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 15
+    end
+    object cdsFuncionarioNUM_CARTAO: TIntegerField
+      FieldName = 'NUM_CARTAO'
     end
   end
 end
