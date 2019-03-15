@@ -550,6 +550,11 @@ begin
       fDMCadLote_Calc.cdsPendente_Ped.Next;
     end;
 
+    if ckAgrupar_Prod.Checked then
+      fDMCadLote_Calc.mAcum.IndexFieldNames := 'ID_PRODUTO;ID_COMBINACAO;TAMANHO'
+    else
+      fDMCadLote_Calc.mAcum.IndexFieldNames := 'ITEM_ORIGINAL;TAMANHO';
+
     ProgressBar6.Max      := fDMCadLote_Calc.mAcum.RecordCount;
     ProgressBar6.Position := 0;
     vID_Ant := 0;
