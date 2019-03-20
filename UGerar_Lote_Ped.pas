@@ -98,10 +98,10 @@ type
     vNumLote: Integer;
     vNumOrdem: Integer;
     vQtd_Selecionada: Real;
-    vID_BaixaProcesso : Integer;
-    vIDLoteAux : Integer;
+    vID_BaixaProcesso: Integer;
+    vIDLoteAux: Integer;
 
-    vItem_Ordem : Integer;
+    vItem_Ordem: Integer;
 
     procedure prc_Consultar;
     procedure prc_Gerar_Lote;
@@ -111,8 +111,8 @@ type
 
     procedure prc_Limpar_Var;
 
-    procedure prc_Marcar_Desmarcar(Tipo : String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
-    procedure prc_Marcar_Desmarcar_PED(Tipo : String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
+    procedure prc_Marcar_Desmarcar(Tipo: String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
+    procedure prc_Marcar_Desmarcar_PED(Tipo: String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
 
     procedure prc_Le_cdsPendenteAux;
 
@@ -170,7 +170,7 @@ end;
 
 procedure TfrmGerar_Lote_Ped.prc_Consultar;
 var
-  vTextoData : String;
+  vTextoData: String;
 begin
   if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
     vTextoData := 'PED.DTENTREGA'
@@ -198,9 +198,9 @@ procedure TfrmGerar_Lote_Ped.prc_Gerar_Lote;
 var
   vData: TDateTime;
   vID_CombinacaoAux: Integer;
-  vCompleto : String;
-  vItemAux : Integer;
-  vTipo : String;
+  vCompleto: String;
+  vItemAux: Integer;
+  vTipo: String;
 begin
   vItem_Ordem := 1;
   vData := fDMCadLote.cdsPendenteDTENTREGA.AsDateTime;
@@ -490,9 +490,9 @@ end;
 
 procedure TfrmGerar_Lote_Ped.prc_Marcar_Desmarcar(Tipo: String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
 var
-  vIDProdAux : Integer;
-  vMD : String;
-  vIDPedAux : Integer;
+  vIDProdAux: Integer;
+  vMD: String;
+  vIDPedAux: Integer;
 
 
   procedure prc_Somar_Qtd;
@@ -505,7 +505,7 @@ var
 
   procedure prc_Selecionado;
   var
-    vAux2 : String;
+    vAux2: String;
   begin
     vAux2 := fDMCadLote.cdsPendenteSELECIONADO.AsString;
     if (trim(fDMCadLote.cdsPendenteSELECIONADO.AsString) = '') then
@@ -607,10 +607,10 @@ end;
 
 procedure TfrmGerar_Lote_Ped.ImprimirOrdemProduo1Click(Sender: TObject);
 var
-  vNumOrdemAux : String;
+  vNumOrdemAux: String;
   fDMLoteImp: TDMLoteImp;
-  vArq : String;
-  sds : TSQLDataSet;
+  vArq: String;
+  sds: TSQLDataSet;
 begin
   if fDMCadLote.qParametros_LoteUSA_LOTE_PED_SPROC.AsString = 'S' then
   begin
@@ -695,7 +695,7 @@ end;
 
 procedure TfrmGerar_Lote_Ped.prc_Marcar_Desmarcar_PED(Tipo: String);//P=Pedido   TM=Total marcar    TD=Total Desmarcar
 var
-  ID : Integer;
+  ID: Integer;
 begin
   ID := fDMCadLote.cdsPendente_PedID.AsInteger;
   if Tipo = 'P' then
