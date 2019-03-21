@@ -413,7 +413,7 @@ end;
 
 procedure TfMenu.Programao1Click(Sender: TObject);
 begin
-  OpenForm(TfrmGerarPrograConsProdutividade, wsMaximized);
+  OpenForm(TfrmGerar_Programacao, wsMaximized);
 end;
 
 initialization

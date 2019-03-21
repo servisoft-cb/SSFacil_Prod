@@ -122,12 +122,16 @@ object DMCadProgramacao: TDMCadProgramacao
     CommandText = 
       'select P.NOME NOME_PROCESSO, BP.ID_MAQUINA, L.NUM_ORDEM, L.NUM_L' +
       'OTE, PROD.NOME NOME_PRODUTO, PROD.REFERENCIA,'#13#10'       BP.ID ID_B' +
-      'AIXA, BP.ITEM ITEM_BAIXA, BP.QTD'#13#10'from BAIXA_PROCESSO BP'#13#10'inner ' +
-      'join PROCESSO P on BP.ID_PROCESSO = P.ID'#13#10'inner join LOTE L on B' +
-      'P.ID_LOTE = L.ID'#13#10'inner join PRODUTO PROD on L.ID_PRODUTO = PROD' +
-      '.ID'#13#10'left join PROGRAMACAO PG on BP.ID = PG.ID_BAIXA AND BP.ITEM' +
-      ' = PG.ITEM_BAIXA'#13#10'where P.CONTROLE_MAQUINA = '#39'S'#39' and'#13#10'      BP.D' +
-      'TENTRADA is null and'#13#10'      PG.dtinicial IS NULL'#13#10
+      'AIXA, BP.ITEM ITEM_BAIXA, BP.QTD, L.ID_PRODUTO, VP.total_batidas' +
+      ', VP.qtd_por_min,'#13#10'CASE'#13#10'  WHEN coalesce(VP.qtd_por_min,0) > 0 T' +
+      'HEN ROUND((((l.qtd * 100) / VP.qtd_por_min) / 60),3)'#13#10'  ELSE 0'#13#10 +
+      '  END TEMPO_PROD'#13#10'from BAIXA_PROCESSO BP'#13#10'inner join PROCESSO P ' +
+      'on BP.ID_PROCESSO = P.ID'#13#10'inner join LOTE L on BP.ID_LOTE = L.ID' +
+      #13#10'inner join PRODUTO PROD on L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN v' +
+      'prod_textil VP ON PROD.ID = VP.ID_PRODUTO'#13#10'left join PROGRAMACAO' +
+      ' PG on BP.ID = PG.ID_BAIXA AND BP.ITEM = PG.ITEM_BAIXA'#13#10'where P.' +
+      'CONTROLE_MAQUINA = '#39'S'#39' and'#13#10'      BP.DTENTRADA is null and'#13#10'    ' +
+      '  PG.dtinicial IS NULL'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -143,7 +147,6 @@ object DMCadProgramacao: TDMCadProgramacao
   end
   object cdsPend: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPend'
     Left = 448
@@ -179,10 +182,88 @@ object DMCadProgramacao: TDMCadProgramacao
     object cdsPendQTD: TFloatField
       FieldName = 'QTD'
     end
+    object cdsPendID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsPendTOTAL_BATIDAS: TFloatField
+      FieldName = 'TOTAL_BATIDAS'
+    end
+    object cdsPendQTD_POR_MIN: TFloatField
+      FieldName = 'QTD_POR_MIN'
+    end
+    object cdsPendTEMPO_PROD: TFloatField
+      FieldName = 'TEMPO_PROD'
+    end
   end
   object dsPend: TDataSource
     DataSet = cdsPend
     Left = 488
     Top = 37
+  end
+  object sdsMaqPend: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select AUX.*'#13#10'from (select P.ID, M.NOME NOME_MAQUINA, M.QTD_BOCA' +
+      ', M.QTD_FUSO, M.ESPESSURA, PMAQ.ID_MAQUINA, M.QTD_BOCA -'#13#10'      ' +
+      '      coalesce((select V.CONTADOR from VMAQ_EM_USO V where V.ID_' +
+      'MAQUINA = PMAQ.ID_MAQUINA), 0) BOCA_DISPONIVEL'#13#10'      from PRODU' +
+      'TO P'#13#10'      inner join PRODUTO_MAQ PMAQ on P.ID = PMAQ.ID'#13#10'     ' +
+      ' inner join MAQUINA M on PMAQ.ID_MAQUINA = M.ID'#13#10'      where P.I' +
+      'D = :ID) AUX'#13#10'where AUX.BOCA_DISPONIVEL > 0'#13#10#13#10'  '
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 368
+    Top = 101
+  end
+  object dspMaqPend: TDataSetProvider
+    DataSet = sdsMaqPend
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspProgramacaoUpdateError
+    Left = 408
+    Top = 101
+  end
+  object cdsMaqPend: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMaqPend'
+    Left = 448
+    Top = 101
+    object cdsMaqPendID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsMaqPendNOME_MAQUINA: TStringField
+      FieldName = 'NOME_MAQUINA'
+      Size = 30
+    end
+    object cdsMaqPendQTD_BOCA: TIntegerField
+      FieldName = 'QTD_BOCA'
+    end
+    object cdsMaqPendQTD_FUSO: TIntegerField
+      FieldName = 'QTD_FUSO'
+    end
+    object cdsMaqPendESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
+    end
+    object cdsMaqPendID_MAQUINA: TIntegerField
+      FieldName = 'ID_MAQUINA'
+    end
+    object cdsMaqPendBOCA_DISPONIVEL: TFMTBCDField
+      FieldName = 'BOCA_DISPONIVEL'
+      Precision = 15
+      Size = 0
+    end
+  end
+  object dsMaqPend: TDataSource
+    DataSet = cdsMaqPend
+    Left = 488
+    Top = 101
   end
 end

@@ -48,6 +48,21 @@ type
     cdsPendID_BAIXA: TIntegerField;
     cdsPendITEM_BAIXA: TIntegerField;
     cdsPendQTD: TFloatField;
+    sdsMaqPend: TSQLDataSet;
+    dspMaqPend: TDataSetProvider;
+    cdsMaqPend: TClientDataSet;
+    dsMaqPend: TDataSource;
+    cdsMaqPendID: TIntegerField;
+    cdsMaqPendNOME_MAQUINA: TStringField;
+    cdsMaqPendQTD_BOCA: TIntegerField;
+    cdsMaqPendQTD_FUSO: TIntegerField;
+    cdsMaqPendESPESSURA: TFloatField;
+    cdsMaqPendID_MAQUINA: TIntegerField;
+    cdsMaqPendBOCA_DISPONIVEL: TFMTBCDField;
+    cdsPendID_PRODUTO: TIntegerField;
+    cdsPendTOTAL_BATIDAS: TFloatField;
+    cdsPendQTD_POR_MIN: TFloatField;
+    cdsPendTEMPO_PROD: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -89,7 +104,6 @@ begin
 
   cdsProgramacao.Insert;
   cdsProgramacaoID.AsInteger    := vAux;
-  cdsProgramacaoDATA.AsDateTime := Date;
 end;
 
 procedure TDMCadProgramacao.prc_Excluir;
@@ -140,7 +154,6 @@ end;
 procedure TDMCadProgramacao.prc_Localizar(ID: Integer); //-1 é para inclusão
 begin
   cdsProgramacao.Close;
-  sdsProgramacao.CommandText                 := ctPreFat;
   sdsProgramacao.ParamByName('ID').AsInteger := ID;
   cdsProgramacao.Open;
 end;
