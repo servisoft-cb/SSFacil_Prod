@@ -36,3 +36,7 @@ SSFacil_Prod.~dpr
 UProcesso_ES.~dfm
 UProcesso_ES.~pas
 *.~pas
+*.dcu
+*.~dfm
+*.~pas
+*.~dpr

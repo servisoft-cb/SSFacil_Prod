@@ -823,6 +823,15 @@ object frmConsLote2: TfrmConsLote2
           end
           item
             Expanded = False
+            FieldName = 'NOME_MAQUINA'
+            Title.Alignment = taCenter
+            Title.Caption = 'M'#225'quina'
+            Title.Color = 12058551
+            Width = 130
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
@@ -854,7 +863,6 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -1015,10 +1023,6 @@ object frmConsLote2: TfrmConsLote2
             FieldName = 'ID_PRODUTO'
             Title.Caption = 'ID Produto'
             Title.Color = 12058551
-            Visible = True
-          end
-          item
-            Expanded = False
             Visible = True
           end>
       end

@@ -24,8 +24,8 @@ object fMenu: TfMenu
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    821
-    626)
+    829
+    634)
   PixelsPerInch = 96
   TextHeight = 13
   object Image2: TImage
@@ -473,7 +473,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 85
-    Height = 626
+    Height = 634
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -591,6 +591,13 @@ object fMenu: TfMenu
       object PrFaturamento1: TMenuItem
         Caption = 'Pr'#233' Faturamento'
         OnClick = PrFaturamento1Click
+      end
+      object N7: TMenuItem
+        Caption = '-'
+      end
+      object Programao1: TMenuItem
+        Caption = 'Programa'#231#227'o'
+        OnClick = Programao1Click
       end
     end
     object ConsultasRelatrios1: TMenuItem
