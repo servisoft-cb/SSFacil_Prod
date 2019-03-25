@@ -53,7 +53,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       Left = 1
       Top = 42
       Width = 812
-      Height = 482
+      Height = 450
       Align = alClient
       Ctl3D = False
       DataSource = DMCadProgramacao.dsPend
@@ -65,6 +65,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
+      OnKeyDown = SMDBGrid1KeyDown
       Flat = True
       BandsFont.Charset = DEFAULT_CHARSET
       BandsFont.Color = clWindowText
@@ -83,7 +84,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 10
+      ColCount = 15
       RowCount = 2
       Columns = <
         item
@@ -92,7 +93,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Alignment = taCenter
           Title.Caption = 'Processo'
           Title.Color = 9109503
-          Width = 90
+          Width = 70
           Visible = True
         end
         item
@@ -153,6 +154,46 @@ object frmGerar_Programacao: TfrmGerar_Programacao
         item
           Alignment = taCenter
           Expanded = False
+          FieldName = 'SETUP_INICIO'
+          Title.Alignment = taCenter
+          Title.Caption = 'S. In'#237'cio'
+          Title.Color = 9109503
+          Width = 37
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'SOMA_SETUP_INI'
+          Title.Alignment = taCenter
+          Title.Caption = 'I'
+          Title.Color = 9109503
+          Width = 14
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'SETUP_TROCA'
+          Title.Alignment = taCenter
+          Title.Caption = 'S. Troca'
+          Title.Color = 9109503
+          Width = 31
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'SOMA_SETUP_TRO'
+          Title.Alignment = taCenter
+          Title.Caption = 'T'
+          Title.Color = 9109503
+          Width = 15
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
           FieldName = 'TOTAL_BATIDAS'
           Title.Alignment = taCenter
           Title.Caption = 'Total Batidas'
@@ -167,6 +208,13 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Caption = 'Tempo Prod. (Hora)'
           Title.Color = 16777088
           Width = 77
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'clTempo_Hora'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tempo'
           Visible = True
         end>
     end
@@ -185,6 +233,35 @@ object frmGerar_Programacao: TfrmGerar_Programacao
         Width = 75
         Caption = 'Programar'
         TabOrder = 0
+        OnClick = NxButton2Click
+      end
+    end
+    object Panel3: TPanel
+      Left = 1
+      Top = 492
+      Width = 812
+      Height = 32
+      Align = alBottom
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      object Label2: TLabel
+        Left = 40
+        Top = 8
+        Width = 235
+        Height = 16
+        Caption = 'F3 Setup Inicial      F4 Setup Troca'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
       end
     end
   end
@@ -204,8 +281,9 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       Color = clWhite
       Ctl3D = False
       DataSource = DMCadProgramacao.dsMaqPend
-      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
       ParentCtl3D = False
+      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -224,12 +302,14 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       GridStyle.EvenColor = clWindow
       TitleHeight.PixelCount = 24
       FooterColor = clBtnFace
-      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+      ExOptions = [eoCheckBoxSelect, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+      OnGetCellParams = SMDBGrid2GetCellParams
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
-      WidthOfIndicator = 11
+      WidthOfIndicator = 27
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
+      ColCount = 6
       RowCount = 2
       Columns = <
         item
@@ -248,7 +328,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Font.Height = -12
           Title.Font.Name = 'Verdana'
           Title.Font.Style = []
-          Width = 123
+          Width = 89
           Visible = True
         end
         item
@@ -299,7 +379,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Font.Name = 'Verdana'
           Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Espessura'
+          Title.Caption = 'Largura'
           Title.Color = 8453888
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
@@ -307,6 +387,13 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Font.Name = 'Verdana'
           Title.Font.Style = []
           Width = 73
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'clTempo_Hora'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tempo'
           Visible = True
         end>
     end
@@ -321,20 +408,6 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       ParentBackground = False
       ParentCtl3D = False
       TabOrder = 1
-      object Label1: TLabel
-        Left = 240
-        Top = 16
-        Width = 142
-        Height = 14
-        Caption = 'M'#225'quinas Dispon'#237'veis'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlue
-        Font.Height = -12
-        Font.Name = 'Verdana'
-        Font.Style = [fsBold]
-        ParentFont = False
-        Transparent = True
-      end
       object NxButton3: TNxButton
         Left = 8
         Top = 16

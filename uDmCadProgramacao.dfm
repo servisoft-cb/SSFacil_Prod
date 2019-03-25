@@ -124,14 +124,16 @@ object DMCadProgramacao: TDMCadProgramacao
       'OTE, PROD.NOME NOME_PRODUTO, PROD.REFERENCIA,'#13#10'       BP.ID ID_B' +
       'AIXA, BP.ITEM ITEM_BAIXA, BP.QTD, L.ID_PRODUTO, VP.total_batidas' +
       ', VP.qtd_por_min,'#13#10'CASE'#13#10'  WHEN coalesce(VP.qtd_por_min,0) > 0 T' +
-      'HEN ROUND((((l.qtd * 100) / VP.qtd_por_min) / 60),3)'#13#10'  ELSE 0'#13#10 +
-      '  END TEMPO_PROD'#13#10'from BAIXA_PROCESSO BP'#13#10'inner join PROCESSO P ' +
-      'on BP.ID_PROCESSO = P.ID'#13#10'inner join LOTE L on BP.ID_LOTE = L.ID' +
-      #13#10'inner join PRODUTO PROD on L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN v' +
-      'prod_textil VP ON PROD.ID = VP.ID_PRODUTO'#13#10'left join PROGRAMACAO' +
-      ' PG on BP.ID = PG.ID_BAIXA AND BP.ITEM = PG.ITEM_BAIXA'#13#10'where P.' +
-      'CONTROLE_MAQUINA = '#39'S'#39' and'#13#10'      BP.DTENTRADA is null and'#13#10'    ' +
-      '  PG.dtinicial IS NULL'#13#10
+      'HEN ROUND((((l.qtd * 100) / VP.qtd_por_min) / 60),2)'#13#10'  ELSE 0'#13#10 +
+      '  END TEMPO_PROD, VP.setup_inicio, VP.setup_troca, '#39'S'#39' SOMA_SETU' +
+      'P_INI, '#39'S'#39' SOMA_SETUP_TRO'#13#10'from BAIXA_PROCESSO BP'#13#10'inner join PR' +
+      'OCESSO P on BP.ID_PROCESSO = P.ID'#13#10'inner join LOTE L on BP.ID_LO' +
+      'TE = L.ID'#13#10'inner join PRODUTO PROD on L.ID_PRODUTO = PROD.ID'#13#10'LE' +
+      'FT JOIN vprod_textil VP ON PROD.ID = VP.ID_PRODUTO AND VP.tipo_p' +
+      'roducao = PROD.tipo_producao'#13#10'left join PROGRAMACAO PG on BP.ID ' +
+      '= PG.ID_BAIXA AND BP.ITEM = PG.ITEM_BAIXA'#13#10'where P.CONTROLE_MAQU' +
+      'INA = '#39'S'#39' and'#13#10'      BP.DTENTRADA is null and'#13#10'      PG.dtinicia' +
+      'l IS NULL'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -149,6 +151,7 @@ object DMCadProgramacao: TDMCadProgramacao
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPend'
+    OnCalcFields = cdsPendCalcFields
     Left = 448
     Top = 37
     object cdsPendNOME_PROCESSO: TStringField
@@ -194,6 +197,29 @@ object DMCadProgramacao: TDMCadProgramacao
     object cdsPendTEMPO_PROD: TFloatField
       FieldName = 'TEMPO_PROD'
     end
+    object cdsPendSETUP_INICIO: TFloatField
+      FieldName = 'SETUP_INICIO'
+    end
+    object cdsPendSETUP_TROCA: TFloatField
+      FieldName = 'SETUP_TROCA'
+    end
+    object cdsPendSOMA_SETUP_INI: TStringField
+      FieldName = 'SOMA_SETUP_INI'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPendSOMA_SETUP_TRO: TStringField
+      FieldName = 'SOMA_SETUP_TRO'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPendclTempo_Hora: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clTempo_Hora'
+      Calculated = True
+    end
   end
   object dsPend: TDataSource
     DataSet = cdsPend
@@ -204,13 +230,12 @@ object DMCadProgramacao: TDMCadProgramacao
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select AUX.*'#13#10'from (select P.ID, M.NOME NOME_MAQUINA, M.QTD_BOCA' +
-      ', M.QTD_FUSO, M.ESPESSURA, PMAQ.ID_MAQUINA, M.QTD_BOCA -'#13#10'      ' +
-      '      coalesce((select V.CONTADOR from VMAQ_EM_USO V where V.ID_' +
-      'MAQUINA = PMAQ.ID_MAQUINA), 0) BOCA_DISPONIVEL'#13#10'      from PRODU' +
-      'TO P'#13#10'      inner join PRODUTO_MAQ PMAQ on P.ID = PMAQ.ID'#13#10'     ' +
-      ' inner join MAQUINA M on PMAQ.ID_MAQUINA = M.ID'#13#10'      where P.I' +
-      'D = :ID) AUX'#13#10'where AUX.BOCA_DISPONIVEL > 0'#13#10#13#10'  '
+      'select P.ID, M.NOME NOME_MAQUINA, M.QTD_BOCA, M.QTD_FUSO, M.ESPE' +
+      'SSURA, PMAQ.ID_MAQUINA, M.QTD_BOCA -'#13#10'            coalesce((sele' +
+      'ct V.CONTADOR from VMAQ_EM_USO V where V.ID_MAQUINA = PMAQ.ID_MA' +
+      'QUINA), 0) BOCA_DISPONIVEL'#13#10'      from PRODUTO P'#13#10'      inner jo' +
+      'in PRODUTO_MAQ PMAQ on P.ID = PMAQ.ID'#13#10'      inner join MAQUINA ' +
+      'M on PMAQ.ID_MAQUINA = M.ID'#13#10'      where P.ID = :ID'#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <
       item
@@ -233,6 +258,7 @@ object DMCadProgramacao: TDMCadProgramacao
     Aggregates = <>
     Params = <>
     ProviderName = 'dspMaqPend'
+    OnCalcFields = cdsMaqPendCalcFields
     Left = 448
     Top = 101
     object cdsMaqPendID: TIntegerField
@@ -260,10 +286,251 @@ object DMCadProgramacao: TDMCadProgramacao
       Precision = 15
       Size = 0
     end
+    object cdsMaqPendclTempo_Hora: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clTempo_Hora'
+      Calculated = True
+    end
   end
   object dsMaqPend: TDataSource
     DataSet = cdsMaqPend
     Left = 488
     Top = 101
+  end
+  object mMaq: TClientDataSet
+    Active = True
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    Left = 744
+    Top = 168
+    Data = {
+      780000009619E0BD010000001800000005000000000003000000780002494404
+      00010000000000044E6F6D650100490000000100055749445448020002002800
+      095174645F426F63617304000100000000000E5174645F446973706F6E697665
+      6C0400010000000000085174645F50726F6704000100000000000000}
+    object mMaqID: TIntegerField
+      FieldName = 'ID'
+    end
+    object mMaqNome: TStringField
+      FieldName = 'Nome'
+      Size = 40
+    end
+    object mMaqQtd_Bocas: TIntegerField
+      FieldName = 'Qtd_Bocas'
+    end
+    object mMaqQtd_Disponivel: TIntegerField
+      FieldName = 'Qtd_Disponivel'
+    end
+    object mMaqQtd_Prog: TIntegerField
+      FieldName = 'Qtd_Prog'
+    end
+  end
+  object dsmMaq: TDataSource
+    DataSet = mMaq
+    Left = 784
+    Top = 168
+  end
+  object mProg: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_Maquina'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Maquina'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'Num_Boca'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
+      end
+      item
+        Name = 'DtFinal'
+        DataType = ftDate
+      end
+      item
+        Name = 'HrFinal'
+        DataType = ftTime
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 744
+    Top = 224
+    Data = {
+      8B0000009619E0BD0100000018000000060000000000030000008B000A49445F
+      4D617175696E6104000100000000000C4E6F6D655F4D617175696E6101004900
+      00000100055749445448020002002800084E756D5F426F636104000100000000
+      0003517464080004000000000007447446696E616C0400060000000000074872
+      46696E616C04000700000000000000}
+    object mProgID_Maquina: TIntegerField
+      FieldName = 'ID_Maquina'
+    end
+    object mProgNome_Maquina: TStringField
+      FieldName = 'Nome_Maquina'
+      Size = 40
+    end
+    object mProgNum_Boca: TIntegerField
+      FieldName = 'Num_Boca'
+    end
+    object mProgQtd: TFloatField
+      FieldName = 'Qtd'
+    end
+    object mProgDtFinal: TDateField
+      FieldName = 'DtFinal'
+    end
+    object mProgHrFinal: TTimeField
+      FieldName = 'HrFinal'
+    end
+  end
+  object dsmProg: TDataSource
+    DataSet = mProg
+    Left = 792
+    Top = 224
+  end
+  object sdsMaqUsada: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select B.ID_MAQUINA, B.num_boca, B.dtentrada, P.dtinicial, P.dtf' +
+      'inal, B.QTD QTD_PROCESSO,'#13#10'P.QTD QTD_PROGRAMADA, P.hrinicial, P.' +
+      'hrfinal'#13#10'from BAIXA_PROCESSO B'#13#10'INNER JOIN PROGRAMACAO P'#13#10'ON B.I' +
+      'D = P.id_baixa'#13#10'where B.DTBAIXA is null'#13#10'  and B.ID_MAQUINA = :I' +
+      'D_MAQUINA'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_MAQUINA'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 664
+    Top = 21
+  end
+  object dspMaqUsada: TDataSetProvider
+    DataSet = sdsMaqUsada
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspProgramacaoUpdateError
+    Left = 704
+    Top = 21
+  end
+  object cdsMaqUsada: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMaqUsada'
+    OnCalcFields = cdsMaqPendCalcFields
+    Left = 744
+    Top = 21
+    object cdsMaqUsadaID_MAQUINA: TIntegerField
+      FieldName = 'ID_MAQUINA'
+    end
+    object cdsMaqUsadaNUM_BOCA: TIntegerField
+      FieldName = 'NUM_BOCA'
+    end
+    object cdsMaqUsadaDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsMaqUsadaDTINICIAL: TDateField
+      FieldName = 'DTINICIAL'
+    end
+    object cdsMaqUsadaDTFINAL: TDateField
+      FieldName = 'DTFINAL'
+    end
+    object cdsMaqUsadaQTD_PROCESSO: TFloatField
+      FieldName = 'QTD_PROCESSO'
+    end
+    object cdsMaqUsadaQTD_PROGRAMADA: TFloatField
+      FieldName = 'QTD_PROGRAMADA'
+    end
+    object cdsMaqUsadaHRINICIAL: TTimeField
+      FieldName = 'HRINICIAL'
+    end
+    object cdsMaqUsadaHRFINAL: TTimeField
+      FieldName = 'HRFINAL'
+    end
+  end
+  object dsMaqUsada: TDataSource
+    DataSet = cdsMaqUsada
+    Left = 784
+    Top = 24
+  end
+  object mMaq_Boca: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Qtd_Programada'
+        DataType = ftFloat
+      end
+      item
+        Name = 'DtFinal'
+        DataType = ftDate
+      end
+      item
+        Name = 'HrFinal'
+        DataType = ftTime
+      end
+      item
+        Name = 'Qtd_Gerar'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Tempo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ID_Maquina'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Num_Boca'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 736
+    Top = 80
+    Data = {
+      950000009619E0BD01000000180000000700000000000300000095000E517464
+      5F50726F6772616D616461080004000000000007447446696E616C0400060000
+      00000007487246696E616C0400070000000000095174645F4765726172080004
+      00000000000554656D706F08000400000000000A49445F4D617175696E610400
+      010000000000084E756D5F426F636104000100000000000000}
+    object mMaq_BocaQtd_Programada: TFloatField
+      FieldName = 'Qtd_Programada'
+    end
+    object mMaq_BocaDtFinal: TDateField
+      FieldName = 'DtFinal'
+    end
+    object mMaq_BocaHrFinal: TTimeField
+      FieldName = 'HrFinal'
+    end
+    object mMaq_BocaQtd_Gerar: TFloatField
+      FieldName = 'Qtd_Gerar'
+    end
+    object mMaq_BocaTempo: TFloatField
+      FieldName = 'Tempo'
+    end
+    object mMaq_BocaID_Maquina: TIntegerField
+      FieldName = 'ID_Maquina'
+    end
+    object mMaq_BocaNum_Boca: TIntegerField
+      FieldName = 'Num_Boca'
+    end
+  end
+  object dsMaq_Boca: TDataSource
+    DataSet = mMaq_Boca
+    Left = 776
+    Top = 80
   end
 end

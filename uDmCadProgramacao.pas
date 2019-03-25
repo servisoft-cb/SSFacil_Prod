@@ -63,10 +63,55 @@ type
     cdsPendTOTAL_BATIDAS: TFloatField;
     cdsPendQTD_POR_MIN: TFloatField;
     cdsPendTEMPO_PROD: TFloatField;
+    cdsPendclTempo_Hora: TFloatField;
+    cdsMaqPendclTempo_Hora: TFloatField;
+    cdsPendSETUP_INICIO: TFloatField;
+    cdsPendSETUP_TROCA: TFloatField;
+    cdsPendSOMA_SETUP_INI: TStringField;
+    cdsPendSOMA_SETUP_TRO: TStringField;
+    mMaq: TClientDataSet;
+    dsmMaq: TDataSource;
+    mMaqID: TIntegerField;
+    mMaqNome: TStringField;
+    mMaqQtd_Bocas: TIntegerField;
+    mMaqQtd_Disponivel: TIntegerField;
+    mMaqQtd_Prog: TIntegerField;
+    mProg: TClientDataSet;
+    mProgID_Maquina: TIntegerField;
+    mProgNome_Maquina: TStringField;
+    mProgNum_Boca: TIntegerField;
+    mProgQtd: TFloatField;
+    dsmProg: TDataSource;
+    sdsMaqUsada: TSQLDataSet;
+    dspMaqUsada: TDataSetProvider;
+    cdsMaqUsada: TClientDataSet;
+    cdsMaqUsadaID_MAQUINA: TIntegerField;
+    cdsMaqUsadaNUM_BOCA: TIntegerField;
+    cdsMaqUsadaDTENTRADA: TDateField;
+    cdsMaqUsadaDTINICIAL: TDateField;
+    cdsMaqUsadaDTFINAL: TDateField;
+    cdsMaqUsadaQTD_PROCESSO: TFloatField;
+    cdsMaqUsadaQTD_PROGRAMADA: TFloatField;
+    cdsMaqUsadaHRINICIAL: TTimeField;
+    cdsMaqUsadaHRFINAL: TTimeField;
+    mProgDtFinal: TDateField;
+    mProgHrFinal: TTimeField;
+    dsMaqUsada: TDataSource;
+    mMaq_Boca: TClientDataSet;
+    dsMaq_Boca: TDataSource;
+    mMaq_BocaQtd_Programada: TFloatField;
+    mMaq_BocaDtFinal: TDateField;
+    mMaq_BocaHrFinal: TTimeField;
+    mMaq_BocaQtd_Gerar: TFloatField;
+    mMaq_BocaTempo: TFloatField;
+    mMaq_BocaID_Maquina: TIntegerField;
+    mMaq_BocaNum_Boca: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
+    procedure cdsPendCalcFields(DataSet: TDataSet);
+    procedure cdsMaqPendCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -206,6 +251,45 @@ procedure TDMCadProgramacao.DoLogAdditionalValues(ATableName: string;
   var AValues: TArrayLogData; var UserName: string);
 begin
   UserName := vUsuario;
+end;
+
+procedure TDMCadProgramacao.cdsPendCalcFields(DataSet: TDataSet);
+var
+  vAux : Real;
+  vTempo : Real;
+begin
+   cdsPendclTempo_Hora.AsFloat := 0;
+   vTempo := cdsPendTEMPO_PROD.AsFloat;
+   if cdsPendSOMA_SETUP_INI.AsString = 'S' then
+     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_INICIO.AsFloat /60 ));
+   if cdsPendSOMA_SETUP_TRO.AsString = 'S' then
+     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_TROCA.AsFloat / 60));
+   //vAux := cdsPendTEMPO_PROD.AsFloat - Trunc(cdsPendTEMPO_PROD.AsFloat);
+   vAux := vTempo - Trunc(vTempo);
+   if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
+     cdsPendclTempo_Hora.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
+end;
+
+procedure TDMCadProgramacao.cdsMaqPendCalcFields(DataSet: TDataSet);
+var
+  vAux : Real;
+  vTempo : Real;
+begin
+   cdsMaqPendclTempo_Hora.AsFloat := 0;
+   if StrToFloat(FormatFloat('0.00',cdsPendTEMPO_PROD.AsFloat)) <= 0 then
+     exit;
+
+   vTempo := cdsPendTEMPO_PROD.AsFloat;
+   if cdsPendSOMA_SETUP_INI.AsString = 'S' then
+     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_INICIO.AsFloat /60 ));
+   if cdsPendSOMA_SETUP_TRO.AsString = 'S' then
+     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_TROCA.AsFloat / 60));
+
+   vTempo := StrToFloat(FormatFloat('0.00',vTempo / cdsMaqPendBOCA_DISPONIVEL.AsFloat));
+   vAux   := vTempo - Trunc(vTempo);
+   if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
+     cdsMaqPendclTempo_Hora.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
+
 end;
 
 end.

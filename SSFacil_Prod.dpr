@@ -94,7 +94,9 @@ uses
   UAltSenhaFunc in 'UAltSenhaFunc.pas' {frmAltSenhaFunc},
   USenhaAux in 'USenhaAux.pas' {frmSenhaAux},
   uDmCadProgramacao in 'uDmCadProgramacao.pas' {DMCadProgramacao: TDataModule},
-  UGerar_Programacao in 'UGerar_Programacao.pas' {frmGerar_Programacao};
+  UGerar_Programacao in 'UGerar_Programacao.pas' {frmGerar_Programacao},
+  UCadProgramacao in 'UCadProgramacao.pas' {frmCadProgramacao},
+  UCadProgramacao_Maq in 'UCadProgramacao_Maq.pas' {frmCadProgramacao_Maq};
 
 {$R *.res}
 
