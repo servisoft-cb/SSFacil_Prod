@@ -132,8 +132,13 @@ begin
 end;
 
 procedure TfrmGerar_Programacao.NxButton2Click(Sender: TObject);
+var
+  vQtd : Real;
+  vQtdDiv : Real;
+  vContador : Real;
 begin
   fDMCadProgramacao.mMaq.EmptyDataSet;
+  fDMCadProgramacao.mMaq_Boca.EmptyDataSet;
   fDMCadProgramacao.cdsMaqPend.First;
   while not fDMCadProgramacao.cdsMaqPend.Eof do
   begin
@@ -148,6 +153,27 @@ begin
       fDMCadProgramacao.mMaq.Post;
     end;
     fDMCadProgramacao.cdsMaqPend.Next;
+  end;
+
+  vContador := StrToFloat(FormatFloat('0',fDMCadProgramacao.mMaq.RecordCount));
+
+  vQtdDiv := StrToFloat(FormatFloat('0.00',fDMCadProgramacao.cdsPendQTD.AsFloat / vContador));
+  vQtd    := fDMCadProgramacao.cdsPendQTD.AsFloat;
+  fDMCadProgramacao.mMaq.First;
+  while not fDMCadProgramacao.mMaq.Eof do
+  begin
+    fDMCadProgramacao.mMaq.Edit;
+    if fDMCadProgramacao.mMaq.RecordCount = fDMCadProgramacao.mMaq.RecNo then
+      fDMCadProgramacao.mMaqQtd_Prog.AsFloat := vQtd
+    else
+      fDMCadProgramacao.mMaqQtd_Prog.AsFloat := vQtdDiv;
+    vQtd := StrToFloat(FormatFloat('0.00',vQtd - fDMCadProgramacao.mMaqQtd_Prog.AsFloat));
+    fDMCadProgramacao.mMaq.Post;
+
+    fDMCadProgramacao.prc_Consultar_MaqUsada(fDMCadProgramacao.mMaqID.AsInteger);
+    fDMCadProgramacao.prc_Gerar_MaqBoca;
+
+    fDMCadProgramacao.mMaq.Next;
   end;
 
   frmCadProgramacao  := TfrmCadProgramacao.Create(Self);

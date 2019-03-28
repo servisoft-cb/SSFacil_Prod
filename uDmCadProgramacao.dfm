@@ -300,15 +300,39 @@ object DMCadProgramacao: TDMCadProgramacao
   object mMaq: TClientDataSet
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'Qtd_Bocas'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Qtd_Disponivel'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Qtd_Prog'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
     IndexFieldNames = 'ID'
     Params = <>
+    StoreDefs = True
     Left = 744
     Top = 168
     Data = {
       780000009619E0BD010000001800000005000000000003000000780002494404
       00010000000000044E6F6D650100490000000100055749445448020002002800
       095174645F426F63617304000100000000000E5174645F446973706F6E697665
-      6C0400010000000000085174645F50726F6704000100000000000000}
+      6C0400010000000000085174645F50726F6708000400000000000000}
     object mMaqID: TIntegerField
       FieldName = 'ID'
     end
@@ -322,8 +346,9 @@ object DMCadProgramacao: TDMCadProgramacao
     object mMaqQtd_Disponivel: TIntegerField
       FieldName = 'Qtd_Disponivel'
     end
-    object mMaqQtd_Prog: TIntegerField
+    object mMaqQtd_Prog: TFloatField
       FieldName = 'Qtd_Prog'
+      DisplayFormat = '0.00'
     end
   end
   object dsmMaq: TDataSource
@@ -383,6 +408,7 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mProgQtd: TFloatField
       FieldName = 'Qtd'
+      DisplayFormat = '0.00'
     end
     object mProgDtFinal: TDateField
       FieldName = 'DtFinal'
@@ -494,20 +520,41 @@ object DMCadProgramacao: TDMCadProgramacao
       item
         Name = 'Num_Boca'
         DataType = ftInteger
+      end
+      item
+        Name = 'Selecionado'
+        DataType = ftString
+        Size = 1
       end>
-    IndexDefs = <>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    IndexFieldNames = 'ID_Maquina'
+    MasterFields = 'ID'
+    MasterSource = dsmMaq
+    PacketRecords = 0
     Params = <>
     StoreDefs = True
-    Left = 736
+    Left = 735
     Top = 80
     Data = {
-      950000009619E0BD01000000180000000700000000000300000095000E517464
+      CB0000009619E0BD010000001800000008000000000003000000CB000E517464
       5F50726F6772616D616461080004000000000007447446696E616C0400060000
       00000007487246696E616C0400070000000000095174645F4765726172080004
       00000000000554656D706F08000400000000000A49445F4D617175696E610400
-      010000000000084E756D5F426F636104000100000000000000}
+      010000000000084E756D5F426F636104000100000000000B53656C6563696F6E
+      61646F010049000000010005574944544802000200010001000D44454641554C
+      545F4F524445520200820000000000}
+    object mMaq_BocaID_Maquina: TIntegerField
+      FieldName = 'ID_Maquina'
+    end
     object mMaq_BocaQtd_Programada: TFloatField
       FieldName = 'Qtd_Programada'
+      DisplayFormat = '0.00'
     end
     object mMaq_BocaDtFinal: TDateField
       FieldName = 'DtFinal'
@@ -517,18 +564,20 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mMaq_BocaQtd_Gerar: TFloatField
       FieldName = 'Qtd_Gerar'
+      DisplayFormat = '0.00'
     end
     object mMaq_BocaTempo: TFloatField
       FieldName = 'Tempo'
     end
-    object mMaq_BocaID_Maquina: TIntegerField
-      FieldName = 'ID_Maquina'
-    end
     object mMaq_BocaNum_Boca: TIntegerField
       FieldName = 'Num_Boca'
     end
+    object mMaq_BocaSelecionado: TStringField
+      FieldName = 'Selecionado'
+      Size = 1
+    end
   end
-  object dsMaq_Boca: TDataSource
+  object dsmMaq_Boca: TDataSource
     DataSet = mMaq_Boca
     Left = 776
     Top = 80

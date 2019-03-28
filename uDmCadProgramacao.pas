@@ -75,7 +75,6 @@ type
     mMaqNome: TStringField;
     mMaqQtd_Bocas: TIntegerField;
     mMaqQtd_Disponivel: TIntegerField;
-    mMaqQtd_Prog: TIntegerField;
     mProg: TClientDataSet;
     mProgID_Maquina: TIntegerField;
     mProgNome_Maquina: TStringField;
@@ -98,7 +97,7 @@ type
     mProgHrFinal: TTimeField;
     dsMaqUsada: TDataSource;
     mMaq_Boca: TClientDataSet;
-    dsMaq_Boca: TDataSource;
+    dsmMaq_Boca: TDataSource;
     mMaq_BocaQtd_Programada: TFloatField;
     mMaq_BocaDtFinal: TDateField;
     mMaq_BocaHrFinal: TTimeField;
@@ -106,6 +105,8 @@ type
     mMaq_BocaTempo: TFloatField;
     mMaq_BocaID_Maquina: TIntegerField;
     mMaq_BocaNum_Boca: TIntegerField;
+    mMaq_BocaSelecionado: TStringField;
+    mMaqQtd_Prog: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -123,6 +124,10 @@ type
     procedure prc_Inserir;
     procedure prc_Gravar;
     procedure prc_Excluir;
+
+    procedure prc_Consultar_MaqUsada(ID : Integer);
+    procedure prc_Gerar_MaqBoca;
+    procedure prc_Gravar_mMaq_Boca(Qtd_Processo : Real ; DTFinal, HRFinal : TDateTime ; Num_Boca : Integer);
 
   end;
 
@@ -290,6 +295,46 @@ begin
    if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
      cdsMaqPendclTempo_Hora.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
 
+end;
+
+procedure TDMCadProgramacao.prc_Consultar_MaqUsada(ID: Integer);
+begin
+  cdsMaqUsada.Close;
+  sdsMaqUsada.ParamByName('ID_MAQUINA').AsInteger := ID;
+  cdsMaqUsada.Open;
+end;
+
+procedure TDMCadProgramacao.prc_Gerar_MaqBoca;
+var
+  i : Integer;
+begin
+  i := 1;
+  while i <= mMaqQtd_Bocas.AsInteger do
+  begin
+    if cdsMaqUsada.Locate('NUM_BOCA',i,[loCaseInsensitive]) then
+      prc_Gravar_mMaq_Boca(cdsMaqUsadaQTD_PROCESSO.AsFloat,cdsMaqUsadaDTFINAL.AsDateTime,cdsMaqUsadaHRFINAL.AsDateTime,i)
+    else
+      prc_Gravar_mMaq_Boca(0,0,0,i);
+
+    i := i + 1;
+  end;
+
+end;
+
+procedure TDMCadProgramacao.prc_Gravar_mMaq_Boca(Qtd_Processo: Real;
+  DTFinal, HRFinal: TDateTime; Num_Boca: Integer);
+begin
+  mMaq_Boca.Insert;
+  mMaq_BocaQtd_Programada.AsFloat := Qtd_Processo;
+  if DTFinal > 10 then
+    mMaq_BocaDtFinal.AsDateTime := DTFinal;
+  if HRFinal <> 0 then
+    mMaq_BocaHrFinal.AsDateTime;
+  mMaq_BocaQtd_Gerar.AsFloat := 0;
+  mMaq_BocaTempo.AsFloat := 0;
+  mMaq_BocaID_Maquina.AsInteger := mMaqID.AsInteger;
+  mMaq_BocaNum_Boca.AsInteger := Num_Boca;
+  mMaq_Boca.Post;
 end;
 
 end.
