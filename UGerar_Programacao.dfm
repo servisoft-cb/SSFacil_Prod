@@ -49,6 +49,52 @@ object frmGerar_Programacao: TfrmGerar_Programacao
     Align = alLeft
     Caption = 'Panel1'
     TabOrder = 1
+    object NxPanel2: TNxPanel
+      Left = 1
+      Top = 1
+      Width = 812
+      Height = 41
+      Align = alTop
+      UseDockManager = False
+      ParentBackground = False
+      TabOrder = 1
+      object NxButton2: TNxButton
+        Left = 24
+        Top = 8
+        Width = 75
+        Caption = 'Programar'
+        TabOrder = 0
+        OnClick = NxButton2Click
+      end
+    end
+    object Panel3: TPanel
+      Left = 1
+      Top = 492
+      Width = 812
+      Height = 32
+      Align = alBottom
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      object Label2: TLabel
+        Left = 40
+        Top = 8
+        Width = 235
+        Height = 16
+        Caption = 'F3 Setup Inicial      F4 Setup Troca'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
+      end
+    end
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 42
@@ -217,52 +263,6 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Caption = 'Tempo'
           Visible = True
         end>
-    end
-    object NxPanel2: TNxPanel
-      Left = 1
-      Top = 1
-      Width = 812
-      Height = 41
-      Align = alTop
-      UseDockManager = False
-      ParentBackground = False
-      TabOrder = 1
-      object NxButton2: TNxButton
-        Left = 24
-        Top = 8
-        Width = 75
-        Caption = 'Programar'
-        TabOrder = 0
-        OnClick = NxButton2Click
-      end
-    end
-    object Panel3: TPanel
-      Left = 1
-      Top = 492
-      Width = 812
-      Height = 32
-      Align = alBottom
-      Color = clSilver
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-      object Label2: TLabel
-        Left = 40
-        Top = 8
-        Width = 235
-        Height = 16
-        Caption = 'F3 Setup Inicial      F4 Setup Troca'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clMaroon
-        Font.Height = -13
-        Font.Name = 'Verdana'
-        Font.Style = []
-        ParentFont = False
-      end
     end
   end
   object Panel2: TPanel

@@ -16,13 +16,13 @@ object frmCadProgramacao_Maq: TfrmCadProgramacao_Maq
   PixelsPerInch = 96
   TextHeight = 13
   object SMDBGrid1: TSMDBGrid
-    Left = 8
-    Top = 40
+    Left = 159
+    Top = 27
     Width = 737
     Height = 305
     Ctl3D = False
-    DataSource = DMCadProgramacao.dsMaq_Boca
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    DataSource = DMCadProgramacao.dsmMaq_Boca
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
     ParentCtl3D = False
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -42,10 +42,10 @@ object frmCadProgramacao_Maq: TfrmCadProgramacao_Maq
     GridStyle.EvenColor = clWindow
     TitleHeight.PixelCount = 24
     FooterColor = clBtnFace
-    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    ExOptions = [eoCheckBoxSelect, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
     RegistryKey = 'Software\Scalabium'
     RegistrySection = 'SMDBGrid'
-    WidthOfIndicator = 11
+    WidthOfIndicator = 27
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
     ColCount = 8
@@ -86,5 +86,13 @@ object frmCadProgramacao_Maq: TfrmCadProgramacao_Maq
         FieldName = 'Num_Boca'
         Visible = True
       end>
+  end
+  object NxButton1: TNxButton
+    Left = 646
+    Top = 385
+    Width = 75
+    Caption = 'Confirmar'
+    TabOrder = 1
+    OnClick = NxButton1Click
   end
 end
