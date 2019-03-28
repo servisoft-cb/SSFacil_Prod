@@ -107,6 +107,9 @@ type
     mMaq_BocaNum_Boca: TIntegerField;
     mMaq_BocaSelecionado: TStringField;
     mMaqQtd_Prog: TFloatField;
+    mProgTempo: TFloatField;
+    mProgDtInicial: TDateField;
+    mProgHrInicial: TTimeField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

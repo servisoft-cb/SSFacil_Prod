@@ -16,7 +16,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
-    Left = 814
+    Left = 860
     Top = 40
     Width = 8
     Height = 525
@@ -44,7 +44,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
   object Panel1: TPanel
     Left = 0
     Top = 40
-    Width = 814
+    Width = 860
     Height = 525
     Align = alLeft
     Caption = 'Panel1'
@@ -52,7 +52,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
     object NxPanel2: TNxPanel
       Left = 1
       Top = 1
-      Width = 812
+      Width = 858
       Height = 41
       Align = alTop
       UseDockManager = False
@@ -70,7 +70,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
     object Panel3: TPanel
       Left = 1
       Top = 492
-      Width = 812
+      Width = 858
       Height = 32
       Align = alBottom
       Color = clSilver
@@ -98,7 +98,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 42
-      Width = 812
+      Width = 858
       Height = 450
       Align = alClient
       Ctl3D = False
@@ -130,7 +130,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 15
+      ColCount = 14
       RowCount = 2
       Columns = <
         item
@@ -149,6 +149,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Alignment = taCenter
           Title.Caption = 'N'#186' Ordem'
           Title.Color = 9109503
+          Width = 50
           Visible = True
         end
         item
@@ -167,7 +168,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Alignment = taCenter
           Title.Caption = 'Refer'#234'ncia'
           Title.Color = 9109503
-          Width = 106
+          Width = 98
           Visible = True
         end
         item
@@ -194,7 +195,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. Por Min'
           Title.Color = 9109503
-          Width = 49
+          Width = 40
           Visible = True
         end
         item
@@ -249,33 +250,25 @@ object frmGerar_Programacao: TfrmGerar_Programacao
         end
         item
           Expanded = False
-          FieldName = 'TEMPO_PROD'
-          Title.Alignment = taCenter
-          Title.Caption = 'Tempo Prod. (Hora)'
-          Title.Color = 16777088
-          Width = 77
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'clTempo_Hora'
           Title.Alignment = taCenter
           Title.Caption = 'Tempo'
+          Title.Color = 16777088
           Visible = True
         end>
     end
   end
   object Panel2: TPanel
-    Left = 822
+    Left = 868
     Top = 40
-    Width = 279
+    Width = 233
     Height = 525
     Align = alClient
     TabOrder = 2
     object SMDBGrid2: TSMDBGrid
       Left = 1
       Top = 42
-      Width = 277
+      Width = 231
       Height = 482
       Align = alClient
       Color = clWhite
@@ -347,7 +340,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Font.Height = -12
           Title.Font.Name = 'Verdana'
           Title.Font.Style = []
-          Width = 75
+          Width = 44
           Visible = True
         end
         item
@@ -360,14 +353,14 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Font.Name = 'Verdana'
           Font.Style = []
           Title.Alignment = taCenter
-          Title.Caption = 'Dispon'#237'vel'
+          Title.Caption = 'Qtd. Disp.'
           Title.Color = 8453888
           Title.Font.Charset = DEFAULT_CHARSET
           Title.Font.Color = clWindowText
           Title.Font.Height = -12
           Title.Font.Name = 'Verdana'
           Title.Font.Style = []
-          Width = 71
+          Width = 51
           Visible = True
         end
         item
@@ -386,7 +379,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           Title.Font.Height = -12
           Title.Font.Name = 'Verdana'
           Title.Font.Style = []
-          Width = 73
+          Width = 60
           Visible = True
         end
         item
@@ -394,13 +387,14 @@ object frmGerar_Programacao: TfrmGerar_Programacao
           FieldName = 'clTempo_Hora'
           Title.Alignment = taCenter
           Title.Caption = 'Tempo'
+          Title.Color = 16777088
           Visible = True
         end>
     end
     object NxPanel3: TNxPanel
       Left = 1
       Top = 1
-      Width = 277
+      Width = 231
       Height = 41
       Align = alTop
       Ctl3D = True

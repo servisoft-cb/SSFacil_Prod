@@ -384,18 +384,32 @@ object DMCadProgramacao: TDMCadProgramacao
       item
         Name = 'HrFinal'
         DataType = ftTime
+      end
+      item
+        Name = 'Tempo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'DtInicial'
+        DataType = ftDate
+      end
+      item
+        Name = 'HrInicial'
+        DataType = ftTime
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 744
+    Left = 745
     Top = 224
     Data = {
-      8B0000009619E0BD0100000018000000060000000000030000008B000A49445F
+      BD0000009619E0BD010000001800000009000000000003000000BD000A49445F
       4D617175696E6104000100000000000C4E6F6D655F4D617175696E6101004900
       00000100055749445448020002002800084E756D5F426F636104000100000000
       0003517464080004000000000007447446696E616C0400060000000000074872
-      46696E616C04000700000000000000}
+      46696E616C04000700000000000554656D706F0800040000000000094474496E
+      696369616C0400060000000000094872496E696369616C040007000000000000
+      00}
     object mProgID_Maquina: TIntegerField
       FieldName = 'ID_Maquina'
     end
@@ -415,6 +429,15 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mProgHrFinal: TTimeField
       FieldName = 'HrFinal'
+    end
+    object mProgTempo: TFloatField
+      FieldName = 'Tempo'
+    end
+    object mProgDtInicial: TDateField
+      FieldName = 'DtInicial'
+    end
+    object mProgHrInicial: TTimeField
+      FieldName = 'HrInicial'
     end
   end
   object dsmProg: TDataSource

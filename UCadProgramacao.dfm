@@ -1,10 +1,10 @@
 object frmCadProgramacao: TfrmCadProgramacao
-  Left = 188
-  Top = 143
+  Left = 149
+  Top = 63
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmCadProgramacao'
-  ClientHeight = 449
+  ClientHeight = 562
   ClientWidth = 1072
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -35,10 +35,10 @@ object frmCadProgramacao: TfrmCadProgramacao
     Caption = 'Qtde. N'#227'o Programada:'
   end
   object SMDBGrid1: TSMDBGrid
-    Left = 6
-    Top = 38
-    Width = 514
-    Height = 120
+    Left = 1
+    Top = 33
+    Width = 525
+    Height = 208
     Ctl3D = False
     DataSource = DMCadProgramacao.dsmMaq
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -68,42 +68,48 @@ object frmCadProgramacao: TfrmCadProgramacao
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 6
     RowCount = 2
     Columns = <
       item
         Expanded = False
-        FieldName = 'ID'
-        Visible = True
-      end
-      item
-        Expanded = False
         FieldName = 'Nome'
+        Title.Alignment = taCenter
+        Title.Caption = 'M'#225'quina'
+        Title.Color = 11075409
         Width = 164
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Qtd_Bocas'
+        Title.Alignment = taCenter
+        Title.Caption = 'Qtd. Boca'
+        Title.Color = 11075409
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Qtd_Disponivel'
+        Title.Alignment = taCenter
+        Title.Caption = 'Qtd. Dispon'#237'vel'
+        Title.Color = 11075409
         Width = 90
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'Qtd_Prog'
+        Title.Caption = 'Qtd. Prod'
+        Title.Color = 11075409
+        Width = 71
         Visible = True
       end>
   end
   object SMDBGrid2: TSMDBGrid
-    Left = 7
-    Top = 203
-    Width = 511
-    Height = 184
+    Left = 3
+    Top = 272
+    Width = 545
+    Height = 287
     Ctl3D = False
     DataSource = DMCadProgramacao.dsmProg
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -132,26 +138,75 @@ object frmCadProgramacao: TfrmCadProgramacao
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
+    ColCount = 9
     RowCount = 2
     Columns = <
       item
         Expanded = False
-        FieldName = 'ID_Maquina'
-        Visible = True
-      end
-      item
-        Expanded = False
         FieldName = 'Nome_Maquina'
+        Title.Alignment = taCenter
+        Title.Caption = 'M'#225'quina'
+        Width = 101
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'Num_Boca'
+        Title.Alignment = taCenter
+        Title.Caption = 'N'#186' Boca'
+        Width = 47
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'Qtd'
+        Title.Alignment = taCenter
+        Title.Caption = 'Qtd. Produto'
+        Width = 74
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'Tempo'
+        Title.Alignment = taCenter
+        Width = 54
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'DtInicial'
+        Title.Alignment = taCenter
+        Title.Caption = 'Dt. Inicial'
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'HrInicial'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hr. Inicial'
+        Width = 48
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'DtFinal'
+        Title.Alignment = taCenter
+        Title.Caption = 'Dt. Final'
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'HrFinal'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hr, Final'
+        Width = 46
         Visible = True
       end>
   end
@@ -166,26 +221,12 @@ object frmCadProgramacao: TfrmCadProgramacao
     TabOrder = 2
   end
   object NxButton1: TNxButton
-    Left = 486
-    Top = 4
+    Left = 473
+    Top = 2
     Width = 75
-    Caption = 'Gerar'
+    Caption = 'Calcular'
     TabOrder = 3
     OnClick = NxButton1Click
-  end
-  object StaticText1: TStaticText
-    Left = 31
-    Top = 168
-    Width = 255
-    Height = 18
-    Caption = 'Duplo Clique para Programar a M'#225'quina'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clMaroon
-    Font.Height = -12
-    Font.Name = 'Verdana'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
   end
   object CurrencyEdit2: TCurrencyEdit
     Left = 338
@@ -195,24 +236,25 @@ object frmCadProgramacao: TfrmCadProgramacao
     AutoSize = False
     DecimalPlaces = 4
     DisplayFormat = '0.00##'
-    TabOrder = 5
+    TabOrder = 4
   end
   object SMDBGrid3: TSMDBGrid
-    Left = 531
-    Top = 39
-    Width = 511
-    Height = 323
+    Left = 557
+    Top = 0
+    Width = 515
+    Height = 562
+    Align = alRight
     Ctl3D = False
     DataSource = DMCadProgramacao.dsmMaq_Boca
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
     ParentCtl3D = False
-    TabOrder = 6
+    TabOrder = 5
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    OnDblClick = SMDBGrid1DblClick
+    OnDblClick = SMDBGrid3DblClick
     Flat = True
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
