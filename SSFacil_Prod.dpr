@@ -96,7 +96,9 @@ uses
   uDmCadProgramacao in 'uDmCadProgramacao.pas' {DMCadProgramacao: TDataModule},
   UGerar_Programacao in 'UGerar_Programacao.pas' {frmGerar_Programacao},
   UCadProgramacao in 'UCadProgramacao.pas' {frmCadProgramacao},
-  UCadProgramacao_Maq in 'UCadProgramacao_Maq.pas' {frmCadProgramacao_Maq};
+  UCadProgramacao_Maq in 'UCadProgramacao_Maq.pas' {frmCadProgramacao_Maq},
+  UDMCadIntervalo_Tempo in 'UDMCadIntervalo_Tempo.pas' {DMCadIntervalo_Tempo: TDataModule},
+  UCadIntervalo_Tempo in 'UCadIntervalo_Tempo.pas' {frmCadIntervalo_tempo};
 
 {$R *.res}
 

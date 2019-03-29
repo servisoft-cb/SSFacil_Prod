@@ -73,6 +73,7 @@ type
     ConsultaProdutividade1: TMenuItem;
     N7: TMenuItem;
     Programao1: TMenuItem;
+    IntervalorHorasdeparadas1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EfetuarLogoff1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -101,6 +102,7 @@ type
     procedure ConsultaMateriaisPorLote1Click(Sender: TObject);
     procedure ConsultaProdutividade1Click(Sender: TObject);
     procedure Programao1Click(Sender: TObject);
+    procedure IntervalorHorasdeparadas1Click(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Habilita_Menu;
@@ -413,7 +415,12 @@ end;
 
 procedure TfMenu.Programao1Click(Sender: TObject);
 begin
-  OpenForm(TfrmGerarPrograConsProdutividade, wsMaximized);
+  OpenForm(TfrmGerar_Programacao, wsMaximized);
+end;
+
+procedure TfMenu.IntervalorHorasdeparadas1Click(Sender: TObject);
+begin
+  OpenForm(TfrmCadIntervalo_Tempo, wsMaximized);
 end;
 
 initialization

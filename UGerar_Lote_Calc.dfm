@@ -20,9 +20,9 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
   object RzPageControl2: TRzPageControl
     Left = 0
     Top = 0
-    Width = 912
-    Height = 530
-    ActivePage = TS_Gerar
+    Width = 920
+    Height = 538
+    ActivePage = TS_Atualizar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -30,7 +30,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 3
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -39,7 +39,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 32
         Align = alTop
         Color = 8404992
@@ -195,7 +195,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 908
+        Width = 916
         Height = 125
         Align = alTop
         Color = clSilver
@@ -575,8 +575,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object RzPageControl1: TRzPageControl
         Left = 0
         Top = 157
-        Width = 908
-        Height = 350
+        Width = 916
+        Height = 358
         ActivePage = TS_Processo
         Align = alClient
         TabIndex = 2
@@ -586,8 +586,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 904
-            Height = 238
+            Width = 912
+            Height = 246
             Align = alClient
             Ctl3D = False
             DataSource = DMCadLote_Calc.dsmLote
@@ -755,8 +755,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           end
           object VDBGrid1: TVDBGrid
             Left = 0
-            Top = 238
-            Width = 904
+            Top = 246
+            Width = 912
             Height = 89
             Align = alBottom
             Ctl3D = False
@@ -801,16 +801,16 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         object TS_ConsNovo: TRzTabSheet
           Caption = 'Lote / Tal'#227'o'
           object Splitter1: TSplitter
-            Left = 701
+            Left = 709
             Top = 0
-            Height = 327
+            Height = 335
             Align = alRight
           end
           object SMDBGrid1: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 701
-            Height = 327
+            Width = 709
+            Height = 335
             Align = alClient
             Ctl3D = False
             DataSource = DMCadLote_Calc.dsConsLote_Novo
@@ -959,10 +959,10 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
               end>
           end
           object SMDBGrid3: TSMDBGrid
-            Left = 704
+            Left = 712
             Top = 0
             Width = 200
-            Height = 327
+            Height = 335
             Align = alRight
             Ctl3D = False
             DataSource = DMCadLote_Calc.dsConsBaixaProc
@@ -1021,8 +1021,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           object SMDBGrid6: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 904
-            Height = 327
+            Width = 912
+            Height = 335
             Align = alClient
             Ctl3D = False
             DataSource = DMCadLote_Calc.dsConsProcesso
@@ -1201,7 +1201,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object NxPanel1: TNxPanel
         Left = 0
         Top = 192
-        Width = 908
+        Width = 916
         Height = 7
         Align = alTop
         BackgroundStyle = pbTransparent
@@ -1215,8 +1215,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object GroupBox2: TGroupBox
         Left = 0
         Top = 199
-        Width = 908
-        Height = 269
+        Width = 916
+        Height = 277
         Align = alClient
         Caption = ' Pedidos '
         Color = 16762052
@@ -1231,8 +1231,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         object SMDBGrid5: TSMDBGrid
           Left = 2
           Top = 15
-          Width = 904
-          Height = 235
+          Width = 912
+          Height = 243
           Align = alClient
           Ctl3D = False
           DataSource = DMCadLote_Calc.dsPendente_Ped
@@ -1449,8 +1449,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         end
         object StaticText2: TStaticText
           Left = 2
-          Top = 250
-          Width = 904
+          Top = 258
+          Width = 912
           Height = 17
           Align = alBottom
           Caption = 
@@ -1469,14 +1469,14 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       end
       object Panel1: TPanel
         Left = 0
-        Top = 468
-        Width = 908
+        Top = 476
+        Width = 916
         Height = 39
         Align = alBottom
         Color = 8404992
         TabOrder = 2
         DesignSize = (
-          908
+          916
           39)
         object btnConfirmar: TNxButton
           Left = 8
@@ -1601,7 +1601,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object NxFlipPanel1: TNxFlipPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 83
         Align = alTop
         Caption = 'Dados para Consulta'
@@ -1880,7 +1880,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object NxFlipPanel2: TNxFlipPanel
         Left = 0
         Top = 83
-        Width = 908
+        Width = 916
         Height = 109
         Align = alTop
         BorderColor = clTeal
@@ -2210,7 +2210,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 51
         Align = alTop
         BevelInner = bvRaised
@@ -2319,8 +2319,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 51
-        Width = 908
-        Height = 456
+        Width = 916
+        Height = 464
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLote_Calc.dsPedido_Calc
