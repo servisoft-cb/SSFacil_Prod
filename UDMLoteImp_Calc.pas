@@ -3,8 +3,8 @@ unit UDMLoteImp_Calc;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Variants,
-  frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF, frxBarcode, dialogs;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Variants, frxClass, frxDBSet, frxRich, frxExportMail,
+  frxExportPDF, frxBarcode, dialogs;
 
 type
   TDMLoteImp_Calc = class(TDataModule)
@@ -238,7 +238,7 @@ type
   public
     { Public declarations }
     ctConsulta_Lote: String;
-    ctConsProcesso : String;
+    ctConsProcesso: String;
     vObsPedido: String;
     vTipo_Imp: String;
 
