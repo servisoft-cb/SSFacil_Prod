@@ -2482,21 +2482,19 @@ object DMCadLote_Calc: TDMCadLote_Calc
   end
   object sdsConsumoCalc: TSQLDataSet
     CommandText = 
-      'SELECT P.id, P.referencia, P.nome NOME_PRODUTO, PB.id_cor_combin' +
-      'acao, Mat.TIPO_REG TIPO_REG_MAT,'#13#10'    PB.nome NOME_COMBINACAO, P' +
-      'MAT.id_material, PC.TIPO_CONSUMO, PC.qtd_consumo,'#13#10'    PC.ITEM I' +
-      'TEM_CONSUMO, MAT.NOME NOME_MATERIAL, MAT.TRANSFER, MAT.ID_GRADE ' +
-      'ID_GRADE_MAT,  MAT.ID_FORNECEDOR,'#13#10'    MAT.USA_CARIMBO_OC, PC.UN' +
-      'IDADE, MAT.referencia REFERENCIA_MAT, PMAT.ID_COR ID_COR_MAT, CO' +
-      'R.NOME NOME_COR,'#13#10'    PC.ID_SETOR, P.ID_GRADE ID_GRADE_PROD'#13#10'FRO' +
-      'M PRODUTO P'#13#10'INNER JOIN PRODUTO_COMB PB'#13#10'ON P.id = pb.ID'#13#10'AND PB' +
-      '.id_cor_combinacao = :ID_COMBINACAO'#13#10'INNER JOIN PRODUTO_COMB_MAT' +
-      ' PMAT'#13#10'ON PB.ID = PMAT.ID'#13#10'AND PB.ITEM = PMAT.ITEM'#13#10'INNER JOIN P' +
-      'RODUTO_CONSUMO PC'#13#10'ON PMAT.id = PC.id'#13#10'AND PMAT.id_material = PC' +
-      '.ID_MATERIAL'#13#10'AND PMAT.id_posicao = PC.id_posicao'#13#10'LEFT JOIN PRO' +
-      'DUTO MAT'#13#10'ON PC.id_material = MAT.id'#13#10'LEFT JOIN COMBINACAO COR'#13#10 +
-      'ON PMAT.ID_COR = COR.ID'#13#10'WHERE P.TIPO_REG = '#39'P'#39#13#10'  and p.id = :I' +
-      'D_PRODUTO'#13#10
+      'select P.ID, P.REFERENCIA, P.NOME NOME_PRODUTO, PB.ID_COR_COMBIN' +
+      'ACAO, MAT.TIPO_REG TIPO_REG_MAT,'#13#10'       PB.NOME NOME_COMBINACAO' +
+      ', PMAT.ID_MATERIAL, PMAT.TIPO_CONSUMO, PMAT.QTD_CONSUMO, PB.ITEM' +
+      ' ITEM_CONSUMO,'#13#10'       MAT.NOME NOME_MATERIAL, MAT.TRANSFER, MAT' +
+      '.ID_GRADE ID_GRADE_MAT, MAT.ID_FORNECEDOR, MAT.USA_CARIMBO_OC,'#13#10 +
+      '       PMAT.UNIDADE, MAT.REFERENCIA REFERENCIA_MAT, PMAT.ID_COR ' +
+      'ID_COR_MAT, COR.NOME NOME_COR, PMAT.ID_SETOR,'#13#10'       P.ID_GRADE' +
+      ' ID_GRADE_PROD'#13#10'from PRODUTO P'#13#10'inner join PRODUTO_COMB PB on P.' +
+      'ID = PB.ID and PB.ID_COR_COMBINACAO = :ID_COMBINACAO'#13#10'inner join' +
+      ' PRODUTO_COMB_MAT PMAT on PB.ID = PMAT.ID and PB.ITEM = PMAT.ITE' +
+      'M'#13#10'left join PRODUTO MAT on PMAT.ID_MATERIAL = MAT.ID'#13#10'left join' +
+      ' COMBINACAO COR on PMAT.ID_COR = COR.ID'#13#10'where P.TIPO_REG = '#39'P'#39' ' +
+      'and'#13#10'      P.ID = :ID_PRODUTO'
     MaxBlobSize = -1
     Params = <
       item

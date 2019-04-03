@@ -92,7 +92,13 @@ uses
   USel_Esteira in 'USel_Esteira.pas' {frmSel_Esteira},
   UConsProdutividade in 'UConsProdutividade.pas' {frmConsProdutividade},
   UAltSenhaFunc in 'UAltSenhaFunc.pas' {frmAltSenhaFunc},
-  USenhaAux in 'USenhaAux.pas' {frmSenhaAux};
+  USenhaAux in 'USenhaAux.pas' {frmSenhaAux},
+  uDmCadProgramacao in 'uDmCadProgramacao.pas' {DMCadProgramacao: TDataModule},
+  UGerar_Programacao in 'UGerar_Programacao.pas' {frmGerar_Programacao},
+  UCadProgramacao in 'UCadProgramacao.pas' {frmCadProgramacao},
+  UCadProgramacao_Maq in 'UCadProgramacao_Maq.pas' {frmCadProgramacao_Maq},
+  UDMCadIntervalo_Tempo in 'UDMCadIntervalo_Tempo.pas' {DMCadIntervalo_Tempo: TDataModule},
+  UCadIntervalo_Tempo in 'UCadIntervalo_Tempo.pas' {frmCadIntervalo_tempo};
 
 {$R *.res}
 
