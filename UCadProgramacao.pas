@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uDmCadProgramacao, Grids, DBGrids, SMDBGrid, StdCtrls, Mask,
-  ToolEdit, CurrEdit, NxCollection;
+  ToolEdit, CurrEdit, NxCollection, ExtCtrls;
 
 type
   TfrmCadProgramacao = class(TForm)
@@ -17,6 +17,7 @@ type
     Label2: TLabel;
     CurrencyEdit2: TCurrencyEdit;
     SMDBGrid3: TSMDBGrid;
+    Panel1: TPanel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
@@ -36,7 +37,7 @@ var
 implementation
 
 uses
-  rsDBUtils, UCadProgramacao_Maq;
+  rsDBUtils, UCadProgramacao_Maq, DateUtils, DB, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -71,6 +72,7 @@ var
   vTempo : Real;
   vQtdMin : Real;
   vAux : Real;
+  vTexto : String;
 begin
   fDMCadProgramacao.mMaq.First;
   while not fDMCadProgramacao.mMaq.Eof do
@@ -93,6 +95,11 @@ begin
         if fDMCadProgramacao.mMaq_BocaSelecionado.AsString = 'S' then
         begin
           fDMCadProgramacao.mMaq_Boca.Edit;
+          if Trim(fDMCadProgramacao.mMaq_BocaHrInicial.AsString) = '' then
+            fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime := Now;
+          if fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime <= 10 then
+            fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime := Date;
+
           vContador := vContador - 1;
           if vContador = 0 then
             fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat := vQtd
@@ -100,11 +107,24 @@ begin
             fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat := vQtdDiv;
           vQtd := StrToFloat(FormatFloat('0.00',vQtd - fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat));
           vQtdMin :=StrToFloat(FormatFloat('0',fDMCadProgramacao.cdsPendQTD_POR_MIN.AsFloat));
-          vTempo  := StrToFloat(FormatFloat('0.00',((fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat * 100) / vQtdMin / 60)));
+          //vTempo  := StrToFloat(FormatFloat('0.00',((fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat * 100) / vQtdMin / 60)));
+          vTempo  := StrToFloat(FormatFloat('0.00',((fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat * 100) / vQtdMin)));
 
-          vAux := vTempo - Trunc(vTempo);
-          if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
-            fDMCadProgramacao.mMaq_BocaTempo.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
+          if fDMCadProgramacao.cdsPendSOMA_SETUP_INI.AsString = 'S' then
+            vTempo := vTempo + fDMCadProgramacao.cdsPendSETUP_INICIO.AsFloat;
+          if fDMCadProgramacao.cdsPendSOMA_SETUP_TRO.AsString = 'S' then
+            vTempo := vTempo + fDMCadProgramacao.cdsPendSETUP_TROCA.AsFloat;
+          vTempo  := StrToFloat(FormatFloat('0.00',vTempo / 60));
+
+          fDMCadProgramacao.mMaq_BocaTempo.AsFloat := fnc_Converte_Min_Dec(vTempo);
+
+          vTexto := fnc_Soma_Data_Hora(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaTempo.AsFloat);
+          fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime := StrToDate(Copy(vTexto,1,10));
+          Delete(vTexto,1,11);
+          vTexto := Replace(vTexto,',',':');
+          fDMCadProgramacao.mMaq_BocaHrPrevista.AsDateTime := StrToTime(vTexto);
+
+
 
           fDMCadProgramacao.mMaq_Boca.Post;
         end;
