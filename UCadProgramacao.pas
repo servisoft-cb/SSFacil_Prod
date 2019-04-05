@@ -74,6 +74,8 @@ var
   vAux : Real;
   vTexto : String;
 begin
+  fDMCadProgramacao.qParametros_Lote.Close;
+  fDMCadProgramacao.qParametros_Lote.Open;
   fDMCadProgramacao.mMaq.First;
   while not fDMCadProgramacao.mMaq.Eof do
   begin
@@ -118,7 +120,8 @@ begin
 
           fDMCadProgramacao.mMaq_BocaTempo.AsFloat := fnc_Converte_Min_Dec(vTempo);
 
-          vTexto := fnc_Soma_Data_Hora(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaTempo.AsFloat);
+          vTexto := fnc_Soma_Data_Hora(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,
+                    fDMCadProgramacao.mMaq_BocaTempo.AsFloat,StrToFloat(FormatFloat('0.00',fDMCadProgramacao.qParametros_LoteTOTAL_HORAS_PROD.AsFloat)));
           fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime := StrToDate(Copy(vTexto,1,10));
           Delete(vTexto,1,11);
           vTexto := Replace(vTexto,',',':');

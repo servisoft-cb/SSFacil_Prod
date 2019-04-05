@@ -646,4 +646,17 @@ object DMCadProgramacao: TDMCadProgramacao
     Left = 776
     Top = 80
   end
+  object qParametros_Lote: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT L.total_horas_prod'
+      'FROM PARAMETROS_LOTE L')
+    SQLConnection = dmDatabase.scoDados
+    Left = 440
+    Top = 191
+    object qParametros_LoteTOTAL_HORAS_PROD: TFloatField
+      FieldName = 'TOTAL_HORAS_PROD'
+    end
+  end
 end

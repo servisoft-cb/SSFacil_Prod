@@ -222,7 +222,7 @@ object frmCadProgramacao: TfrmCadProgramacao
   end
   object NxButton1: TNxButton
     Left = 473
-    Top = 2
+    Top = 1
     Width = 75
     Caption = 'Calcular'
     TabOrder = 3
@@ -307,7 +307,7 @@ object frmCadProgramacao: TfrmCadProgramacao
         Expanded = False
         FieldName = 'DtInicial'
         Title.Alignment = taCenter
-        Title.Caption = 'Data Final'
+        Title.Caption = 'Dt. Inicial'
         Width = 68
         Visible = True
       end
@@ -316,7 +316,7 @@ object frmCadProgramacao: TfrmCadProgramacao
         Expanded = False
         FieldName = 'HrInicial'
         Title.Alignment = taCenter
-        Title.Caption = 'Hora Final'
+        Title.Caption = 'Hr. Inicial'
         Width = 43
         Visible = True
       end

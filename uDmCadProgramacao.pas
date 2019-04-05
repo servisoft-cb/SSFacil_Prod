@@ -115,6 +115,8 @@ type
     mMaq_BocaDtPrevista2: TSQLTimeStampField;
     mMaq_BocaDtInicial: TDateField;
     mMaq_BocaHrInicial: TTimeField;
+    qParametros_Lote: TSQLQuery;
+    qParametros_LoteTOTAL_HORAS_PROD: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -224,6 +226,7 @@ var
   vIndices: string;
   aIndices: array of string;
 begin
+  qParametros_Lote.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do
