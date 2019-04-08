@@ -157,6 +157,12 @@ begin
 
   vContador := StrToFloat(FormatFloat('0',fDMCadProgramacao.mMaq.RecordCount));
 
+  if vContador <= 0 then
+  begin
+    MessageDlg('*** Não foi escolhida nenhuma Máquina!', mtInformation, [mbok], 0);
+    exit;
+  end;
+
   vQtdDiv := StrToFloat(FormatFloat('0.00',fDMCadProgramacao.cdsPendQTD.AsFloat / vContador));
   vQtd    := fDMCadProgramacao.cdsPendQTD.AsFloat;
   fDMCadProgramacao.mMaq.First;

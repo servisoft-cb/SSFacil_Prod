@@ -245,7 +245,7 @@ object DMCadProgramacao: TDMCadProgramacao
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 368
-    Top = 101
+    Top = 102
   end
   object dspMaqPend: TDataSetProvider
     DataSet = sdsMaqPend
@@ -517,6 +517,10 @@ object DMCadProgramacao: TDMCadProgramacao
     Aggregates = <>
     FieldDefs = <
       item
+        Name = 'ID_Maquina'
+        DataType = ftInteger
+      end
+      item
         Name = 'Qtd_Programada'
         DataType = ftFloat
       end
@@ -537,10 +541,6 @@ object DMCadProgramacao: TDMCadProgramacao
         DataType = ftFloat
       end
       item
-        Name = 'ID_Maquina'
-        DataType = ftInteger
-      end
-      item
         Name = 'Num_Boca'
         DataType = ftInteger
       end
@@ -548,6 +548,26 @@ object DMCadProgramacao: TDMCadProgramacao
         Name = 'Selecionado'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'DtPrevista'
+        DataType = ftDate
+      end
+      item
+        Name = 'HrPrevista'
+        DataType = ftTime
+      end
+      item
+        Name = 'DtPrevista2'
+        DataType = ftTimeStamp
+      end
+      item
+        Name = 'DtInicial'
+        DataType = ftDate
+      end
+      item
+        Name = 'HrInicial'
+        DataType = ftTime
       end>
     IndexDefs = <
       item
@@ -562,16 +582,20 @@ object DMCadProgramacao: TDMCadProgramacao
     PacketRecords = 0
     Params = <>
     StoreDefs = True
-    Left = 735
-    Top = 80
+    Left = 736
+    Top = 79
     Data = {
-      CB0000009619E0BD010000001800000008000000000003000000CB000E517464
-      5F50726F6772616D616461080004000000000007447446696E616C0400060000
-      00000007487246696E616C0400070000000000095174645F4765726172080004
-      00000000000554656D706F08000400000000000A49445F4D617175696E610400
-      010000000000084E756D5F426F636104000100000000000B53656C6563696F6E
-      61646F010049000000010005574944544802000200010001000D44454641554C
-      545F4F524445520200820000000000}
+      410100009619E0BD02000000180000000D00000000000300000041010A49445F
+      4D617175696E6104000100000000000E5174645F50726F6772616D6164610800
+      04000000000007447446696E616C040006000000000007487246696E616C0400
+      070000000000095174645F476572617208000400000000000554656D706F0800
+      040000000000084E756D5F426F636104000100000000000B53656C6563696F6E
+      61646F01004900000001000557494454480200020001000A4474507265766973
+      746104000600000000000A4872507265766973746104000700000000000B4474
+      50726576697374613210001100000001000753554254595045020049000A0046
+      6F726D617474656400094474496E696369616C0400060000000000094872496E
+      696369616C040007000000000001000D44454641554C545F4F52444552020082
+      0000000000}
     object mMaq_BocaID_Maquina: TIntegerField
       FieldName = 'ID_Maquina'
     end
@@ -599,10 +623,40 @@ object DMCadProgramacao: TDMCadProgramacao
       FieldName = 'Selecionado'
       Size = 1
     end
+    object mMaq_BocaDtPrevista: TDateField
+      FieldName = 'DtPrevista'
+    end
+    object mMaq_BocaHrPrevista: TTimeField
+      FieldName = 'HrPrevista'
+      DisplayFormat = 'HH:mm'
+    end
+    object mMaq_BocaDtPrevista2: TSQLTimeStampField
+      FieldName = 'DtPrevista2'
+    end
+    object mMaq_BocaDtInicial: TDateField
+      FieldName = 'DtInicial'
+    end
+    object mMaq_BocaHrInicial: TTimeField
+      FieldName = 'HrInicial'
+      DisplayFormat = 'HH:mm'
+    end
   end
   object dsmMaq_Boca: TDataSource
     DataSet = mMaq_Boca
     Left = 776
     Top = 80
+  end
+  object qParametros_Lote: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT L.total_horas_prod'
+      'FROM PARAMETROS_LOTE L')
+    SQLConnection = dmDatabase.scoDados
+    Left = 440
+    Top = 191
+    object qParametros_LoteTOTAL_HORAS_PROD: TFloatField
+      FieldName = 'TOTAL_HORAS_PROD'
+    end
   end
 end

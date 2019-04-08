@@ -110,6 +110,13 @@ type
     mProgTempo: TFloatField;
     mProgDtInicial: TDateField;
     mProgHrInicial: TTimeField;
+    mMaq_BocaDtPrevista: TDateField;
+    mMaq_BocaHrPrevista: TTimeField;
+    mMaq_BocaDtPrevista2: TSQLTimeStampField;
+    mMaq_BocaDtInicial: TDateField;
+    mMaq_BocaHrInicial: TTimeField;
+    qParametros_Lote: TSQLQuery;
+    qParametros_LoteTOTAL_HORAS_PROD: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -219,6 +226,7 @@ var
   vIndices: string;
   aIndices: array of string;
 begin
+  qParametros_Lote.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do
@@ -282,21 +290,29 @@ procedure TDMCadProgramacao.cdsMaqPendCalcFields(DataSet: TDataSet);
 var
   vAux : Real;
   vTempo : Real;
+  vQtd : Real;
 begin
-   cdsMaqPendclTempo_Hora.AsFloat := 0;
-   if StrToFloat(FormatFloat('0.00',cdsPendTEMPO_PROD.AsFloat)) <= 0 then
-     exit;
+  cdsMaqPendclTempo_Hora.AsFloat := 0;
+  if StrToFloat(FormatFloat('0.00',cdsPendTEMPO_PROD.AsFloat)) <= 0 then
+    exit;
 
-   vTempo := cdsPendTEMPO_PROD.AsFloat;
-   if cdsPendSOMA_SETUP_INI.AsString = 'S' then
-     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_INICIO.AsFloat /60 ));
-   if cdsPendSOMA_SETUP_TRO.AsString = 'S' then
-     vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_TROCA.AsFloat / 60));
+  vQtd := StrToFloat(FormatFloat('0.000',cdsPendQTD.AsFloat * 100));
+  if StrToFloat(FormatFloat('0.00',cdsMaqPendBOCA_DISPONIVEL.AsFloat)) > 0 then
+    vQtd := StrToFloat(FormatFloat('0.0000',vQtd / cdsMaqPendBOCA_DISPONIVEL.AsFloat));
+  vTempo := StrToFloat(FormatFloat('0.00',vQtd / cdsPendQTD_POR_MIN.AsFloat));
+  vTempo := StrToFloat(FormatFloat('0.00',vTempo / cdsPendQTD_POR_MIN.AsFloat));
 
-   vTempo := StrToFloat(FormatFloat('0.00',vTempo / cdsMaqPendBOCA_DISPONIVEL.AsFloat));
-   vAux   := vTempo - Trunc(vTempo);
-   if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
-     cdsMaqPendclTempo_Hora.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
+  //vTempo := cdsPendTEMPO_PROD.AsFloat;
+  if cdsPendSOMA_SETUP_INI.AsString = 'S' then
+    vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_INICIO.AsFloat /60 ));
+  if cdsPendSOMA_SETUP_TRO.AsString = 'S' then
+    vTempo := vTempo + StrToFloat(FormatFloat('0.00',cdsPendSETUP_TROCA.AsFloat / 60));
+
+  //if StrToFloat(FormatFloat('0.00',cdsMaqPendBOCA_DISPONIVEL.AsFloat)) > 0 then
+  //     vTempo := StrToFloat(FormatFloat('0.00',vTempo / cdsMaqPendBOCA_DISPONIVEL.AsFloat));
+  vAux   := vTempo - Trunc(vTempo);
+  if StrToFloat(FormatFloat('0.00',vAux)) > 0 then
+    cdsMaqPendclTempo_Hora.AsFloat := Trunc(vTempo) + StrToFloat(FormatFloat('0.00',(vAux * 60) / 100));
 
 end;
 
