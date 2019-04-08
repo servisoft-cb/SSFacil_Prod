@@ -3,8 +3,8 @@ unit UDMCadLote_Calc;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Variants, LogTypes,
-  frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF, frxBarcode;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Variants, LogTypes, frxClass, frxDBSet, frxRich, frxExportMail,
+  frxExportPDF, frxBarcode;
 
 type
   TDMCadLote_Calc = class(TDataModule)
@@ -903,6 +903,7 @@ type
     cdsConsLote_NovoFOTO: TStringField;
     cdsConsProcessoID_PRODUTO: TIntegerField;
     cdsConsProcessoID_COMBINACAO: TIntegerField;
+    frxConsLoteNovo: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1186,9 +1187,9 @@ begin
     mLoteNome_Forma.AsString      := cdsConsulta_LoteNOME_FORMA.AsString;
     mLoteObs.AsString             := cdsConsulta_LoteOBS_PED.AsString;
     if trim(cdsConsulta_LoteUNIDADE_TALAO.AsString) <> '' then
-      mLoteUnidade.AsString        := cdsConsulta_LoteUNIDADE_TALAO.AsString
+      mLoteUnidade.AsString := cdsConsulta_LoteUNIDADE_TALAO.AsString
     else
-      mLoteUnidade.AsString        := cdsConsulta_LoteUNIDADE.AsString;
+      mLoteUnidade.AsString := cdsConsulta_LoteUNIDADE.AsString;
     mLoteTamanho.AsString        := cdsConsulta_LoteTAMANHO.AsString;
     mLoteCarimbo.AsString        := cdsConsulta_LoteCARIMBO.AsString;
     mLoteID_Grade.AsInteger      := cdsConsulta_LoteID_GRADE.AsInteger;

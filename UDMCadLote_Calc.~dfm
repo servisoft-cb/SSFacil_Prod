@@ -2482,21 +2482,19 @@ object DMCadLote_Calc: TDMCadLote_Calc
   end
   object sdsConsumoCalc: TSQLDataSet
     CommandText = 
-      'SELECT P.id, P.referencia, P.nome NOME_PRODUTO, PB.id_cor_combin' +
-      'acao, Mat.TIPO_REG TIPO_REG_MAT,'#13#10'    PB.nome NOME_COMBINACAO, P' +
-      'MAT.id_material, PC.TIPO_CONSUMO, PC.qtd_consumo,'#13#10'    PC.ITEM I' +
-      'TEM_CONSUMO, MAT.NOME NOME_MATERIAL, MAT.TRANSFER, MAT.ID_GRADE ' +
-      'ID_GRADE_MAT,  MAT.ID_FORNECEDOR,'#13#10'    MAT.USA_CARIMBO_OC, PC.UN' +
-      'IDADE, MAT.referencia REFERENCIA_MAT, PMAT.ID_COR ID_COR_MAT, CO' +
-      'R.NOME NOME_COR,'#13#10'    PC.ID_SETOR, P.ID_GRADE ID_GRADE_PROD'#13#10'FRO' +
-      'M PRODUTO P'#13#10'INNER JOIN PRODUTO_COMB PB'#13#10'ON P.id = pb.ID'#13#10'AND PB' +
-      '.id_cor_combinacao = :ID_COMBINACAO'#13#10'INNER JOIN PRODUTO_COMB_MAT' +
-      ' PMAT'#13#10'ON PB.ID = PMAT.ID'#13#10'AND PB.ITEM = PMAT.ITEM'#13#10'INNER JOIN P' +
-      'RODUTO_CONSUMO PC'#13#10'ON PMAT.id = PC.id'#13#10'AND PMAT.id_material = PC' +
-      '.ID_MATERIAL'#13#10'AND PMAT.id_posicao = PC.id_posicao'#13#10'LEFT JOIN PRO' +
-      'DUTO MAT'#13#10'ON PC.id_material = MAT.id'#13#10'LEFT JOIN COMBINACAO COR'#13#10 +
-      'ON PMAT.ID_COR = COR.ID'#13#10'WHERE P.TIPO_REG = '#39'P'#39#13#10'  and p.id = :I' +
-      'D_PRODUTO'#13#10
+      'select P.ID, P.REFERENCIA, P.NOME NOME_PRODUTO, PB.ID_COR_COMBIN' +
+      'ACAO, MAT.TIPO_REG TIPO_REG_MAT,'#13#10'       PB.NOME NOME_COMBINACAO' +
+      ', PMAT.ID_MATERIAL, PMAT.TIPO_CONSUMO, PMAT.QTD_CONSUMO, PB.ITEM' +
+      ' ITEM_CONSUMO,'#13#10'       MAT.NOME NOME_MATERIAL, MAT.TRANSFER, MAT' +
+      '.ID_GRADE ID_GRADE_MAT, MAT.ID_FORNECEDOR, MAT.USA_CARIMBO_OC,'#13#10 +
+      '       PMAT.UNIDADE, MAT.REFERENCIA REFERENCIA_MAT, PMAT.ID_COR ' +
+      'ID_COR_MAT, COR.NOME NOME_COR, PMAT.ID_SETOR,'#13#10'       P.ID_GRADE' +
+      ' ID_GRADE_PROD'#13#10'from PRODUTO P'#13#10'inner join PRODUTO_COMB PB on P.' +
+      'ID = PB.ID and PB.ID_COR_COMBINACAO = :ID_COMBINACAO'#13#10'inner join' +
+      ' PRODUTO_COMB_MAT PMAT on PB.ID = PMAT.ID and PB.ITEM = PMAT.ITE' +
+      'M'#13#10'left join PRODUTO MAT on PMAT.ID_MATERIAL = MAT.ID'#13#10'left join' +
+      ' COMBINACAO COR on PMAT.ID_COR = COR.ID'#13#10'where P.TIPO_REG = '#39'P'#39' ' +
+      'and'#13#10'      P.ID = :ID_PRODUTO'
     MaxBlobSize = -1
     Params = <
       item
@@ -3708,693 +3706,13 @@ object DMCadLote_Calc: TDMCadLote_Calc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43159.436197395800000000
-    ReportOptions.LastChange = 43249.344436307900000000
+    ReportOptions.CreateDate = 43563.606715879630000000
+    ReportOptions.LastChange = 43563.623888518520000000
     ScriptLanguage = 'PascalScript'
-    ScriptText.Strings = (
-      'begin'
-      ''
-      'end.')
+    StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 704
     Top = 368
-    Datasets = <
-      item
-        DataSet = frxLote_Bol
-        DataSetName = 'frxLote_Bol'
-      end
-      item
-        DataSet = frxTalao_Setor_Bol
-        DataSetName = 'frxTalao_Setor_Bol'
-      end
-      item
-        DataSet = frxProduto_Comb_Mat
-        DataSetName = 'Produto_Comb_Mat'
-      end>
-    Variables = <>
-    Style = <>
-    object Data: TfrxDataPage
-      Height = 1000.000000000000000000
-      Width = 1000.000000000000000000
-    end
-    object Page1: TfrxReportPage
-      PaperWidth = 210.000000000000000000
-      PaperHeight = 297.000000000000000000
-      PaperSize = 9
-      LeftMargin = 7.000000000000000000
-      RightMargin = 7.000000000000000000
-      TopMargin = 5.000000000000000000
-      BottomMargin = 10.000000000000000000
-      object DetailData1: TfrxDetailData
-        FillType = ftBrush
-        Height = 276.661424650000000000
-        Top = 317.480520000000000000
-        Width = 740.787880000000000000
-        DataSet = frxTalao_Setor_Bol
-        DataSetName = 'frxTalao_Setor_Bol'
-        PrintIfDetailEmpty = True
-        RowCount = 0
-        object Subreport2: TfrxSubreport
-          Left = 2.000000000000000000
-          Top = 0.377952755905512000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Page = frxReport1.Page3
-        end
-        object Memo11: TfrxMemoView
-          Left = 642.520100000000000000
-          Top = 258.669450000000000000
-          Width = 94.488250000000000000
-          Height = 18.897650000000000000
-          Memo.UTF8 = (
-            '.')
-        end
-      end
-      object MasterData2: TfrxMasterData
-        FillType = ftBrush
-        Height = 151.181200000000000000
-        Top = 18.897650000000000000
-        Width = 740.787880000000000000
-        DataSet = frxLote_Bol
-        DataSetName = 'frxLote_Bol'
-        RowCount = 0
-        object Shape2: TfrxShapeView
-          Left = 2.000000000000000000
-          Top = 8.779530000000000000
-          Width = 143.622140000000000000
-          Height = 41.574830000000000000
-        end
-        object Memo1: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 11.779530000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Remessa:')
-          ParentFont = False
-        end
-        object Memo2: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 30.677180000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Lote:')
-          ParentFont = False
-        end
-        object Memo3: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 53.133890000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Modelo:')
-          ParentFont = False
-        end
-        object Memo4: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 72.031540000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Produto:')
-          ParentFont = False
-        end
-        object Memo5: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 90.929190000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Obs Ped:')
-          ParentFont = False
-        end
-        object Memo6: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 128.724490000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Cliente:')
-          ParentFont = False
-        end
-        object Memo20: TfrxMemoView
-          Left = 71.811070000000000000
-          Top = 11.779530000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_REMESSA"]')
-          ParentFont = False
-        end
-        object Memo21: TfrxMemoView
-          Left = 71.811070000000000000
-          Top = 30.677180000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_LOTE"]')
-          ParentFont = False
-        end
-        object Memo22: TfrxMemoView
-          Left = 86.929190000000000000
-          Top = 53.133890000000000000
-          Width = 249.448980000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."REFERENCIA"]')
-          ParentFont = False
-        end
-        object Memo23: TfrxMemoView
-          Left = 86.929190000000000000
-          Top = 72.031540000000000000
-          Width = 544.252320000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            ' [frxLote_Bol."OBSMATERIAL"]')
-          ParentFont = False
-          Formats = <
-            item
-            end
-            item
-            end>
-        end
-        object Memo24: TfrxMemoView
-          Left = 86.929190000000000000
-          Top = 90.929190000000000000
-          Width = 544.252320000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."OBS_PED"]')
-          ParentFont = False
-        end
-        object Memo25: TfrxMemoView
-          Left = 86.929190000000000000
-          Top = 128.724490000000000000
-          Width = 506.457020000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."NOME_CLIENTE"]')
-          ParentFont = False
-        end
-        object Memo26: TfrxMemoView
-          Left = 158.740260000000000000
-          Top = 30.677180000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Tal'#195#163'o:')
-          ParentFont = False
-        end
-        object Memo27: TfrxMemoView
-          Left = 226.771800000000000000
-          Top = 30.677180000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_TALAO"]')
-          ParentFont = False
-        end
-        object Memo28: TfrxMemoView
-          Left = 457.323130000000000000
-          Top = 11.779530000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_LOTE"] / [frxLote_Bol."NUM_LOTE_MAX"]')
-          ParentFont = False
-        end
-        object Memo29: TfrxMemoView
-          Left = 532.913730000000000000
-          Top = 11.779530000000000000
-          Width = 49.133890000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Pedido:')
-          ParentFont = False
-        end
-        object Memo30: TfrxMemoView
-          Left = 584.827150000000000000
-          Top = 11.779530000000000000
-          Width = 173.858380000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."PEDIDO_CLIENTE"]')
-          ParentFont = False
-        end
-        object Picture1: TfrxPictureView
-          Left = 639.740570000000000000
-          Top = 35.015770000000000000
-          Width = 117.165430000000000000
-          Height = 86.929190000000000000
-          HightQuality = False
-          Transparent = False
-          TransparentColor = clWhite
-        end
-        object Memo31: TfrxMemoView
-          Left = 611.504330000000000000
-          Top = 131.944960000000000000
-          Width = 139.842610000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            'Entrega: [frxLote_Bol."DTENTREGA"]')
-          ParentFont = False
-        end
-        object Memo32: TfrxMemoView
-          Left = 3.779530000000000000
-          Top = 110.047310000000000000
-          Width = 83.149660000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Obs Rem:')
-          ParentFont = False
-        end
-        object Memo33: TfrxMemoView
-          Left = 86.929190000000000000
-          Top = 110.047310000000000000
-          Width = 544.252320000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."OBS"]')
-          ParentFont = False
-        end
-        object Memo34: TfrxMemoView
-          Left = 257.008040000000000000
-          Top = 11.779530000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          HAlign = haRight
-          Memo.UTF8 = (
-            'Qtd:')
-          ParentFont = False
-        end
-        object Memo35: TfrxMemoView
-          Left = 325.039580000000000000
-          Top = 11.779530000000000000
-          Width = 64.252010000000000000
-          Height = 18.897650000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -12
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."QTD"]')
-          ParentFont = False
-        end
-      end
-      object DetailData2: TfrxDetailData
-        FillType = ftBrush
-        Height = 102.047244090000000000
-        Top = 192.756030000000000000
-        Width = 740.787880000000000000
-        DataSet = frxProduto_Comb_Mat
-        DataSetName = 'Produto_Comb_Mat'
-        RowCount = 0
-        object Subreport1: TfrxSubreport
-          Top = 0.755905510000000000
-          Width = 94.488250000000000000
-          Height = 15.874015750000000000
-          Page = frxReport1.Page2
-        end
-        object Line1: TfrxLineView
-          Left = 381.732530000000000000
-          Height = 102.047310000000000000
-          Color = clBlack
-          Frame.Typ = [ftLeft]
-        end
-        object Line2: TfrxLineView
-          Align = baBottom
-          Top = 102.047244090000000000
-          Width = 740.787880000000000000
-          Color = clBlack
-          Frame.Typ = [ftTop]
-        end
-        object Line3: TfrxLineView
-          Top = -0.000000000000004857
-          Width = 740.787880000000000000
-          Color = clBlack
-          Frame.Typ = [ftTop]
-        end
-      end
-    end
-    object Page2: TfrxReportPage
-      PaperWidth = 215.900000000000000000
-      PaperHeight = 139.700000000000000000
-      PaperSize = 256
-      LeftMargin = 7.000000000000000000
-      RightMargin = 7.000000000000000000
-      TopMargin = 5.000000000000000000
-      BottomMargin = 10.000000000000000000
-      object MasterData1: TfrxMasterData
-        FillType = ftBrush
-        Height = 15.874015750000000000
-        Top = 18.897650000000000000
-        Width = 763.087107000000000000
-        Columns = 2
-        ColumnWidth = 377.952755905512000000
-        ColumnGap = 7.559055118110240000
-        DataSet = frxProduto_Comb_Mat
-        DataSetName = 'Produto_Comb_Mat'
-        RowCount = 0
-        object Memo7: TfrxMemoView
-          Top = 0.755905510000000000
-          Width = 283.464750000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            
-              '[Produto_Comb_Mat."NOME_POSICAO"] [Produto_Comb_Mat."NOME_MATERI' +
-              'AL"] [Produto_Comb_Mat."NOME_COR"]')
-          ParentFont = False
-          Formats = <
-            item
-            end
-            item
-            end
-            item
-            end>
-        end
-        object Memo9: TfrxMemoView
-          Left = 290.362400000000000000
-          Top = 0.755905510000000000
-          Width = 49.889763780000000000
-          Height = 15.118120000000000000
-          DisplayFormat.FormatStr = '%2.4f'
-          DisplayFormat.Kind = fkNumeric
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            '[Produto_Comb_Mat."QTD_CONSUMO"]')
-          ParentFont = False
-        end
-        object Memo8: TfrxMemoView
-          Left = 341.496290000000000000
-          Width = 22.677180000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[Produto_Comb_Mat."UNIDADE"]')
-          ParentFont = False
-        end
-      end
-    end
-    object Page3: TfrxReportPage
-      PaperWidth = 215.900000000000000000
-      PaperHeight = 139.700000000000000000
-      PaperSize = 256
-      LeftMargin = 7.000000000000000000
-      RightMargin = 7.000000000000000000
-      TopMargin = 5.000000000000000000
-      BottomMargin = 10.000000000000000000
-      object MasterData3: TfrxMasterData
-        FillType = ftBrush
-        Height = 86.929133860000000000
-        Top = 18.897650000000000000
-        Width = 763.087107000000000000
-        Columns = 3
-        ColumnWidth = 253.228346456693000000
-        DataSet = frxTalao_Setor_Bol
-        DataSetName = 'frxTalao_Setor_Bol'
-        RowCount = 0
-        object Memo36: TfrxMemoView
-          Top = 3.779530000000000000
-          Width = 245.669450000000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          HAlign = haCenter
-          Memo.UTF8 = (
-            '[frxTalao_Setor_Bol."NOME_SETOR"]')
-          ParentFont = False
-        end
-        object Memo37: TfrxMemoView
-          Top = 20.677180000000000000
-          Width = 60.472480000000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'REMESSA:')
-          ParentFont = False
-        end
-        object Memo38: TfrxMemoView
-          Top = 36.039372520000000000
-          Width = 60.472392130000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'MODELO:')
-          ParentFont = False
-        end
-        object Memo39: TfrxMemoView
-          Top = 53.472480000000000000
-          Width = 245.669362130000000000
-          Height = 15.118120000000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          Memo.UTF8 = (
-            '[frxLote_Bol."OBSMATERIAL"]')
-          ParentFont = False
-        end
-        object Memo40: TfrxMemoView
-          Left = 170.078850000000000000
-          Top = 19.677180000000000000
-          Width = 45.354360000000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'LOTE:')
-          ParentFont = False
-        end
-        object Memo41: TfrxMemoView
-          Left = 170.078850000000000000
-          Top = 36.039372520000000000
-          Width = 45.354272130000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          HAlign = haRight
-          Memo.UTF8 = (
-            'PARES:')
-          ParentFont = False
-        end
-        object Memo42: TfrxMemoView
-          Left = 60.472480000000000000
-          Top = 20.677180000000000000
-          Width = 109.606370000000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_REMESSA"]')
-          ParentFont = False
-        end
-        object Memo43: TfrxMemoView
-          Left = 60.472480000000000000
-          Top = 36.039372520000000000
-          Width = 109.606282130000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."REFERENCIA"]')
-          ParentFont = False
-        end
-        object Memo44: TfrxMemoView
-          Left = 215.433210000000000000
-          Top = 19.677180000000000000
-          Width = 34.015770000000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."NUM_LOTE"]')
-          ParentFont = False
-        end
-        object Memo45: TfrxMemoView
-          Left = 215.433210000000000000
-          Top = 36.039372520000000000
-          Width = 34.015682130000000000
-          Height = 13.984251970000000000
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          Memo.UTF8 = (
-            '[frxLote_Bol."QTD"]')
-          ParentFont = False
-        end
-        object Memo10: TfrxMemoView
-          Left = 230.551330000000000000
-          Top = 70.031540000000000000
-          Width = 15.118120000000000000
-          Height = 15.118120000000000000
-          Memo.UTF8 = (
-            '.')
-        end
-      end
-    end
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxProdutoConsumo'
@@ -5542,5 +4860,52 @@ object DMCadLote_Calc: TDMCadLote_Calc
       FieldName = 'CONTADOR'
       Required = True
     end
+  end
+  object frxConsLoteNovo: TfrxDBDataset
+    UserName = 'frxConsLoteNovo'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'DTEMISSAO=DTEMISSAO'
+      'NUM_LOTE=NUM_LOTE'
+      'FILIAL=FILIAL'
+      'HREMISSAO=HREMISSAO'
+      'DTENTREGA=DTENTREGA'
+      'QTD_TALOES=QTD_TALOES'
+      'NUM_ORDEM=NUM_ORDEM'
+      'CARIMBO=CARIMBO'
+      'TALAO_AUX_GERADO=TALAO_AUX_GERADO'
+      'ID_PRODUTO=ID_PRODUTO'
+      'QTD=QTD'
+      'QTD_PENDENTE=QTD_PENDENTE'
+      'QTD_PRODUZIDO=QTD_PRODUZIDO'
+      'DTBAIXA=DTBAIXA'
+      'HRBAIXA=HRBAIXA'
+      'IMPRESSO=IMPRESSO'
+      'ID_COMBINACAO=ID_COMBINACAO'
+      'ID_PEDIDO=ID_PEDIDO'
+      'ITEM_PEDIDO=ITEM_PEDIDO'
+      'REFERENCIA=REFERENCIA'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'UNIDADE=UNIDADE'
+      'NOME_FILIAL=NOME_FILIAL'
+      'ID_GRADE=ID_GRADE'
+      'ID_TIPO_MATRIZ=ID_TIPO_MATRIZ'
+      'NOME_TIPOMATRIZ=NOME_TIPOMATRIZ'
+      'NOME_COMBINACAO=NOME_COMBINACAO'
+      'NOME_LOTE=NOME_LOTE'
+      'NUM_PEDIDO=NUM_PEDIDO'
+      'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
+      'NOME_CLIENTE=NOME_CLIENTE'
+      'UNIDADE_LOTE=UNIDADE_LOTE'
+      'ID_FORMA=ID_FORMA'
+      'NOME_FORMA=NOME_FORMA'
+      'OBS_PED=OBS_PED'
+      'NUM_REMESSA=NUM_REMESSA'
+      'FOTO=FOTO')
+    DataSource = dsConsLote_Novo
+    BCDToCurrency = False
+    Left = 376
+    Top = 16
   end
 end

@@ -113,6 +113,7 @@ type
     SMDBGrid6: TSMDBGrid;
     NxButton1: TNxButton;
     NxButton2: TNxButton;
+    ListaConsultada1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -148,6 +149,7 @@ type
     procedure SMDBGrid6TitleClick(Column: TColumn);
     procedure NxButton1Click(Sender: TObject);
     procedure NxButton2Click(Sender: TObject);
+    procedure ListaConsultada1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadLote_Calc: TDMCadLote_Calc;
@@ -159,14 +161,14 @@ type
     vItem_Mat: Integer;
     vQtd_Produto: Real;
     vQtd_Selecionada: Real;
-    vQtdT : Integer;
-    vID_Acum : Integer;
-    vID_BaixaProcesso : Integer;
+    vQtdT: Integer;
+    vID_Acum: Integer;
+    vID_BaixaProcesso: Integer;
 
     procedure prc_Consultar_Ped;
     procedure prc_Gerar_mAcum;
     procedure prc_Gravar_Lote;
-    procedure prc_Gravar_Talao(Qtd : Integer);
+    procedure prc_Gravar_Talao(Qtd: Integer);
 
     procedure prc_Consultar_Lote;
     procedure prc_Consultar_Novo;
@@ -179,23 +181,23 @@ type
     procedure prc_Limpar_Auxiliar;
     procedure prc_Limpar_Var;
 
-    procedure prc_Gerar_Materiais(Tipo : String); //L=Lote  T=Talão
+    procedure prc_Gerar_Materiais(Tipo: String); //L=Lote  T=Talão
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
-    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer ; Carimbo, Tamanho: String ; Qtd_Consumo, Qtd_Produto: Real ; ID_Setor : Integer);
+    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho: String; Qtd_Consumo, Qtd_Produto: Real; ID_Setor: Integer);
     procedure prc_Consultar_Pedido_Ord;
     function fnc_Ordem_Producao_OC: Boolean;
     procedure prc_Atualizar_Material;
 
-    procedure prc_Marcar_Desmarcar_PED(Tipo : String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
+    procedure prc_Marcar_Desmarcar_PED(Tipo: String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
 
-    procedure prc_Le_cdsPendente(ID, ITEM_ORIGINAL : Integer);
+    procedure prc_Le_cdsPendente(ID, ITEM_ORIGINAL: Integer);
 
-    procedure prc_Le_Original(ID : Integer);
+    procedure prc_Le_Original(ID: Integer);
 
-    procedure prc_Gravar_Processo(Regravar : Boolean = False);
+    procedure prc_Gravar_Processo(Regravar: Boolean = False);
 
     procedure prc_scroll(DataSet: TDataSet);
-    procedure prc_Imprimir(Arq : String);
+    procedure prc_Imprimir(Arq: String);
 
   public
     { Public declarations }
@@ -388,7 +390,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.Lote1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   if (RzPageControl1.ActivePage <> TS_ConsLote_Talao) and (RzPageControl1.ActivePage <> TS_ConsNovo) then
   begin
@@ -471,10 +473,10 @@ procedure TfrmGerar_Lote_Calc.btnConfirmarClick(Sender: TObject);
 var
   ID: TTransactionDesc;
   sds: TSQLDataSet;
-  vID_Ant : Integer;
-  vFlag : Boolean;
-  vQtdAux : Integer;
-  vQtdTotal : Integer;
+  vID_Ant: Integer;
+  vFlag: Boolean;
+  vQtdAux: Integer;
+  vQtdTotal: Integer;
 begin
   if MessageDlg('Gerar Lote/Talões?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
@@ -760,14 +762,14 @@ begin
   Edit1.Visible := (ComboBox1.ItemIndex = 1);
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Gerar_Materiais(Tipo : String); //L=Lote  T=Talão
+procedure TfrmGerar_Lote_Calc.prc_Gerar_Materiais(Tipo: String); //L=Lote  T=Talão
 var
   vCarimbo: String;
   vTamanho: String;
   vID_Cor: Integer;
   vQtdAux: Real;
   vID_CorAnt, vID_MaterialAnt: Integer;
-  vTamAux : String;
+  vTamAux: String;
 begin
   fDMCadLote_Calc.cdsConsumoCalc.Close;
   fDMCadLote_Calc.sdsConsumoCalc.ParamByName('ID_COMBINACAO').AsInteger := fDMCadLote_Calc.cdsLoteID_COMBINACAO.AsInteger;
@@ -857,7 +859,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Gravar_Lote_Mat(Num_Ordem, ID_Material,
   ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho: String; Qtd_Consumo,
-  Qtd_Produto: Real ; ID_Setor : Integer);
+  Qtd_Produto: Real; ID_Setor: Integer);
 var
   vCarimboAux: String;  
 begin
@@ -992,8 +994,8 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Marcar_Desmarcar_PED(Tipo: String);//P=Pedido   TM=Total marcar    TD=Total Desmarcar
 var
-  vMarcar : String;
-  ID : Integer;
+  vMarcar: String;
+  ID: Integer;
 begin
   ID := fDMCadLote_Calc.cdsPendente_PedID.AsInteger;
   if Tipo = 'P' then
@@ -1044,7 +1046,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Consultar_Ped;
 var
-  vTextoData : String;
+  vTextoData: String;
 begin
   Label12.Caption  := '0';
   vQtd_Selecionada := 0;
@@ -1060,7 +1062,7 @@ begin
   fDMCadLote_Calc.cdsPendente_Ped.IndexFieldNames := 'NUM_PEDIDO';
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Le_cdsPendente(ID, ITEM_ORIGINAL : Integer);
+procedure TfrmGerar_Lote_Calc.prc_Le_cdsPendente(ID, ITEM_ORIGINAL: Integer);
 begin
   vNumPedido  := 0;
   fDMCadLote_Calc.cdsPendente.First;
@@ -1099,7 +1101,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.NxComboBox1Exit(Sender: TObject);
 var
-  i : Integer;
+  i: Integer;
 begin
   for i := 1 to SMDBGrid2.ColCount - 2 do
   begin
@@ -1138,11 +1140,11 @@ var
   vCarimboAux: String;
   vID_CombinacaoAux: Integer;
   vNumPedAux: Integer;
-  vID_Cliente : Integer;
-  vID_Pedido : Integer;
-  vItem_Orig : Integer;
-  vTamanho : String;
-  vCaixinha : String;
+  vID_Cliente: Integer;
+  vID_Pedido: Integer;
+  vItem_Orig: Integer;
+  vTamanho: String;
+  vCaixinha: String;
 begin
   fDMCadLote_Calc.cdsPendente.First;
   if (ckDtEntrega.Checked) and (fDMCadLote_Calc.cdsPedOriginalDTENTREGA.AsDateTime > 10) then
@@ -1391,10 +1393,10 @@ begin
       SMDBGrid1.Columns.Items[I].Title.Color := $00C6FFC6;
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Gravar_Processo(Regravar : Boolean = False);
+procedure TfrmGerar_Lote_Calc.prc_Gravar_Processo(Regravar: Boolean = False);
 var
-  vItemAux : Integer;
-  vIDCor : Integer;
+  vItemAux: Integer;
+  vIDCor: Integer;
 begin
   fDMCadLote_Calc.cdsProduto_Consumo_Proc.Close;
   fDMCadLote_Calc.sdsProduto_Consumo_Proc.ParamByName('ID').AsInteger     := fDMCadLote_Calc.cdsLoteID_PRODUTO.AsInteger;
@@ -1472,7 +1474,7 @@ begin
   fDMCadLote_Calc.cdsConsBaixaProc.Open;
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Imprimir(Arq : String);
+procedure TfrmGerar_Lote_Calc.prc_Imprimir(Arq: String);
 begin
   if not (FileExists(Arq)) then
   begin
@@ -1518,7 +1520,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.Processos1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   if not(fDMCadLote_Calc.cdsConsProcesso.Active) then
   begin
@@ -1700,6 +1702,20 @@ begin
 
   Label8.Visible := False;
 
+end;
+
+procedure TfrmGerar_Lote_Calc.ListaConsultada1Click(Sender: TObject);
+var
+  vArq: string;
+begin
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Lista.fr3';
+  if not (FileExists(Arq)) then
+  begin
+    MessageDlg('*** Relatório não localizado: ' + Arq , mtInformation, [mbOk], 0);
+    exit;
+  end;
+  fDMCadLote_Calc.frxReport1.Report.LoadFromFile(Arq);
+  fDMCadLote_Calc.frxReport1.ShowReport;
 end;
 
 end.
