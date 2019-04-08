@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uDmCadProgramacao, Grids, DBGrids, SMDBGrid, StdCtrls, Mask,
-  ToolEdit, CurrEdit, NxCollection, ExtCtrls;
+  ToolEdit, CurrEdit, NxCollection, ExtCtrls, SqlExpr;
 
 type
   TfrmCadProgramacao = class(TForm)
@@ -18,13 +18,19 @@ type
     CurrencyEdit2: TCurrencyEdit;
     SMDBGrid3: TSMDBGrid;
     Panel1: TPanel;
+    Button1: TButton;
+    btnGravar_Prog: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
     procedure SMDBGrid3DblClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
+
+    procedure prc_Verifica_HrInicial;
+    
   public
     { Public declarations }
     fDMCadProgramacao: TDMCadProgramacao;
@@ -37,7 +43,7 @@ var
 implementation
 
 uses
-  rsDBUtils, UCadProgramacao_Maq, DateUtils, DB, uUtilPadrao;
+  rsDBUtils, UCadProgramacao_Maq, DateUtils, DB, uUtilPadrao, DmdDatabase;
 
 {$R *.dfm}
 
@@ -102,6 +108,8 @@ begin
           if fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime <= 10 then
             fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime := Date;
 
+          prc_Verifica_HrInicial;            
+
           vContador := vContador - 1;
           if vContador = 0 then
             fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat := vQtd
@@ -120,15 +128,32 @@ begin
 
           fDMCadProgramacao.mMaq_BocaTempo.AsFloat := fnc_Converte_Min_Dec(vTempo);
 
-          vTexto := fnc_Soma_Data_Hora(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,
+          //vTexto := fnc_Soma_Data_Hora(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,
+          //          fDMCadProgramacao.mMaq_BocaTempo.AsFloat,StrToFloat(FormatFloat('0.00',fDMCadProgramacao.qParametros_LoteTOTAL_HORAS_PROD.AsFloat)));
+          //fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime := StrToDate(Copy(vTexto,1,10));
+
+          prc_Soma_Data_Hora_Res(fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime,fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime,
                     fDMCadProgramacao.mMaq_BocaTempo.AsFloat,StrToFloat(FormatFloat('0.00',fDMCadProgramacao.qParametros_LoteTOTAL_HORAS_PROD.AsFloat)));
-          fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime := StrToDate(Copy(vTexto,1,10));
-          Delete(vTexto,1,11);
-          vTexto := Replace(vTexto,',',':');
-          fDMCadProgramacao.mMaq_BocaHrPrevista.AsDateTime := StrToTime(vTexto);
+          fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime := StrToDate(Copy(vDtHora_Res,1,10));
+          Delete(vDtHora_Res,1,11);
+          vDtHora_Res := Replace(vDtHora_Res,',',':');
+          fDMCadProgramacao.mMaq_BocaHrPrevista.AsDateTime := StrToTime(vDtHora_Res);
 
+          fDMCadProgramacao.mMaq_BocaPrimeira_Hora.AsDateTime := vPrimeira_Hora;
 
-
+          fDMCadProgramacao.mMaq_Boca.Post;
+        end
+        else
+        if (fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime > 10) or (fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime > 10) then
+        begin
+          fDMCadProgramacao.mMaq_Boca.Edit;
+          fDMCadProgramacao.mMaq_BocaDtPrevista.Clear;
+          fDMCadProgramacao.mMaq_BocaHrPrevista.Clear;
+          fDMCadProgramacao.mMaq_BocaDtInicial.Clear;
+          fDMCadProgramacao.mMaq_BocaHrInicial.Clear;
+          fDMCadProgramacao.mMaq_BocaPrimeira_Hora.Clear;
+          fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat := 0;
+          fDMCadProgramacao.mMaq_BocaTempo.AsFloat     := 0;
           fDMCadProgramacao.mMaq_Boca.Post;
         end;
         fDMCadProgramacao.mMaq_Boca.Next;
@@ -150,6 +175,75 @@ begin
   else
     fDMCadProgramacao.mMaq_BocaSelecionado.AsString := 'S';
   fDMCadProgramacao.mMaq_Boca.Post;
+end;
+
+procedure TfrmCadProgramacao.Button1Click(Sender: TObject);
+var
+  sds: TSQLDataSet;
+  vTempo : Real;
+  vTexto : string;
+begin
+  vDiaAdicional := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := ' SELECT I.id, i.hrinicial, i.hrfinal FROM intervalo_tempo I '
+                       + ' ORDER BY I.HRINICIAL ';
+    //sds.ParamByName('HRINICIAL1').AsTime := HrInicial;
+    //sds.ParamByName('HRINICIAL2').AsTime := HrFinal;
+    sds.Open;
+    vTempo := 0;
+    sds.First;
+    while not sds.Eof do
+    begin
+      //if (HrInicial < sds.FieldByName('HRINICIAL').AsDateTime) and (HrFinal > sds.FieldByName('HRFINAL').AsDateTime) then
+        //vTempo := fnc_Diferenca_Horas(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
+        //vTempo := fnc_Diferenca_Horas2(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
+        vTempo := vTempo + fnc_Diferenca_Horas2(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
+      sds.Next;
+    end;
+  finally
+    FreeAndNil(sds);
+  end;
+
+  ShowMessage('Tempo Total: ' + FloatToStr(vTempo) );
+
+end;
+
+procedure TfrmCadProgramacao.prc_Verifica_HrInicial;
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := ' SELECT I.id, i.hrinicial, i.hrfinal FROM intervalo_tempo I '
+                       + ' WHERE (I.HRINICIAL >= :HRINICIAL1 and I.HRINICIAL < :HRINICIAL2) '
+                       + ' or (I.HRFINAL > :HRINICIAL1  and I.HRFINAL < :HRINICIAL2) '
+                       + ' or (I.HRINICIAL < :HRINICIAL1 and I.HRFINAL > :HRINICIAL1) '
+                       + ' ORDER BY I.HRINICIAL ';
+    sds.ParamByName('HRINICIAL1').AsTime := fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime;
+    sds.ParamByName('HRINICIAL2').AsTime := fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime;
+    sds.Open;
+    sds.First;
+    while not sds.Eof do
+    begin
+      if (fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime  > sds.FieldByName('HRINICIAL').AsDateTime)
+        and (fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime < sds.FieldByName('HRFINAL').AsDateTime) then
+      begin
+        //fDMCadProgramacao.mMaq_Boca.Edit;
+        fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime := sds.FieldByName('HRFINAL').AsDateTime;
+        //fDMCadProgramacao.mMaq_Boca.Post;
+      end;
+      sds.Next;
+    end;
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

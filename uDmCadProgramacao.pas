@@ -117,6 +117,7 @@ type
     mMaq_BocaHrInicial: TTimeField;
     qParametros_Lote: TSQLQuery;
     qParametros_LoteTOTAL_HORAS_PROD: TFloatField;
+    mMaq_BocaPrimeira_Hora: TTimeField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
