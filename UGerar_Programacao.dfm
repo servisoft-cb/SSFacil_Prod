@@ -17,38 +17,20 @@ object frmGerar_Programacao: TfrmGerar_Programacao
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 860
-    Top = 40
+    Top = 0
     Width = 8
-    Height = 525
+    Height = 565
     Color = 16744448
     ParentColor = False
   end
-  object NxPanel1: TNxPanel
-    Left = 0
-    Top = 0
-    Width = 1101
-    Height = 40
-    Align = alTop
-    UseDockManager = False
-    ParentBackground = False
-    TabOrder = 0
-    object NxButton1: TNxButton
-      Left = 24
-      Top = 8
-      Width = 149
-      Caption = 'Efetuar Pesquisa'
-      TabOrder = 0
-      OnClick = NxButton1Click
-    end
-  end
   object Panel1: TPanel
     Left = 0
-    Top = 40
+    Top = 0
     Width = 860
-    Height = 525
+    Height = 565
     Align = alLeft
     Caption = 'Panel1'
-    TabOrder = 1
+    TabOrder = 0
     object NxPanel2: TNxPanel
       Left = 1
       Top = 1
@@ -58,18 +40,34 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       UseDockManager = False
       ParentBackground = False
       TabOrder = 1
-      object NxButton2: TNxButton
-        Left = 24
+      object btnProgramar: TNxButton
+        Left = 213
         Top = 8
-        Width = 75
+        Width = 100
+        Height = 27
         Caption = 'Programar'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlue
+        Font.Height = -12
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
-        OnClick = NxButton2Click
+        OnClick = btnProgramarClick
+      end
+      object btnConsultar: TNxButton
+        Left = 9
+        Top = 7
+        Width = 149
+        Height = 26
+        Caption = 'Efetuar Pesquisa'
+        TabOrder = 1
+        OnClick = btnConsultarClick
       end
     end
     object Panel3: TPanel
       Left = 1
-      Top = 492
+      Top = 532
       Width = 858
       Height = 32
       Align = alBottom
@@ -99,7 +97,7 @@ object frmGerar_Programacao: TfrmGerar_Programacao
       Left = 1
       Top = 42
       Width = 858
-      Height = 450
+      Height = 490
       Align = alClient
       Ctl3D = False
       DataSource = DMCadProgramacao.dsPend
@@ -260,16 +258,16 @@ object frmGerar_Programacao: TfrmGerar_Programacao
   end
   object Panel2: TPanel
     Left = 868
-    Top = 40
+    Top = 0
     Width = 233
-    Height = 525
+    Height = 565
     Align = alClient
-    TabOrder = 2
+    TabOrder = 1
     object SMDBGrid2: TSMDBGrid
       Left = 1
       Top = 42
       Width = 231
-      Height = 482
+      Height = 522
       Align = alClient
       Color = clWhite
       Ctl3D = False

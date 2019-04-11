@@ -597,6 +597,10 @@ object fMenu: TfMenu
       object N7: TMenuItem
         Caption = '-'
       end
+      object ConsultaProgramao1: TMenuItem
+        Caption = 'Consulta Programa'#231#227'o'
+        OnClick = ConsultaProgramao1Click
+      end
       object Programao1: TMenuItem
         Caption = 'Programa'#231#227'o'
         OnClick = Programao1Click

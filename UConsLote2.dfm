@@ -761,7 +761,7 @@ object frmConsLote2: TfrmConsLote2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 29
+        ColCount = 30
         RowCount = 2
         Columns = <
           item
@@ -831,6 +831,16 @@ object frmConsLote2: TfrmConsLote2
             Visible = True
           end
           item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'NUM_BOCA'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Boca'
+            Title.Color = 12058551
+            Width = 31
+            Visible = True
+          end
+          item
             Expanded = False
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
@@ -849,8 +859,10 @@ object frmConsLote2: TfrmConsLote2
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'DTENTREGA'
+            Title.Alignment = taCenter
             Title.Caption = 'Dt. Entrega'
             Title.Color = 12058551
             Width = 72
@@ -863,6 +875,7 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item

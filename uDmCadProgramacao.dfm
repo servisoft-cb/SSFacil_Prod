@@ -18,7 +18,7 @@ object DMCadProgramacao: TDMCadProgramacao
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 64
-    Top = 29
+    Top = 28
     object sdsProgramacaoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -56,6 +56,23 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object sdsProgramacaoID_MAQUINA: TIntegerField
       FieldName = 'ID_MAQUINA'
+    end
+    object sdsProgramacaoNUM_BOCA: TIntegerField
+      FieldName = 'NUM_BOCA'
+    end
+    object sdsProgramacaoDTPROGRAMACAO: TDateField
+      FieldName = 'DTPROGRAMACAO'
+    end
+    object sdsProgramacaoTEMPO: TFloatField
+      FieldName = 'TEMPO'
+    end
+    object sdsProgramacaoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsProgramacaoSTATUS: TStringField
+      FieldName = 'STATUS'
+      FixedChar = True
+      Size = 1
     end
   end
   object dspProgramacao: TDataSetProvider
@@ -110,6 +127,23 @@ object DMCadProgramacao: TDMCadProgramacao
     object cdsProgramacaoID_MAQUINA: TIntegerField
       FieldName = 'ID_MAQUINA'
     end
+    object cdsProgramacaoNUM_BOCA: TIntegerField
+      FieldName = 'NUM_BOCA'
+    end
+    object cdsProgramacaoDTPROGRAMACAO: TDateField
+      FieldName = 'DTPROGRAMACAO'
+    end
+    object cdsProgramacaoTEMPO: TFloatField
+      FieldName = 'TEMPO'
+    end
+    object cdsProgramacaoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsProgramacaoSTATUS: TStringField
+      FieldName = 'STATUS'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsProgramacao: TDataSource
     DataSet = cdsProgramacao
@@ -120,20 +154,19 @@ object DMCadProgramacao: TDMCadProgramacao
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select P.NOME NOME_PROCESSO, BP.ID_MAQUINA, L.NUM_ORDEM, L.NUM_L' +
-      'OTE, PROD.NOME NOME_PRODUTO, PROD.REFERENCIA,'#13#10'       BP.ID ID_B' +
-      'AIXA, BP.ITEM ITEM_BAIXA, BP.QTD, L.ID_PRODUTO, VP.total_batidas' +
-      ', VP.qtd_por_min,'#13#10'CASE'#13#10'  WHEN coalesce(VP.qtd_por_min,0) > 0 T' +
-      'HEN ROUND((((l.qtd * 100) / VP.qtd_por_min) / 60),2)'#13#10'  ELSE 0'#13#10 +
-      '  END TEMPO_PROD, VP.setup_inicio, VP.setup_troca, '#39'S'#39' SOMA_SETU' +
-      'P_INI, '#39'S'#39' SOMA_SETUP_TRO'#13#10'from BAIXA_PROCESSO BP'#13#10'inner join PR' +
-      'OCESSO P on BP.ID_PROCESSO = P.ID'#13#10'inner join LOTE L on BP.ID_LO' +
-      'TE = L.ID'#13#10'inner join PRODUTO PROD on L.ID_PRODUTO = PROD.ID'#13#10'LE' +
-      'FT JOIN vprod_textil VP ON PROD.ID = VP.ID_PRODUTO AND VP.tipo_p' +
-      'roducao = PROD.tipo_producao'#13#10'left join PROGRAMACAO PG on BP.ID ' +
-      '= PG.ID_BAIXA AND BP.ITEM = PG.ITEM_BAIXA'#13#10'where P.CONTROLE_MAQU' +
-      'INA = '#39'S'#39' and'#13#10'      BP.DTENTRADA is null and'#13#10'      PG.dtinicia' +
-      'l IS NULL'
+      'select P.NOME NOME_PROCESSO, L.NUM_ORDEM, L.NUM_LOTE, PROD.NOME ' +
+      'NOME_PRODUTO, PROD.REFERENCIA,'#13#10'       BP.ID ID_BAIXA, BP.ITEM I' +
+      'TEM_BAIXA, BP.QTD, L.ID_PRODUTO, VP.total_batidas, VP.qtd_por_mi' +
+      'n,'#13#10'CASE'#13#10'  WHEN coalesce(VP.qtd_por_min,0) > 0 THEN ROUND((((l.' +
+      'qtd * 100) / VP.qtd_por_min) / 60),2)'#13#10'  ELSE 0'#13#10'  END TEMPO_PRO' +
+      'D, VP.setup_inicio, VP.setup_troca, '#39'S'#39' SOMA_SETUP_INI, '#39'S'#39' SOMA' +
+      '_SETUP_TRO,'#13#10'  BP.ID_PROCESSO, BP.ID_LOTE'#13#10'from BAIXA_PROCESSO B' +
+      'P'#13#10'inner join PROCESSO P on BP.ID_PROCESSO = P.ID'#13#10'inner join LO' +
+      'TE L on BP.ID_LOTE = L.ID'#13#10'inner join PRODUTO PROD on L.ID_PRODU' +
+      'TO = PROD.ID'#13#10'LEFT JOIN vprod_textil VP ON PROD.ID = VP.ID_PRODU' +
+      'TO AND VP.tipo_producao = PROD.tipo_producao'#13#10'where P.CONTROLE_M' +
+      'AQUINA = '#39'S'#39' and'#13#10'      (BP.DTENTRADA is null AND coalesce(BP.pr' +
+      'ogramado,'#39'N'#39') = '#39'N'#39')'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -157,9 +190,6 @@ object DMCadProgramacao: TDMCadProgramacao
     object cdsPendNOME_PROCESSO: TStringField
       FieldName = 'NOME_PROCESSO'
       Size = 30
-    end
-    object cdsPendID_MAQUINA: TIntegerField
-      FieldName = 'ID_MAQUINA'
     end
     object cdsPendNUM_ORDEM: TIntegerField
       FieldName = 'NUM_ORDEM'
@@ -219,6 +249,12 @@ object DMCadProgramacao: TDMCadProgramacao
       FieldKind = fkCalculated
       FieldName = 'clTempo_Hora'
       Calculated = True
+    end
+    object cdsPendID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsPendID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
     end
   end
   object dsPend: TDataSource
@@ -396,20 +432,29 @@ object DMCadProgramacao: TDMCadProgramacao
       item
         Name = 'HrInicial'
         DataType = ftTime
+      end
+      item
+        Name = 'ID_Baixa'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Item_Baixa'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 745
+    Left = 748
     Top = 224
     Data = {
-      BD0000009619E0BD010000001800000009000000000003000000BD000A49445F
+      E10000009619E0BD01000000180000000B000000000003000000E1000A49445F
       4D617175696E6104000100000000000C4E6F6D655F4D617175696E6101004900
       00000100055749445448020002002800084E756D5F426F636104000100000000
       0003517464080004000000000007447446696E616C0400060000000000074872
       46696E616C04000700000000000554656D706F0800040000000000094474496E
-      696369616C0400060000000000094872496E696369616C040007000000000000
-      00}
+      696369616C0400060000000000094872496E696369616C040007000000000008
+      49445F426169786104000100000000000A4974656D5F42616978610400010000
+      0000000000}
     object mProgID_Maquina: TIntegerField
       FieldName = 'ID_Maquina'
     end
@@ -429,6 +474,7 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mProgHrFinal: TTimeField
       FieldName = 'HrFinal'
+      DisplayFormat = 'HH:mm'
     end
     object mProgTempo: TFloatField
       FieldName = 'Tempo'
@@ -438,6 +484,13 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mProgHrInicial: TTimeField
       FieldName = 'HrInicial'
+      DisplayFormat = 'HH:mm'
+    end
+    object mProgID_Baixa: TIntegerField
+      FieldName = 'ID_Baixa'
+    end
+    object mProgItem_Baixa: TIntegerField
+      FieldName = 'Item_Baixa'
     end
   end
   object dsmProg: TDataSource
@@ -449,11 +502,11 @@ object DMCadProgramacao: TDMCadProgramacao
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select B.ID_MAQUINA, B.num_boca, B.dtentrada, P.dtinicial, P.dtf' +
+      'select P.ID_MAQUINA, P.num_boca, B.dtentrada, P.dtinicial, P.dtf' +
       'inal, B.QTD QTD_PROCESSO,'#13#10'P.QTD QTD_PROGRAMADA, P.hrinicial, P.' +
       'hrfinal'#13#10'from BAIXA_PROCESSO B'#13#10'INNER JOIN PROGRAMACAO P'#13#10'ON B.I' +
-      'D = P.id_baixa'#13#10'where B.DTBAIXA is null'#13#10'  and B.ID_MAQUINA = :I' +
-      'D_MAQUINA'#13#10
+      'D = P.id_baixa'#13#10'AND B.ITEM = P.item_baixa'#13#10'where B.DTBAIXA is nu' +
+      'll'#13#10'  and P.ID_MAQUINA = :ID_MAQUINA'
     MaxBlobSize = -1
     Params = <
       item
@@ -478,7 +531,7 @@ object DMCadProgramacao: TDMCadProgramacao
     ProviderName = 'dspMaqUsada'
     OnCalcFields = cdsMaqPendCalcFields
     Left = 744
-    Top = 21
+    Top = 20
     object cdsMaqUsadaID_MAQUINA: TIntegerField
       FieldName = 'ID_MAQUINA'
     end
@@ -572,6 +625,10 @@ object DMCadProgramacao: TDMCadProgramacao
       item
         Name = 'Primeira_Hora'
         DataType = ftTime
+      end
+      item
+        Name = 'Primeira_Data'
+        DataType = ftDate
       end>
     IndexDefs = <
       item
@@ -589,7 +646,7 @@ object DMCadProgramacao: TDMCadProgramacao
     Left = 736
     Top = 79
     Data = {
-      570100009619E0BD02000000180000000E00000000000300000057010A49445F
+      6D0100009619E0BD02000000180000000F0000000000030000006D010A49445F
       4D617175696E6104000100000000000E5174645F50726F6772616D6164610800
       04000000000007447446696E616C040006000000000007487246696E616C0400
       070000000000095174645F476572617208000400000000000554656D706F0800
@@ -599,7 +656,8 @@ object DMCadProgramacao: TDMCadProgramacao
       50726576697374613210001100000001000753554254595045020049000A0046
       6F726D617474656400094474496E696369616C0400060000000000094872496E
       696369616C04000700000000000D5072696D656972615F486F72610400070000
-      00000001000D44454641554C545F4F524445520200820000000000}
+      0000000D5072696D656972615F44617461040006000000000001000D44454641
+      554C545F4F524445520200820000000000}
     object mMaq_BocaID_Maquina: TIntegerField
       FieldName = 'ID_Maquina'
     end
@@ -612,6 +670,7 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mMaq_BocaHrFinal: TTimeField
       FieldName = 'HrFinal'
+      DisplayFormat = 'HH:mm'
     end
     object mMaq_BocaQtd_Gerar: TFloatField
       FieldName = 'Qtd_Gerar'
@@ -646,6 +705,10 @@ object DMCadProgramacao: TDMCadProgramacao
     end
     object mMaq_BocaPrimeira_Hora: TTimeField
       FieldName = 'Primeira_Hora'
+      DisplayFormat = 'HH:mm'
+    end
+    object mMaq_BocaPrimeira_Data: TDateField
+      FieldName = 'Primeira_Data'
     end
   end
   object dsmMaq_Boca: TDataSource
@@ -665,5 +728,229 @@ object DMCadProgramacao: TDMCadProgramacao
     object qParametros_LoteTOTAL_HORAS_PROD: TFloatField
       FieldName = 'TOTAL_HORAS_PROD'
     end
+  end
+  object sdsBaixa_Processo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT *'#13#10'FROM BAIXA_PROCESSO'#13#10'WHERE ID = :ID'#13#10'  AND ITEM = :ITE' +
+      'M'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 63
+    Top = 221
+    object sdsBaixa_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsBaixa_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsBaixa_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object sdsBaixa_ProcessoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object sdsBaixa_ProcessoID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object sdsBaixa_ProcessoITEM_PEDIDO: TIntegerField
+      FieldName = 'ITEM_PEDIDO'
+    end
+    object sdsBaixa_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object sdsBaixa_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object sdsBaixa_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object sdsBaixa_ProcessoHRBAIXA: TTimeField
+      FieldName = 'HRBAIXA'
+    end
+    object sdsBaixa_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsBaixa_ProcessoQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object sdsBaixa_ProcessoNUM_ORDEM: TIntegerField
+      FieldName = 'NUM_ORDEM'
+    end
+    object sdsBaixa_ProcessoTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object sdsBaixa_ProcessoTOTAL_HORAS: TFloatField
+      FieldName = 'TOTAL_HORAS'
+    end
+    object sdsBaixa_ProcessoQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object sdsBaixa_ProcessoPARCIAL: TStringField
+      FieldName = 'PARCIAL'
+      Size = 1
+    end
+    object sdsBaixa_ProcessoITEM_ORIGINAL: TIntegerField
+      FieldName = 'ITEM_ORIGINAL'
+    end
+    object sdsBaixa_ProcessoQTD_LIBERADA: TFloatField
+      FieldName = 'QTD_LIBERADA'
+    end
+    object sdsBaixa_ProcessoAJUSTE: TStringField
+      FieldName = 'AJUSTE'
+      Size = 1
+    end
+    object sdsBaixa_ProcessoID_FUNCIONARIO_ENT: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_ENT'
+    end
+    object sdsBaixa_ProcessoID_FUNCIONARIO_BAIXA: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_BAIXA'
+    end
+    object sdsBaixa_ProcessoID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object sdsBaixa_ProcessoID_MOVESTOQUE_RES: TIntegerField
+      FieldName = 'ID_MOVESTOQUE_RES'
+    end
+    object sdsBaixa_ProcessoRETRABALHO: TStringField
+      FieldName = 'RETRABALHO'
+      Size = 1
+    end
+    object sdsBaixa_ProcessoPROGRAMADO: TStringField
+      FieldName = 'PROGRAMADO'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dspBaixa_Processo: TDataSetProvider
+    DataSet = sdsBaixa_Processo
+    UpdateMode = upWhereKeyOnly
+    Left = 120
+    Top = 221
+  end
+  object cdsBaixa_Processo: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID;ITEM'
+    Params = <>
+    ProviderName = 'dspBaixa_Processo'
+    Left = 177
+    Top = 220
+    object cdsBaixa_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsBaixa_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsBaixa_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsBaixa_ProcessoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object cdsBaixa_ProcessoID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object cdsBaixa_ProcessoITEM_PEDIDO: TIntegerField
+      FieldName = 'ITEM_PEDIDO'
+    end
+    object cdsBaixa_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsBaixa_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsBaixa_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsBaixa_ProcessoHRBAIXA: TTimeField
+      FieldName = 'HRBAIXA'
+    end
+    object cdsBaixa_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsBaixa_ProcessoQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsBaixa_ProcessoNUM_ORDEM: TIntegerField
+      FieldName = 'NUM_ORDEM'
+    end
+    object cdsBaixa_ProcessoTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object cdsBaixa_ProcessoclNome_Processo: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'clNome_Processo'
+      Size = 60
+      Calculated = True
+    end
+    object cdsBaixa_ProcessoTOTAL_HORAS: TFloatField
+      FieldName = 'TOTAL_HORAS'
+      DisplayFormat = '0.00'
+    end
+    object cdsBaixa_ProcessoQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsBaixa_ProcessoPARCIAL: TStringField
+      FieldName = 'PARCIAL'
+      Size = 1
+    end
+    object cdsBaixa_ProcessoITEM_ORIGINAL: TIntegerField
+      FieldName = 'ITEM_ORIGINAL'
+    end
+    object cdsBaixa_ProcessoQTD_LIBERADA: TFloatField
+      FieldName = 'QTD_LIBERADA'
+    end
+    object cdsBaixa_ProcessoAJUSTE: TStringField
+      FieldName = 'AJUSTE'
+      Size = 1
+    end
+    object cdsBaixa_ProcessoID_FUNCIONARIO_ENT: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_ENT'
+    end
+    object cdsBaixa_ProcessoID_FUNCIONARIO_BAIXA: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_BAIXA'
+    end
+    object cdsBaixa_ProcessoID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsBaixa_ProcessoID_MOVESTOQUE_RES: TIntegerField
+      FieldName = 'ID_MOVESTOQUE_RES'
+    end
+    object cdsBaixa_ProcessoRETRABALHO: TStringField
+      FieldName = 'RETRABALHO'
+      Size = 1
+    end
+    object cdsBaixa_ProcessoPROGRAMADO: TStringField
+      FieldName = 'PROGRAMADO'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dsBaixa_Processo: TDataSource
+    DataSet = cdsBaixa_Processo
+    Left = 224
+    Top = 221
   end
 end

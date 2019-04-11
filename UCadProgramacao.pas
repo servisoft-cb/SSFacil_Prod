@@ -5,32 +5,40 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uDmCadProgramacao, Grids, DBGrids, SMDBGrid, StdCtrls, Mask,
-  ToolEdit, CurrEdit, NxCollection, ExtCtrls, SqlExpr;
+  ToolEdit, CurrEdit, NxCollection, ExtCtrls, SqlExpr, DB, DBXpress;
 
 type
   TfrmCadProgramacao = class(TForm)
-    SMDBGrid1: TSMDBGrid;
-    SMDBGrid2: TSMDBGrid;
+    SMDBGrid3: TSMDBGrid;
+    NxPanel1: TNxPanel;
     Label1: TLabel;
     CurrencyEdit1: TCurrencyEdit;
-    NxButton1: TNxButton;
+    NxButton2: TNxButton;
     Label2: TLabel;
     CurrencyEdit2: TCurrencyEdit;
-    SMDBGrid3: TSMDBGrid;
-    Panel1: TPanel;
-    Button1: TButton;
+    NxButton1: TNxButton;
+    NxButton3: TNxButton;
     btnGravar_Prog: TNxButton;
+    Panel1: TPanel;
+    SMDBGrid1: TSMDBGrid;
+    SMDBGrid2: TSMDBGrid;
+    Label3: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
     procedure SMDBGrid3DblClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure NxButton3Click(Sender: TObject);
+    procedure NxButton2Click(Sender: TObject);
+    procedure btnGravar_ProgClick(Sender: TObject);
+    procedure SMDBGrid3GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
 
     procedure prc_Verifica_HrInicial;
-    
+    procedure prc_Gravar_mProd;
+
   public
     { Public declarations }
     fDMCadProgramacao: TDMCadProgramacao;
@@ -43,7 +51,7 @@ var
 implementation
 
 uses
-  rsDBUtils, UCadProgramacao_Maq, DateUtils, DB, uUtilPadrao, DmdDatabase;
+  rsDBUtils, UCadProgramacao_Maq, DateUtils, uUtilPadrao, DmdDatabase;
 
 {$R *.dfm}
 
@@ -57,7 +65,7 @@ procedure TfrmCadProgramacao.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadProgramacao);
   CurrencyEdit1.Value := fDMCadProgramacao.cdsPendQTD.AsFloat;
-  CurrencyEdit2.Value := fDMCadProgramacao.cdsPendQTD.AsFloat;
+  CurrencyEdit2.Value := 0;
 end;
 
 procedure TfrmCadProgramacao.SMDBGrid1DblClick(Sender: TObject);
@@ -82,6 +90,7 @@ var
 begin
   fDMCadProgramacao.qParametros_Lote.Close;
   fDMCadProgramacao.qParametros_Lote.Open;
+  fDMCadProgramacao.mProg.EmptyDataSet;
   fDMCadProgramacao.mMaq.First;
   while not fDMCadProgramacao.mMaq.Eof do
   begin
@@ -140,8 +149,12 @@ begin
           fDMCadProgramacao.mMaq_BocaHrPrevista.AsDateTime := StrToTime(vDtHora_Res);
 
           fDMCadProgramacao.mMaq_BocaPrimeira_Hora.AsDateTime := vPrimeira_Hora;
+          fDMCadProgramacao.mMaq_BocaPrimeira_Data.AsDateTime := vPrimeira_Data;
 
           fDMCadProgramacao.mMaq_Boca.Post;
+
+          prc_Gravar_mProd;
+
         end
         else
         if (fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime > 10) or (fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime > 10) then
@@ -174,42 +187,21 @@ begin
     fDMCadProgramacao.mMaq_BocaSelecionado.AsString := 'N'
   else
     fDMCadProgramacao.mMaq_BocaSelecionado.AsString := 'S';
-  fDMCadProgramacao.mMaq_Boca.Post;
-end;
-
-procedure TfrmCadProgramacao.Button1Click(Sender: TObject);
-var
-  sds: TSQLDataSet;
-  vTempo : Real;
-  vTexto : string;
-begin
-  vDiaAdicional := 0;
-  sds := TSQLDataSet.Create(nil);
-  try
-    sds.SQLConnection := dmDatabase.scoDados;
-    sds.NoMetadata    := True;
-    sds.GetMetadata   := False;
-    sds.CommandText   := ' SELECT I.id, i.hrinicial, i.hrfinal FROM intervalo_tempo I '
-                       + ' ORDER BY I.HRINICIAL ';
-    //sds.ParamByName('HRINICIAL1').AsTime := HrInicial;
-    //sds.ParamByName('HRINICIAL2').AsTime := HrFinal;
-    sds.Open;
-    vTempo := 0;
-    sds.First;
-    while not sds.Eof do
+  if fDMCadProgramacao.mMaq_BocaSelecionado.AsString = 'S' then
+  begin
+    if fDMCadProgramacao.mMaq_BocaDtFinal.AsDateTime > 10 then
     begin
-      //if (HrInicial < sds.FieldByName('HRINICIAL').AsDateTime) and (HrFinal > sds.FieldByName('HRFINAL').AsDateTime) then
-        //vTempo := fnc_Diferenca_Horas(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
-        //vTempo := fnc_Diferenca_Horas2(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
-        vTempo := vTempo + fnc_Diferenca_Horas2(sds.FieldByName('HRINICIAL').AsDateTime,sds.FieldByName('HRFINAL').AsDateTime);
-      sds.Next;
+      fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime := fDMCadProgramacao.mMaq_BocaDtFinal.AsDateTime;
+      fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime := fDMCadProgramacao.mMaq_BocaHrFinal.AsDateTime;
     end;
-  finally
-    FreeAndNil(sds);
+  end
+  else
+  begin
+    fDMCadProgramacao.mMaq_BocaDtInicial.Clear;
+    fDMCadProgramacao.mMaq_BocaHrInicial.Clear;
   end;
 
-  ShowMessage('Tempo Total: ' + FloatToStr(vTempo) );
-
+  fDMCadProgramacao.mMaq_Boca.Post;
 end;
 
 procedure TfrmCadProgramacao.prc_Verifica_HrInicial;
@@ -235,15 +227,127 @@ begin
       if (fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime  > sds.FieldByName('HRINICIAL').AsDateTime)
         and (fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime < sds.FieldByName('HRFINAL').AsDateTime) then
       begin
-        //fDMCadProgramacao.mMaq_Boca.Edit;
         fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime := sds.FieldByName('HRFINAL').AsDateTime;
-        //fDMCadProgramacao.mMaq_Boca.Post;
       end;
       sds.Next;
     end;
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TfrmCadProgramacao.NxButton3Click(Sender: TObject);
+begin
+  if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+
+  CurrencyEdit2.Value := CurrencyEdit2.Value + fDMCadProgramacao.mMaqQtd_Prog.AsFloat;
+  fDMCadProgramacao.mMaq_Boca.First;
+  while not fDMCadProgramacao.mMaq_Boca.Eof do
+  begin
+    fDMCadProgramacao.mMaq_Boca.Delete;
+  end;
+  fDMCadProgramacao.mMaq.Delete;
+end;
+
+procedure TfrmCadProgramacao.NxButton2Click(Sender: TObject);
+begin
+  fDMCadProgramacao.prc_Monta_Qtd_Maq(CurrencyEdit1.Value);
+  CurrencyEdit2.Value := 0;
+end;
+
+procedure TfrmCadProgramacao.btnGravar_ProgClick(Sender: TObject);
+var
+  ID: TTransactionDesc;
+begin
+  if CurrencyEdit2.Value > 0 then
+  begin
+    MessageDlg('*** Quantidade não Programada não pode conter valor!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+
+  ID.TransactionID  := 11;
+  ID.IsolationLevel := xilREADCOMMITTED;
+  dmDatabase.scoDados.StartTransaction(ID);
+  try
+    fDMCadProgramacao.mProg.First;
+    while not fDMCadProgramacao.mProg.Eof do
+    begin
+      fDMCadProgramacao.cdsBaixa_Processo.Close;
+      fDMCadProgramacao.sdsBaixa_Processo.ParamByName('ID').AsInteger   := fDMCadProgramacao.mProgID_Baixa.AsInteger;
+      fDMCadProgramacao.sdsBaixa_Processo.ParamByName('ITEM').AsInteger := fDMCadProgramacao.mProgItem_Baixa.AsInteger;
+      fDMCadProgramacao.cdsBaixa_Processo.Open;
+      if not fDMCadProgramacao.cdsBaixa_Processo.IsEmpty then
+      begin
+        fDMCadProgramacao.cdsBaixa_Processo.Edit;
+        fDMCadProgramacao.cdsBaixa_ProcessoPROGRAMADO.AsString := 'S';
+        fDMCadProgramacao.cdsBaixa_Processo.Post;
+        fDMCadProgramacao.cdsBaixa_Processo.ApplyUpdates(0);
+
+        fDMCadProgramacao.prc_Inserir;
+        fDMCadProgramacao.cdsProgramacaoID_BAIXA.AsInteger       := fDMCadProgramacao.mProgID_Baixa.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoITEM_BAIXA.AsInteger     := fDMCadProgramacao.mProgItem_Baixa.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoID_PROCESSO.AsInteger    := fDMCadProgramacao.cdsPendID_PROCESSO.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoID_LOTE.AsInteger        := fDMCadProgramacao.cdsPendID_LOTE.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoNUM_ORDEM.AsInteger      := fDMCadProgramacao.cdsPendNUM_ORDEM.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoNUM_LOTE.AsInteger       := fDMCadProgramacao.cdsPendNUM_LOTE.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoDTINICIAL.AsDateTime     := fDMCadProgramacao.mProgDtInicial.AsDateTime;
+        fDMCadProgramacao.cdsProgramacaoHRINICIAL.AsDateTime     := fDMCadProgramacao.mProgHrInicial.AsDateTime;
+        fDMCadProgramacao.cdsProgramacaoDTFINAL.AsDateTime       := fDMCadProgramacao.mProgDtFinal.AsDateTime;
+        fDMCadProgramacao.cdsProgramacaoHRFINAL.AsDateTime       := fDMCadProgramacao.mProgHrFinal.AsDateTime;
+        fDMCadProgramacao.cdsProgramacaoID_MAQUINA.AsInteger     := fDMCadProgramacao.mProgID_Maquina.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoNUM_BOCA.AsInteger       := fDMCadProgramacao.mProgNum_Boca.AsInteger;
+        fDMCadProgramacao.cdsProgramacaoDTPROGRAMACAO.AsDateTime := Date;
+        fDMCadProgramacao.cdsProgramacaoTEMPO.AsFloat            := fDMCadProgramacao.mProgTempo.AsFloat;
+        fDMCadProgramacao.cdsProgramacaoQTD.AsFloat              := fDMCadProgramacao.mProgQtd.AsFloat;
+        fDMCadProgramacao.cdsProgramacaoSTATUS.AsString          := 'N';
+        fDMCadProgramacao.prc_Gravar;
+      end;
+
+      fDMCadProgramacao.mProg.Next;
+    end;
+
+    dmDatabase.scoDados.Commit(ID);
+  except
+    on E: exception do
+    begin
+      dmDatabase.scoDados.Rollback(ID);
+      raise Exception.Create('Erro ao gravar a programação ' + #13 + 'Mensagem: ' + E.Message);
+    end;
+  end;
+  Close;
+end;
+
+procedure TfrmCadProgramacao.SMDBGrid3GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if fDMCadProgramacao.mMaq_BocaSelecionado.AsString = 'S' then
+    AFont.Color := clBlue
+  else
+  if fDMCadProgramacao.mMaq_BocaDtFinal.AsDateTime > 10 then
+  begin
+    Background  := clYellow;
+    AFont.Color := clBlack;
+  end;
+end;
+
+procedure TfrmCadProgramacao.prc_Gravar_mProd;
+begin
+
+  fDMCadProgramacao.mProg.Insert;
+  fDMCadProgramacao.mProgID_Maquina.AsInteger  := fDMCadProgramacao.mMaqID.AsInteger;
+  fDMCadProgramacao.mProgNome_Maquina.AsString := fDMCadProgramacao.mMaqNome.AsString;
+  fDMCadProgramacao.mProgNum_Boca.AsInteger    := fDMCadProgramacao.mMaq_BocaNum_Boca.AsInteger;
+  fDMCadProgramacao.mProgQtd.AsFloat           := fDMCadProgramacao.mMaq_BocaQtd_Gerar.AsFloat;
+  fDMCadProgramacao.mProgDtFinal.AsDateTime    := fDMCadProgramacao.mMaq_BocaDtPrevista.AsDateTime;
+  fDMCadProgramacao.mProgHrFinal.AsDateTime    := fDMCadProgramacao.mMaq_BocaHrPrevista.AsDateTime;
+  fDMCadProgramacao.mProgTempo.AsFloat         := fDMCadProgramacao.mMaq_BocaTempo.AsFloat;
+  fDMCadProgramacao.mProgDtInicial.AsDateTime  := fDMCadProgramacao.mMaq_BocaDtInicial.AsDateTime;
+  fDMCadProgramacao.mProgHrInicial.AsDateTime  := fDMCadProgramacao.mMaq_BocaHrInicial.AsDateTime;
+  fDMCadProgramacao.mProgID_Baixa.AsInteger    := fDMCadProgramacao.cdsPendID_BAIXA.AsInteger;
+  fDMCadProgramacao.mProgItem_Baixa.AsInteger  := fDMCadProgramacao.cdsPendITEM_BAIXA.AsInteger;
+  fDMCadProgramacao.mProg.Post;
+
 end;
 
 end.

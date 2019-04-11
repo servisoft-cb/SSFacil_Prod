@@ -559,7 +559,7 @@ object DMBaixaProd: TDMBaixaProd
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 136
+    Left = 135
     Top = 160
     object sdsBaixa_ProcessoID: TIntegerField
       FieldName = 'ID'

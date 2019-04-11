@@ -291,6 +291,7 @@ type
     cdsConsulta_LoteNOME_PRODUTO: TStringField;
     cdsConsulta_LoteID_PRODUTO: TIntegerField;
     cdsConsulta_LoteNOME_MAQUINA: TStringField;
+    cdsConsulta_LoteNUM_BOCA: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

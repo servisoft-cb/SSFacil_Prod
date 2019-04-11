@@ -40,7 +40,6 @@ type
     cdsPend: TClientDataSet;
     dsPend: TDataSource;
     cdsPendNOME_PROCESSO: TStringField;
-    cdsPendID_MAQUINA: TIntegerField;
     cdsPendNUM_ORDEM: TIntegerField;
     cdsPendNUM_LOTE: TIntegerField;
     cdsPendNOME_PRODUTO: TStringField;
@@ -118,6 +117,78 @@ type
     qParametros_Lote: TSQLQuery;
     qParametros_LoteTOTAL_HORAS_PROD: TFloatField;
     mMaq_BocaPrimeira_Hora: TTimeField;
+    mMaq_BocaPrimeira_Data: TDateField;
+    mProgID_Baixa: TIntegerField;
+    mProgItem_Baixa: TIntegerField;
+    sdsBaixa_Processo: TSQLDataSet;
+    sdsBaixa_ProcessoID: TIntegerField;
+    sdsBaixa_ProcessoITEM: TIntegerField;
+    sdsBaixa_ProcessoID_PROCESSO: TIntegerField;
+    sdsBaixa_ProcessoID_LOTE: TIntegerField;
+    sdsBaixa_ProcessoID_PEDIDO: TIntegerField;
+    sdsBaixa_ProcessoITEM_PEDIDO: TIntegerField;
+    sdsBaixa_ProcessoDTENTRADA: TDateField;
+    sdsBaixa_ProcessoHRENTRADA: TTimeField;
+    sdsBaixa_ProcessoDTBAIXA: TDateField;
+    sdsBaixa_ProcessoHRBAIXA: TTimeField;
+    sdsBaixa_ProcessoQTD: TFloatField;
+    sdsBaixa_ProcessoQTD_PRODUZIDO: TFloatField;
+    sdsBaixa_ProcessoNUM_ORDEM: TIntegerField;
+    sdsBaixa_ProcessoTIPO: TStringField;
+    sdsBaixa_ProcessoTOTAL_HORAS: TFloatField;
+    sdsBaixa_ProcessoQTD_PENDENTE: TFloatField;
+    sdsBaixa_ProcessoPARCIAL: TStringField;
+    sdsBaixa_ProcessoITEM_ORIGINAL: TIntegerField;
+    sdsBaixa_ProcessoQTD_LIBERADA: TFloatField;
+    sdsBaixa_ProcessoAJUSTE: TStringField;
+    sdsBaixa_ProcessoID_FUNCIONARIO_ENT: TIntegerField;
+    sdsBaixa_ProcessoID_FUNCIONARIO_BAIXA: TIntegerField;
+    sdsBaixa_ProcessoID_MOVESTOQUE: TIntegerField;
+    sdsBaixa_ProcessoID_MOVESTOQUE_RES: TIntegerField;
+    sdsBaixa_ProcessoRETRABALHO: TStringField;
+    dspBaixa_Processo: TDataSetProvider;
+    cdsBaixa_Processo: TClientDataSet;
+    cdsBaixa_ProcessoID: TIntegerField;
+    cdsBaixa_ProcessoITEM: TIntegerField;
+    cdsBaixa_ProcessoID_PROCESSO: TIntegerField;
+    cdsBaixa_ProcessoID_LOTE: TIntegerField;
+    cdsBaixa_ProcessoID_PEDIDO: TIntegerField;
+    cdsBaixa_ProcessoITEM_PEDIDO: TIntegerField;
+    cdsBaixa_ProcessoDTENTRADA: TDateField;
+    cdsBaixa_ProcessoHRENTRADA: TTimeField;
+    cdsBaixa_ProcessoDTBAIXA: TDateField;
+    cdsBaixa_ProcessoHRBAIXA: TTimeField;
+    cdsBaixa_ProcessoQTD: TFloatField;
+    cdsBaixa_ProcessoQTD_PRODUZIDO: TFloatField;
+    cdsBaixa_ProcessoNUM_ORDEM: TIntegerField;
+    cdsBaixa_ProcessoTIPO: TStringField;
+    cdsBaixa_ProcessoclNome_Processo: TStringField;
+    cdsBaixa_ProcessoTOTAL_HORAS: TFloatField;
+    cdsBaixa_ProcessoQTD_PENDENTE: TFloatField;
+    cdsBaixa_ProcessoPARCIAL: TStringField;
+    cdsBaixa_ProcessoITEM_ORIGINAL: TIntegerField;
+    cdsBaixa_ProcessoQTD_LIBERADA: TFloatField;
+    cdsBaixa_ProcessoAJUSTE: TStringField;
+    cdsBaixa_ProcessoID_FUNCIONARIO_ENT: TIntegerField;
+    cdsBaixa_ProcessoID_FUNCIONARIO_BAIXA: TIntegerField;
+    cdsBaixa_ProcessoID_MOVESTOQUE: TIntegerField;
+    cdsBaixa_ProcessoID_MOVESTOQUE_RES: TIntegerField;
+    cdsBaixa_ProcessoRETRABALHO: TStringField;
+    dsBaixa_Processo: TDataSource;
+    sdsProgramacaoNUM_BOCA: TIntegerField;
+    sdsProgramacaoDTPROGRAMACAO: TDateField;
+    sdsProgramacaoTEMPO: TFloatField;
+    sdsProgramacaoQTD: TFloatField;
+    sdsProgramacaoSTATUS: TStringField;
+    cdsProgramacaoNUM_BOCA: TIntegerField;
+    cdsProgramacaoDTPROGRAMACAO: TDateField;
+    cdsProgramacaoTEMPO: TFloatField;
+    cdsProgramacaoQTD: TFloatField;
+    cdsProgramacaoSTATUS: TStringField;
+    sdsBaixa_ProcessoPROGRAMADO: TStringField;
+    cdsBaixa_ProcessoPROGRAMADO: TStringField;
+    cdsPendID_PROCESSO: TIntegerField;
+    cdsPendID_LOTE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspProgramacaoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -139,6 +210,8 @@ type
     procedure prc_Consultar_MaqUsada(ID : Integer);
     procedure prc_Gerar_MaqBoca;
     procedure prc_Gravar_mMaq_Boca(Qtd_Processo : Real ; DTFinal, HRFinal : TDateTime ; Num_Boca : Integer);
+
+    procedure prc_Monta_Qtd_Maq(Qtd : Real);
 
   end;
 
@@ -176,40 +249,16 @@ begin
 end;
 
 procedure TDMCadProgramacao.prc_Gravar;
-var
-  sds: TSQLDataSet;
-  ID: TTransactionDesc;
-  vNumVale: Integer;
 begin
   vMsgErro := '';
-  //if cdsProgramacaoDATA.AsDateTime < 10 then
-  //  vMsgErro := vMsgErro + #13 + '*** Data não informada!';
   if trim(vMSGErro) <> '' then
   begin
     MessageDlg(vMSGErro, mtError, [mbOk], 0);
     exit;
   end;
-  sds := TSQLDataSet.Create(nil);
-  ID.TransactionID  := 1;
-  ID.IsolationLevel := xilREADCOMMITTED;
-  dmDatabase.scoDados.StartTransaction(ID);
+  cdsProgramacao.Post;
+  cdsProgramacao.ApplyUpdates(0);
 
-  try
-    sds.SQLConnection := dmDatabase.scoDados;
-    sds.NoMetadata    := True;
-    sds.GetMetadata   := False;
-    sds.CommandText   := ' UPDATE TABELALOC SET FLAG = 1 WHERE TABELA = ' + QuotedStr('PROGRAMACAO');
-    sds.ExecSQL();
-
-    cdsProgramacao.Post;
-    cdsProgramacao.ApplyUpdates(0);
-
-    dmDatabase.scoDados.Commit(ID);
-  except
-    dmDatabase.scoDados.Rollback(ID);
-    raise;
-  end;
-  FreeAndNil(sds);
 end;
 
 procedure TDMCadProgramacao.prc_Localizar(ID: Integer); //-1 é para inclusão
@@ -332,7 +381,7 @@ begin
   while i <= mMaqQtd_Bocas.AsInteger do
   begin
     if cdsMaqUsada.Locate('NUM_BOCA',i,[loCaseInsensitive]) then
-      prc_Gravar_mMaq_Boca(cdsMaqUsadaQTD_PROCESSO.AsFloat,cdsMaqUsadaDTFINAL.AsDateTime,cdsMaqUsadaHRFINAL.AsDateTime,i)
+      prc_Gravar_mMaq_Boca(cdsMaqUsadaQTD_PROGRAMADA.AsFloat,cdsMaqUsadaDTFINAL.AsDateTime,cdsMaqUsadaHRFINAL.AsDateTime,i)
     else
       prc_Gravar_mMaq_Boca(0,0,0,i);
 
@@ -349,12 +398,42 @@ begin
   if DTFinal > 10 then
     mMaq_BocaDtFinal.AsDateTime := DTFinal;
   if HRFinal <> 0 then
-    mMaq_BocaHrFinal.AsDateTime;
+    mMaq_BocaHrFinal.AsDateTime := HRFinal;
   mMaq_BocaQtd_Gerar.AsFloat := 0;
   mMaq_BocaTempo.AsFloat := 0;
   mMaq_BocaID_Maquina.AsInteger := mMaqID.AsInteger;
   mMaq_BocaNum_Boca.AsInteger := Num_Boca;
   mMaq_Boca.Post;
+end;
+
+procedure TDMCadProgramacao.prc_Monta_Qtd_Maq(Qtd : Real);
+var
+  vQtd : Real;
+  vQtdDiv : Real;
+begin
+  vQtdDiv := StrToFloat(FormatFloat('0.00',Qtd / mMaq.RecordCount));
+  vQtd    := Qtd;
+  mMaq.First;
+  while not mMaq.Eof do
+  begin
+    mMaq.Edit;
+    if mMaq.RecordCount = mMaq.RecNo then
+      mMaqQtd_Prog.AsFloat := vQtd
+    else
+      mMaqQtd_Prog.AsFloat := vQtdDiv;
+    vQtd := StrToFloat(FormatFloat('0.00',vQtd - mMaqQtd_Prog.AsFloat));
+    mMaq.Post;
+
+    mMaq_Boca.First;
+    while not mMaq_Boca.Eof do
+      mMaq_Boca.Delete;
+
+    prc_Consultar_MaqUsada(mMaqID.AsInteger);
+    prc_Gerar_MaqBoca;
+
+    mMaq.Next;
+  end;
+
 end;
 
 end.

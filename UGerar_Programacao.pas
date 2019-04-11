@@ -9,8 +9,6 @@ uses
 
 type
   TfrmGerar_Programacao = class(TForm)
-    NxPanel1: TNxPanel;
-    NxButton1: TNxButton;
     Splitter1: TSplitter;
     Panel1: TPanel;
     SMDBGrid1: TSMDBGrid;
@@ -18,18 +16,19 @@ type
     Panel2: TPanel;
     SMDBGrid2: TSMDBGrid;
     NxPanel3: TNxPanel;
-    NxButton2: TNxButton;
+    btnProgramar: TNxButton;
     NxButton3: TNxButton;
     Panel3: TPanel;
     Label2: TLabel;
+    btnConsultar: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure NxButton1Click(Sender: TObject);
+    procedure btnConsultarClick(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure NxButton2Click(Sender: TObject);
+    procedure btnProgramarClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadProgramacao: TDMCadProgramacao;
@@ -65,7 +64,7 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadProgramacao);
 end;
 
-procedure TfrmGerar_Programacao.NxButton1Click(Sender: TObject);
+procedure TfrmGerar_Programacao.btnConsultarClick(Sender: TObject);
 begin
   fDMCadProgramacao.cdsPend.AfterScroll := nil;
   prc_Consultar_Pend;
@@ -124,22 +123,34 @@ procedure TfrmGerar_Programacao.SMDBGrid2GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
   if fDMCadProgramacao.cdsMaqPendBOCA_DISPONIVEL.AsInteger <= 0 then
-    AFont.Color := clRed
+  begin
+    Background  := clRed;
+    AFont.Color := clwhite;
+  end
   else
   if fDMCadProgramacao.cdsMaqPendQTD_BOCA.AsInteger > fDMCadProgramacao.cdsMaqPendBOCA_DISPONIVEL.AsInteger then
-    AFont.Color := clAqua;
-
+  begin
+    Background  := clAqua;
+    AFont.Color := clBlack;
+  end;
 end;
 
-procedure TfrmGerar_Programacao.NxButton2Click(Sender: TObject);
+procedure TfrmGerar_Programacao.btnProgramarClick(Sender: TObject);
 var
-  vQtd : Real;
-  vQtdDiv : Real;
-  vContador : Real;
+  vContador : Integer;
 begin
+  if StrToFloat(FormatFloat('0.00',fDMCadProgramacao.cdsPendQTD_POR_MIN.AsFloat)) <= 0 then
+  begin
+    MessageDlg('*** Qtde. por minuto não informado!'#13 +
+               '    Programação não vai ser gerada.', mtInformation, [mbok], 0);
+    exit;
+  end;
+
   fDMCadProgramacao.mMaq.EmptyDataSet;
   fDMCadProgramacao.mMaq_Boca.EmptyDataSet;
+  fDMCadProgramacao.mProg.EmptyDataSet;
   fDMCadProgramacao.cdsMaqPend.First;
+
   while not fDMCadProgramacao.cdsMaqPend.Eof do
   begin
     if (SMDBGrid2.SelectedRows.CurrentRowSelected) then
@@ -155,37 +166,20 @@ begin
     fDMCadProgramacao.cdsMaqPend.Next;
   end;
 
-  vContador := StrToFloat(FormatFloat('0',fDMCadProgramacao.mMaq.RecordCount));
-
-  if vContador <= 0 then
+  if fDMCadProgramacao.mMaq.RecordCount <= 0 then
   begin
-    MessageDlg('*** Não foi escolhida nenhuma Máquina!', mtInformation, [mbok], 0);
+    MessageDlg('*** Nenhuma foi escolhida Máquina!', mtInformation, [mbok], 0);
     exit;
   end;
 
-  vQtdDiv := StrToFloat(FormatFloat('0.00',fDMCadProgramacao.cdsPendQTD.AsFloat / vContador));
-  vQtd    := fDMCadProgramacao.cdsPendQTD.AsFloat;
-  fDMCadProgramacao.mMaq.First;
-  while not fDMCadProgramacao.mMaq.Eof do
-  begin
-    fDMCadProgramacao.mMaq.Edit;
-    if fDMCadProgramacao.mMaq.RecordCount = fDMCadProgramacao.mMaq.RecNo then
-      fDMCadProgramacao.mMaqQtd_Prog.AsFloat := vQtd
-    else
-      fDMCadProgramacao.mMaqQtd_Prog.AsFloat := vQtdDiv;
-    vQtd := StrToFloat(FormatFloat('0.00',vQtd - fDMCadProgramacao.mMaqQtd_Prog.AsFloat));
-    fDMCadProgramacao.mMaq.Post;
-
-    fDMCadProgramacao.prc_Consultar_MaqUsada(fDMCadProgramacao.mMaqID.AsInteger);
-    fDMCadProgramacao.prc_Gerar_MaqBoca;
-
-    fDMCadProgramacao.mMaq.Next;
-  end;
+  fDMCadProgramacao.prc_Monta_Qtd_Maq(fDMCadProgramacao.cdsPendQTD.AsFloat);
 
   frmCadProgramacao  := TfrmCadProgramacao.Create(Self);
   frmCadProgramacao.fDMCadProgramacao := fDMCadProgramacao;
   frmCadProgramacao.ShowModal;
   FreeAndNil(frmCadProgramacao);
+
+  btnConsultarClick(Sender);
 end;
 
 end.
