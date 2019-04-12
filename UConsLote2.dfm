@@ -761,7 +761,7 @@ object frmConsLote2: TfrmConsLote2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 30
+        ColCount = 28
         RowCount = 2
         Columns = <
           item
@@ -819,25 +819,6 @@ object frmConsLote2: TfrmConsLote2
             Title.Caption = 'Nome Processo'
             Title.Color = 12058551
             Width = 177
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOME_MAQUINA'
-            Title.Alignment = taCenter
-            Title.Caption = 'M'#225'quina'
-            Title.Color = 12058551
-            Width = 130
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'NUM_BOCA'
-            Title.Alignment = taCenter
-            Title.Caption = 'N'#186' Boca'
-            Title.Color = 12058551
-            Width = 31
             Visible = True
           end
           item
