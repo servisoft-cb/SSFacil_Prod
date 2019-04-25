@@ -70,7 +70,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 18
+    ColCount = 19
     RowCount = 2
     Columns = <
       item
@@ -245,6 +245,13 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
         FieldName = 'Num_Lote_Controle'
         Title.Alignment = taCenter
         Title.Caption = 'N'#186' Lote Controle'
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'Carga'
+        Title.Alignment = taCenter
         Visible = True
       end>
   end

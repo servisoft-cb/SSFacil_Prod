@@ -290,6 +290,7 @@ begin
     fDMCadLote.cdsLoteQTD_ESTOQUE_USADA.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
     fDMCadLote.cdsLoteNUM_LOTE_CONTROLE.AsString := fDMCadLote.mAuxLoteNum_Lote_Controle.AsString;
   end;
+  fDMCadLote.cdsLoteCARGA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteCarga.AsFloat));
   fDMCadLote.cdsLote.Post;
 
   if Tipo_Lote = 'E' then

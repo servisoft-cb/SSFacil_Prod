@@ -14,8 +14,8 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 43486.399596759260000000
+    ReportOptions.CreateDate = 42751.456864641200000000
+    ReportOptions.LastChange = 43579.746433333330000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -80,13 +80,14 @@ object DMLoteImp: TDMLoteImp
       'CLI.NOME NOME_CLIENTE, L.qtd_estoque_usada,'#13#10'CASE'#13#10'  WHEN L.TIPO' +
       '_LOTE = '#39'S'#39' THEN '#39'SEMI ACABADO'#39#13#10'  WHEN L.TIPO_LOTE = '#39'E'#39' THEN '#39 +
       'ESTOQUE'#39#13#10'  ELSE '#39'PRODUTO'#39#13#10'  END DESCRICAO_TIPO_LOTE, L.DTEMISS' +
-      'AO'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10'ON L.id_produto = P.ID'#13#10'LE' +
-      'FT JOIN COMBINACAO COMB'#13#10'ON l.id_combinacao = COMB.ID'#13#10'left join' +
-      ' produto mat'#13#10'on l.id_material = mat.id'#13#10'left join produto mat2'#13 +
-      #10'on l.id_material2 = mat2.id'#13#10'LEFT JOIN COMBINACAO COR1'#13#10'ON L.id' +
-      '_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINACAO COR2'#13#10'ON L.id_cor_mat2 ' +
-      '= COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.ID_CLIENTE = CLI.CODIGO'#13#10'W' +
-      'HERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND L.NUM_LOTE = :NUM_LOTE'#13#10
+      'AO, L.CARGA'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10'ON L.id_produto =' +
+      ' P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON l.id_combinacao = COMB.ID'#13#10 +
+      'left join produto mat'#13#10'on l.id_material = mat.id'#13#10'left join prod' +
+      'uto mat2'#13#10'on l.id_material2 = mat2.id'#13#10'LEFT JOIN COMBINACAO COR1' +
+      #13#10'ON L.id_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINACAO COR2'#13#10'ON L.id_' +
+      'cor_mat2 = COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.ID_CLIENTE = CLI.' +
+      'CODIGO'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND L.NUM_LOTE = :NUM' +
+      '_LOTE'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -101,7 +102,7 @@ object DMLoteImp: TDMLoteImp
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 153
-    Top = 16
+    Top = 17
   end
   object dspTalao_SL: TDataSetProvider
     DataSet = sdsTalao_SL
@@ -238,6 +239,9 @@ object DMLoteImp: TDMLoteImp
     object cdsTalao_SLQTD_ESTOQUE_USADA: TFloatField
       FieldName = 'QTD_ESTOQUE_USADA'
     end
+    object cdsTalao_SLCARGA: TFloatField
+      FieldName = 'CARGA'
+    end
   end
   object dsTalao_SL: TDataSource
     DataSet = cdsTalao_SL
@@ -283,7 +287,8 @@ object DMLoteImp: TDMLoteImp
       'ID_CLIENTE=ID_CLIENTE'
       'NOME_CLIENTE=NOME_CLIENTE'
       'DTEMISSAO=DTEMISSAO'
-      'QTD_ESTOQUE_USADA=QTD_ESTOQUE_USADA')
+      'QTD_ESTOQUE_USADA=QTD_ESTOQUE_USADA'
+      'CARGA=CARGA')
     DataSource = dsTalao_SL
     BCDToCurrency = False
     Left = 800
@@ -1244,8 +1249,8 @@ object DMLoteImp: TDMLoteImp
       'NOME_COMBINACAO=NOME_COMBINACAO')
     DataSource = dsDtEntrega
     BCDToCurrency = False
-    Left = 800
-    Top = 471
+    Left = 799
+    Top = 473
   end
   object mImpLote_SL: TClientDataSet
     Active = True
@@ -1300,7 +1305,7 @@ object DMLoteImp: TDMLoteImp
       'Reimpresso=Reimpresso')
     DataSource = dsmImpLote_SL
     BCDToCurrency = False
-    Left = 856
+    Left = 855
     Top = 471
   end
   object sdsTalao_Ajuste: TSQLDataSet

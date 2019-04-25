@@ -434,6 +434,8 @@ begin
     exit;
   end;
 
+  //ver número pedido aqui Cleomar
+
   vFilial_Loc := fDMBaixaProd.cdsLoteFILIAL.AsInteger;
   prc_Abrir_Baixa_Processo(fDMBaixaProd.cdsLoteID.AsInteger,0,0,0);
   if fDMBaixaProd.cdsBaixa_Processo.IsEmpty then

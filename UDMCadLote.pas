@@ -1094,6 +1094,12 @@ type
     qUltBaixaParcialQTD: TFloatField;
     sdsBaixa_ProcessoRETRABALHO: TStringField;
     cdsBaixa_ProcessoRETRABALHO: TStringField;
+    cdsProdutoMETROS_CARGA: TFloatField;
+    mAuxLoteMetros_Carga: TFloatField;
+    mAuxLoteCarga: TFloatField;
+    cdsProdutoTIPO_PRODUCAO: TStringField;
+    sdsLoteCARGA: TFloatField;
+    cdsLoteCARGA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1743,6 +1749,8 @@ begin
   mAuxLoteQtd_Estoque_Usa.AsFloat       := 0;
   mAuxLotePossui_Lote_Controle.AsString := 'N';
   mAuxLoteNum_Lote_Controle.AsString    := '';
+  mAuxLoteMetros_Carga.AsFloat          := StrToFloat(FormatFloat('0.00',0));
+  mAuxLoteCarga.AsFloat                 := StrToFloat(FormatFloat('0.00',0));
 end;
 
 procedure TDMCadLote.prc_SaldoEst(Filial, ID_Produto, ID_Cor: Integer;

@@ -290,6 +290,7 @@ type
     cdsProcessoRETRABALHO: TStringField;
     cdsConsulta_LoteNOME_PRODUTO: TStringField;
     cdsConsulta_LoteID_PRODUTO: TIntegerField;
+    cdsTalao_SLCARGA: TFloatField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

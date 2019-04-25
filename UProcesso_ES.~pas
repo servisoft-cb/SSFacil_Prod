@@ -434,6 +434,8 @@ begin
     exit;
   end;
 
+  //ver número pedido
+
   vFilial_Loc := fDMBaixaProd.cdsLoteFILIAL.AsInteger;
   prc_Abrir_Baixa_Processo(fDMBaixaProd.cdsLoteID.AsInteger,0,0,0);
   if fDMBaixaProd.cdsBaixa_Processo.IsEmpty then
@@ -691,6 +693,7 @@ begin
         begin
           vSenha := '';
           frmSenhaAux := TfrmSenhaAux.Create(Self);
+          frmSenhaAux.vSenha_Local   := fDMBaixaProd.qFuncionarioSENHA.AsString;
           frmSenhaAux.Label2.Caption := fDMBaixaProd.qFuncionarioNOME.AsString;
           frmSenhaAux.ShowModal;
           FreeAndNil(frmSenhaAux);
