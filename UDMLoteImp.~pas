@@ -305,7 +305,6 @@ type
     procedure cdsConsulta_LoteCalcFields(DataSet: TDataSet);
     procedure frxmImpAuxFirst(Sender: TObject);
     procedure cdsLote_PedCalcFields(DataSet: TDataSet);
-    procedure mImpLote_SLNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure prc_Imprimir_Processos;
@@ -434,12 +433,6 @@ end;
 procedure TDMLoteImp.cdsLote_PedCalcFields(DataSet: TDataSet);
 begin
   cdsLote_PedclCodBarra.AsString := '9' + FormatFloat('000000',cdsLote_PedNUM_LOTE.AsInteger);
-end;
-
-procedure TDMLoteImp.mImpLote_SLNewRecord(DataSet: TDataSet);
-begin
-  mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.00',0));
-  mAuxLoteCarga.AsFloat        := StrToFloat(FormatFloat('0.00',0));
 end;
 
 end.

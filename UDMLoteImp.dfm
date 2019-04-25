@@ -642,7 +642,7 @@ object DMLoteImp: TDMLoteImp
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 160
+    Left = 161
     Top = 280
   end
   object dspConsulta_Lote: TDataSetProvider

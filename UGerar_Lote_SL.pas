@@ -1570,16 +1570,18 @@ begin
   if (fDMCadLote.cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (Tipo = 'S') then
   begin
     if StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
+    begin
       vAux := StrToFloat(FormatFloat('0.00',(fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) -  trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)));
-    if vAux >= 0.50 then
-      vAux := 1.00
-    else
-    if vAux >= 0 then
-      vAux := 0.50
-    else
-      vAux := 0;
-    fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
-    fDMCadLote.mAuxLoteCarga.AsFloat := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+      if vAux >= 0.50 then
+        vAux := 1.00
+      else
+      if vAux >= 0 then
+        vAux := 0.50
+      else
+        vAux := 0;
+      fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
+      fDMCadLote.mAuxLoteCarga.AsFloat := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+    end;
   end;
   fDMCadLote.mAuxLote.Post;
 

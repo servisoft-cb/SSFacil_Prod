@@ -1272,7 +1272,6 @@ object DMLoteImp: TDMLoteImp
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    OnNewRecord = mImpLote_SLNewRecord
     Left = 528
     Top = 344
     Data = {
