@@ -66,7 +66,6 @@ type
     aloRetrabalho1: TMenuItem;
     NxLabel18: TNxLabel;
     cbxTipo: TNxComboBox;
-    TS_Material: TRzTabSheet;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);

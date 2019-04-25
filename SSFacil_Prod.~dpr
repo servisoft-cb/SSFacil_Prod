@@ -100,7 +100,8 @@ uses
   UDMCadIntervalo_Tempo in 'UDMCadIntervalo_Tempo.pas' {DMCadIntervalo_Tempo: TDataModule},
   UCadIntervalo_Tempo in 'UCadIntervalo_Tempo.pas' {frmCadIntervalo_tempo},
   UConsProgramacao in 'UConsProgramacao.pas' {frmConsProgramacao},
-  UDMConsProgramacao in 'UDMConsProgramacao.pas' {DMConsProgramacao: TDataModule};
+  UDMConsProgramacao in 'UDMConsProgramacao.pas' {DMConsProgramacao: TDataModule},
+  DmdDatabase_NFeBD in '..\ssfacil\DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule};
 
 {$R *.res}
 

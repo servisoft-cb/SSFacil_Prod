@@ -19,7 +19,7 @@ object frmConsMatLote2: TfrmConsMatLote2
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 997
+    Width = 1005
     Height = 51
     Align = alTop
     Color = clSilver
@@ -116,8 +116,8 @@ object frmConsMatLote2: TfrmConsMatLote2
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 51
-    Width = 997
-    Height = 355
+    Width = 1005
+    Height = 363
     Align = alClient
     Ctl3D = False
     DataSource = DMConsLote.dsmMat
@@ -193,8 +193,8 @@ object frmConsMatLote2: TfrmConsMatLote2
   end
   object VDBGrid1: TVDBGrid
     Left = 0
-    Top = 406
-    Width = 997
+    Top = 414
+    Width = 1005
     Height = 125
     Align = alBottom
     Ctl3D = False

@@ -52,3 +52,6 @@ UProcesso_ES.~pas
 *.~pas
 *.~dfm
 *.~pas
+*.~ddp
+*.~dfm
+*.~pas

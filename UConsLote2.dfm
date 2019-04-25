@@ -1232,9 +1232,6 @@ object frmConsLote2: TfrmConsLote2
           end>
       end
     end
-    object TS_Material: TRzTabSheet
-      Caption = 'Material Por KG'
-    end
   end
   object PopupMenu1: TPopupMenu
     Left = 736

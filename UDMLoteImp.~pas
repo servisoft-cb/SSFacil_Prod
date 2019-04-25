@@ -291,6 +291,38 @@ type
     cdsConsulta_LoteNOME_PRODUTO: TStringField;
     cdsConsulta_LoteID_PRODUTO: TIntegerField;
     cdsTalao_SLCARGA: TFloatField;
+    sdsConsMatKG: TSQLDataSet;
+    dspConsMatKG: TDataSetProvider;
+    cdsConsMatKG: TClientDataSet;
+    dsConsMatKG: TDataSource;
+    sdsConsMatKG_Com_Pendentes_Juntos_Nao_apagar: TSQLDataSet;
+    cdsConsMatKGID_PROCESSO: TIntegerField;
+    cdsConsMatKGNOME_PROCESSO: TStringField;
+    cdsConsMatKGID_MATERIAL: TIntegerField;
+    cdsConsMatKGNOME_MATERIAL: TStringField;
+    cdsConsMatKGID_COR_MAT: TFMTBCDField;
+    cdsConsMatKGNOME_COR_MAT: TStringField;
+    cdsConsMatKGUNIDADE: TStringField;
+    cdsConsMatKGQTD_CONSUMO: TFloatField;
+    cdsConsMatKGQTD_CONSUMO_PROD: TFloatField;
+    cdsConsMatKGQTD_PRODUZIDO: TFloatField;
+    sdsConsMatKG_Ref: TSQLDataSet;
+    dspConsMatKG_Ref: TDataSetProvider;
+    cdsConsMatKG_Ref: TClientDataSet;
+    dsConsMatKG_Ref: TDataSource;
+    cdsConsMatKG_RefID_PROCESSO: TIntegerField;
+    cdsConsMatKG_RefNOME_PROCESSO: TStringField;
+    cdsConsMatKG_RefID_MATERIAL: TIntegerField;
+    cdsConsMatKG_RefNOME_MATERIAL: TStringField;
+    cdsConsMatKG_RefID_COR_MAT: TFMTBCDField;
+    cdsConsMatKG_RefNOME_COR_MAT: TStringField;
+    cdsConsMatKG_RefUNIDADE: TStringField;
+    cdsConsMatKG_RefQTD_CONSUMO: TFloatField;
+    cdsConsMatKG_RefQTD_CONSUMO_PROD: TFloatField;
+    cdsConsMatKG_RefQTD_PRODUZIDO: TFloatField;
+    cdsConsMatKG_RefREFERENCIA: TStringField;
+    frxConsMatKG: TfrxDBDataset;
+    frxConsMatKG_Ref: TfrxDBDataset;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -315,6 +347,8 @@ type
     ctConsulta_Lote : String;
     ctConsLoteRef   : String;
     ctLote_Ped      : String;
+    ctConsMatKG     : String;
+    ctConsMatKG_Ref : String;
     vObsPedido : String;
     vDtProducaoIni, vDtProducaoFin : TDateTime;
 
@@ -379,6 +413,9 @@ begin
   ctConsulta_Lote := sdsConsulta_Lote.CommandText;
   ctConsLoteRef   := sdsConsLoteRef.CommandText;
   ctLote_Ped      := sdsLote_Ped.CommandText;
+  ctConsMatKG     := sdsConsMatKG.CommandText;
+  ctConsMatKG_Ref := sdsConsMatKG_Ref.CommandText;
+
   qParametros_Lote.Open;
 end;
 

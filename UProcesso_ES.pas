@@ -753,6 +753,14 @@ end;
 
 procedure TfrmProcesso_ES.CurrencyEdit1Exit(Sender: TObject);
 begin
+  if Length(CurrencyEdit1.Text) > 9 then
+  begin
+    MessageDlg('*** Favor verificar a Quantidade!', mtError, [mbOk], 0);
+    CurrencyEdit1.Text := vQtdAnt;
+    CurrencyEdit1.SetFocus;
+    exit;
+  end
+  else
   if CurrencyEdit1.Text = Edit1.Text then
   begin
     MessageDlg('*** Quantidade informada igual ao código de barras, favor verificar!', mtError, [mbOk], 0);
@@ -760,6 +768,8 @@ begin
     CurrencyEdit1.SetFocus;
     exit;
   end;
+
+
 end;
 
 procedure TfrmProcesso_ES.prc_Pedido_Talao;
