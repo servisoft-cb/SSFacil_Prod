@@ -656,6 +656,13 @@ begin
   begin
     if CurrencyEdit1.Value > 0 then
       btnConfirmar.SetFocus;
+  end
+  else
+  if Key = 27 then
+  begin
+    CurrencyEdit1.Clear;
+    Label5.Caption := '';
+    Panel2.Visible := False;
   end;
 end;
 

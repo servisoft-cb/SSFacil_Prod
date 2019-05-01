@@ -509,9 +509,9 @@ object frmConsLoteProc: TfrmConsLoteProc
       Caption = 'Por Tal'#227'o'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 0
+        Top = 27
         Width = 916
-        Height = 404
+        Height = 377
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsConsulta_Lote
@@ -670,7 +670,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -679,7 +678,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Cliente'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -688,7 +686,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -697,7 +694,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Baixa'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -706,9 +702,38 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Hora'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end>
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 916
+        Height = 27
+        Align = alTop
+        Color = clSilver
+        TabOrder = 1
+        object Label1: TLabel
+          Left = 27
+          Top = 10
+          Width = 120
+          Height = 13
+          Caption = 'Ordenar a Impress'#227'o Por:'
+        end
+        object ComboBox1: TComboBox
+          Left = 148
+          Top = 4
+          Width = 145
+          Height = 21
+          Style = csDropDownList
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 0
+          Text = 'Refer'#234'ncia'
+          Items.Strings = (
+            'Refer'#234'ncia'
+            'Dt.Entrega')
+        end
       end
     end
     object TS_Ref: TRzTabSheet
@@ -833,7 +858,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Processo'
             Title.Color = 16777147
-            Width = 64
             Visible = True
           end>
       end

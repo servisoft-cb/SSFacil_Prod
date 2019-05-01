@@ -43,6 +43,9 @@ type
     Edit3: TEdit;
     TS_Ref: TRzTabSheet;
     SMDBGrid2: TSMDBGrid;
+    Panel2: TPanel;
+    Label1: TLabel;
+    ComboBox1: TComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -234,14 +237,24 @@ var
   vArq : String;
   vDetalhada : String;
 begin
+  fDMLoteImp.vUsaKG := False;
   vDetalhada := '';
   prc_InformarDtProducao;
   prc_Monta_Opcao;
   if RzPageControl1.ActivePage = TS_Talao then
   begin
-    fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'REFERENCIA;NOME_COMBINACAO;DTENTREGA;PEDIDO_CLIENTE';
-    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Ref.fr3';
-    vDetalhada := 'Detalhada'
+    if ComboBox1.ItemIndex = 0 then
+    begin
+      fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'REFERENCIA;NOME_COMBINACAO;DTENTREGA;PEDIDO_CLIENTE';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Ref.fr3';
+    end
+    else
+    begin
+      fDMLoteImp.vUsaKG := True;
+      fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'DTENTREGA;REFERENCIA;NOME_COMBINACAO;PEDIDO_CLIENTE';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_RefDTEntrega.fr3';
+    end;
+    vDetalhada := 'Detalhada';
   end
   else
   begin

@@ -14,8 +14,8 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 43580.701571712960000000
+    ReportOptions.CreateDate = 42841.867818298600000000
+    ReportOptions.LastChange = 43586.702031099540000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -633,12 +633,14 @@ object DMLoteImp: TDMLoteImp
       'E'#13#10'    END ID_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.un' +
       'idade'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.unidade'#13#10'    END UNIDADE,'#13#10 +
       '  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.ID_PRODUTO'#13#10'    WHEN B.TIP' +
-      'O = '#39'5'#39' THEN PI.ID_PRODUTO'#13#10'    END ID_PRODUTO'#13#10'FROM baixa_proce' +
-      'sso B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN' +
-      ' LOTE l'#13#10'ON L.id = B.id_lote'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_' +
-      'PEDIDO = PI.ID'#13#10'AND B.ITEM_PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PE' +
-      'D'#13#10'ON B.ID_PEDIDO = PED.id'#13#10') AUX'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON AU' +
-      'X.ID_PRODUTO = PROD.ID'#13#10#13#10
+      'O = '#39'5'#39' THEN PI.ID_PRODUTO'#13#10'    END ID_PRODUTO,'#13#10'  CASE'#13#10'    WHE' +
+      'N B.TIPO <> '#39'5'#39' THEN L.id_combinacao'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN' +
+      ' PI.id_cor'#13#10'    END ID_COMBINACAO'#13#10#13#10'FROM baixa_processo B'#13#10'INNE' +
+      'R JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN LOTE l'#13#10'ON' +
+      ' L.id = B.id_lote'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_PEDIDO = PI' +
+      '.ID'#13#10'AND B.ITEM_PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON B.ID_' +
+      'PEDIDO = PED.id'#13#10') AUX'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON AUX.ID_PRODUT' +
+      'O = PROD.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -801,6 +803,11 @@ object DMLoteImp: TDMLoteImp
     object cdsConsulta_LoteID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end
+    object cdsConsulta_LoteID_COMBINACAO: TFMTBCDField
+      FieldName = 'ID_COMBINACAO'
+      Precision = 15
+      Size = 0
+    end
   end
   object dsConsulta_Lote: TDataSource
     DataSet = cdsConsulta_Lote
@@ -897,6 +904,8 @@ object DMLoteImp: TDMLoteImp
   end
   object frxConsulta_Lote: TfrxDBDataset
     UserName = 'frxConsulta_Lote'
+    OnFirst = frxConsulta_LoteFirst
+    OnNext = frxConsulta_LoteNext
     CloseDataSource = False
     FieldAliases.Strings = (
       'ID_BAIXA=ID_BAIXA'
@@ -938,6 +947,7 @@ object DMLoteImp: TDMLoteImp
       'DESCRICAO_RETRABALHO=DESCRICAO_RETRABALHO'
       'NOME_PRODUTO=NOME_PRODUTO'
       'ID_PRODUTO=ID_PRODUTO')
+    OnOpen = frxConsulta_LoteOpen
     DataSource = dsConsulta_Lote
     BCDToCurrency = False
     Left = 880
@@ -1999,5 +2009,34 @@ object DMLoteImp: TDMLoteImp
     BCDToCurrency = False
     Left = 857
     Top = 526
+  end
+  object qConsumo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COMBINACAO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select SUM(CMAT.qtd_consumo) qtd_consumo'
+      'from produto_comb PCOMB'
+      'INNER JOIN PRODUTO_COMB_MAT CMAT'
+      '   ON PCOMB.ID = CMAT.ID'
+      '  AND PCOMB.ITEM = CMAT.ITEM'
+      'WHERE UPPER(CMAT.unidade) = '#39'KG'#39
+      '  AND PCOMB.ID = :ID'
+      '  AND PCOMB.id_cor_combinacao = :ID_COMBINACAO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 618
+    Top = 493
+    object qConsumoQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
   end
 end

@@ -323,6 +323,9 @@ type
     cdsConsMatKG_RefREFERENCIA: TStringField;
     frxConsMatKG: TfrxDBDataset;
     frxConsMatKG_Ref: TfrxDBDataset;
+    qConsumo: TSQLQuery;
+    qConsumoQTD_CONSUMO: TFloatField;
+    cdsConsulta_LoteID_COMBINACAO: TFMTBCDField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -337,10 +340,14 @@ type
     procedure cdsConsulta_LoteCalcFields(DataSet: TDataSet);
     procedure frxmImpAuxFirst(Sender: TObject);
     procedure cdsLote_PedCalcFields(DataSet: TDataSet);
+    procedure frxConsulta_LoteFirst(Sender: TObject);
+    procedure frxConsulta_LoteNext(Sender: TObject);
+    procedure frxConsulta_LoteOpen(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Imprimir_Processos;
     procedure prc_Abrir_Talao_SL;
+    procedure prc_Soma_KG;
 
   public
     { Public declarations }
@@ -351,6 +358,7 @@ type
     ctConsMatKG_Ref : String;
     vObsPedido : String;
     vDtProducaoIni, vDtProducaoFin : TDateTime;
+    vUsaKG : Boolean;
 
   end;
 
@@ -470,6 +478,37 @@ end;
 procedure TDMLoteImp.cdsLote_PedCalcFields(DataSet: TDataSet);
 begin
   cdsLote_PedclCodBarra.AsString := '9' + FormatFloat('000000',cdsLote_PedNUM_LOTE.AsInteger);
+end;
+
+procedure TDMLoteImp.frxConsulta_LoteFirst(Sender: TObject);
+begin
+  prc_Soma_KG;
+end;
+
+procedure TDMLoteImp.prc_Soma_KG;
+var
+  vConsumo : Real;
+begin
+  if not vUsaKG then
+    exit;
+  qConsumo.Close;
+  qConsumo.ParamByName('ID').AsInteger := cdsConsulta_LoteID_PRODUTO.AsInteger;
+  qConsumo.ParamByName('ID_COMBINACAO').AsInteger := cdsConsulta_LoteID_COMBINACAO.AsInteger;
+  qConsumo.Open;
+
+  vConsumo := StrToFloat(FormatFloat('0.000',cdsConsulta_LoteQTD.AsFloat * qConsumoQTD_CONSUMO.AsFloat));
+
+  frxReport1.variables['QtdKG'] := QuotedStr(FormatFloat('0.000',vConsumo));
+end;
+
+procedure TDMLoteImp.frxConsulta_LoteNext(Sender: TObject);
+begin
+  prc_Soma_KG;
+end;
+
+procedure TDMLoteImp.frxConsulta_LoteOpen(Sender: TObject);
+begin
+  prc_Soma_KG;
 end;
 
 end.
