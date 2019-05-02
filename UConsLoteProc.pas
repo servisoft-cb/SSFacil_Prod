@@ -278,7 +278,7 @@ begin
     end;
   end;
   fDMLoteImp.frxReport1.variables['ImpOpcao']    := QuotedStr(vOpcaoImp);
-  fDMLoteImp.frxReport1.variables['OpcaoTitulo'] := QuotedStr('Produção ' + vDetalhada + ' - ' + DateToStr(fDMLoteImp.vDtProducaoIni) + ' a ' + DateToStr(fDMLoteImp.vDtProducaoFin));
+  fDMLoteImp.frxReport1.variables['OpcaoTitulo'] := QuotedStr('Programação ' + vDetalhada + ' - ' + DateToStr(fDMLoteImp.vDtProducaoIni) + ' a ' + DateToStr(fDMLoteImp.vDtProducaoFin));
   fDMLoteImp.frxReport1.variables['Processo']    := QuotedStr(RxDBLookupCombo1.Text);
   fDMLoteImp.frxReport1.ShowReport;
 end;
