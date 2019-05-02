@@ -637,7 +637,7 @@ object fMenu: TfMenu
         OnClick = ConsultaControlePorProcesso1Click
       end
       object ConsultaMateriaisPorLote1: TMenuItem
-        Caption = 'Consulta Materiais Por Lote'
+        Caption = 'Consulta Materiais Por Lote Cal'#231'ado'
         OnClick = ConsultaMateriaisPorLote1Click
       end
       object ConsultaProdutividade1: TMenuItem
