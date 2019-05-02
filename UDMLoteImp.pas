@@ -326,6 +326,8 @@ type
     qConsumo: TSQLQuery;
     qConsumoQTD_CONSUMO: TFloatField;
     cdsConsulta_LoteID_COMBINACAO: TFMTBCDField;
+    cdsConsulta_LoteCARGA: TFloatField;
+    cdsProcessoUSA_CARGA: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -489,7 +491,8 @@ procedure TDMLoteImp.prc_Soma_KG;
 var
   vConsumo : Real;
 begin
-  if not vUsaKG then
+  //Foi tirado conforme pedido do Marcelo    02/05/2019
+  {if not vUsaKG then
     exit;
   qConsumo.Close;
   qConsumo.ParamByName('ID').AsInteger := cdsConsulta_LoteID_PRODUTO.AsInteger;
@@ -498,7 +501,7 @@ begin
 
   vConsumo := StrToFloat(FormatFloat('0.000',cdsConsulta_LoteQTD.AsFloat * qConsumoQTD_CONSUMO.AsFloat));
 
-  frxReport1.variables['QtdKG'] := QuotedStr(FormatFloat('0.000',vConsumo));
+  frxReport1.variables['QtdKG'] := QuotedStr(FormatFloat('0.000',vConsumo));}
 end;
 
 procedure TDMLoteImp.frxConsulta_LoteNext(Sender: TObject);

@@ -15,7 +15,7 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 43586.732514398150000000
+    ReportOptions.LastChange = 43587.452950277780000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -609,38 +609,38 @@ object DMLoteImp: TDMLoteImp
       'entrada, B.hrentrada,B.dtbaixa,B.hrbaixa, B.qtd,'#13#10'B.qtd_produzid' +
       'o,B.num_ordem, B.tipo TIPO, P.nome NOME_PROCESSO, B.total_horas,' +
       #13#10'L.num_lote, B.qtd_liberada, B.qtd_pendente, B.AJUSTE, B.retrab' +
-      'alho,  PED.NUM_PEDIDO, l.dtemissao,'#13#10'l.qtd_estoque_usada,'#13#10'case'#13 +
-      #10'  when B.ajuste = '#39'S'#39' THEN '#39'S'#39#13#10'  ELSE '#39#39#13#10'  end DESCRICAO_AJUS' +
-      'TE,'#13#10'  case'#13#10'    WHEN B.retrabalho = '#39'S'#39' then '#39'S'#39#13#10'    ELSE '#39#39#13#10 +
-      '    END DESCRICAO_RETRABALHO,'#13#10'  CASE'#13#10'    WHEN L.id_combinacao ' +
-      '> 0 THEN (SELECT COMB.nome NOME_COMBINACAO FROM COMBINACAO COMB ' +
-      'WHERE COMB.ID = L.ID_COMBINACAO)'#13#10'    WHEN PI.id_cor > 0 THEN (S' +
-      'ELECT COMB.nome NOME_COMBINACAO FROM COMBINACAO COMB WHERE COMB.' +
-      'ID = PI.id_cor)'#13#10'    END NOME_COMBINACAO,'#13#10'  CASE'#13#10'    WHEN B.ti' +
-      'po = '#39'1'#39' THEN '#39'Semi Acabado'#39#13#10'    WHEN B.tipo = '#39'2'#39' THEN '#39'Lote/T' +
-      'al'#227'o'#39#13#10'    WHEN B.tipo = '#39'5'#39' THEN '#39'Pedido'#39#13#10'    end DESC_TIPO_BA' +
-      'IXA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.REFERENCIA'#13#10'    WHEN' +
-      ' B.TIPO = '#39'5'#39' THEN PI.referencia'#13#10'    END REFERENCIA,'#13#10'  CASE'#13#10' ' +
-      '   WHEN B.TIPO <> '#39'5'#39' THEN L.obs_ped'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN' +
-      ' '#39'<'#39'||PED.pedido_cliente||'#39'>'#39#13#10'    END PEDIDO_CLIENTE,'#13#10'  CASE'#13#10 +
-      '    WHEN B.TIPO <> '#39'5'#39' THEN L.dtentrega'#13#10'    WHEN B.TIPO = '#39'5'#39' T' +
-      'HEN PI.dtentrega'#13#10'    END DTENTREGA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <>' +
-      ' '#39'5'#39' THEN (SELECT CLI.fantasia NOME_CLIENTE FROM PESSOA CLI WHER' +
-      'E CLI.CODIGO = L.ID_CLIENTE)'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN (SELECT' +
-      ' CLI.fantasia NOME_CLIENTE FROM PESSOA CLI WHERE CLI.CODIGO = PE' +
-      'D.ID_CLIENTE)'#13#10'    END NOME_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <>' +
-      ' '#39'5'#39' THEN L.ID_CLIENTE'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PED.ID_CLIENT' +
-      'E'#13#10'    END ID_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.un' +
-      'idade'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.unidade'#13#10'    END UNIDADE,'#13#10 +
-      '  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.ID_PRODUTO'#13#10'    WHEN B.TIP' +
-      'O = '#39'5'#39' THEN PI.ID_PRODUTO'#13#10'    END ID_PRODUTO,'#13#10'  CASE'#13#10'    WHE' +
-      'N B.TIPO <> '#39'5'#39' THEN L.id_combinacao'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN' +
-      ' PI.id_cor'#13#10'    END ID_COMBINACAO'#13#10#13#10'FROM baixa_processo B'#13#10'INNE' +
-      'R JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN LOTE l'#13#10'ON' +
-      ' L.id = B.id_lote'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_PEDIDO = PI' +
-      '.ID'#13#10'AND B.ITEM_PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON B.ID_' +
-      'PEDIDO = PED.id'#13#10') AUX'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON AUX.ID_PRODUT' +
-      'O = PROD.ID'#13#10#13#10
+      'alho,  PED.NUM_PEDIDO, l.dtemissao,'#13#10'l.qtd_estoque_usada, l.carg' +
+      'a,'#13#10'case'#13#10'  when B.ajuste = '#39'S'#39' THEN '#39'S'#39#13#10'  ELSE '#39#39#13#10'  end DESCR' +
+      'ICAO_AJUSTE,'#13#10'  case'#13#10'    WHEN B.retrabalho = '#39'S'#39' then '#39'S'#39#13#10'    ' +
+      'ELSE '#39#39#13#10'    END DESCRICAO_RETRABALHO,'#13#10'  CASE'#13#10'    WHEN L.id_co' +
+      'mbinacao > 0 THEN (SELECT COMB.nome NOME_COMBINACAO FROM COMBINA' +
+      'CAO COMB WHERE COMB.ID = L.ID_COMBINACAO)'#13#10'    WHEN PI.id_cor > ' +
+      '0 THEN (SELECT COMB.nome NOME_COMBINACAO FROM COMBINACAO COMB WH' +
+      'ERE COMB.ID = PI.id_cor)'#13#10'    END NOME_COMBINACAO,'#13#10'  CASE'#13#10'    ' +
+      'WHEN B.tipo = '#39'1'#39' THEN '#39'Semi Acabado'#39#13#10'    WHEN B.tipo = '#39'2'#39' THE' +
+      'N '#39'Lote/Tal'#227'o'#39#13#10'    WHEN B.tipo = '#39'5'#39' THEN '#39'Pedido'#39#13#10'    end DES' +
+      'C_TIPO_BAIXA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.REFERENCIA'#13 +
+      #10'    WHEN B.TIPO = '#39'5'#39' THEN PI.referencia'#13#10'    END REFERENCIA,'#13#10 +
+      '  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.obs_ped'#13#10'    WHEN B.TIPO =' +
+      ' '#39'5'#39' THEN '#39'<'#39'||PED.pedido_cliente||'#39'>'#39#13#10'    END PEDIDO_CLIENTE,'#13 +
+      #10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.dtentrega'#13#10'    WHEN B.TIP' +
+      'O = '#39'5'#39' THEN PI.dtentrega'#13#10'    END DTENTREGA,'#13#10'  CASE'#13#10'    WHEN ' +
+      'B.TIPO <> '#39'5'#39' THEN (SELECT CLI.fantasia NOME_CLIENTE FROM PESSOA' +
+      ' CLI WHERE CLI.CODIGO = L.ID_CLIENTE)'#13#10'    WHEN B.TIPO = '#39'5'#39' THE' +
+      'N (SELECT CLI.fantasia NOME_CLIENTE FROM PESSOA CLI WHERE CLI.CO' +
+      'DIGO = PED.ID_CLIENTE)'#13#10'    END NOME_CLIENTE,'#13#10'  CASE'#13#10'    WHEN ' +
+      'B.TIPO <> '#39'5'#39' THEN L.ID_CLIENTE'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PED.' +
+      'ID_CLIENTE'#13#10'    END ID_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' ' +
+      'THEN L.unidade'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.unidade'#13#10'    END U' +
+      'NIDADE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.ID_PRODUTO'#13#10'    W' +
+      'HEN B.TIPO = '#39'5'#39' THEN PI.ID_PRODUTO'#13#10'    END ID_PRODUTO,'#13#10'  CASE' +
+      #13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.id_combinacao'#13#10'    WHEN B.TIPO =' +
+      ' '#39'5'#39' THEN PI.id_cor'#13#10'    END ID_COMBINACAO'#13#10#13#10'FROM baixa_process' +
+      'o B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN L' +
+      'OTE l'#13#10'ON L.id = B.id_lote'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_PE' +
+      'DIDO = PI.ID'#13#10'AND B.ITEM_PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PED'#13 +
+      #10'ON B.ID_PEDIDO = PED.id'#13#10') AUX'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON AUX.' +
+      'ID_PRODUTO = PROD.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -808,6 +808,9 @@ object DMLoteImp: TDMLoteImp
       Precision = 15
       Size = 0
     end
+    object cdsConsulta_LoteCARGA: TFloatField
+      FieldName = 'CARGA'
+    end
   end
   object dsConsulta_Lote: TDataSource
     DataSet = cdsConsulta_Lote
@@ -866,6 +869,11 @@ object DMLoteImp: TDMLoteImp
     end
     object cdsProcessoRETRABALHO: TStringField
       FieldName = 'RETRABALHO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProcessoUSA_CARGA: TStringField
+      FieldName = 'USA_CARGA'
       FixedChar = True
       Size = 1
     end
@@ -946,7 +954,9 @@ object DMLoteImp: TDMLoteImp
       'RETRABALHO=RETRABALHO'
       'DESCRICAO_RETRABALHO=DESCRICAO_RETRABALHO'
       'NOME_PRODUTO=NOME_PRODUTO'
-      'ID_PRODUTO=ID_PRODUTO')
+      'ID_PRODUTO=ID_PRODUTO'
+      'ID_COMBINACAO=ID_COMBINACAO'
+      'CARGA=CARGA')
     OnOpen = frxConsulta_LoteOpen
     DataSource = dsConsulta_Lote
     BCDToCurrency = False
@@ -1137,7 +1147,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspConsLoteRef'
     OnCalcFields = cdsTalao_SLCalcFields
     Left = 247
-    Top = 224
+    Top = 232
     object cdsConsLoteRefQTD: TFloatField
       FieldName = 'QTD'
     end

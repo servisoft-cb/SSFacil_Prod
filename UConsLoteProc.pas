@@ -268,6 +268,15 @@ begin
     MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
     exit;
   end;
+  if (RzPageControl1.ActivePage = TS_Talao) and (ComboBox1.ItemIndex = 1) then
+  begin
+    fDMLoteImp.frxReport1.variables['UsaCarga'] := QuotedStr('N');
+    if Trim(RxDBLookupCombo1.Text) <> '' then
+    begin
+      if (fDMLoteImp.cdsProcesso.Locate('ID',RxDBLookupCombo1.KeyValue,[loCaseInsensitive])) and (fDMLoteImp.cdsProcessoUSA_CARGA.AsString = 'S') then
+        fDMLoteImp.frxReport1.variables['UsaCarga'] := QuotedStr('S');
+    end;
+  end;
   fDMLoteImp.frxReport1.variables['ImpOpcao']    := QuotedStr(vOpcaoImp);
   fDMLoteImp.frxReport1.variables['OpcaoTitulo'] := QuotedStr('Produção ' + vDetalhada + ' - ' + DateToStr(fDMLoteImp.vDtProducaoIni) + ' a ' + DateToStr(fDMLoteImp.vDtProducaoFin));
   fDMLoteImp.frxReport1.variables['Processo']    := QuotedStr(RxDBLookupCombo1.Text);

@@ -550,8 +550,8 @@ object frmConsLoteProc: TfrmConsLoteProc
         WidthOfIndicator = 11
         DefaultRowHeight = 18
         ScrollBars = ssHorizontal
-        ColCount = 18
-        RowCount = 2
+        ColCount = 19
+        RowCount = 17
         Columns = <
           item
             Alignment = taCenter
@@ -670,6 +670,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -678,6 +679,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -686,6 +688,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -694,6 +697,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Baixa'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -702,6 +706,14 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Hora'
             Title.Color = 12058551
+            Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CARGA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Carga'
             Visible = True
           end>
       end
@@ -858,6 +870,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Processo'
             Title.Color = 16777147
+            Width = 64
             Visible = True
           end>
       end
