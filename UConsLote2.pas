@@ -276,7 +276,7 @@ end;
 
 procedure TfrmConsLote2.Detalhado1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   prc_Monta_Opcao;
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Det.fr3';
