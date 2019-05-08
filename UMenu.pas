@@ -4,8 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Buttons, ComCtrls, jpeg, Menus,
-  ToolWin, Types, UCBase, UCDBXConn, ActnList, ImgList, ShellAPI, ExtCtrls, RLConsts, IniFiles, Midaslib, DBClient, 
-  SqlExpr;
+  ToolWin, Types, UCBase, UCDBXConn, ActnList, ImgList, ShellAPI, ExtCtrls, RLConsts, IniFiles, Midaslib, DBClient, SqlExpr;
 
 type
   TfMenu = class(TForm)                    
@@ -40,7 +39,6 @@ type
     tbBaixarLote: TToolButton;
     tbConsultaLote: TToolButton;
     BaixarMaterialLote1: TMenuItem;
-    Image1: TImage;
     tbMapa: TToolButton;
     Produo1: TMenuItem;
     GerarLote1: TMenuItem;
@@ -75,6 +73,10 @@ type
     Programao1: TMenuItem;
     IntervalorHorasdeparadas1: TMenuItem;
     ConsultaProgramao1: TMenuItem;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EfetuarLogoff1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -278,7 +280,7 @@ end;
 
 procedure TfMenu.tbGerarLoteClick(Sender: TObject);
 var
-  vTipoAux : String;
+  vTipoAux: String;
 begin
   vTipoAux := fnc_Verifica_Tipo_Lote; 
   if (vTipoAux = 'PED') or (vTipoAux = 'PED2') then
@@ -298,7 +300,7 @@ end;
 
 procedure TfMenu.tbBaixarLoteClick(Sender: TObject);
 var
-  vAux : String;
+  vAux: String;
 begin
   vAux := fnc_Verifica_Tipo_Lote;
   if vAux = 'PED2' then
@@ -325,7 +327,7 @@ end;
 
 procedure TfMenu.tbConsultaLoteClick(Sender: TObject);
 var
-  vAux : String;
+  vAux: String;
 begin
   vAux := fnc_Verifica_Tipo_Lote;
   if (vAux = 'C') or (vAux = 'C2') or (vAux = 'R') then
@@ -341,7 +343,7 @@ end;
 
 procedure TfMenu.BaixaGeral1Click(Sender: TObject);
 var
-  vAux : String;
+  vAux: String;
 begin
   vAux := fnc_Verifica_Tipo_Lote;
   if (vAux = 'C') or (vAux = 'R') then
