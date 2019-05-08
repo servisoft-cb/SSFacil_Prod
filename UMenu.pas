@@ -130,13 +130,11 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, UGerar_Lote_SL, UProcesso_ES, UConsLote2,
-  UGerar_Lote_Calc, UBaixaMaterialOP, UConsMapaProd, UBaixaTalao_Calc,
-  UConsLote_Calc, UBaixaLoteGeral_Calc, UBaixaLoteGeral, UCadDocEstoqueCB,
-  ULiberacao_Fat2, UGerar_Lote_Bol, UCancelaLote, UGerar_Lote_Proc,
-  UConsLoteProc, UConsRemessa_Prod, UGerar_Pedido_Talao, uCadPreFat,
-  UConsRefDtEntr, UGerar_Lote_Ped, UConsPedidoProc, UBaixaLote_Ped,
-  UBaixaTalao_Calc2, UConsProc, UConsMatLote2, UConsProdutividade, UGerar_Programacao, UCadIntervalo_Tempo, UConsProgramacao, UConsMatKG;
+uses DmdDatabase, uUtilPadrao, UGerar_Lote_SL, UProcesso_ES, UConsLote2, UGerar_Lote_Calc, UBaixaMaterialOP, UConsMapaProd,
+  UBaixaTalao_Calc, UConsLote_Calc, UBaixaLoteGeral_Calc, UBaixaLoteGeral, UCadDocEstoqueCB, ULiberacao_Fat2, UGerar_Lote_Bol,
+  UCancelaLote, UGerar_Lote_Proc, UConsLoteProc, UConsRemessa_Prod, UGerar_Pedido_Talao, uCadPreFat, UConsRefDtEntr, UConsProc,
+  UGerar_Lote_Ped, UConsPedidoProc, UBaixaLote_Ped, UBaixaTalao_Calc2, UConsMatLote2, UConsProdutividade, UGerar_Programacao,
+  UCadIntervalo_Tempo, UConsProgramacao, UConsMatKG;
 
 
 {$R *.dfm}
