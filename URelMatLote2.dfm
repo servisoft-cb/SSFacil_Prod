@@ -1,8 +1,8 @@
 object fRelMatLote2: TfRelMatLote2
-  Left = 255
-  Top = 148
+  Left = 122
+  Top = 22
   Width = 1256
-  Height = 657
+  Height = 660
   Caption = 'fRelMatLote2'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

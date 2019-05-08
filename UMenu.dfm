@@ -270,21 +270,21 @@ object fMenu: TfMenu
       Wrap = True
       OnClick = tbGerarLoteClick
     end
-    object tbBaixarLote: TToolButton
-      Left = 0
-      Top = 70
-      Caption = 'Baixar Lote'
-      ImageIndex = 16
-      Wrap = True
-      OnClick = tbBaixarLoteClick
-    end
     object tbConsultaLote: TToolButton
       Left = 0
-      Top = 138
+      Top = 70
       Caption = 'Consulta Lote'
       ImageIndex = 17
       Wrap = True
       OnClick = tbConsultaLoteClick
+    end
+    object tbBaixarLote: TToolButton
+      Left = 0
+      Top = 138
+      Caption = 'Baixar Lote'
+      ImageIndex = 16
+      Wrap = True
+      OnClick = tbBaixarLoteClick
     end
     object tbMapa: TToolButton
       Left = 0
@@ -417,12 +417,16 @@ object fMenu: TfMenu
         OnClick = ConsultaControlePorProcesso1Click
       end
       object ConsultaMateriaisPorLote1: TMenuItem
-        Caption = 'Consulta Materiais Por Lote'
+        Caption = 'Consulta Materiais Por Lote Cal'#231'ado'
         OnClick = ConsultaMateriaisPorLote1Click
       end
       object ConsultaProdutividade1: TMenuItem
         Caption = 'Consulta Produtividade'
         OnClick = ConsultaProdutividade1Click
+      end
+      object ConsultaMaterialPorKG1: TMenuItem
+        Caption = 'Consulta Material por KG'
+        OnClick = ConsultaMaterialPorKG1Click
       end
     end
     object N19: TMenuItem

@@ -101,7 +101,9 @@ uses
   UCadIntervalo_Tempo in 'UCadIntervalo_Tempo.pas' {frmCadIntervalo_tempo},
   UConsProgramacao in 'UConsProgramacao.pas' {frmConsProgramacao},
   UDMConsProgramacao in 'UDMConsProgramacao.pas' {DMConsProgramacao: TDataModule},
-  DmdDatabase_NFeBD in '..\ssfacil\DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule};
+  DmdDatabase_NFeBD in '..\ssfacil\DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule},
+  UConsMatKG in 'UConsMatKG.pas' {frmConsMatKG},
+  UDMCadPlanoMat in 'UDMCadPlanoMat.pas' {DataModule1: TDataModule};
 
 {$R *.res}
 

@@ -2,8 +2,8 @@ object DMLoteImp: TDMLoteImp
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 213
-  Top = 75
-  Height = 596
+  Top = 62
+  Height = 609
   Width = 1059
   object frxReport1: TfrxReport
     Tag = 1
@@ -15,7 +15,7 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 43486.399596759260000000
+    ReportOptions.LastChange = 43587.452950277780000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -80,13 +80,14 @@ object DMLoteImp: TDMLoteImp
       'CLI.NOME NOME_CLIENTE, L.qtd_estoque_usada,'#13#10'CASE'#13#10'  WHEN L.TIPO' +
       '_LOTE = '#39'S'#39' THEN '#39'SEMI ACABADO'#39#13#10'  WHEN L.TIPO_LOTE = '#39'E'#39' THEN '#39 +
       'ESTOQUE'#39#13#10'  ELSE '#39'PRODUTO'#39#13#10'  END DESCRICAO_TIPO_LOTE, L.DTEMISS' +
-      'AO'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10'ON L.id_produto = P.ID'#13#10'LE' +
-      'FT JOIN COMBINACAO COMB'#13#10'ON l.id_combinacao = COMB.ID'#13#10'left join' +
-      ' produto mat'#13#10'on l.id_material = mat.id'#13#10'left join produto mat2'#13 +
-      #10'on l.id_material2 = mat2.id'#13#10'LEFT JOIN COMBINACAO COR1'#13#10'ON L.id' +
-      '_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINACAO COR2'#13#10'ON L.id_cor_mat2 ' +
-      '= COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.ID_CLIENTE = CLI.CODIGO'#13#10'W' +
-      'HERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND L.NUM_LOTE = :NUM_LOTE'#13#10
+      'AO, L.CARGA'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10'ON L.id_produto =' +
+      ' P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON l.id_combinacao = COMB.ID'#13#10 +
+      'left join produto mat'#13#10'on l.id_material = mat.id'#13#10'left join prod' +
+      'uto mat2'#13#10'on l.id_material2 = mat2.id'#13#10'LEFT JOIN COMBINACAO COR1' +
+      #13#10'ON L.id_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINACAO COR2'#13#10'ON L.id_' +
+      'cor_mat2 = COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.ID_CLIENTE = CLI.' +
+      'CODIGO'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND L.NUM_LOTE = :NUM' +
+      '_LOTE'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -101,7 +102,7 @@ object DMLoteImp: TDMLoteImp
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 153
-    Top = 16
+    Top = 17
   end
   object dspTalao_SL: TDataSetProvider
     DataSet = sdsTalao_SL
@@ -238,6 +239,9 @@ object DMLoteImp: TDMLoteImp
     object cdsTalao_SLQTD_ESTOQUE_USADA: TFloatField
       FieldName = 'QTD_ESTOQUE_USADA'
     end
+    object cdsTalao_SLCARGA: TFloatField
+      FieldName = 'CARGA'
+    end
   end
   object dsTalao_SL: TDataSource
     DataSet = cdsTalao_SL
@@ -283,7 +287,8 @@ object DMLoteImp: TDMLoteImp
       'ID_CLIENTE=ID_CLIENTE'
       'NOME_CLIENTE=NOME_CLIENTE'
       'DTEMISSAO=DTEMISSAO'
-      'QTD_ESTOQUE_USADA=QTD_ESTOQUE_USADA')
+      'QTD_ESTOQUE_USADA=QTD_ESTOQUE_USADA'
+      'CARGA=CARGA')
     DataSource = dsTalao_SL
     BCDToCurrency = False
     Left = 800
@@ -604,41 +609,42 @@ object DMLoteImp: TDMLoteImp
       'entrada, B.hrentrada,B.dtbaixa,B.hrbaixa, B.qtd,'#13#10'B.qtd_produzid' +
       'o,B.num_ordem, B.tipo TIPO, P.nome NOME_PROCESSO, B.total_horas,' +
       #13#10'L.num_lote, B.qtd_liberada, B.qtd_pendente, B.AJUSTE, B.retrab' +
-      'alho,  PED.NUM_PEDIDO, l.dtemissao,'#13#10'l.qtd_estoque_usada, MAQ.NO' +
-      'ME NOME_MAQUINA , B.num_boca, '#13#10'case'#13#10'  when B.ajuste = '#39'S'#39' THEN' +
-      ' '#39'S'#39#13#10'  ELSE '#39#39#13#10'  end DESCRICAO_AJUSTE,'#13#10'  case'#13#10'    WHEN B.ret' +
-      'rabalho = '#39'S'#39' then '#39'S'#39#13#10'    ELSE '#39#39#13#10'    END DESCRICAO_RETRABALH' +
-      'O,'#13#10'  CASE'#13#10'    WHEN L.id_combinacao > 0 THEN (SELECT COMB.nome ' +
-      'NOME_COMBINACAO FROM COMBINACAO COMB WHERE COMB.ID = L.ID_COMBIN' +
-      'ACAO)'#13#10'    WHEN PI.id_cor > 0 THEN (SELECT COMB.nome NOME_COMBIN' +
-      'ACAO FROM COMBINACAO COMB WHERE COMB.ID = PI.id_cor)'#13#10'    END NO' +
-      'ME_COMBINACAO,'#13#10'  CASE'#13#10'    WHEN B.tipo = '#39'1'#39' THEN '#39'Semi Acabado' +
-      #39#13#10'    WHEN B.tipo = '#39'2'#39' THEN '#39'Lote/Tal'#227'o'#39#13#10'    WHEN B.tipo = '#39'5' +
-      #39' THEN '#39'Pedido'#39#13#10'    end DESC_TIPO_BAIXA,'#13#10'  CASE'#13#10'    WHEN B.TI' +
-      'PO <> '#39'5'#39' THEN L.REFERENCIA'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.refer' +
-      'encia'#13#10'    END REFERENCIA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN ' +
-      'L.obs_ped'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN '#39'<'#39'||PED.pedido_cliente||'#39 +
-      '>'#39#13#10'    END PEDIDO_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN' +
-      ' L.dtentrega'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.dtentrega'#13#10'    END D' +
-      'TENTREGA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN (SELECT CLI.fanta' +
-      'sia NOME_CLIENTE FROM PESSOA CLI WHERE CLI.CODIGO = L.ID_CLIENTE' +
-      ')'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN (SELECT CLI.fantasia NOME_CLIENTE ' +
-      'FROM PESSOA CLI WHERE CLI.CODIGO = PED.ID_CLIENTE)'#13#10'    END NOME' +
-      '_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.ID_CLIENTE'#13#10'   ' +
-      ' WHEN B.TIPO = '#39'5'#39' THEN PED.ID_CLIENTE'#13#10'    END ID_CLIENTE,'#13#10'  C' +
-      'ASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.unidade'#13#10'    WHEN B.TIPO = '#39'5' +
-      #39' THEN PI.unidade'#13#10'    END UNIDADE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> ' +
-      #39'5'#39' THEN L.ID_PRODUTO'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.ID_PRODUTO'#13 +
-      #10'    END ID_PRODUTO'#13#10'FROM baixa_processo B'#13#10'INNER JOIN PROCESSO ' +
-      'P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN LOTE l'#13#10'ON L.id = B.id_lot' +
-      'e'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_PEDIDO = PI.ID'#13#10'AND B.ITEM_' +
-      'PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON B.ID_PEDIDO = PED.id'#13 +
-      #10'LEFT JOIN MAQUINA MAQ'#13#10'ON B.ID_MAQUINA = MAQ.ID'#13#10') AUX'#13#10'LEFT JO' +
-      'IN PRODUTO PROD'#13#10'ON AUX.ID_PRODUTO = PROD.ID'#13#10#13#10
+      'alho,  PED.NUM_PEDIDO, l.dtemissao,'#13#10'l.qtd_estoque_usada, l.carg' +
+      'a,'#13#10'case'#13#10'  when B.ajuste = '#39'S'#39' THEN '#39'S'#39#13#10'  ELSE '#39#39#13#10'  end DESCR' +
+      'ICAO_AJUSTE,'#13#10'  case'#13#10'    WHEN B.retrabalho = '#39'S'#39' then '#39'S'#39#13#10'    ' +
+      'ELSE '#39#39#13#10'    END DESCRICAO_RETRABALHO,'#13#10'  CASE'#13#10'    WHEN L.id_co' +
+      'mbinacao > 0 THEN (SELECT COMB.nome NOME_COMBINACAO FROM COMBINA' +
+      'CAO COMB WHERE COMB.ID = L.ID_COMBINACAO)'#13#10'    WHEN PI.id_cor > ' +
+      '0 THEN (SELECT COMB.nome NOME_COMBINACAO FROM COMBINACAO COMB WH' +
+      'ERE COMB.ID = PI.id_cor)'#13#10'    END NOME_COMBINACAO,'#13#10'  CASE'#13#10'    ' +
+      'WHEN B.tipo = '#39'1'#39' THEN '#39'Semi Acabado'#39#13#10'    WHEN B.tipo = '#39'2'#39' THE' +
+      'N '#39'Lote/Tal'#227'o'#39#13#10'    WHEN B.tipo = '#39'5'#39' THEN '#39'Pedido'#39#13#10'    end DES' +
+      'C_TIPO_BAIXA,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.REFERENCIA'#13 +
+      #10'    WHEN B.TIPO = '#39'5'#39' THEN PI.referencia'#13#10'    END REFERENCIA,'#13#10 +
+      '  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.obs_ped'#13#10'    WHEN B.TIPO =' +
+      ' '#39'5'#39' THEN '#39'<'#39'||PED.pedido_cliente||'#39'>'#39#13#10'    END PEDIDO_CLIENTE,'#13 +
+      #10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.dtentrega'#13#10'    WHEN B.TIP' +
+      'O = '#39'5'#39' THEN PI.dtentrega'#13#10'    END DTENTREGA,'#13#10'  CASE'#13#10'    WHEN ' +
+      'B.TIPO <> '#39'5'#39' THEN (SELECT CLI.fantasia NOME_CLIENTE FROM PESSOA' +
+      ' CLI WHERE CLI.CODIGO = L.ID_CLIENTE)'#13#10'    WHEN B.TIPO = '#39'5'#39' THE' +
+      'N (SELECT CLI.fantasia NOME_CLIENTE FROM PESSOA CLI WHERE CLI.CO' +
+      'DIGO = PED.ID_CLIENTE)'#13#10'    END NOME_CLIENTE,'#13#10'  CASE'#13#10'    WHEN ' +
+      'B.TIPO <> '#39'5'#39' THEN L.ID_CLIENTE'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PED.' +
+      'ID_CLIENTE'#13#10'    END ID_CLIENTE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' ' +
+      'THEN L.unidade'#13#10'    WHEN B.TIPO = '#39'5'#39' THEN PI.unidade'#13#10'    END U' +
+      'NIDADE,'#13#10'  CASE'#13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.ID_PRODUTO'#13#10'    W' +
+      'HEN B.TIPO = '#39'5'#39' THEN PI.ID_PRODUTO'#13#10'    END ID_PRODUTO,'#13#10'  CASE' +
+      #13#10'    WHEN B.TIPO <> '#39'5'#39' THEN L.id_combinacao'#13#10'    WHEN B.TIPO =' +
+      ' '#39'5'#39' THEN PI.id_cor'#13#10'    END ID_COMBINACAO'#13#10#13#10'FROM baixa_process' +
+      'o B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'LEFT JOIN L' +
+      'OTE l'#13#10'ON L.id = B.id_lote'#13#10'LEFT JOIN PEDIDO_ITEM PI'#13#10'ON B.ID_PE' +
+      'DIDO = PI.ID'#13#10'AND B.ITEM_PEDIDO = PI.ITEM'#13#10'LEFT JOIN PEDIDO PED'#13 +
+      #10'ON B.ID_PEDIDO = PED.id'#13#10') AUX'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON AUX.' +
+      'ID_PRODUTO = PROD.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 160
+    Left = 161
     Top = 280
   end
   object dspConsulta_Lote: TDataSetProvider
@@ -653,7 +659,7 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspConsulta_Lote'
     OnCalcFields = cdsConsulta_LoteCalcFields
-    Left = 255
+    Left = 256
     Top = 280
     object cdsConsulta_LoteID_BAIXA: TIntegerField
       FieldName = 'ID_BAIXA'
@@ -797,12 +803,13 @@ object DMLoteImp: TDMLoteImp
     object cdsConsulta_LoteID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end
-    object cdsConsulta_LoteNOME_MAQUINA: TStringField
-      FieldName = 'NOME_MAQUINA'
-      Size = 30
+    object cdsConsulta_LoteID_COMBINACAO: TFMTBCDField
+      FieldName = 'ID_COMBINACAO'
+      Precision = 15
+      Size = 0
     end
-    object cdsConsulta_LoteNUM_BOCA: TIntegerField
-      FieldName = 'NUM_BOCA'
+    object cdsConsulta_LoteCARGA: TFloatField
+      FieldName = 'CARGA'
     end
   end
   object dsConsulta_Lote: TDataSource
@@ -865,6 +872,11 @@ object DMLoteImp: TDMLoteImp
       FixedChar = True
       Size = 1
     end
+    object cdsProcessoUSA_CARGA: TStringField
+      FieldName = 'USA_CARGA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsProcesso: TDataSource
     DataSet = cdsProcesso
@@ -900,6 +912,8 @@ object DMLoteImp: TDMLoteImp
   end
   object frxConsulta_Lote: TfrxDBDataset
     UserName = 'frxConsulta_Lote'
+    OnFirst = frxConsulta_LoteFirst
+    OnNext = frxConsulta_LoteNext
     CloseDataSource = False
     FieldAliases.Strings = (
       'ID_BAIXA=ID_BAIXA'
@@ -940,7 +954,10 @@ object DMLoteImp: TDMLoteImp
       'RETRABALHO=RETRABALHO'
       'DESCRICAO_RETRABALHO=DESCRICAO_RETRABALHO'
       'NOME_PRODUTO=NOME_PRODUTO'
-      'ID_PRODUTO=ID_PRODUTO')
+      'ID_PRODUTO=ID_PRODUTO'
+      'ID_COMBINACAO=ID_COMBINACAO'
+      'CARGA=CARGA')
+    OnOpen = frxConsulta_LoteOpen
     DataSource = dsConsulta_Lote
     BCDToCurrency = False
     Left = 880
@@ -969,15 +986,15 @@ object DMLoteImp: TDMLoteImp
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 160
-    Top = 392
+    Left = 154
+    Top = 457
   end
   object dspTalao_Proc: TDataSetProvider
     DataSet = sdsTalao_Proc
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 208
-    Top = 392
+    Left = 202
+    Top = 457
   end
   object cdsTalao_Proc: TClientDataSet
     Aggregates = <>
@@ -985,8 +1002,8 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspTalao_Proc'
     OnCalcFields = cdsTalao_ProcCalcFields
-    Left = 256
-    Top = 392
+    Left = 250
+    Top = 457
     object cdsTalao_ProcID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1069,8 +1086,8 @@ object DMLoteImp: TDMLoteImp
   end
   object dsTalao_Proc: TDataSource
     DataSet = cdsTalao_Proc
-    Left = 303
-    Top = 392
+    Left = 297
+    Top = 457
   end
   object frxTalao_Proc: TfrxDBDataset
     UserName = 'frxTalao_Proc'
@@ -1252,8 +1269,8 @@ object DMLoteImp: TDMLoteImp
       'NOME_COMBINACAO=NOME_COMBINACAO')
     DataSource = dsDtEntrega
     BCDToCurrency = False
-    Left = 800
-    Top = 471
+    Left = 799
+    Top = 473
   end
   object mImpLote_SL: TClientDataSet
     Active = True
@@ -1308,7 +1325,7 @@ object DMLoteImp: TDMLoteImp
       'Reimpresso=Reimpresso')
     DataSource = dsmImpLote_SL
     BCDToCurrency = False
-    Left = 856
+    Left = 855
     Top = 471
   end
   object sdsTalao_Ajuste: TSQLDataSet
@@ -1743,6 +1760,293 @@ object DMLoteImp: TDMLoteImp
       FieldName = 'USA_LOTE_PED_SPROC'
       FixedChar = True
       Size = 1
+    end
+  end
+  object sdsConsMatKG: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_MATERIAL, AUX.' +
+      'NOME_MATERIAL,'#13#10'AUX.ID_COR_MAT, AUX.NOME_COR_MAT,'#13#10'AUX.UNIDADE, ' +
+      'aux.qtd_consumo, sum(AUX.QTD_CONSUMO * AUX.QTD_PRODUZIDO) QTD_CO' +
+      'NSUMO_PROD,'#13#10'SUM(AUX.QTD_PRODUZIDO) QTD_PRODUZIDO'#13#10'FROM('#13#10#13#10'SELE' +
+      'CT B.id_processo, V.id_cor_mat, coalesce(cmat.nome,'#39#39') nome_cor_' +
+      'mat,'#13#10'SUM(B.qtd) qtd,'#13#10'sum(B.qtd_produzido) qtd_produzido, P.nom' +
+      'e NOME_PROCESSO,'#13#10' sum(coalesce(v.qtd_consumo,0)) qtd_consumo,'#13#10 +
+      'mat.id id_material, mat.nome nome_material, upper(v.unidade) Uni' +
+      'dade'#13#10'FROM baixa_processo B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROC' +
+      'ESSO = P.ID'#13#10'INNER JOIN LOTE l'#13#10'ON L.id = B.id_lote'#13#10'INNER JOIN ' +
+      'PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'inner join vficha_tecni' +
+      'ca_comb v'#13#10'on l.id_produto = v.id'#13#10'and v.id_cor_combinacao = (ca' +
+      'se when l.id_combinacao = 0 then (select pl.id_cor_cru from para' +
+      'metros_lote pl)'#13#10'                           else l.id_combinacao' +
+      ' end)'#13#10'inner join produto mat'#13#10'on v.id_material = mat.id'#13#10'left j' +
+      'oin combinacao cmat'#13#10'on v.id_cor_mat = cmat.id'#13#10'WHERE P.material' +
+      '_kg = '#39'S'#39#13#10'  AND B.dtbaixa IS NOT NULL'#13#10'group by B.id_processo, ' +
+      'P.nome, mat.id, mat.nome, upper(v.unidade), V.id_cor_mat, cmat.n' +
+      'ome'#13#10') AUX'#13#10'GROUP BY AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_' +
+      'MATERIAL, AUX.NOME_MATERIAL,'#13#10'AUX.UNIDADE, aux.qtd_consumo, AUX.' +
+      'ID_COR_MAT, AUX.NOME_COR_MAT'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 153
+    Top = 341
+  end
+  object dspConsMatKG: TDataSetProvider
+    DataSet = sdsConsMatKG
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 200
+    Top = 341
+  end
+  object cdsConsMatKG: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsMatKG'
+    OnCalcFields = cdsConsulta_LoteCalcFields
+    Left = 248
+    Top = 341
+    object cdsConsMatKGID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsConsMatKGNOME_PROCESSO: TStringField
+      FieldName = 'NOME_PROCESSO'
+      Size = 30
+    end
+    object cdsConsMatKGID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+      Required = True
+    end
+    object cdsConsMatKGNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsMatKGID_COR_MAT: TFMTBCDField
+      FieldName = 'ID_COR_MAT'
+      Precision = 15
+      Size = 0
+    end
+    object cdsConsMatKGNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsMatKGUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsConsMatKGQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+      DisplayFormat = '0.000##'
+    end
+    object cdsConsMatKGQTD_CONSUMO_PROD: TFloatField
+      FieldName = 'QTD_CONSUMO_PROD'
+      DisplayFormat = '0.000#'
+    end
+    object cdsConsMatKGQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+      DisplayFormat = '0.000#'
+    end
+  end
+  object dsConsMatKG: TDataSource
+    DataSet = cdsConsMatKG
+    Left = 295
+    Top = 340
+  end
+  object sdsConsMatKG_Com_Pendentes_Juntos_Nao_apagar: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_MATERIAL, AUX.' +
+      'NOME_MATERIAL,'#13#10'AUX.ID_COR_MAT, AUX.NOME_COR_MAT,'#13#10'AUX.UNIDADE, ' +
+      'aux.qtd_consumo, SUM(AUX.QTD_CONSUMO * AUX.QTD_PRODUZIDO) QTD_CO' +
+      'NSUMO_PROD,'#13#10'SUM(AUX.QTD_CONSUMO * AUX.QTD_PENDENTE) QTD_CONSUMO' +
+      '_PEND,'#13#10'SUM(AUX.QTD_CONSUMO * AUX.QTD_LIBERADA) QTD_CONSUMO_LIB,' +
+      ' SUM(AUX.QTD_PRODUZIDO) QTD_PRODUZIDO,'#13#10'SUM(AUX.QTD_PENDENTE) QT' +
+      'D_PENDENTE, SUM(AUX.QTD_LIBERADA) QTD_LIBERADA'#13#10'FROM('#13#10'SELECT B.' +
+      'id_processo, V.id_cor_mat, cmat.nome nome_cor_mat,'#13#10'SUM(B.qtd) q' +
+      'td,'#13#10'sum(B.qtd_produzido) qtd_produzido, P.nome NOME_PROCESSO,'#13#10 +
+      ' sum(coalesce(v.qtd_consumo,0)) qtd_consumo,'#13#10'mat.id id_material' +
+      ', mat.nome nome_material, v.unidade,'#13#10'sum(case'#13#10'  when (B.qtd_li' +
+      'berada) < 0 then 0'#13#10'  else b.qtd_liberada'#13#10'  end)  qtd_liberada,' +
+      #13#10'sum(case'#13#10'  when (B.qtd_pendente) < 0 then 0'#13#10'  else B.qtd_pen' +
+      'dente'#13#10'  end) qtd_pendente'#13#10'FROM baixa_processo B'#13#10'INNER JOIN PR' +
+      'OCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE l'#13#10'ON L.id = ' +
+      'B.id_lote'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'i' +
+      'nner join vficha_tecnica_comb v'#13#10'on l.id_produto = v.id'#13#10'and v.i' +
+      'd_cor_combinacao = (case when l.id_combinacao = 0 then (select p' +
+      'l.id_cor_cru from parametros_lote pl)'#13#10'                         ' +
+      '  else l.id_combinacao end)'#13#10'inner join produto mat'#13#10'on v.id_mat' +
+      'erial = mat.id'#13#10'left join combinacao cmat'#13#10'on v.id_cor_mat = cma' +
+      't.id'#13#10'WHERE P.material_kg = '#39'S'#39#13#10'group by B.id_processo, P.nome,' +
+      ' mat.id, mat.nome, v.unidade, V.id_cor_mat, nome_cor_mat) AUX'#13#10#13 +
+      #10'GROUP BY AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_MATERIAL, A' +
+      'UX.NOME_MATERIAL,'#13#10'AUX.UNIDADE, aux.qtd_consumo, AUX.ID_COR_MAT,' +
+      ' AUX.NOME_COR_MAT'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 124
+    Top = 507
+  end
+  object sdsConsMatKG_Ref: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_MATERIAL, AUX.' +
+      'NOME_MATERIAL,'#13#10'AUX.ID_COR_MAT, AUX.NOME_COR_MAT,'#13#10'AUX.UNIDADE, ' +
+      'aux.qtd_consumo, sum(AUX.QTD_CONSUMO * AUX.QTD_PRODUZIDO) QTD_CO' +
+      'NSUMO_PROD,'#13#10'SUM(AUX.QTD_PRODUZIDO) QTD_PRODUZIDO, AUX.REFERENCI' +
+      'A'#13#10'FROM('#13#10#13#10'SELECT B.id_processo, V.id_cor_mat, coalesce(cmat.no' +
+      'me,'#39#39') nome_cor_mat,'#13#10'SUM(B.qtd) qtd,'#13#10'sum(B.qtd_produzido) qtd_' +
+      'produzido, P.nome NOME_PROCESSO,'#13#10' sum(coalesce(v.qtd_consumo,0)' +
+      ') qtd_consumo,'#13#10'mat.id id_material, mat.nome nome_material, uppe' +
+      'r(v.unidade) Unidade, PROD.REFERENCIA'#13#10'FROM baixa_processo B'#13#10'IN' +
+      'NER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE l'#13 +
+      #10'ON L.id = B.id_lote'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO =' +
+      ' PROD.ID'#13#10'inner join vficha_tecnica_comb v'#13#10'on l.id_produto = v.' +
+      'id'#13#10'and v.id_cor_combinacao = (case when l.id_combinacao = 0 the' +
+      'n (select pl.id_cor_cru from parametros_lote pl)'#13#10'              ' +
+      '             else l.id_combinacao end)'#13#10'inner join produto mat'#13#10 +
+      'on v.id_material = mat.id'#13#10'left join combinacao cmat'#13#10'on v.id_co' +
+      'r_mat = cmat.id'#13#10'WHERE P.material_kg = '#39'S'#39#13#10'  AND B.dtbaixa IS N' +
+      'OT NULL'#13#10'group by B.id_processo, P.nome, mat.id, mat.nome, upper' +
+      '(v.unidade), V.id_cor_mat,'#13#10'cmat.nome, PROD.REFERENCIA'#13#10') AUX'#13#10'G' +
+      'ROUP BY AUX.ID_PROCESSO, AUX.NOME_PROCESSO, AUX.ID_MATERIAL, AUX' +
+      '.NOME_MATERIAL,'#13#10'AUX.UNIDADE, aux.qtd_consumo, AUX.ID_COR_MAT, A' +
+      'UX.NOME_COR_MAT, AUX.REFERENCIA'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 151
+    Top = 396
+  end
+  object dspConsMatKG_Ref: TDataSetProvider
+    DataSet = sdsConsMatKG_Ref
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 198
+    Top = 396
+  end
+  object cdsConsMatKG_Ref: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsMatKG_Ref'
+    OnCalcFields = cdsConsulta_LoteCalcFields
+    Left = 246
+    Top = 395
+    object cdsConsMatKG_RefID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsConsMatKG_RefNOME_PROCESSO: TStringField
+      FieldName = 'NOME_PROCESSO'
+      Size = 30
+    end
+    object cdsConsMatKG_RefID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+      Required = True
+    end
+    object cdsConsMatKG_RefNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsMatKG_RefID_COR_MAT: TFMTBCDField
+      FieldName = 'ID_COR_MAT'
+      Precision = 15
+      Size = 0
+    end
+    object cdsConsMatKG_RefNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsMatKG_RefUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsConsMatKG_RefQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+    object cdsConsMatKG_RefQTD_CONSUMO_PROD: TFloatField
+      FieldName = 'QTD_CONSUMO_PROD'
+    end
+    object cdsConsMatKG_RefQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsConsMatKG_RefREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+  end
+  object dsConsMatKG_Ref: TDataSource
+    DataSet = cdsConsMatKG_Ref
+    Left = 293
+    Top = 395
+  end
+  object frxConsMatKG: TfrxDBDataset
+    UserName = 'frxConsMatKG'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_PROCESSO=ID_PROCESSO'
+      'NOME_PROCESSO=NOME_PROCESSO'
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'ID_COR_MAT=ID_COR_MAT'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'UNIDADE=UNIDADE'
+      'QTD_CONSUMO=QTD_CONSUMO'
+      'QTD_CONSUMO_PROD=QTD_CONSUMO_PROD'
+      'QTD_PRODUZIDO=QTD_PRODUZIDO')
+    DataSource = dsConsMatKG
+    BCDToCurrency = False
+    Left = 800
+    Top = 526
+  end
+  object frxConsMatKG_Ref: TfrxDBDataset
+    UserName = 'frxConsMatKG_Ref'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_PROCESSO=ID_PROCESSO'
+      'NOME_PROCESSO=NOME_PROCESSO'
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'ID_COR_MAT=ID_COR_MAT'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'UNIDADE=UNIDADE'
+      'QTD_CONSUMO=QTD_CONSUMO'
+      'QTD_CONSUMO_PROD=QTD_CONSUMO_PROD'
+      'QTD_PRODUZIDO=QTD_PRODUZIDO'
+      'REFERENCIA=REFERENCIA')
+    DataSource = dsConsMatKG_Ref
+    BCDToCurrency = False
+    Left = 857
+    Top = 526
+  end
+  object qConsumo: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COMBINACAO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select SUM(CMAT.qtd_consumo) qtd_consumo'
+      'from produto_comb PCOMB'
+      'INNER JOIN PRODUTO_COMB_MAT CMAT'
+      '   ON PCOMB.ID = CMAT.ID'
+      '  AND PCOMB.ITEM = CMAT.ITEM'
+      'WHERE UPPER(CMAT.unidade) = '#39'KG'#39
+      '  AND PCOMB.ID = :ID'
+      '  AND PCOMB.id_cor_combinacao = :ID_COMBINACAO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 618
+    Top = 493
+    object qConsumoQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
     end
   end
 end

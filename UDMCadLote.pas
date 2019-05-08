@@ -1094,6 +1094,16 @@ type
     qUltBaixaParcialQTD: TFloatField;
     sdsBaixa_ProcessoRETRABALHO: TStringField;
     cdsBaixa_ProcessoRETRABALHO: TStringField;
+    cdsProdutoMETROS_CARGA: TFloatField;
+    mAuxLoteMetros_Carga: TFloatField;
+    mAuxLoteCarga: TFloatField;
+    cdsProdutoTIPO_PRODUCAO: TStringField;
+    sdsLoteCARGA: TFloatField;
+    cdsLoteCARGA: TFloatField;
+    cdsConsumoTIPO_PRODUCAO: TStringField;
+    mMaterialTipo_Producao: TStringField;
+    sdsLote_MatTIPO_PRODUCAO: TStringField;
+    cdsLote_MatTIPO_PRODUCAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1559,7 +1569,8 @@ begin
   if mMaterialTingimento.AsString = 'S' then
   begin
     vID_Cor := 0;
-    if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR',VarArrayOf([mMaterialID_Material.AsInteger,vID_Cor]),[locaseinsensitive]) then
+    if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR;TIPO_PRODUCAO',VarArrayOf([mMaterialID_Material.AsInteger,
+                          vID_Cor,mMaterialTipo_Producao.AsString]),[locaseinsensitive]) then
       vExiste := True;
   end
   else
@@ -1580,6 +1591,7 @@ begin
     cdsLote_MatITEM.AsInteger          := vItem_Mat;
     cdsLote_MatID_MATERIAL.AsInteger   := mMaterialID_Material.AsInteger;
     cdsLote_MatID_COR.AsInteger        := mMaterialID_Cor.AsInteger;
+    cdsLote_MatTIPO_PRODUCAO.AsString  := mMaterialTipo_Producao.AsString;
     cdsLote_MatCARIMBOAUX.AsString     := '';
     cdsLote_MatCARIMBO.AsString        := '';
     cdsLote_MatTAMANHO.AsString        := '';
@@ -1597,7 +1609,8 @@ begin
   if cdsLote_MatTINGIMENTO.AsString = 'S' then
   begin
     //if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR',VarArrayOf([mMaterialID_Material.AsInteger,qParametros_LoteID_COR_CRU.AsInteger]),[locaseinsensitive]) then
-    if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR',VarArrayOf([mMaterialID_Material_Cru.AsInteger,0]),[locaseinsensitive]) then
+    if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR;TIPO_PRODUCAO',VarArrayOf([mMaterialID_Material_Cru.AsInteger,
+                          0,mMaterialTipo_Producao.AsString]),[locaseinsensitive]) then
       cdsLote_Mat.Edit
     else
     begin
@@ -1612,6 +1625,7 @@ begin
       cdsLote_MatID_MATERIAL.AsInteger   := mMaterialID_Material_Cru.AsInteger;
       //cdsLote_MatID_COR.AsInteger        := qParametros_LoteID_COR_CRU.AsInteger;
       cdsLote_MatID_COR.AsInteger        := 0;
+      cdsLote_MatTIPO_PRODUCAO.AsString  := mMaterialTipo_Producao.AsString;
       cdsLote_MatCARIMBOAUX.AsString     := '';
       cdsLote_MatCARIMBO.AsString        := '';
       cdsLote_MatTAMANHO.AsString        := '';
@@ -1743,6 +1757,8 @@ begin
   mAuxLoteQtd_Estoque_Usa.AsFloat       := 0;
   mAuxLotePossui_Lote_Controle.AsString := 'N';
   mAuxLoteNum_Lote_Controle.AsString    := '';
+  mAuxLoteMetros_Carga.AsFloat          := StrToFloat(FormatFloat('0.00',0));
+  mAuxLoteCarga.AsFloat                 := StrToFloat(FormatFloat('0.00',0));
 end;
 
 procedure TDMCadLote.prc_SaldoEst(Filial, ID_Produto, ID_Cor: Integer;

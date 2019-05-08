@@ -187,6 +187,9 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object sdsLoteCARGA: TFloatField
+      FieldName = 'CARGA'
+    end
   end
   object dspLote: TDataSetProvider
     DataSet = sdsLote
@@ -387,6 +390,9 @@ object DMCadLote: TDMCadLote
       FieldName = 'TIPO_LOTE_ESTOQUE'
       FixedChar = True
       Size = 1
+    end
+    object cdsLoteCARGA: TFloatField
+      FieldName = 'CARGA'
     end
   end
   object dsLote: TDataSource
@@ -1103,10 +1109,11 @@ object DMCadLote: TDMCadLote
     GetMetadata = False
     CommandText = 
       'SELECT PRO.*, PCP.cavidade_molde, PCP.cavidade_peca, PCP.ciclo, ' +
-      'PCP.qtd_talao, PCP.tempo_troca_matriz, PCP.tempo_troca_cor'#13#10'FROM' +
-      ' PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_PCP PCP'#13#10'ON PRO.id = PCP.ID'#13#10'WHE' +
-      'RE ((PRO.TIPO_REG = '#39'P'#39') or (PRO.TIPO_REG = '#39'S'#39'))'#13#10'    AND PRO.I' +
-      'NATIVO = '#39'N'#39#13#10
+      'PCP.qtd_talao,'#13#10'PCP.tempo_troca_matriz, PCP.tempo_troca_cor, TRA' +
+      'NC.metros_carga'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_PCP PCP'#13#10'ON' +
+      ' PRO.id = PCP.ID'#13#10'LEFT JOIN PRODUTO_TRANC TRANC'#13#10'ON PRO.ID = TRA' +
+      'NC.ID'#13#10'WHERE ((PRO.TIPO_REG = '#39'P'#39') or (PRO.TIPO_REG = '#39'S'#39'))'#13#10'   ' +
+      ' AND PRO.INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1123,7 +1130,7 @@ object DMCadLote: TDMCadLote
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspProduto'
-    Left = 576
+    Left = 577
     Top = 184
     object cdsProdutoID: TIntegerField
       FieldName = 'ID'
@@ -1159,6 +1166,13 @@ object DMCadLote: TDMCadLote
     end
     object cdsProdutoID_PROCESSO_GRUPO: TIntegerField
       FieldName = 'ID_PROCESSO_GRUPO'
+    end
+    object cdsProdutoMETROS_CARGA: TFloatField
+      FieldName = 'METROS_CARGA'
+    end
+    object cdsProdutoTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      Size = 1
     end
   end
   object dsProduto: TDataSource
@@ -2261,6 +2275,11 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object sdsLote_MatTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspLote_Mat: TDataSetProvider
     DataSet = sdsLote_Mat
@@ -2341,6 +2360,11 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object cdsLote_MatTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsLote_Mat: TDataSource
     DataSet = cdsLote_Mat
@@ -2353,11 +2377,11 @@ object DMCadLote: TDMCadLote
       'e NOME_PRODUTO, P.REFERENCIA, MAT.nome NOME_MATERIAL, MAT.refere' +
       'ncia REFERENCIA_MAT, '#13#10'MAT.TIPO_REG TIPO_REG_MAT, MAT.ID_FORNECE' +
       'DOR, PC.IMP_TALAO, PC.tingimento, PC.id_cor,'#13#10'mat.id_material_cr' +
-      'u'#13#10'FROM PRODUTO_COMB PCOMB'#13#10'INNER JOIN PRODUTO_COMB_MAT PC'#13#10'ON P' +
-      'COMB.ID = PC.ID'#13#10'AND PCOMB.ITEM = PC.item'#13#10'INNER JOIN PRODUTO P'#13 +
-      #10'ON PCOMB.ID = P.ID'#13#10'INNER JOIN PRODUTO MAT'#13#10'ON PC.id_material =' +
-      ' MAT.ID'#13#10'WHERE PCOMB.ID = :ID_PRODUTO'#13#10'  and PCOMB.id_cor_combin' +
-      'acao = :ID_COMBINACAO'#13#10
+      'u, p.tipo_producao'#13#10'FROM PRODUTO_COMB PCOMB'#13#10'INNER JOIN PRODUTO_' +
+      'COMB_MAT PC'#13#10'ON PCOMB.ID = PC.ID'#13#10'AND PCOMB.ITEM = PC.item'#13#10'INNE' +
+      'R JOIN PRODUTO P'#13#10'ON PCOMB.ID = P.ID'#13#10'INNER JOIN PRODUTO MAT'#13#10'ON' +
+      ' PC.id_material = MAT.ID'#13#10'WHERE PCOMB.ID = :ID_PRODUTO'#13#10'  and PC' +
+      'OMB.id_cor_combinacao = :ID_COMBINACAO'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -2436,6 +2460,10 @@ object DMCadLote: TDMCadLote
     end
     object cdsConsumoID_MATERIAL_CRU: TIntegerField
       FieldName = 'ID_MATERIAL_CRU'
+    end
+    object cdsConsumoTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      Size = 1
     end
   end
   object qVerificaExclusao2: TSQLQuery
@@ -2757,6 +2785,11 @@ object DMCadLote: TDMCadLote
       item
         Name = 'ID_Material_Cru'
         DataType = ftInteger
+      end
+      item
+        Name = 'Tipo_Producao'
+        DataType = ftString
+        Size = 1
       end>
     IndexDefs = <>
     Params = <>
@@ -2765,7 +2798,7 @@ object DMCadLote: TDMCadLote
     Left = 368
     Top = 440
     Data = {
-      130100009619E0BD01000000180000000A00000000000300000013010B49445F
+      350100009619E0BD01000000180000000B00000000000300000035010B49445F
       4D6174657269616C04000100000000000D4E6F6D655F4D6174657269616C0100
       490000000100055749445448020002003C000B5174645F436F6E73756D6F0800
       0400000000000E5265666572656E6369615F4D61740100490000000100055749
@@ -2773,7 +2806,8 @@ object DMCadLote: TDMCadLote
       00020006000D49445F466F726E656365646F7204000100000000000649445F43
       6F7204000100000000000B5174645F50726F6475746F08000400000000000A54
       696E67696D656E746F01004900000001000557494454480200020001000F4944
-      5F4D6174657269616C5F43727504000100000000000000}
+      5F4D6174657269616C5F43727504000100000000000D5469706F5F50726F6475
+      63616F01004900000001000557494454480200020001000000}
     object mMaterialID_Material: TIntegerField
       FieldName = 'ID_Material'
     end
@@ -2806,6 +2840,10 @@ object DMCadLote: TDMCadLote
     end
     object mMaterialID_Material_Cru: TIntegerField
       FieldName = 'ID_Material_Cru'
+    end
+    object mMaterialTipo_Producao: TStringField
+      FieldName = 'Tipo_Producao'
+      Size = 1
     end
   end
   object dsmMaterial: TDataSource
@@ -3763,6 +3801,14 @@ object DMCadLote: TDMCadLote
       item
         Name = 'Qtd_Minimo'
         DataType = ftFloat
+      end
+      item
+        Name = 'Metros_Carga'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Carga'
+        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -3776,9 +3822,9 @@ object DMCadLote: TDMCadLote
     StoreDefs = True
     OnNewRecord = mAuxLoteNewRecord
     Left = 752
-    Top = 576
+    Top = 565
     Data = {
-      120300009619E0BD01000000180000001D00000000000300000012030A49445F
+      350300009619E0BD01000000180000001F00000000000300000035030A49445F
       50726F6475746F04000100000000000A5265666572656E636961010049000000
       0100055749445448020002001400094474456E74726567610400060000000000
       0351746408000400000000000D49445F436F6D62696E6163616F040001000000
@@ -3801,8 +3847,9 @@ object DMCadLote: TDMCadLote
       020001000F5174645F4573746F7175655F5573610800040000000000114E756D
       5F4C6F74655F436F6E74726F6C65010049000000010005574944544802000200
       140014506F737375695F4C6F74655F436F6E74726F6C65010049000000010005
-      57494454480200020001000A5174645F4D696E696D6F08000400000000000100
-      0D44454641554C545F4F524445520200820000000000}
+      57494454480200020001000A5174645F4D696E696D6F08000400000000000C4D
+      6574726F735F4361726761080004000000000005436172676108000400000000
+      0001000D44454641554C545F4F524445520200820000000000}
     object mAuxLoteID_Produto: TIntegerField
       FieldName = 'ID_Produto'
     end
@@ -3900,6 +3947,12 @@ object DMCadLote: TDMCadLote
     end
     object mAuxLoteQtd_Minimo: TFloatField
       FieldName = 'Qtd_Minimo'
+    end
+    object mAuxLoteMetros_Carga: TFloatField
+      FieldName = 'Metros_Carga'
+    end
+    object mAuxLoteCarga: TFloatField
+      FieldName = 'Carga'
     end
   end
   object dsmAuxLote: TDataSource

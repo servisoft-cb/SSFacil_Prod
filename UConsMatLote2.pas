@@ -80,7 +80,10 @@ begin
   if CurrencyEdit1.AsInteger > 0 then
     vComando := ' WHERE L.NUM_LOTE >= ' + IntToStr(CurrencyEdit1.AsInteger) + ' AND L.NUM_LOTE <= ' + IntToStr(CurrencyEdit2.AsInteger)
   else
-    vComando := ' WHERE L.NUM_LOTE in (' + Edit3.Text + ')';
+  if Trim(Edit3.Text) <> '' then
+    vComando := ' WHERE L.NUM_LOTE in (' + Edit3.Text + ')'
+  else
+    vComando := ' WHERE 0 = 0 ';
   vComando := fDMConsLote.ctMatLote + vComando;
   fDMConsLote.cdsMatLote.Close;
   fDMConsLote.sdsMatLote.CommandText := vComando;
@@ -90,7 +93,10 @@ begin
   if CurrencyEdit1.AsInteger > 0 then
     vCommandoLoteProduto := ' WHERE L.NUM_LOTE >= ' + IntToStr(CurrencyEdit1.AsInteger) + ' AND L.NUM_LOTE <= ' + IntToStr(CurrencyEdit2.AsInteger)
   else
-    vCommandoLoteProduto := ' WHERE L.NUM_LOTE in (' + Edit3.Text + ')';
+  if Trim(Edit3.Text) <> '' then
+    vCommandoLoteProduto := ' WHERE L.NUM_LOTE in (' + Edit3.Text + ')'
+  else
+    vCommandoLoteProduto := ' WHERE 0 = 0 ';
   vCommandoLoteProduto := vCommandoLoteProduto + ' group by PRO.REFERENCIA, PRO.NOME_MODELO, COMB.NOME ';
   vCommandoLoteProduto := fDMConsLote.ctLoteProduto + vCommandoLoteProduto;
   fDMConsLote.cdsLoteProduto.Close;

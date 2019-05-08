@@ -43,6 +43,9 @@ type
     Edit3: TEdit;
     TS_Ref: TRzTabSheet;
     SMDBGrid2: TSMDBGrid;
+    Panel2: TPanel;
+    Label1: TLabel;
+    ComboBox1: TComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -234,14 +237,24 @@ var
   vArq : String;
   vDetalhada : String;
 begin
+  fDMLoteImp.vUsaKG := False;
   vDetalhada := '';
   prc_InformarDtProducao;
   prc_Monta_Opcao;
   if RzPageControl1.ActivePage = TS_Talao then
   begin
-    fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'REFERENCIA;NOME_COMBINACAO;DTENTREGA;PEDIDO_CLIENTE';
-    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Ref.fr3';
-    vDetalhada := 'Detalhada'
+    if ComboBox1.ItemIndex = 0 then
+    begin
+      fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'REFERENCIA;NOME_COMBINACAO;DTENTREGA;PEDIDO_CLIENTE';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Ref.fr3';
+    end
+    else
+    begin
+      fDMLoteImp.vUsaKG := True;
+      fDMLoteImp.cdsConsulta_Lote.IndexFieldNames := 'DTENTREGA;REFERENCIA;NOME_COMBINACAO;PEDIDO_CLIENTE';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_RefDTEntrega.fr3';
+    end;
+    vDetalhada := 'Detalhada';
   end
   else
   begin
@@ -255,8 +268,17 @@ begin
     MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
     exit;
   end;
+  if (RzPageControl1.ActivePage = TS_Talao) and (ComboBox1.ItemIndex = 1) then
+  begin
+    fDMLoteImp.frxReport1.variables['UsaCarga'] := QuotedStr('N');
+    if Trim(RxDBLookupCombo1.Text) <> '' then
+    begin
+      if (fDMLoteImp.cdsProcesso.Locate('ID',RxDBLookupCombo1.KeyValue,[loCaseInsensitive])) and (fDMLoteImp.cdsProcessoUSA_CARGA.AsString = 'S') then
+        fDMLoteImp.frxReport1.variables['UsaCarga'] := QuotedStr('S');
+    end;
+  end;
   fDMLoteImp.frxReport1.variables['ImpOpcao']    := QuotedStr(vOpcaoImp);
-  fDMLoteImp.frxReport1.variables['OpcaoTitulo'] := QuotedStr('Produção ' + vDetalhada + ' - ' + DateToStr(fDMLoteImp.vDtProducaoIni) + ' a ' + DateToStr(fDMLoteImp.vDtProducaoFin));
+  fDMLoteImp.frxReport1.variables['OpcaoTitulo'] := QuotedStr('Programação ' + vDetalhada + ' - ' + DateToStr(fDMLoteImp.vDtProducaoIni) + ' a ' + DateToStr(fDMLoteImp.vDtProducaoFin));
   fDMLoteImp.frxReport1.variables['Processo']    := QuotedStr(RxDBLookupCombo1.Text);
   fDMLoteImp.frxReport1.ShowReport;
 end;

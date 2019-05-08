@@ -434,6 +434,8 @@ begin
     exit;
   end;
 
+  //ver número pedido aqui Cleomar
+
   vFilial_Loc := fDMBaixaProd.cdsLoteFILIAL.AsInteger;
   prc_Abrir_Baixa_Processo(fDMBaixaProd.cdsLoteID.AsInteger,0,0,0);
   if fDMBaixaProd.cdsBaixa_Processo.IsEmpty then
@@ -654,6 +656,13 @@ begin
   begin
     if CurrencyEdit1.Value > 0 then
       btnConfirmar.SetFocus;
+  end
+  else
+  if Key = 27 then
+  begin
+    CurrencyEdit1.Clear;
+    Label5.Caption := '';
+    Panel2.Visible := False;
   end;
 end;
 
@@ -751,6 +760,14 @@ end;
 
 procedure TfrmProcesso_ES.CurrencyEdit1Exit(Sender: TObject);
 begin
+  if Length(CurrencyEdit1.Text) > 9 then
+  begin
+    MessageDlg('*** Favor verificar a Quantidade!', mtError, [mbOk], 0);
+    CurrencyEdit1.Text := vQtdAnt;
+    CurrencyEdit1.SetFocus;
+    exit;
+  end
+  else
   if CurrencyEdit1.Text = Edit1.Text then
   begin
     MessageDlg('*** Quantidade informada igual ao código de barras, favor verificar!', mtError, [mbOk], 0);
@@ -758,6 +775,8 @@ begin
     CurrencyEdit1.SetFocus;
     exit;
   end;
+
+
 end;
 
 procedure TfrmProcesso_ES.prc_Pedido_Talao;

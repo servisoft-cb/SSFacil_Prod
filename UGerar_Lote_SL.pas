@@ -196,7 +196,7 @@ var
 implementation
 
 uses rsDBUtils, DmdDatabase, uUtilPadrao, UMenu, UDMLoteImp, UAltQtdLote,
-  UGerar_Lote_Aux;
+  UGerar_Lote_Aux, Math;
 
 {$R *.dfm}
 
@@ -1470,6 +1470,8 @@ var
   vQtdAux : Real;
 
   vEncAux : String;
+
+  vAux : Real;
 begin
   if ckDtEntrega.Checked then
     vData := fDMCadLote.cdsPendenteDTENTREGA.AsDateTime
@@ -1564,6 +1566,23 @@ begin
   fDMCadLote.mAuxLoteQtd_Original.AsFloat := fDMCadLote.mAuxLoteQtd.AsFloat;
   if fDMCadLote.cdsPendenteTIPO_REG_PROD.AsString = 'P' then
     fDMCadLote.mAuxLoteQtd_Pares.AsFloat := fDMCadLote.mAuxLoteQtd_Pares.AsFloat + fDMCadLote.cdsPendenteQTD_RESTANTE.AsFloat;
+    
+  if (fDMCadLote.cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (Tipo = 'S') then
+  begin
+    if StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
+    begin
+      vAux := StrToFloat(FormatFloat('0.00',(fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) -  trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)));
+      if vAux >= 0.50 then
+        vAux := 1.00
+      else
+      if vAux >= 0 then
+        vAux := 0.50
+      else
+        vAux := 0;
+      fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
+      fDMCadLote.mAuxLoteCarga.AsFloat := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+    end;
+  end;
   fDMCadLote.mAuxLote.Post;
 
   if (fDMCadLote.mAuxLote_Ped.Locate('ID_PEDIDO;ITEM_PEDIDO',VarArrayOf([fDMCadLote.cdsPendenteID.AsInteger,fDMCadLote.cdsPendenteITEM.AsInteger]),[locaseinsensitive])) then

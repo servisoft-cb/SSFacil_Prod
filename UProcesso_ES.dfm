@@ -306,7 +306,7 @@ object frmProcesso_ES: TfrmProcesso_ES
             Title.Alignment = taCenter
             Title.Caption = 'ID Baixa'
             Title.Color = 13565902
-            Width = 33
+            Width = 69
             Visible = True
           end
           item
@@ -447,6 +447,7 @@ object frmProcesso_ES: TfrmProcesso_ES
             Title.Alignment = taCenter
             Title.Caption = 'Ajuste'
             Title.Color = 13565902
+            Width = 64
             Visible = True
           end
           item
@@ -455,6 +456,7 @@ object frmProcesso_ES: TfrmProcesso_ES
             Title.Alignment = taCenter
             Title.Caption = 'Ret.'
             Title.Color = 13565902
+            Width = 64
             Visible = True
           end>
       end

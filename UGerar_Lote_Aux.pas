@@ -290,6 +290,7 @@ begin
     fDMCadLote.cdsLoteQTD_ESTOQUE_USADA.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
     fDMCadLote.cdsLoteNUM_LOTE_CONTROLE.AsString := fDMCadLote.mAuxLoteNum_Lote_Controle.AsString;
   end;
+  fDMCadLote.cdsLoteCARGA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteCarga.AsFloat));
   fDMCadLote.cdsLote.Post;
 
   if Tipo_Lote = 'E' then
@@ -378,13 +379,15 @@ begin
       vID_Cor := fDMCadLote.cdsConsumoID_COR.AsInteger;
       if fDMCadLote.cdsConsumoTIPO_REG_MAT.AsString <> 'S' then
       begin
-        if fDMCadLote.mMaterial.Locate('ID_Material;ID_Cor',VarArrayOf([fDMCadLote.cdsConsumoID_MATERIAL.AsInteger,vID_Cor]),[locaseinsensitive]) then
+        if fDMCadLote.mMaterial.Locate('ID_Material;ID_Cor;Tipo_Producao',VarArrayOf([fDMCadLote.cdsConsumoID_MATERIAL.AsInteger,
+                                       vID_Cor,fDMCadLote.cdsConsumoTIPO_PRODUCAO.AsString]),[locaseinsensitive]) then
           fDMCadLote.mMaterial.Edit
         else
         begin
           fDMCadLote.mMaterial.Insert;
           fDMCadLote.mMaterialID_Material.AsInteger   := fDMCadLote.cdsConsumoID_MATERIAL.AsInteger;
           fDMCadLote.mMaterialID_Cor.AsInteger        := vID_Cor;
+          fDMCadLote.mMaterialTipo_Producao.AsString  := fDMCadLote.cdsConsumoTIPO_PRODUCAO.AsString;
           fDMCadLote.mMaterialNome_Material.AsString  := fDMCadLote.cdsConsumoNOME_MATERIAL.AsString;
           fDMCadLote.mMaterialReferencia_Mat.AsString := fDMCadLote.cdsConsumoREFERENCIA_MAT.AsString;
           fDMCadLote.mMaterialUnidade.AsString        := fDMCadLote.cdsConsumoUNIDADE.AsString;
@@ -507,13 +510,15 @@ begin
         vID_Cor := fDMCadLote.cdsConsumoID_COR.AsInteger;
       if fDMCadLote.cdsConsumoTIPO_REG_MAT.AsString <> 'S' then
       begin
-        if fDMCadLote.mMaterial.Locate('ID_Material;ID_Cor',VarArrayOf([fDMCadLote.cdsConsumoID_MATERIAL.AsInteger,vID_Cor]),[locaseinsensitive]) then
+        if fDMCadLote.mMaterial.Locate('ID_Material;ID_Cor;Tipo_Producao',VarArrayOf([fDMCadLote.cdsConsumoID_MATERIAL.AsInteger,
+                                       vID_Cor,fDMCadLote.cdsConsumoTIPO_PRODUCAO.AsString ]),[locaseinsensitive]) then
           fDMCadLote.mMaterial.Edit
         else
         begin
           fDMCadLote.mMaterial.Insert;
           fDMCadLote.mMaterialID_Material.AsInteger   := fDMCadLote.cdsConsumoID_MATERIAL.AsInteger;
           fDMCadLote.mMaterialID_Cor.AsInteger        := vID_Cor;
+          fDMCadLote.mMaterialTipo_Producao.AsString  := fDMCadLote.cdsConsumoTIPO_PRODUCAO.AsString;
           fDMCadLote.mMaterialNome_Material.AsString  := fDMCadLote.cdsConsumoNOME_MATERIAL.AsString;
           fDMCadLote.mMaterialReferencia_Mat.AsString := fDMCadLote.cdsConsumoREFERENCIA_MAT.AsString;
           fDMCadLote.mMaterialUnidade.AsString        := fDMCadLote.cdsConsumoUNIDADE.AsString;
