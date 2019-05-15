@@ -21,7 +21,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Tingimento
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19

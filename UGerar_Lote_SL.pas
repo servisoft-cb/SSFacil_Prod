@@ -1488,12 +1488,14 @@ begin
       exit;
   end;
 
+  //15/05/2019  foi incluido o tipo = 'L'
   if (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'P') or (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'R') or
-     (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'O') or (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'C') or (Tipo <> 'S') then
+     (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'O') or (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'C') or
+     (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'L') or (Tipo <> 'S') then
   begin
     if fDMCadLote.cdsPendenteID_COR.AsInteger > 0 then
       vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
-  end;
+  end;                                                      
   if not ckAgrupar_Pedido.Checked then
     vNumPedAux := fDMCadLote.cdsPendenteNUM_PEDIDO.AsInteger
   else
