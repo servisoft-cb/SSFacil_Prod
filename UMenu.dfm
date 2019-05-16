@@ -311,7 +311,7 @@ object fMenu: TfMenu
     end
   end
   object mmMenu: TMainMenu
-    Left = 648
+    Left = 647
     Top = 408
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -427,6 +427,10 @@ object fMenu: TfMenu
       object ConsultaMaterialPorKG1: TMenuItem
         Caption = 'Consulta Material por KG'
         OnClick = ConsultaMaterialPorKG1Click
+      end
+      object ConsultaMateriaisTingimento1: TMenuItem
+        Caption = 'Consulta Materiais Tingimento'
+        OnClick = ConsultaMateriaisTingimento1Click
       end
     end
     object N19: TMenuItem

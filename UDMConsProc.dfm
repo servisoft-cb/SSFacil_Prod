@@ -1,9 +1,10 @@
 object DMConsProc: TDMConsProc
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Left = 467
   Top = 186
   Height = 408
-  Width = 534
+  Width = 677
   object sdsProc_Ref: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -668,5 +669,216 @@ object DMConsProc: TDMConsProc
     DataSet = mConsProc_Nao
     Left = 384
     Top = 232
+  end
+  object mEstTing: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_Material_Cru'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Material_Cru'
+        DataType = ftString
+        Size = 60
+      end
+      item
+        Name = 'DtEntrega'
+        DataType = ftDate
+      end
+      item
+        Name = 'Consumo_Cru'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Consumo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ID_Material'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Material'
+        DataType = ftString
+        Size = 60
+      end
+      item
+        Name = 'ID_Cor'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Cor'
+        DataType = ftString
+        Size = 60
+      end
+      item
+        Name = 'Desc_Tipo_Producao'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Tipo_Producao'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    OnNewRecord = mEstTingNewRecord
+    Left = 147
+    Top = 303
+    Data = {
+      390100009619E0BD01000000180000000B00000000000300000039010F49445F
+      4D6174657269616C5F4372750400010000000000114E6F6D655F4D6174657269
+      616C5F4372750100490000000100055749445448020002003C00094474456E74
+      7265676104000600000000000B436F6E73756D6F5F4372750800040000000000
+      07436F6E73756D6F08000400000000000B49445F4D6174657269616C04000100
+      000000000D4E6F6D655F4D6174657269616C0100490000000100055749445448
+      020002003C000649445F436F720400010000000000084E6F6D655F436F720100
+      490000000100055749445448020002003C0012446573635F5469706F5F50726F
+      647563616F01004900000001000557494454480200020014000D5469706F5F50
+      726F647563616F01004900000001000557494454480200020001000000}
+    object mEstTingID_Material_Cru: TIntegerField
+      FieldName = 'ID_Material_Cru'
+    end
+    object mEstTingNome_Material_Cru: TStringField
+      FieldName = 'Nome_Material_Cru'
+      Size = 60
+    end
+    object mEstTingDtEntrega: TDateField
+      FieldName = 'DtEntrega'
+    end
+    object mEstTingConsumo_Cru: TFloatField
+      FieldName = 'Consumo_Cru'
+    end
+    object mEstTingConsumo: TFloatField
+      FieldName = 'Consumo'
+    end
+    object mEstTingID_Material: TIntegerField
+      FieldName = 'ID_Material'
+    end
+    object mEstTingNome_Material: TStringField
+      FieldName = 'Nome_Material'
+      Size = 60
+    end
+    object mEstTingID_Cor: TIntegerField
+      FieldName = 'ID_Cor'
+    end
+    object mEstTingNome_Cor: TStringField
+      FieldName = 'Nome_Cor'
+      Size = 60
+    end
+    object mEstTingDesc_Tipo_Producao: TStringField
+      FieldName = 'Desc_Tipo_Producao'
+    end
+    object mEstTingTipo_Producao: TStringField
+      FieldName = 'Tipo_Producao'
+      Size = 1
+    end
+  end
+  object dsmEstTing: TDataSource
+    DataSet = mEstTing
+    Left = 182
+    Top = 303
+  end
+  object sdsEstTing: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT MC.NOME NOME_MATERIAL_CRU,  VCOMB.qtd_consumo, VCOMB.tipo' +
+      '_producao, l.id_produto, VCOMB.id_material_cru, VCOMB.id_materia' +
+      'l, VCOMB.id_cor_mat, VCOMB.nome_cor, VCOMB.material,'#13#10'VCOMB.nome' +
+      '_produto, VCOMB.nome_combinacao, L.referencia,'#13#10'L.num_lote, L.dt' +
+      'entrega, P.NOME NOME_PROCESSO, BP.id_processo, BP.qtd'#13#10'FROM BAIX' +
+      'A_PROCESSO BP'#13#10'INNER JOIN PROCESSO P'#13#10'ON BP.ID_PROCESSO = P.ID'#13#10 +
+      'inner join lote L'#13#10'ON BP.id_lote = L.ID'#13#10'INNER JOIN vficha_tecni' +
+      'ca_comb VCOMB'#13#10'ON L.ID_PRODUTO = VCOMB.ID'#13#10'AND L.id_combinacao =' +
+      ' VCOMB.id_cor_combinacao'#13#10'LEFT JOIN PRODUTO MC'#13#10'ON VCOMB.id_mate' +
+      'rial_cru = MC.ID'#13#10'WHERE P.gerar_estoque_ting = '#39'S'#39#13#10'  AND BP.dte' +
+      'ntrada IS NULL'#13#10'  AND VCOMB.tingimento = '#39'S'#39#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 28
+    Top = 135
+  end
+  object dspEstTing: TDataSetProvider
+    DataSet = sdsEstTing
+    Left = 66
+    Top = 135
+  end
+  object cdsEstTing: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEstTing'
+    Left = 109
+    Top = 135
+    object cdsEstTingNOME_MATERIAL_CRU: TStringField
+      FieldName = 'NOME_MATERIAL_CRU'
+      Size = 100
+    end
+    object cdsEstTingQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+    object cdsEstTingTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      Size = 1
+    end
+    object cdsEstTingID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsEstTingID_MATERIAL_CRU: TIntegerField
+      FieldName = 'ID_MATERIAL_CRU'
+    end
+    object cdsEstTingID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsEstTingID_COR_MAT: TFMTBCDField
+      FieldName = 'ID_COR_MAT'
+      Precision = 15
+      Size = 0
+    end
+    object cdsEstTingNOME_COR: TStringField
+      FieldName = 'NOME_COR'
+      Size = 60
+    end
+    object cdsEstTingMATERIAL: TStringField
+      FieldName = 'MATERIAL'
+      Size = 100
+    end
+    object cdsEstTingNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsEstTingNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 50
+    end
+    object cdsEstTingREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsEstTingNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object cdsEstTingDTENTREGA: TDateField
+      FieldName = 'DTENTREGA'
+    end
+    object cdsEstTingNOME_PROCESSO: TStringField
+      FieldName = 'NOME_PROCESSO'
+      Size = 30
+    end
+    object cdsEstTingID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsEstTingQTD: TFloatField
+      FieldName = 'QTD'
+    end
+  end
+  object dsEstTing: TDataSource
+    DataSet = cdsEstTing
+    Left = 154
+    Top = 133
   end
 end

@@ -98,10 +98,47 @@ type
     mConsProc_NaoQtd19: TFloatField;
     mConsProc_NaoQtd20: TFloatField;
     mConsProc_NaoQTotal: TFloatField;
+    mEstTing: TClientDataSet;
+    dsmEstTing: TDataSource;
+    mEstTingID_Material_Cru: TIntegerField;
+    mEstTingNome_Material_Cru: TStringField;
+    sdsEstTing: TSQLDataSet;
+    dspEstTing: TDataSetProvider;
+    cdsEstTing: TClientDataSet;
+    cdsEstTingNOME_MATERIAL_CRU: TStringField;
+    cdsEstTingQTD_CONSUMO: TFloatField;
+    cdsEstTingTIPO_PRODUCAO: TStringField;
+    cdsEstTingID_PRODUTO: TIntegerField;
+    cdsEstTingID_MATERIAL_CRU: TIntegerField;
+    cdsEstTingID_MATERIAL: TIntegerField;
+    cdsEstTingID_COR_MAT: TFMTBCDField;
+    cdsEstTingNOME_COR: TStringField;
+    cdsEstTingMATERIAL: TStringField;
+    cdsEstTingNOME_PRODUTO: TStringField;
+    cdsEstTingNOME_COMBINACAO: TStringField;
+    cdsEstTingREFERENCIA: TStringField;
+    cdsEstTingNUM_LOTE: TIntegerField;
+    cdsEstTingDTENTREGA: TDateField;
+    cdsEstTingNOME_PROCESSO: TStringField;
+    cdsEstTingID_PROCESSO: TIntegerField;
+    cdsEstTingQTD: TFloatField;
+    dsEstTing: TDataSource;
+    mEstTingDtEntrega: TDateField;
+    mEstTingConsumo_Cru: TFloatField;
+    mEstTingConsumo: TFloatField;
+    mEstTingID_Material: TIntegerField;
+    mEstTingNome_Material: TStringField;
+    mEstTingID_Cor: TIntegerField;
+    mEstTingNome_Cor: TStringField;
+    mEstTingDesc_Tipo_Producao: TStringField;
+    mEstTingTipo_Producao: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure mEstTingNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
+    ctEstTing : String;
   end;
 
 var
@@ -112,5 +149,16 @@ implementation
 uses DmdDatabase;
 
 {$R *.dfm}
+
+procedure TDMConsProc.DataModuleCreate(Sender: TObject);
+begin
+  ctEstTing := sdsEstTing.CommandText;
+end;
+
+procedure TDMConsProc.mEstTingNewRecord(DataSet: TDataSet);
+begin
+  mEstTingConsumo.AsFloat     := 0;
+  mEstTingConsumo_Cru.AsFloat := 0;
+end;
 
 end.

@@ -78,6 +78,7 @@ type
     Label4: TLabel;
     Label5: TLabel;
     ConsultaMaterialPorKG1: TMenuItem;
+    ConsultaMateriaisTingimento1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EfetuarLogoff1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -109,6 +110,7 @@ type
     procedure IntervalorHorasdeparadas1Click(Sender: TObject);
     procedure ConsultaProgramao1Click(Sender: TObject);
     procedure ConsultaMaterialPorKG1Click(Sender: TObject);
+    procedure ConsultaMateriaisTingimento1Click(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Habilita_Menu;
@@ -134,7 +136,7 @@ uses DmdDatabase, uUtilPadrao, UGerar_Lote_SL, UProcesso_ES, UConsLote2, UGerar_
   UBaixaTalao_Calc, UConsLote_Calc, UBaixaLoteGeral_Calc, UBaixaLoteGeral, UCadDocEstoqueCB, ULiberacao_Fat2, UGerar_Lote_Bol,
   UCancelaLote, UGerar_Lote_Proc, UConsLoteProc, UConsRemessa_Prod, UGerar_Pedido_Talao, uCadPreFat, UConsRefDtEntr, UConsProc,
   UGerar_Lote_Ped, UConsPedidoProc, UBaixaLote_Ped, UBaixaTalao_Calc2, UConsMatLote2, UConsProdutividade, UGerar_Programacao,
-  UCadIntervalo_Tempo, UConsProgramacao, UConsMatKG;
+  UCadIntervalo_Tempo, UConsProgramacao, UConsMatKG, UConsEstTing;
 
 
 {$R *.dfm}
@@ -435,6 +437,11 @@ end;
 procedure TfMenu.ConsultaMaterialPorKG1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsMatKG, wsMaximized);
+end;
+
+procedure TfMenu.ConsultaMateriaisTingimento1Click(Sender: TObject);
+begin
+  OpenForm(TfrmConsEstTing, wsMaximized);
 end;
 
 initialization
