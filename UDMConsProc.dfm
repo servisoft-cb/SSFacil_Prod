@@ -1,10 +1,10 @@
 object DMConsProc: TDMConsProc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 467
-  Top = 186
-  Height = 408
-  Width = 677
+  Left = 278
+  Top = 195
+  Height = 474
+  Width = 816
   object sdsProc_Ref: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -880,5 +880,148 @@ object DMConsProc: TDMConsProc
     DataSet = cdsEstTing
     Left = 154
     Top = 133
+  end
+  object mEstTing_Cru: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_Material'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Consumo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Nome_Material'
+        DataType = ftString
+        Size = 60
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    IndexFieldNames = 'Nome_Material'
+    Params = <>
+    StoreDefs = True
+    OnNewRecord = mEstTing_CruNewRecord
+    Left = 259
+    Top = 304
+    Data = {
+      600000009619E0BD01000000180000000300000000000300000060000B49445F
+      4D6174657269616C040001000000000007436F6E73756D6F0800040000000000
+      0D4E6F6D655F4D6174657269616C010049000000010005574944544802000200
+      3C000000}
+    object mEstTing_CruID_Material: TIntegerField
+      FieldName = 'ID_Material'
+    end
+    object mEstTing_CruConsumo: TFloatField
+      FieldName = 'Consumo'
+    end
+    object mEstTing_CruNome_Material: TStringField
+      FieldName = 'Nome_Material'
+      Size = 60
+    end
+  end
+  object dsmEstTing_Cru: TDataSource
+    DataSet = mEstTing_Cru
+    Left = 304
+    Top = 304
+  end
+  object frxReport1: TfrxReport
+    Tag = 1
+    Version = '5.6.8'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42751.456864641200000000
+    ReportOptions.LastChange = 42890.865762581000000000
+    ScriptLanguage = 'PascalScript'
+    StoreInDFM = False
+    OnReportPrint = 'frxReportOnReportPrint'
+    Left = 416
+    Top = 302
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    Left = 456
+    Top = 302
+  end
+  object frxMailExport1: TfrxMailExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ShowExportDialog = True
+    SmtpPort = 25
+    UseIniFile = True
+    TimeOut = 60
+    ConfurmReading = False
+    UseMAPI = SMTP
+    MAPISendFlag = 0
+    Left = 496
+    Top = 302
+  end
+  object frxRichObject1: TfrxRichObject
+    Left = 528
+    Top = 302
+  end
+  object frxmEstTing: TfrxDBDataset
+    UserName = 'frxmEstTing'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_Material_Cru=ID_Material_Cru'
+      'Nome_Material_Cru=Nome_Material_Cru'
+      'DtEntrega=DtEntrega'
+      'Consumo_Cru=Consumo_Cru'
+      'Consumo=Consumo'
+      'ID_Material=ID_Material'
+      'Nome_Material=Nome_Material'
+      'ID_Cor=ID_Cor'
+      'Nome_Cor=Nome_Cor'
+      'Desc_Tipo_Producao=Desc_Tipo_Producao'
+      'Tipo_Producao=Tipo_Producao')
+    DataSource = dsmEstTing
+    BCDToCurrency = False
+    Left = 419
+    Top = 354
+  end
+  object frxmEstTing_Cru: TfrxDBDataset
+    UserName = 'frxmEstTing_Cru'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_Material=ID_Material'
+      'Consumo=Consumo'
+      'Nome_Material=Nome_Material')
+    DataSource = dsmEstTing_Cru
+    BCDToCurrency = False
+    Left = 467
+    Top = 352
   end
 end

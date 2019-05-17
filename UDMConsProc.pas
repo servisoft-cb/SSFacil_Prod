@@ -3,7 +3,8 @@ unit UDMConsProc;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider, frxClass,
+  frxDBSet, frxRich, frxExportMail, frxExportPDF;
 
 type
   TDMConsProc = class(TDataModule)
@@ -132,8 +133,20 @@ type
     mEstTingNome_Cor: TStringField;
     mEstTingDesc_Tipo_Producao: TStringField;
     mEstTingTipo_Producao: TStringField;
+    mEstTing_Cru: TClientDataSet;
+    dsmEstTing_Cru: TDataSource;
+    mEstTing_CruID_Material: TIntegerField;
+    mEstTing_CruConsumo: TFloatField;
+    mEstTing_CruNome_Material: TStringField;
+    frxReport1: TfrxReport;
+    frxPDFExport1: TfrxPDFExport;
+    frxMailExport1: TfrxMailExport;
+    frxRichObject1: TfrxRichObject;
+    frxmEstTing: TfrxDBDataset;
+    frxmEstTing_Cru: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure mEstTingNewRecord(DataSet: TDataSet);
+    procedure mEstTing_CruNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -159,6 +172,11 @@ procedure TDMConsProc.mEstTingNewRecord(DataSet: TDataSet);
 begin
   mEstTingConsumo.AsFloat     := 0;
   mEstTingConsumo_Cru.AsFloat := 0;
+end;
+
+procedure TDMConsProc.mEstTing_CruNewRecord(DataSet: TDataSet);
+begin
+  mEstTing_CruConsumo.AsFloat := 0;
 end;
 
 end.
