@@ -117,8 +117,8 @@ object frmConsEstTing: TfrmConsEstTing
       OnClick = btnConsultarClick
     end
     object ProgressBar1: TProgressBar
-      Left = 264
-      Top = 5
+      Left = 446
+      Top = 4
       Width = 466
       Height = 17
       TabOrder = 2

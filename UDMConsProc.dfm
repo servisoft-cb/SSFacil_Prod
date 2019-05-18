@@ -941,12 +941,12 @@ object DMConsProc: TDMConsProc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 42890.865762581000000000
+    ReportOptions.CreateDate = 43602.438411331000000000
+    ReportOptions.LastChange = 43603.621468807870000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 416
+    Left = 415
     Top = 302
   end
   object frxPDFExport1: TfrxPDFExport

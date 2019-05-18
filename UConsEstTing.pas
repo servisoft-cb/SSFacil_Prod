@@ -61,10 +61,13 @@ begin
   SMDBGrid1.DisableScroll;
   fDMConsProc.mEstTing.EmptyDataSet;
   fDMConsProc.mEstTing_Cru.EmptyDataSet;
-  prc_Consultar;
-  prc_Le_cdsEstTing;
-  SMDBGrid1.EnableScroll;
-  Screen.Cursor := crDefault;
+  try
+    prc_Consultar;
+    prc_Le_cdsEstTing;
+  finally
+    SMDBGrid1.EnableScroll;
+    Screen.Cursor := crDefault;
+  end;
 end;
 
 procedure TfrmConsEstTing.prc_Consultar;
@@ -73,8 +76,8 @@ var
 begin
   vComando := fDMConsProc.ctEstTing;
   case ComboBox1.ItemIndex of
-    1 : vComando := ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('T');
-    2 : vComando := ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('E');
+    1 : vComando := vComando + ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('T');
+    2 : vComando := vComando + ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('E');
   end;
   fDMConsProc.cdsEstTing.Close;
   fDMConsProc.sdsEstTing.CommandText := vComando;
@@ -147,18 +150,25 @@ begin
   fDMConsProc.mEstTing.IndexFieldNames := Column.FieldName;
   if Column.FieldName = 'Desc_Tipo_Producao' then
     fDMConsProc.mEstTing.IndexFieldNames := Column.FieldName + ';DtEntrega';
+  if Column.FieldName = 'Nome_Cor' then
+    fDMConsProc.mEstTing.IndexFieldNames := Column.FieldName + ';DtEntrega;ID_Material';
   Column.Title.Color := clBtnShadow;
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
-      SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+      SMDBGrid1.Columns.Items[I].Title.Color := $00BBFFBB;
 end;
 
 procedure TfrmConsEstTing.btnImprimirClick(Sender: TObject);
 var
   vArq: String;
 begin
-  fDMConsProc.mEstTing.IndexFieldNames := 'DtEntrega;Nome_Material;Nome_Cor';
-  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\EstTingimento.fr3';
+  if copy(fDMConsProc.mEstTing.IndexFieldNames,1,8) = 'Nome_Cor' then
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\EstTingimento_Cor.fr3'
+  else
+  begin
+    fDMConsProc.mEstTing.IndexFieldNames := 'DtEntrega;Nome_Material;Nome_Cor';
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\EstTingimento.fr3';
+  end;
   if FileExists(vArq) then
     fDMConsProc.frxReport1.Report.LoadFromFile(vArq)
   else
