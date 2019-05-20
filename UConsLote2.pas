@@ -288,6 +288,7 @@ begin
     exit;
   end;
   fDMLoteImp.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
+  fDMLoteImp.frxReport1.variables['1ImpOpcao'] := QuotedStr(vOpcaoImp);
   fDMLoteImp.frxReport1.ShowReport;
 end;
 

@@ -722,15 +722,38 @@ object DMConsProc: TDMConsProc
         Name = 'Tipo_Producao'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'DtEmissao'
+        DataType = ftDate
+      end
+      item
+        Name = 'Obs_Ped'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'ID_Cliente'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Cliente'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Fantasia_Cli'
+        DataType = ftString
+        Size = 60
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
     OnNewRecord = mEstTingNewRecord
-    Left = 147
-    Top = 303
+    Left = 150
+    Top = 304
     Data = {
-      390100009619E0BD01000000180000000B00000000000300000039010F49445F
+      BC0100009619E0BD010000001800000010000000000003000000BC010F49445F
       4D6174657269616C5F4372750400010000000000114E6F6D655F4D6174657269
       616C5F4372750100490000000100055749445448020002003C00094474456E74
       7265676104000600000000000B436F6E73756D6F5F4372750800040000000000
@@ -739,7 +762,11 @@ object DMConsProc: TDMConsProc
       020002003C000649445F436F720400010000000000084E6F6D655F436F720100
       490000000100055749445448020002003C0012446573635F5469706F5F50726F
       647563616F01004900000001000557494454480200020014000D5469706F5F50
-      726F647563616F01004900000001000557494454480200020001000000}
+      726F647563616F0100490000000100055749445448020002000100094474456D
+      697373616F0400060000000000074F62735F5065640100490000000100055749
+      4454480200020064000A49445F436C69656E746504000100000000000C4E6F6D
+      655F436C69656E746501004900000001000557494454480200020064000C4661
+      6E74617369615F436C690100490000000100055749445448020002003C000000}
     object mEstTingID_Material_Cru: TIntegerField
       FieldName = 'ID_Material_Cru'
     end
@@ -777,6 +804,24 @@ object DMConsProc: TDMConsProc
       FieldName = 'Tipo_Producao'
       Size = 1
     end
+    object mEstTingDtEmissao: TDateField
+      FieldName = 'DtEmissao'
+    end
+    object mEstTingObs_Ped: TStringField
+      FieldName = 'Obs_Ped'
+      Size = 100
+    end
+    object mEstTingID_Cliente: TIntegerField
+      FieldName = 'ID_Cliente'
+    end
+    object mEstTingNome_Cliente: TStringField
+      FieldName = 'Nome_Cliente'
+      Size = 100
+    end
+    object mEstTingFantasia_Cli: TStringField
+      FieldName = 'Fantasia_Cli'
+      Size = 60
+    end
   end
   object dsmEstTing: TDataSource
     DataSet = mEstTing
@@ -791,13 +836,15 @@ object DMConsProc: TDMConsProc
       '_producao, l.id_produto, VCOMB.id_material_cru, VCOMB.id_materia' +
       'l, VCOMB.id_cor_mat, VCOMB.nome_cor, VCOMB.material,'#13#10'VCOMB.nome' +
       '_produto, VCOMB.nome_combinacao, L.referencia,'#13#10'L.num_lote, L.dt' +
-      'entrega, P.NOME NOME_PROCESSO, BP.id_processo, BP.qtd'#13#10'FROM BAIX' +
-      'A_PROCESSO BP'#13#10'INNER JOIN PROCESSO P'#13#10'ON BP.ID_PROCESSO = P.ID'#13#10 +
-      'inner join lote L'#13#10'ON BP.id_lote = L.ID'#13#10'INNER JOIN vficha_tecni' +
-      'ca_comb VCOMB'#13#10'ON L.ID_PRODUTO = VCOMB.ID'#13#10'AND L.id_combinacao =' +
-      ' VCOMB.id_cor_combinacao'#13#10'LEFT JOIN PRODUTO MC'#13#10'ON VCOMB.id_mate' +
-      'rial_cru = MC.ID'#13#10'WHERE P.gerar_estoque_ting = '#39'S'#39#13#10'  AND BP.dte' +
-      'ntrada IS NULL'#13#10'  AND VCOMB.tingimento = '#39'S'#39#13#10
+      'entrega, P.NOME NOME_PROCESSO, BP.id_processo, BP.qtd,'#13#10'L.dtemis' +
+      'sao, L.id_cliente, L.obs_ped, cli.nome nome_cliente, cli.fantasi' +
+      'a fantasia_cli'#13#10'FROM BAIXA_PROCESSO BP'#13#10'INNER JOIN PROCESSO P'#13#10'O' +
+      'N BP.ID_PROCESSO = P.ID'#13#10'inner join lote L'#13#10'ON BP.id_lote = L.ID' +
+      #13#10'INNER JOIN vficha_tecnica_comb VCOMB'#13#10'ON L.ID_PRODUTO = VCOMB.' +
+      'ID'#13#10'AND L.id_combinacao = VCOMB.id_cor_combinacao'#13#10'LEFT JOIN PRO' +
+      'DUTO MC'#13#10'ON VCOMB.id_material_cru = MC.ID'#13#10'left join pessoa cli'#13 +
+      #10'on l.id_cliente = cli.codigo'#13#10'WHERE P.gerar_estoque_ting = '#39'S'#39#13 +
+      #10'  AND BP.dtentrada IS NULL'#13#10'  AND VCOMB.tingimento = '#39'S'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -813,8 +860,8 @@ object DMConsProc: TDMConsProc
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstTing'
-    Left = 109
-    Top = 135
+    Left = 110
+    Top = 133
     object cdsEstTingNOME_MATERIAL_CRU: TStringField
       FieldName = 'NOME_MATERIAL_CRU'
       Size = 100
@@ -874,6 +921,24 @@ object DMConsProc: TDMConsProc
     end
     object cdsEstTingQTD: TFloatField
       FieldName = 'QTD'
+    end
+    object cdsEstTingDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object cdsEstTingID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object cdsEstTingOBS_PED: TStringField
+      FieldName = 'OBS_PED'
+      Size = 100
+    end
+    object cdsEstTingNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
+    end
+    object cdsEstTingFANTASIA_CLI: TStringField
+      FieldName = 'FANTASIA_CLI'
+      Size = 30
     end
   end
   object dsEstTing: TDataSource
@@ -942,12 +1007,12 @@ object DMConsProc: TDMConsProc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43602.438411331000000000
-    ReportOptions.LastChange = 43603.621468807870000000
+    ReportOptions.LastChange = 43605.681818321760000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 415
-    Top = 302
+    Left = 414
+    Top = 299
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -1006,7 +1071,12 @@ object DMConsProc: TDMConsProc
       'ID_Cor=ID_Cor'
       'Nome_Cor=Nome_Cor'
       'Desc_Tipo_Producao=Desc_Tipo_Producao'
-      'Tipo_Producao=Tipo_Producao')
+      'Tipo_Producao=Tipo_Producao'
+      'DtEmissao=DtEmissao'
+      'Obs_Ped=Obs_Ped'
+      'ID_Cliente=ID_Cliente'
+      'Nome_Cliente=Nome_Cliente'
+      'Fantasia_Cli=Fantasia_Cli')
     DataSource = dsmEstTing
     BCDToCurrency = False
     Left = 419

@@ -144,6 +144,16 @@ type
     frxRichObject1: TfrxRichObject;
     frxmEstTing: TfrxDBDataset;
     frxmEstTing_Cru: TfrxDBDataset;
+    cdsEstTingDTEMISSAO: TDateField;
+    mEstTingDtEmissao: TDateField;
+    cdsEstTingID_CLIENTE: TIntegerField;
+    cdsEstTingOBS_PED: TStringField;
+    cdsEstTingNOME_CLIENTE: TStringField;
+    cdsEstTingFANTASIA_CLI: TStringField;
+    mEstTingObs_Ped: TStringField;
+    mEstTingID_Cliente: TIntegerField;
+    mEstTingNome_Cliente: TStringField;
+    mEstTingFantasia_Cli: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mEstTingNewRecord(DataSet: TDataSet);
     procedure mEstTing_CruNewRecord(DataSet: TDataSet);

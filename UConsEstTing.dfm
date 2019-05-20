@@ -3,6 +3,7 @@ object frmConsEstTing: TfrmConsEstTing
   Top = 134
   Width = 928
   Height = 480
+  ActiveControl = DateEdit1
   Caption = 'frmConsEstTing'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +20,7 @@ object frmConsEstTing: TfrmConsEstTing
     Left = 0
     Top = 0
     Width = 920
-    Height = 58
+    Height = 80
     Align = alTop
     Color = clSilver
     TabOrder = 0
@@ -28,7 +29,24 @@ object frmConsEstTing: TfrmConsEstTing
       Top = 13
       Width = 73
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Tipo Produ'#231#227'o:'
+    end
+    object Label2: TLabel
+      Left = 5
+      Top = 35
+      Width = 73
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Dt. Emiss'#227'o Ini:'
+    end
+    object Label3: TLabel
+      Left = 201
+      Top = 35
+      Width = 25
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Final:'
     end
     object ComboBox1: TComboBox
       Left = 81
@@ -45,8 +63,8 @@ object frmConsEstTing: TfrmConsEstTing
         'Tear')
     end
     object btnConsultar: TNxButton
-      Left = 81
-      Top = 27
+      Left = 79
+      Top = 50
       Width = 153
       Height = 30
       Caption = 'Efetuar Pesquisa'
@@ -112,7 +130,7 @@ object frmConsEstTing: TfrmConsEstTing
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 3
       Transparent = True
       OnClick = btnConsultarClick
     end
@@ -121,12 +139,12 @@ object frmConsEstTing: TfrmConsEstTing
       Top = 4
       Width = 466
       Height = 17
-      TabOrder = 2
+      TabOrder = 4
       Visible = False
     end
     object btnImprimir: TNxButton
-      Left = 233
-      Top = 27
+      Left = 231
+      Top = 50
       Width = 153
       Height = 30
       Caption = 'Imprimir'
@@ -192,16 +210,32 @@ object frmConsEstTing: TfrmConsEstTing
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 5
       Transparent = True
       OnClick = btnImprimirClick
+    end
+    object DateEdit1: TDateEdit
+      Left = 81
+      Top = 27
+      Width = 100
+      Height = 21
+      NumGlyphs = 2
+      TabOrder = 1
+    end
+    object DateEdit2: TDateEdit
+      Left = 226
+      Top = 27
+      Width = 100
+      Height = 21
+      NumGlyphs = 2
+      TabOrder = 2
     end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
-    Top = 58
+    Top = 80
     Width = 920
-    Height = 248
+    Height = 226
     Align = alClient
     Ctl3D = False
     DataSource = DMConsProc.dsmEstTing
@@ -233,7 +267,7 @@ object frmConsEstTing: TfrmConsEstTing
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 7
+    ColCount = 10
     RowCount = 2
     Columns = <
       item
@@ -345,6 +379,48 @@ object frmConsEstTing: TfrmConsEstTing
         Title.Font.Height = -12
         Title.Font.Name = 'Verdana'
         Title.Font.Style = []
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DtEmissao'
+        Title.Alignment = taCenter
+        Title.Caption = 'Dt. Emiss'#227'o'
+        Title.Color = 12320699
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
+        Width = 87
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'ID_Cliente'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID Cliente'
+        Title.Color = 12320699
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
+        Width = 55
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Fantasia_Cli'
+        Title.Alignment = taCenter
+        Title.Caption = 'Cliente'
+        Title.Color = 12320699
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
+        Width = 250
         Visible = True
       end>
   end

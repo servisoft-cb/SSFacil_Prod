@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMConsProc, ExtCtrls, StdCtrls, NxCollection, Grids, DBGrids,
-  SMDBGrid, ComCtrls, RzPanel;
+  SMDBGrid, ComCtrls, RzPanel, Mask, ToolEdit;
 
 type
   TfrmConsEstTing = class(TForm)
@@ -18,6 +18,10 @@ type
     gbxVendedor: TRzGroupBox;
     SMDBGrid2: TSMDBGrid;
     btnImprimir: TNxButton;
+    Label2: TLabel;
+    DateEdit1: TDateEdit;
+    Label3: TLabel;
+    DateEdit2: TDateEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConsultarClick(Sender: TObject);
@@ -79,6 +83,10 @@ begin
     1 : vComando := vComando + ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('T');
     2 : vComando := vComando + ' AND VCOMB.TIPO_PRODUCAO = ' + QuotedStr('E');
   end;
+  if DateEdit1.Date > 10 then
+    vComando := vComando + ' AND L.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
+  if DateEdit2.Date > 10 then
+    vComando := vComando + ' AND L.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   fDMConsProc.cdsEstTing.Close;
   fDMConsProc.sdsEstTing.CommandText := vComando;
   fDMConsProc.cdsEstTing.Open;
@@ -94,10 +102,12 @@ begin
   while not fDMConsProc.cdsEstTing.Eof do
   begin
     ProgressBar1.Position := ProgressBar1.Position + 1;
-    if fDMConsProc.mEstTing.Locate('ID_Material;ID_Cor;DtEntrega;Tipo_Producao',VarArrayOf([fDMConsProc.cdsEstTingID_MATERIAL.AsInteger,
+    if fDMConsProc.mEstTing.Locate('ID_Material;ID_Cor;DtEntrega;Tipo_Producao;ID_Cliente;Obs_Ped',VarArrayOf([fDMConsProc.cdsEstTingID_MATERIAL.AsInteger,
                                                                               fDMConsProc.cdsEstTingID_COR_MAT.AsInteger,
                                                                               fDMConsProc.cdsEstTingDTENTREGA.AsDateTime,
-                                                                              fDMConsProc.cdsEstTingTIPO_PRODUCAO.AsString]),[locaseinsensitive]) then
+                                                                              fDMConsProc.cdsEstTingTIPO_PRODUCAO.AsString,
+                                                                              fDMConsProc.cdsEstTingID_CLIENTE.AsInteger,
+                                                                              fDMConsProc.cdsEstTingOBS_PED.AsString]),[locaseinsensitive]) then
       fDMConsProc.mEstTing.Edit
     else
     begin
@@ -114,6 +124,11 @@ begin
         fDMConsProc.mEstTingDesc_Tipo_Producao.AsString := 'Trançadeira'
       else
         fDMConsProc.mEstTingDesc_Tipo_Producao.AsString := 'Tear';
+      fDMConsProc.mEstTingID_Cliente.AsInteger  := fDMConsProc.cdsEstTingID_CLIENTE.AsInteger;
+      fDMConsProc.mEstTingNome_Cliente.AsString := fDMConsProc.cdsEstTingNOME_CLIENTE.AsString;
+      fDMConsProc.mEstTingFantasia_Cli.AsString := fDMConsProc.cdsEstTingFANTASIA_CLI.AsString;
+      fDMConsProc.mEstTingObs_Ped.AsString      := fDMConsProc.cdsEstTingOBS_PED.AsString;
+      fDMConsProc.mEstTingDtEmissao.AsDateTime  := fDMConsProc.cdsEstTingDTEMISSAO.AsDateTime;
     end;
     if fDMConsProc.mEstTingID_Material_Cru.AsInteger > 0 then
       fDMConsProc.mEstTingConsumo_Cru.AsFloat := StrToFloat(FormatFloat('0.0000',fDMConsProc.mEstTingConsumo_Cru.AsFloat + (fDMConsProc.cdsEstTingQTD_CONSUMO.AsFloat * fDMConsProc.cdsEstTingQTD.AsFloat)));
@@ -160,8 +175,18 @@ end;
 
 procedure TfrmConsEstTing.btnImprimirClick(Sender: TObject);
 var
-  vArq: String;
+  vArq: String;                                                      
+  vOpcaoImp : String;
 begin
+  vOpcaoImp := '';
+  if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
+    vOpcaoImp := ' Data: ' + DateEdit1.Text + ' a ' + DateEdit2.Text
+  else
+  if (DateEdit1.Date > 10) then
+    vOpcaoImp := ' Data Inicial: ' + DateEdit1.Text
+  else
+  if (DateEdit2.Date > 10) then
+    vOpcaoImp := ' Data Final: ' + DateEdit2.Text;
   if copy(fDMConsProc.mEstTing.IndexFieldNames,1,8) = 'Nome_Cor' then
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\EstTingimento_Cor.fr3'
   else
@@ -176,7 +201,9 @@ begin
     MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
     exit;
   end;
+  fDMConsProc.frxReport1.Report.LoadFromFile(vArq);
   //fDMLoteImp.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
+  fDMConsProc.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
   fDMConsProc.frxReport1.ShowReport;
 end;
 
