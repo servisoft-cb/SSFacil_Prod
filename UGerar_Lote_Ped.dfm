@@ -1117,6 +1117,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -1148,6 +1149,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -1155,6 +1157,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
