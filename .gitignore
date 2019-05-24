@@ -60,3 +60,6 @@ UProcesso_ES.~pas
 *.~pas
 *.~dfm
 *.~pas
+*.~dpr
+*.~dfm
+*.~pas

@@ -16,6 +16,7 @@ object frmProcesso_ES: TfrmProcesso_ES
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -23,7 +24,7 @@ object frmProcesso_ES: TfrmProcesso_ES
     Left = 0
     Top = 0
     Width = 964
-    Height = 626
+    Height = 608
     Align = alClient
     Color = clSilver
     TabOrder = 0
@@ -46,7 +47,7 @@ object frmProcesso_ES: TfrmProcesso_ES
       Left = 1
       Top = 425
       Width = 962
-      Height = 200
+      Height = 182
       Align = alBottom
       Anchors = [akLeft, akTop, akRight, akBottom]
       AutoSize = False
@@ -447,7 +448,6 @@ object frmProcesso_ES: TfrmProcesso_ES
             Title.Alignment = taCenter
             Title.Caption = 'Ajuste'
             Title.Color = 13565902
-            Width = 64
             Visible = True
           end
           item
@@ -606,14 +606,14 @@ object frmProcesso_ES: TfrmProcesso_ES
     Left = 964
     Top = 0
     Width = 188
-    Height = 626
+    Height = 608
     Align = alRight
     TabOrder = 1
     object SMDBGrid2: TSMDBGrid
       Left = 1
       Top = 24
       Width = 186
-      Height = 560
+      Height = 542
       Align = alClient
       Ctl3D = False
       DataSource = DMBaixaProd.dsConsBaixaEtiq
@@ -696,7 +696,7 @@ object frmProcesso_ES: TfrmProcesso_ES
     end
     object Panel4: TPanel
       Left = 1
-      Top = 584
+      Top = 566
       Width = 186
       Height = 41
       Align = alBottom
@@ -715,6 +715,21 @@ object frmProcesso_ES: TfrmProcesso_ES
         ParentFont = False
       end
     end
+  end
+  object StaticText1: TStaticText
+    Left = 0
+    Top = 608
+    Width = 1152
+    Height = 18
+    Align = alBottom
+    Caption = 'F5 Consultar Estoque'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -12
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
   end
   object UCControls1: TUCControls
     GroupName = 'Cons. Baixa Confer'#234'ncia'

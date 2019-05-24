@@ -41,6 +41,7 @@ type
     Panel4: TPanel;
     Label12: TLabel;
     SpeedButton1: TSpeedButton;
+    StaticText1: TStaticText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
@@ -66,6 +67,8 @@ type
     procedure NxButton1Click(Sender: TObject);
     procedure CurrencyEdit2Enter(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMBaixaProd: TDMBaixaProd;
@@ -115,7 +118,7 @@ var
 implementation
 
 uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, UConfParcial,
-  UConsTalao_Etiq, USel_PedItem, USenhaAux, UAltSenhaFunc;
+  UConsTalao_Etiq, USel_PedItem, USenhaAux, UAltSenhaFunc, UConsEstRed;
 
 {$R *.dfm}
 
@@ -1331,6 +1334,17 @@ begin
   frmAltSenhaFunc.CurrencyEdit2.AsInteger := CurrencyEdit2.AsInteger;
   frmAltSenhaFunc.ShowModal;
   FreeAndNil(frmAltSenhaFunc);
+end;
+
+procedure TfrmProcesso_ES.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F5) then
+  begin
+    frmConsEstRed := TfrmConsEstRed.Create(Self);
+    frmConsEstRed.ShowModal;
+    FreeAndNil(frmConsEstRed);
+  end;
 end;
 
 end.
