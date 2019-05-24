@@ -488,7 +488,8 @@ begin
   if trim(Edit2.Text) <> '' then
     vComando := vComando + ' AND PEDIDO_CLIENTE LIKE ' + QuotedStr('%<'+Edit2.Text+'>%');
   if CurrencyEdit5.AsInteger > 0 then
-    vComando := vComando + ' AND ID_CLIENTE = ' + IntToStr(CurrencyEdit5.AsInteger);
+    vComando := vComando + ' AND AUX.ID_CLIENTE = ' + IntToStr(CurrencyEdit5.AsInteger);
+
   fDMLoteImp.cdsConsulta_Lote.Close;
   fDMLoteImp.sdsConsulta_Lote.CommandText := fDMLoteImp.ctConsulta_Lote + vComando;
   fDMLoteImp.cdsConsulta_Lote.Open;
