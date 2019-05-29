@@ -24,6 +24,9 @@ object frmConsLote2: TfrmConsLote2
     Align = alTop
     Color = clSilver
     TabOrder = 0
+    DesignSize = (
+      920
+      140)
     object NxLabel2: TNxLabel
       Left = 632
       Top = 11
@@ -170,31 +173,35 @@ object frmConsLote2: TfrmConsLote2
       VerticalPosition = vpTop
     end
     object Shape4: TShape
-      Left = 784
-      Top = 114
+      Left = 782
+      Top = 86
       Width = 32
       Height = 17
+      Anchors = [akTop, akRight]
       Brush.Color = 7864183
     end
     object Label4: TLabel
-      Left = 819
-      Top = 117
+      Left = 817
+      Top = 89
       Width = 79
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Tal'#227'o Encerrado'
     end
     object Shape6: TShape
-      Left = 784
-      Top = 98
+      Left = 782
+      Top = 70
       Width = 32
       Height = 17
+      Anchors = [akTop, akRight]
       Brush.Color = 16777145
     end
     object Label6: TLabel
-      Left = 819
-      Top = 101
+      Left = 817
+      Top = 73
       Width = 93
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'Tal'#227'o em Produ'#231#227'o'
     end
     object NxLabel11: TNxLabel
@@ -564,9 +571,9 @@ object frmConsLote2: TfrmConsLote2
       OnKeyDown = Edit2KeyDown
     end
     object btnImprimir: TNxButton
-      Left = 605
+      Left = 603
       Top = 108
-      Width = 153
+      Width = 128
       Height = 30
       Caption = 'Imprimir'
       Font.Charset = DEFAULT_CHARSET
@@ -629,7 +636,7 @@ object frmConsLote2: TfrmConsLote2
         FFFFFFFFFFFFFF000000FEFDFFFDFDFFF7FFFFFCFEFBFFFDFEF8FEFEF1F9FAEF
         F8F9F0F8F9F0F8FAF0F8FAF0F8F9F0F8F9F0F8FAEEF8FAF0F7FAF3FAFAFCFDFF
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
-      GlyphSpacing = 5
+      GlyphSpacing = 2
       ParentFont = False
       PopupMenu = PopupMenu1
       ShowArrow = True
@@ -708,6 +715,21 @@ object frmConsLote2: TfrmConsLote2
         'Retrabalhos'
         'Ajustes'
         '')
+    end
+    object btnExcluir_Baixa: TNxButton
+      Left = 728
+      Top = 108
+      Width = 115
+      Height = 30
+      Caption = 'Excluir Baixa'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 20
+      OnClick = btnExcluir_BaixaClick
     end
   end
   object RzPageControl1: TRzPageControl
@@ -1252,5 +1274,12 @@ object frmConsLote2: TfrmConsLote2
       Caption = 'Tal'#227'o Retrabalho'
       OnClick = aloRetrabalho1Click
     end
+  end
+  object UCControls1: TUCControls
+    GroupName = 'Consulta Ordem Produ'#231#227'o'
+    UserControl = fMenu.UserControl1
+    NotAllowed = naDisabled
+    Left = 758
+    Top = 243
   end
 end

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMLoteImp, DBVGrids, Grids, DBGrids, SMDBGrid, StdCtrls,
   NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls,
-  RzTabs, DB, Menus;
+  RzTabs, DB, Menus, UCBase, UDMBaixaProd, FMTBcd, SqlExpr;
 
 type
   TfrmConsLote2 = class(TForm)
@@ -66,6 +66,8 @@ type
     aloRetrabalho1: TMenuItem;
     NxLabel18: TNxLabel;
     cbxTipo: TNxComboBox;
+    btnExcluir_Baixa: TNxButton;
+    UCControls1: TUCControls;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -96,12 +98,16 @@ type
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure aloRetrabalho1Click(Sender: TObject);
+    procedure btnExcluir_BaixaClick(Sender: TObject);
   private
     { Private declarations }
     fDMLoteImp: TDMLoteImp;
+    fDMBaixaProd: TDMBaixaProd;
     vOpcaoImp : String;
 
+
     function fnc_Busca_Cliente(ID : Integer) : String;
+    function fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item : Integer) : Boolean;
 
     procedure prc_Monta_Opcao;
     procedure prc_InformarDtProducao;
@@ -119,7 +125,8 @@ var
 
 implementation
 
-uses rsDBUtils, USel_Pessoa, uUtilPadrao, UInfDtProd, UGerar_Talao_Ajuste;
+uses rsDBUtils, USel_Pessoa, uUtilPadrao, UInfDtProd, UGerar_Talao_Ajuste,
+  DmdDatabase;
 
 {$R *.dfm}
 
@@ -583,6 +590,99 @@ begin
     exit;
   end;
   prc_Imprime_Ajuste;
+end;
+
+procedure TfrmConsLote2.btnExcluir_BaixaClick(Sender: TObject);
+var
+  vQtd : Real;
+begin
+  if not(fDMLoteImp.cdsConsulta_Lote.Active) then
+    exit;
+  if (fDMLoteImp.cdsConsulta_LoteDTBAIXA.IsNull) and (fDMLoteImp.cdsConsulta_LoteDTENTRADA.IsNull) then
+  begin
+    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+
+  if not fnc_Verficar_Proximo(fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger,fDMLoteImp.cdsConsulta_LoteID_PEDIDO.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger) then
+  begin
+    MessageDlg('*** Existe um Processo posterior já baixado!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+
+  fDMBaixaProd:= TDMBaixaProd.Create(Self);
+  fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger);
+  if (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime <= 10) then
+  begin
+    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
+    FreeAndNil(fDMBaixaProd);
+    exit;
+  end;
+
+  fDMBaixaProd.cdsBaixa_Parcial.Close;
+  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ID').AsInteger   := fDMBaixaProd.cdsBaixa_ProcessoID.AsInteger;
+  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ITEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoITEM.AsInteger;
+  fDMBaixaProd.cdsBaixa_Parcial.Open;
+  fDMBaixaProd.cdsBaixa_Parcial.Last;
+  vQtd := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ParcialQTD.AsFloat));
+  fDMBaixaProd.cdsBaixa_Parcial.Delete;
+  //if (fDMBaixaProd.cdsBaixa_ParcialDTENTRADA.AsDateTime > 10) and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime <= 10) then
+  //  fDMBaixaProd.cdsBaixa_Parcial.Delete;
+
+  fDMBaixaProd.cdsBaixa_Processo.Edit;
+  fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.Clear;
+  fDMBaixaProd.cdsBaixa_ProcessoHRBAIXA.Clear;
+  fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat
+                                                       - vQtd));
+  if StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat)) <= 0 then
+    fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',0));
+  if fDMBaixaProd.cdsBaixa_Parcial.RecordCount <= 1 then
+  begin
+    fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.Clear;
+    fDMBaixaProd.cdsBaixa_ProcessoHRENTRADA.Clear;
+  end;
+
+  fDMBaixaProd.cdsBaixa_Processo.Post;
+  fDMBaixaProd.cdsBaixa_Processo.ApplyUpdates(0);
+  fDMBaixaProd.cdsBaixa_Parcial.ApplyUpdates(0);
+  
+
+
+  FreeAndNil(fDMBaixaProd);
+end;
+
+function TfrmConsLote2.fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item: Integer): Boolean;
+var
+  sds: TSQLDataSet;
+begin
+  Result := True;
+  Item := Item + 1;
+  
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'SELECT B.dtentrada, B.dtbaixa, B.qtd_produzido, b.id, b.item, b.id_lote, b.id_processo, p.nome, '
+                       + 'b.id_pedido, b.item_pedido  FROM BAIXA_PROCESSO B '
+                       + 'left join processo p on b.id_processo = p.id ';
+    if id_lote > 0 then
+    begin
+      sds.CommandText := 'WHERE (B.ID_LOTE = :ID_LOTE) AND (B.ITEM = :ITEM) ';
+      sds.ParamByName('ID_LOTE').AsInteger := ID_Lote;
+    end
+    else
+    begin
+      sds.CommandText := 'WHERE (b.id_pedido = :id_pedido) AND (B.ITEM = :ITEM) ';
+      sds.ParamByName('ID_PEDIDO').AsInteger := ID_Pedido;
+    end;
+    sds.ParamByName('ITEM').AsInteger := Item;
+    sds.Open;
+    if (sds.FieldByName('qtd_produzido').AsFloat > 0) or (sds.FieldByName('dtbaixa').AsDateTime > 10) then
+      Result := False;
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

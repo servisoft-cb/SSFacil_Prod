@@ -7753,6 +7753,12 @@ object fMenu: TfMenu
         CompName = 'btnAlterar'
         Caption = 'Alterar'
         GroupName = 'Pr'#233' Faturamento'
+      end
+      item
+        FormName = 'frmConsLote2'
+        CompName = 'btnExcluir_Baixa'
+        Caption = 'Excluir Baixa'
+        GroupName = 'Consulta Ordem Produ'#231#227'o'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

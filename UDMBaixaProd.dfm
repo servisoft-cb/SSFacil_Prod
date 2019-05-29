@@ -657,8 +657,8 @@ object DMBaixaProd: TDMBaixaProd
     Params = <>
     ProviderName = 'dspBaixa_Processo'
     OnCalcFields = cdsBaixa_ProcessoCalcFields
-    Left = 248
-    Top = 160
+    Left = 247
+    Top = 161
     object cdsBaixa_ProcessoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1191,7 +1191,7 @@ object DMBaixaProd: TDMBaixaProd
     Aggregates = <>
     Params = <>
     ProviderName = 'dspRapido'
-    Left = 216
+    Left = 215
     Top = 389
     object cdsRapidoID: TIntegerField
       FieldName = 'ID'
@@ -1606,7 +1606,7 @@ object DMBaixaProd: TDMBaixaProd
     Params = <>
     ProviderName = 'dspConsBaixaEtiq'
     Left = 216
-    Top = 493
+    Top = 492
     object cdsConsBaixaEtiqCODBARRA: TStringField
       FieldName = 'CODBARRA'
       Size = 14
@@ -1747,10 +1747,11 @@ object DMBaixaProd: TDMBaixaProd
   end
   object cdsFuncionario: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'CODIGO'
     Params = <>
     ProviderName = 'dspFuncionario'
     Left = 424
-    Top = 24
+    Top = 23
     object cdsFuncionarioCODIGO: TIntegerField
       FieldName = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

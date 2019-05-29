@@ -1495,7 +1495,13 @@ begin
   begin
     if fDMCadLote.cdsPendenteID_COR.AsInteger > 0 then
       vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
-  end;                                                      
+  end;
+
+  //29/05/2019 quando é algodão com o fio na cor
+  if (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
+    vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
+  //************
+
   if not ckAgrupar_Pedido.Checked then
     vNumPedAux := fDMCadLote.cdsPendenteNUM_PEDIDO.AsInteger
   else
@@ -1568,7 +1574,7 @@ begin
   fDMCadLote.mAuxLoteQtd_Original.AsFloat := fDMCadLote.mAuxLoteQtd.AsFloat;
   if fDMCadLote.cdsPendenteTIPO_REG_PROD.AsString = 'P' then
     fDMCadLote.mAuxLoteQtd_Pares.AsFloat := fDMCadLote.mAuxLoteQtd_Pares.AsFloat + fDMCadLote.cdsPendenteQTD_RESTANTE.AsFloat;
-    
+
   if (fDMCadLote.cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (Tipo = 'S') then
   begin
     if StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
@@ -1595,7 +1601,7 @@ begin
     fDMCadLote.mAuxLote_PedID.AsInteger := fDMCadLote.mAuxLoteID.AsInteger;
     fDMCadLote.mAuxLote_PedID_Pedido.AsInteger := fDMCadLote.cdsPendenteID.AsInteger;
     fDMCadLote.mAuxLote_PedItem_Pedido.AsInteger   := fDMCadLote.cdsPendenteITEM.AsInteger;
-    fDMCadLote.mAuxLote_PedID_Produto.AsInteger    := fDMCadLote.cdsPendenteID_PRODUTO.AsInteger;  
+    fDMCadLote.mAuxLote_PedID_Produto.AsInteger    := fDMCadLote.cdsPendenteID_PRODUTO.AsInteger;
     fDMCadLote.mAuxLote_PedQtd.AsFloat             := 0;
     fDMCadLote.mAuxLote_PedEncerado.AsString       := fDMCadLote.cdsPendenteENCERADO.AsString;
   end;
