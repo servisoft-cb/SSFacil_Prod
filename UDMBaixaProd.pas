@@ -389,7 +389,7 @@ type
 
     vDataBaixa : TDate;
     vHoraBaixa : TTime;
-    procedure prc_Abrir_Baixa_Processo(ID : Integer; Item : Integer);
+    procedure prc_Abrir_Baixa_Processo(ID, Item, ID_Lote : Integer);
     procedure prc_Abrir_qPedido(NumPedido : Integer ; PedidoCliente : String);
 
   end;
@@ -456,14 +456,20 @@ begin
   cdsBaixa_ProcessoclNome_Processo.AsString := qProcessoNOME.AsString;
 end;
 
-procedure TDMBaixaProd.prc_Abrir_Baixa_Processo(ID, Item: Integer);
+procedure TDMBaixaProd.prc_Abrir_Baixa_Processo(ID, Item, ID_Lote : Integer);
 begin
   cdsBaixa_Processo.Close;
-  sdsBaixa_Processo.CommandText := ctBaixa_Processo + ' WHERE 0=0 '
-                                                    + ' AND ID = :ID '
-                                                    + ' AND ITEM = :ITEM ';
-  sdsBaixa_Processo.ParamByName('ID').AsInteger   := ID;
-  sdsBaixa_Processo.ParamByName('ITEM').AsInteger := Item;
+  if ID_Lote > 0 then
+  begin
+    sdsBaixa_Processo.CommandText     := ctBaixa_Processo + ' WHERE ID_LOTE = ' + IntToStr(ID_Lote);
+    cdsBaixa_Processo.IndexFieldNames := 'ID_LOTE;ITEM';
+  end
+  else
+  begin
+    sdsBaixa_Processo.CommandText := ctBaixa_Processo + ' WHERE 0=0 ' + ' AND ID = :ID ' + ' AND ITEM = :ITEM ';
+    sdsBaixa_Processo.ParamByName('ID').AsInteger   := ID;
+    sdsBaixa_Processo.ParamByName('ITEM').AsInteger := Item;
+  end;
   cdsBaixa_Processo.Open;
 end;
 

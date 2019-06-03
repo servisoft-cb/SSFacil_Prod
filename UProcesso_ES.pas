@@ -297,7 +297,8 @@ begin
       //if CurrencyEdit1.Value > 0 then
         //fDMBaixaProd.cdsBaixa_ProcessoQTD.AsFloat := CurrencyEdit1.Value;
       fDMBaixaProd.cdsBaixa_ProcessoID_FUNCIONARIO_ENT.AsInteger := fDMBaixaProd.qFuncionarioCODIGO.AsInteger;
-      prc_Gravar_Baixa_Parcial('E',vData,vHora);
+      //31/05/2019
+      //prc_Gravar_Baixa_Parcial('E',vData,vHora);
 
       if fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger then
         vEntSai := 'S';
@@ -359,7 +360,8 @@ begin
               fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime := vData;
               fDMBaixaProd.cdsBaixa_ProcessoHRENTRADA.AsDateTime := vHora;
               fDMBaixaProd.cdsBaixa_ProcessoID_FUNCIONARIO_ENT.AsInteger := fDMBaixaProd.qFuncionarioCODIGO.AsInteger;
-              prc_Gravar_Baixa_Parcial('E',vData,vHora);
+              //31/05/2019
+              //prc_Gravar_Baixa_Parcial('E',vData,vHora);
             end;
             fDMBaixaProd.cdsBaixa_ProcessoQTD_LIBERADA.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_LIBERADA.AsFloat + CurrencyEdit1.Value));
             fDMBaixaProd.cdsBaixa_Processo.Post;

@@ -329,6 +329,7 @@ type
     cdsConsulta_LoteCARGA: TFloatField;
     cdsProcessoUSA_CARGA: TStringField;
     cdsLote_PedUSUARIO: TStringField;
+    cdsProcessoENTRADA_AUTO: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

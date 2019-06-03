@@ -1606,7 +1606,7 @@ begin
   cdsLote_MatQTD_CONSUMO.AsFloat := cdsLote_MatQTD_CONSUMO.AsFloat +  mMaterialQtd_Consumo.AsFloat;
   cdsLote_Mat.Post;
 
-  if cdsLote_MatTINGIMENTO.AsString = 'S' then
+  if (cdsLote_MatTINGIMENTO.AsString = 'S') then
   begin
     //if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR',VarArrayOf([mMaterialID_Material.AsInteger,qParametros_LoteID_COR_CRU.AsInteger]),[locaseinsensitive]) then
     if cdsLote_Mat.Locate('ID_MATERIAL;ID_COR;TIPO_PRODUCAO',VarArrayOf([mMaterialID_Material_Cru.AsInteger,

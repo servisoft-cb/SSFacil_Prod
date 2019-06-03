@@ -228,7 +228,7 @@ begin
     if (SMDBGrid1.SelectedRows.CurrentRowSelected) then
     begin
       vGerar := True;
-      fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger);
+      fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
       if not fDMBaixaProd.cdsBaixa_Processo.IsEmpty then
       begin
         fDMBaixaProd.cdsBaixa_Processo.Edit;

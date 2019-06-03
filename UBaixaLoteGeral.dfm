@@ -751,7 +751,6 @@ object frmBaixaLoteGeral: TfrmBaixaLoteGeral
               Title.Alignment = taCenter
               Title.Caption = 'Data Final Processo'
               Title.Color = 12058551
-              Width = 64
               Visible = True
             end
             item
@@ -780,7 +779,6 @@ object frmBaixaLoteGeral: TfrmBaixaLoteGeral
               Title.Alignment = taCenter
               Title.Caption = 'Unid.'
               Title.Color = 12058551
-              Width = 64
               Visible = True
             end
             item
@@ -825,7 +823,6 @@ object frmBaixaLoteGeral: TfrmBaixaLoteGeral
               Title.Alignment = taCenter
               Title.Caption = 'Cliente'
               Title.Color = 12058551
-              Width = 64
               Visible = True
             end
             item

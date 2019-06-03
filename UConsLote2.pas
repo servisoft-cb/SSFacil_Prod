@@ -104,6 +104,7 @@ type
     fDMLoteImp: TDMLoteImp;
     fDMBaixaProd: TDMBaixaProd;
     vOpcaoImp : String;
+    vItem_Baixa_Loc : Integer;
 
 
     function fnc_Busca_Cliente(ID : Integer) : String;
@@ -115,6 +116,8 @@ type
     procedure prc_Consula_Lote_Ped;
 
     procedure prc_Imprime_Ajuste;
+
+    procedure prc_Excluir_Baixa;
 
   public
     { Public declarations }
@@ -594,7 +597,7 @@ end;
 
 procedure TfrmConsLote2.btnExcluir_BaixaClick(Sender: TObject);
 var
-  vQtd : Real;
+  vIDAnt, vItemAnt : Integer;
 begin
   if not(fDMLoteImp.cdsConsulta_Lote.Active) then
     exit;
@@ -609,9 +612,12 @@ begin
     MessageDlg('*** Existe um Processo posterior já baixado!' , mtInformation, [mbOk], 0);
     exit;
   end;
+  vIDAnt          := fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger;
+  vItemAnt        := fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger;
+  vItem_Baixa_Loc := 0;
 
   fDMBaixaProd:= TDMBaixaProd.Create(Self);
-  fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger);
+  fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
   if (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime <= 10) then
   begin
     MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
@@ -619,36 +625,34 @@ begin
     exit;
   end;
 
-  fDMBaixaProd.cdsBaixa_Parcial.Close;
-  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ID').AsInteger   := fDMBaixaProd.cdsBaixa_ProcessoID.AsInteger;
-  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ITEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoITEM.AsInteger;
-  fDMBaixaProd.cdsBaixa_Parcial.Open;
-  fDMBaixaProd.cdsBaixa_Parcial.Last;
-  vQtd := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ParcialQTD.AsFloat));
-  fDMBaixaProd.cdsBaixa_Parcial.Delete;
-  //if (fDMBaixaProd.cdsBaixa_ParcialDTENTRADA.AsDateTime > 10) and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime <= 10) then
-  //  fDMBaixaProd.cdsBaixa_Parcial.Delete;
-
-  fDMBaixaProd.cdsBaixa_Processo.Edit;
-  fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.Clear;
-  fDMBaixaProd.cdsBaixa_ProcessoHRBAIXA.Clear;
-  fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat
-                                                       - vQtd));
-  if StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat)) <= 0 then
-    fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',0));
-  if fDMBaixaProd.cdsBaixa_Parcial.RecordCount <= 1 then
+  fDMLoteImp.cdsProcesso.Locate('ID',fDMLoteImp.cdsConsulta_LoteID_PROCESSO.AsInteger,[loCaseInsensitive]);
+  if (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') and (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) then
   begin
-    fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.Clear;
-    fDMBaixaProd.cdsBaixa_ProcessoHRENTRADA.Clear;
+    MessageDlg('*** Essa entrada é automática, é preciso excluir o lançamento anterior!' , mtInformation, [mbOk], 0);
+    FreeAndNil(fDMBaixaProd);
+    exit;
   end;
 
-  fDMBaixaProd.cdsBaixa_Processo.Post;
-  fDMBaixaProd.cdsBaixa_Processo.ApplyUpdates(0);
-  fDMBaixaProd.cdsBaixa_Parcial.ApplyUpdates(0);
+  prc_Excluir_Baixa;
+
+  if vItem_Baixa_Loc > 0 then
+  begin
+    fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
+    if fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10 then
+    begin
+      //Verificar o automático
+      fDMBaixaProd.prc_Abrir_Baixa_Processo(0,0,fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger);
+      fDMBaixaProd.cdsBaixa_Processo.Locate('ITEM',vItem_Baixa_Loc,[loCaseInsensitive]);
+      fDMBaixaProd.cdsBaixa_Processo.Next;
+      fDMLoteImp.cdsProcesso.Locate('ID',fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger,[loCaseInsensitive]);
+      if (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) AND (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') then
+        prc_Excluir_Baixa;
+    end;
+  end;
   
-
-
   FreeAndNil(fDMBaixaProd);
+  prc_Consula_Lote;
+  fDMLoteImp.cdsConsulta_Lote.Locate('ID_BAIXA;ITEM_BAIXA',VarArrayOf([vIDAnt,vItemAnt]),[locaseinsensitive]);
 end;
 
 function TfrmConsLote2.fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item: Integer): Boolean;
@@ -668,12 +672,12 @@ begin
                        + 'left join processo p on b.id_processo = p.id ';
     if id_lote > 0 then
     begin
-      sds.CommandText := 'WHERE (B.ID_LOTE = :ID_LOTE) AND (B.ITEM = :ITEM) ';
+      sds.CommandText := sds.CommandText + 'WHERE (B.ID_LOTE = :ID_LOTE) AND (B.ITEM = :ITEM) ';
       sds.ParamByName('ID_LOTE').AsInteger := ID_Lote;
     end
     else
     begin
-      sds.CommandText := 'WHERE (b.id_pedido = :id_pedido) AND (B.ITEM = :ITEM) ';
+      sds.CommandText := sds.CommandText + 'WHERE (b.id_pedido = :id_pedido) AND (B.ITEM = :ITEM) ';
       sds.ParamByName('ID_PEDIDO').AsInteger := ID_Pedido;
     end;
     sds.ParamByName('ITEM').AsInteger := Item;
@@ -683,6 +687,57 @@ begin
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TfrmConsLote2.prc_Excluir_Baixa;
+var
+  vQtd : Real;
+begin
+  fDMBaixaProd.cdsBaixa_Parcial.Close;
+  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ID').AsInteger   := fDMBaixaProd.cdsBaixa_ProcessoID.AsInteger;
+  fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ITEM').AsInteger := fDMBaixaProd.cdsBaixa_ProcessoITEM.AsInteger;
+  fDMBaixaProd.cdsBaixa_Parcial.Open;
+  fDMBaixaProd.cdsBaixa_Parcial.Last;
+  vQtd := 0;
+  if not fDMBaixaProd.cdsBaixa_Parcial.IsEmpty then
+  begin
+    vQtd := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ParcialQTD.AsFloat));
+    {if fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10 then
+    begin
+      fDMBaixaProd.cdsBaixa_Parcial.Edit;
+      fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.Clear;
+      fDMBaixaProd.cdsBaixa_ParcialHRSAIDA.Clear;
+      fDMBaixaProd.cdsBaixa_Parcial.Post;
+    end
+    else}
+      fDMBaixaProd.cdsBaixa_Parcial.Delete;
+  end;
+
+  fDMBaixaProd.cdsBaixa_Processo.Edit;
+  if (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime > 10) or (StrToFloat(FormatFloat('0.0000',vQtd)) > 0) then
+  begin
+    fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.Clear;
+    fDMBaixaProd.cdsBaixa_ProcessoHRBAIXA.Clear;
+    fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat - vQtd));
+    if StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat)) <= 0 then
+      fDMBaixaProd.cdsBaixa_ProcessoQTD_PRODUZIDO.AsFloat := StrToFloat(FormatFloat('0.0000',0));
+    fDMBaixaProd.cdsBaixa_ProcessoQTD_LIBERADA.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_LIBERADA.AsFloat + vQtd));
+    fDMBaixaProd.cdsBaixa_ProcessoQTD_PENDENTE.AsFloat := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsBaixa_ProcessoQTD_PENDENTE.AsFloat + vQtd));
+  end
+  else
+  begin
+    fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.Clear;
+    fDMBaixaProd.cdsBaixa_ProcessoHRENTRADA.Clear;
+    if vItem_Baixa_Loc > 0 then
+      fDMBaixaProd.cdsBaixa_ProcessoQTD_LIBERADA.AsFloat := 0;
+  end;
+  fDMLoteImp.cdsProcesso.Locate('ID',fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger,[loCaseInsensitive]);
+  if fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString <> 'S' then
+    vItem_Baixa_Loc := fDMBaixaProd.cdsBaixa_ProcessoITEM.AsInteger;
+
+  fDMBaixaProd.cdsBaixa_Processo.Post;
+  fDMBaixaProd.cdsBaixa_Processo.ApplyUpdates(0);
+  fDMBaixaProd.cdsBaixa_Parcial.ApplyUpdates(0);
 end;
 
 end.

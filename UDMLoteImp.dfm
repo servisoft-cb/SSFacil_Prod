@@ -824,7 +824,7 @@ object DMLoteImp: TDMLoteImp
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 424
+    Left = 426
     Top = 224
   end
   object dspProcesso: TDataSetProvider
@@ -874,6 +874,11 @@ object DMLoteImp: TDMLoteImp
     end
     object cdsProcessoUSA_CARGA: TStringField
       FieldName = 'USA_CARGA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProcessoENTRADA_AUTO: TStringField
+      FieldName = 'ENTRADA_AUTO'
       FixedChar = True
       Size = 1
     end
