@@ -330,6 +330,10 @@ type
     cdsProcessoUSA_CARGA: TStringField;
     cdsLote_PedUSUARIO: TStringField;
     cdsProcessoENTRADA_AUTO: TStringField;
+    cdsConsulta_LoteID_FUNCIONARIO_ENT: TIntegerField;
+    cdsConsulta_LoteID_FUNCIONARIO_BAIXA: TIntegerField;
+    cdsConsulta_LoteNOME_FUNCIONARIO_ENTRADA: TStringField;
+    cdsConsulta_LoteNOME_FUNCIONARIO_BAIXA: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

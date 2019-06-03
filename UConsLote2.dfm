@@ -783,7 +783,7 @@ object frmConsLote2: TfrmConsLote2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 28
+        ColCount = 30
         RowCount = 2
         Columns = <
           item
@@ -1039,6 +1039,24 @@ object frmConsLote2: TfrmConsLote2
             FieldName = 'ID_PRODUTO'
             Title.Caption = 'ID Produto'
             Title.Color = 12058551
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_FUNCIONARIO_ENTRADA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Func. Entrada'
+            Title.Color = 12058551
+            Width = 182
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_FUNCIONARIO_BAIXA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Func. Baixa'
+            Title.Color = 12058551
+            Width = 164
             Visible = True
           end>
       end
