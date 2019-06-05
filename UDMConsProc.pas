@@ -20,7 +20,7 @@ type
     cdsProc_RefNOME_COMBINACAO: TStringField;
     cdsProc_RefNOME_PROCESSO: TStringField;
     cdsProc_RefID_PROCESSO: TIntegerField;
-    cdsProc_RefID_COMBINACAO: TIntegerField;
+    cdsProc_RefID_COMBINACAO: TIntegerField;                                                                                                           
     sdsProc: TSQLDataSet;
     dspProc: TDataSetProvider;
     cdsProc: TClientDataSet;

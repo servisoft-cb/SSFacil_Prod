@@ -130,6 +130,8 @@ begin
       fDMConsProc.mEstTingObs_Ped.AsString      := fDMConsProc.cdsEstTingOBS_PED.AsString;
       fDMConsProc.mEstTingDtEmissao.AsDateTime  := fDMConsProc.cdsEstTingDTEMISSAO.AsDateTime;
     end;
+aqui
+
     if fDMConsProc.mEstTingID_Material_Cru.AsInteger > 0 then
       fDMConsProc.mEstTingConsumo_Cru.AsFloat := StrToFloat(FormatFloat('0.0000',fDMConsProc.mEstTingConsumo_Cru.AsFloat + (fDMConsProc.cdsEstTingQTD_CONSUMO.AsFloat * fDMConsProc.cdsEstTingQTD.AsFloat)));
     fDMConsProc.mEstTingConsumo.AsFloat := StrToFloat(FormatFloat('0.0000',fDMConsProc.mEstTingConsumo.AsFloat + (fDMConsProc.cdsEstTingQTD_CONSUMO.AsFloat * fDMConsProc.cdsEstTingQTD.AsFloat)));
