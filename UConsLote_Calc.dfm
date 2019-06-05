@@ -631,6 +631,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item

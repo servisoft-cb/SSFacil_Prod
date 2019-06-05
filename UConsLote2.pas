@@ -3,10 +3,9 @@ unit UConsLote2;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UDMLoteImp, DBVGrids, Grids, DBGrids, SMDBGrid, StdCtrls,
-  NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls,
-  RzTabs, DB, Menus, UCBase, UDMBaixaProd, FMTBcd, SqlExpr;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMLoteImp, DBVGrids, Grids, DBGrids,
+  SMDBGrid, StdCtrls, NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls, RzTabs, DB, Menus, UCBase, FMTBcd, 
+  UDMBaixaProd, SqlExpr;
 
 type
   TfrmConsLote2 = class(TForm)
@@ -103,12 +102,12 @@ type
     { Private declarations }
     fDMLoteImp: TDMLoteImp;
     fDMBaixaProd: TDMBaixaProd;
-    vOpcaoImp : String;
-    vItem_Baixa_Loc : Integer;
+    vOpcaoImp: String;
+    vItem_Baixa_Loc: Integer;
 
 
-    function fnc_Busca_Cliente(ID : Integer) : String;
-    function fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item : Integer) : Boolean;
+    function fnc_Busca_Cliente(ID: Integer): String;
+    function fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item: Integer): Boolean;
 
     procedure prc_Monta_Opcao;
     procedure prc_InformarDtProducao;
@@ -118,7 +117,6 @@ type
     procedure prc_Imprime_Ajuste;
 
     procedure prc_Excluir_Baixa;
-
   public
     { Public declarations }
   end;
@@ -128,8 +126,7 @@ var
 
 implementation
 
-uses rsDBUtils, USel_Pessoa, uUtilPadrao, UInfDtProd, UGerar_Talao_Ajuste,
-  DmdDatabase;
+uses rsDBUtils, USel_Pessoa, uUtilPadrao, UInfDtProd, UGerar_Talao_Ajuste, DmdDatabase;
 
 {$R *.dfm}
 
@@ -278,9 +275,9 @@ begin
   if trim(Edit1.Text) <> '' then
     vOpcaoImp := vOpcaoImp + '(Referência: ' + Edit1.Text + ')';
   case cbxOpcao.ItemIndex of
-    1 : vOpcaoImp := vOpcaoImp + '(Pendente)';
-    2 : vOpcaoImp := vOpcaoImp + '(Encerrados)';
-    3 : vOpcaoImp := vOpcaoImp + '(Talões Aguardando)';
+    1: vOpcaoImp := vOpcaoImp + '(Pendente)';
+    2: vOpcaoImp := vOpcaoImp + '(Encerrados)';
+    3: vOpcaoImp := vOpcaoImp + '(Talões Aguardando)';
   end;
 end;
 
@@ -304,7 +301,7 @@ end;
 
 procedure TfrmConsLote2.PorReferncia1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   if trim(RxDBLookupCombo1.Text) = '' then
   begin
@@ -451,7 +448,7 @@ end;
 
 procedure TfrmConsLote2.prc_Consula_Lote;
 var
-  vComando : String;
+  vComando: String;
 begin
   vComando := ' WHERE 0 = 0';
   if CurrencyEdit3.AsInteger > 0 then
@@ -481,14 +478,14 @@ begin
     vComando := vComando + ' AND DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit8.date));
 
   case cbxOpcao.ItemIndex of
-    1 : vComando := vComando + ' AND DTBAIXA is null ';
-    2 : vComando := vComando + ' AND DTBAIXA is not null ';
-    3 : vComando := vComando + ' AND DTENTRADA is null ';
+    1: vComando := vComando + ' AND DTBAIXA is null ';
+    2: vComando := vComando + ' AND DTBAIXA is not null ';
+    3: vComando := vComando + ' AND DTENTRADA is null ';
   end;
 
   case cbxTipo.ItemIndex of
-    1 : vComando := vComando + ' AND AJUSTE = ' + QuotedStr('S');
-    2 : vComando := vComando + ' AND RETRABALHO = ' + QuotedStr('S');
+    1: vComando := vComando + ' AND AJUSTE = ' + QuotedStr('S');
+    2: vComando := vComando + ' AND RETRABALHO = ' + QuotedStr('S');
   end;
 
   if trim(Edit1.Text) <> '' then
@@ -508,7 +505,7 @@ end;
 
 procedure TfrmConsLote2.prc_Consula_Lote_Ped;
 var
-  vComando : String;
+  vComando: String;
 begin
   vComando := ' WHERE 0 = 0';
   if CurrencyEdit3.AsInteger > 0 then
@@ -538,9 +535,9 @@ begin
   if CurrencyEdit4.Value > 0 then
     vComando := vComando + ' AND P.NUM_PEDIDO = ' + IntToStr(CurrencyEdit4.AsInteger);
   case cbxOpcao.ItemIndex of
-    1 : vComando := vComando + ' AND L.DTBAIXA is null ';
-    2 : vComando := vComando + ' AND L.DTBAIXA is not null ';
-    3 : vComando := vComando + ' AND L.DTENTRADA is null ';
+    1: vComando := vComando + ' AND L.DTBAIXA is null ';
+    2: vComando := vComando + ' AND L.DTBAIXA is not null ';
+    3: vComando := vComando + ' AND L.DTENTRADA is null ';
   end;
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND L.REFERENCIA = ' + QuotedStr(Edit1.Text);
@@ -565,7 +562,7 @@ end;
 
 procedure TfrmConsLote2.prc_Imprime_Ajuste;
 var
-  vArq : String;
+  vArq: String;
 begin
   fDMLoteImp.cdsTalao_Ajuste.Close;
   fDMLoteImp.sdsTalao_Ajuste.ParamByName('ID').AsInteger          := fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger;
@@ -597,7 +594,7 @@ end;
 
 procedure TfrmConsLote2.btnExcluir_BaixaClick(Sender: TObject);
 var
-  vIDAnt, vItemAnt : Integer;
+  vIDAnt, vItemAnt: Integer;
 begin
   if not(fDMLoteImp.cdsConsulta_Lote.Active) then
     exit;
@@ -691,7 +688,7 @@ end;
 
 procedure TfrmConsLote2.prc_Excluir_Baixa;
 var
-  vQtd : Real;
+  vQtd: Real;
 begin
   fDMBaixaProd.cdsBaixa_Parcial.Close;
   fDMBaixaProd.sdsBaixa_Parcial.ParamByName('ID').AsInteger   := fDMBaixaProd.cdsBaixa_ProcessoID.AsInteger;

@@ -3,10 +3,8 @@ unit UConsLote_Calc;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UDMLoteImp_Calc, DBVGrids, Grids, DBGrids, SMDBGrid, StdCtrls,
-  NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls,
-  RzTabs, DB;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMLoteImp_Calc, DBVGrids, DBGrids,
+  Grids, SMDBGrid, StdCtrls, NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls, RzTabs, DB;
 
 type
   TfrmConsLote_Calc = class(TForm)
@@ -61,12 +59,11 @@ type
   private
     { Private declarations }
     fDMLoteImp_Calc: TDMLoteImp_Calc;
-    vOpcaoImp : String;
+    vOpcaoImp: String;
 
     procedure prc_Monta_Opcao;
     procedure prc_Consulta_Lote;
     procedure prc_ConsProcesso;
-
   public
     { Public declarations }
   end;
@@ -88,7 +85,7 @@ end;
 
 procedure TfrmConsLote_Calc.FormShow(Sender: TObject);
 var
-  i : Integer;
+  i: Integer;
 begin
   fDMLoteImp_Calc:= TDMLoteImp_Calc.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMLoteImp_Calc);
@@ -142,7 +139,7 @@ end;
 
 procedure TfrmConsLote_Calc.btnImprimirClick(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   prc_Monta_Opcao;
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Det_Calc.fr3';
@@ -198,9 +195,9 @@ begin
   if trim(Edit1.Text) <> '' then
     vOpcaoImp := vOpcaoImp + '(Referência: ' + Edit1.Text + ')';
   case cbxOpcao.ItemIndex of
-    1 : vOpcaoImp := vOpcaoImp + '(Pendente)';
-    2 : vOpcaoImp := vOpcaoImp + '(Encerrados)';
-    3 : vOpcaoImp := vOpcaoImp + '(Talões Aguardando)';
+    1: vOpcaoImp := vOpcaoImp + '(Pendente)';
+    2: vOpcaoImp := vOpcaoImp + '(Encerrados)';
+    3: vOpcaoImp := vOpcaoImp + '(Talões Aguardando)';
   end;
 end;
 
@@ -219,8 +216,8 @@ end;
 
 procedure TfrmConsLote_Calc.prc_Consulta_Lote;
 var
-  vComando : String;
-  vNumAux : String;
+  vComando: String;
+  vNumAux: String;
 begin
   vComando := ' WHERE 0 = 0';
   vNumAux := Edit2.Text;
@@ -246,9 +243,9 @@ begin
   if DateEdit4.Date > 10 then
     vComando := vComando + ' AND TS.DTSAIDA <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
   case cbxOpcao.ItemIndex of
-    1 : vComando := vComando + ' AND TS.DTSAIDA is null ';
-    2 : vComando := vComando + ' AND TS.DTSAIDA is not null ';
-    3 : vComando := vComando + ' AND TS.DTENTRADA is null ';
+    1: vComando := vComando + ' AND TS.DTSAIDA is null ';
+    2: vComando := vComando + ' AND TS.DTSAIDA is not null ';
+    3: vComando := vComando + ' AND TS.DTENTRADA is null ';
   end;
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND T.REFERENCIA LIKE ' + QuotedStr(Edit1.Text+'%');
@@ -262,8 +259,8 @@ end;
 
 procedure TfrmConsLote_Calc.prc_ConsProcesso;
 var
-  vComando : String;
-  vNumAux : String;
+  vComando: String;
+  vNumAux: String;
 begin
   vComando := ' WHERE 0 = 0';
   vNumAux := Edit2.Text;
@@ -289,9 +286,9 @@ begin
   if DateEdit4.Date > 10 then
     vComando := vComando + ' AND B.DTBAIXA <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
   case cbxOpcao.ItemIndex of
-    1 : vComando := vComando + ' AND B.DTBAIXA is null ';
-    2 : vComando := vComando + ' AND B.DTBAIXA is not null ';
-    3 : vComando := vComando + ' AND B.DTENTRADA is null ';
+    1: vComando := vComando + ' AND B.DTBAIXA is null ';
+    2: vComando := vComando + ' AND B.DTBAIXA is not null ';
+    3: vComando := vComando + ' AND B.DTENTRADA is null ';
   end;
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND L.REFERENCIA LIKE ' + QuotedStr(Edit1.Text+'%');

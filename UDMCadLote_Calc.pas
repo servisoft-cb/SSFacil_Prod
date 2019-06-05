@@ -928,7 +928,7 @@ type
     ctCommand: String;
     ctOrdem_Prod: String;
     ctConsulta_Lote: String;
-    ctConsLote_Novo : String;
+    ctConsLote_Novo: String;
     ctConsulta_Lote_SL: String;
     ctPedido_PorTalao: String;
     ctConsulta_Talao_Aux: String;
@@ -938,9 +938,9 @@ type
     ctPedido_Ord: String;
     ctTingimento: String;
     ctPedido_Calc: String;
-    ctqProximo_Lote : String;
+    ctqProximo_Lote: String;
     ctConsProcesso: String;
-    ctLote_Bol      : String;
+    ctLote_Bol: String;
     vAltura_Etiq_Rot: Integer;
     vGerado: Boolean;
     vTalao_Loc :Integer;
@@ -958,8 +958,7 @@ type
 
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
     procedure prc_Abrir_Baixa_Processo(ID: Integer);
-    procedure prc_Gravar_Lote_Mat;
-
+    procedure prc_Gravar_Lote_Mat;   
   end;
 
 var

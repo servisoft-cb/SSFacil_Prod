@@ -3,8 +3,7 @@ unit UDMConsLote;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider, frxClass,
-  frxDBSet, frxRich, frxExportMail, frxExportPDF;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider, frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF;
 
 type
   TDMConsLote = class(TDataModule)
@@ -77,8 +76,8 @@ type
     procedure prc_Filtrar_MatGrade;
   public
     { Public declarations }
-    ctMatLote : String;
-    ctLoteProduto : String;
+    ctMatLote: String;
+    ctLoteProduto: String;
   end;
 
 var
