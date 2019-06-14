@@ -1088,8 +1088,6 @@ type
     mAuxLoteQtd_Minimo: TFloatField;
     qProdQtdQTD_ESTOQUE_MIN: TFloatField;
     qEstSemi: TSQLQuery;
-    qEstSemiQTD: TFMTBCDField;
-    qEstSemiQTD_RESERVA: TFloatField;
     qUltBaixaParcial: TSQLQuery;
     qUltBaixaParcialQTD: TFloatField;
     sdsBaixa_ProcessoRETRABALHO: TStringField;
@@ -1104,6 +1102,8 @@ type
     mMaterialTipo_Producao: TStringField;
     sdsLote_MatTIPO_PRODUCAO: TStringField;
     cdsLote_MatTIPO_PRODUCAO: TStringField;
+    qEstSemiQTD: TFloatField;
+    qEstSemiQTD_RESERVA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

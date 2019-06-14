@@ -5777,7 +5777,9 @@ object DMCadLote: TDMCadLote
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT SUM(VE.qtd) QTD, SUM(VE.qtd_reserva) QTD_RESERVA'
+      
+        'SELECT cast(SUM(VE.qtd) as Double Precision)  QTD, cast(SUM(VE.q' +
+        'td_reserva) as double precision) QTD_RESERVA'
       'FROM vestoque_res_lote VE'
       'WHERE VE.id_produto = :ID_PRODUTO'
       
@@ -5788,10 +5790,8 @@ object DMCadLote: TDMCadLote
     SQLConnection = dmDatabase.scoDados
     Left = 840
     Top = 112
-    object qEstSemiQTD: TFMTBCDField
+    object qEstSemiQTD: TFloatField
       FieldName = 'QTD'
-      Precision = 15
-      Size = 6
     end
     object qEstSemiQTD_RESERVA: TFloatField
       FieldName = 'QTD_RESERVA'
