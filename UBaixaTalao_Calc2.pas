@@ -465,7 +465,8 @@ begin
     if vDigitoIni = '2' then
       vMSGLocal := vMSGLocal + #13 + #13 + '  Início ' + fDMBaixaProd_Calc.cdsTalao_SetorclNome_Setor.AsString;
     //if (trim(fDMBaixaProd_Calc.cdsTalao_SetorclLER_CBARRA1.AsString) <> 'S')  then
-    if (vDigitoIni = '2') and (trim(fDMBaixaProd_Calc.cdsTalao_SetorclTipo_Leitura.AsString) <> 'T')  then
+    if (vDigitoIni = '2') and (trim(fDMBaixaProd_Calc.cdsTalao_SetorclLER_CBARRA1.AsString) <> 'S') and
+       (trim(fDMBaixaProd_Calc.cdsTalao_SetorclTipo_Leitura.AsString) <> 'T')  then
       vSaida := False;
   end;
   if (vSaida) and (fDMBaixaProd_Calc.cdsTalao_SetorDTSAIDA.IsNull) then
