@@ -1263,6 +1263,7 @@ begin
   //else
   //if fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger > 0 then
 
+
   vID_MovEstoque_Res := 0;
   if Tipo = 'P' then
   begin
