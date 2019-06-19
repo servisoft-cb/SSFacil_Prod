@@ -105,7 +105,7 @@ type
 
     procedure prc_Monta_Processo;
     procedure prc_Consulta_ConsBaixaEtiq;
-    procedure prc_Baixa_Estoque(Tipo : String); //P= Produto   S=Semi Acabado 
+    procedure prc_Baixa_Estoque(Tipo : String); //P= Produto   S=Semi Acabado   R=Reserva 
 
   public
     { Public declarations }
@@ -333,8 +333,9 @@ begin
     end;
 
     //03/10/2018 Grava o estoque do produto acabado
-    if fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger then
-      prc_Baixa_Estoque('P');
+    if (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger) or
+        (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) then
+      prc_Baixa_Estoque('R');
     //******************
     if fDMBaixaProd.cdsBaixa_Processo.State in [dsEdit] then
       fDMBaixaProd.cdsBaixa_Processo.Post;
@@ -1067,14 +1068,18 @@ begin
     fDMBaixaProd.cdsBaixa_ParcialID_FUNCIONARIO_BAIXA.AsInteger := fDMBaixaProd.qFuncionarioCODIGO.AsInteger;
 
   //Baixa estoque do processo do produto semi acabado   28/11/2018
-  if ((fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) or
-     (fDMBaixaProd.qProcessoESTOQUE.AsString = 'E')or (fDMBaixaProd.qProcessoESTOQUE.AsString = 'S')) then
+  //if ((fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) or
+  if (fDMBaixaProd.qProcessoESTOQUE.AsString = 'E') or (fDMBaixaProd.qProcessoESTOQUE.AsString = 'S') then
   begin
-    if (fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString = 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime < 10) then
-      prc_Baixa_Estoque('S')
-    else
-    if (Trim(fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString) <> 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10) then
-      prc_Baixa_Estoque('S');
+    if (fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger <> fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger) and
+       (fDMBaixaProd.cdsBaixa_ParcialID_PROCESSO.AsInteger <> fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) then
+    begin
+      if (fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString = 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime < 10) then
+        prc_Baixa_Estoque('S')
+      else
+      if (Trim(fDMBaixaProd.qProcessoESTOQUE_DT_ES.AsString) <> 'E') and (fDMBaixaProd.cdsBaixa_ParcialDTSAIDA.AsDateTime > 10) then
+        prc_Baixa_Estoque('S');
+    end;
   end;
   //**********************
 
@@ -1263,9 +1268,8 @@ begin
   //else
   //if fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger > 0 then
 
-
   vID_MovEstoque_Res := 0;
-  if Tipo = 'P' then
+  if Tipo = 'R' then
   begin
     vID_MovEstoque_Res := fDMEstoque_Res.fnc_Gravar_Estoque_Res(0,
                                                                 fDMBaixaProd.cdsLoteFILIAL.AsInteger,
@@ -1273,14 +1277,15 @@ begin
                                                                 vID_Cor,
                                                                 fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger,
                                                                 '',
-                                                                vES,
+                                                                'S',
                                                                 'LOT',
                                                                 vQtd,
                                                                 Date,
                                                                 vLote_Controle);
   end;
 
-  if (fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S') then
+  if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')
+    OR (vID_MovEstoque_Res > 0)) and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then
   begin
     vID_MovEstoque := fDMEstoque.fnc_Gravar_Estoque(0,
                                                     fDMBaixaProd.cdsLoteFILIAL.AsInteger,
@@ -1316,7 +1321,7 @@ begin
                                                     vPreco,0); //ver aqui sobre Lote Controle  04/11/2015
   end;
 
-  if Tipo = 'P' then
+  if Tipo = 'R' then
   begin
     fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE_RES.AsInteger := vID_MovEstoque_Res;
     fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger     := vID_MovEstoque;

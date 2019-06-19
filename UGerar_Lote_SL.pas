@@ -1498,7 +1498,8 @@ begin
   end;
 
   //29/05/2019 quando é algodão com o fio na cor
-  if (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
+  if (Tipo = 'S') and (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and (fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString <> 'C') and
+     (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
     vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
   //************
 
@@ -1580,13 +1581,14 @@ begin
     if StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
     begin
       vAux := StrToFloat(FormatFloat('0.00',(fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) -  trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)));
-      if vAux >= 0.50 then
-        vAux := 1.00
-      else
-      if vAux >= 0 then
-        vAux := 0.50
-      else
-        vAux := 0;
+      //18/06/2019  Tirado conforme pedido do Marcelo
+      //if vAux >= 0.50 then
+      //  vAux := 1.00
+      //else
+      //if vAux >= 0 then
+      //  vAux := 0.50
+      //else
+      //  vAux := 0;
       fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
             fDMCadLote.mAuxLoteCarga.AsFloat := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
     end;

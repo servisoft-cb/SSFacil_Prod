@@ -1104,6 +1104,7 @@ type
     cdsLote_MatTIPO_PRODUCAO: TStringField;
     qEstSemiQTD: TFloatField;
     qEstSemiQTD_RESERVA: TFloatField;
+    cdsPendenteTIPO_ALGODAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
