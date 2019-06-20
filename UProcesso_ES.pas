@@ -1284,8 +1284,8 @@ begin
                                                                 vLote_Controle);
   end;
 
-  if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')
-    OR (vID_MovEstoque_Res > 0)) and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then
+  if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S'))
+    and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) and (Tipo <> 'R')  then
   begin
     vID_MovEstoque := fDMEstoque.fnc_Gravar_Estoque(0,
                                                     fDMBaixaProd.cdsLoteFILIAL.AsInteger,
