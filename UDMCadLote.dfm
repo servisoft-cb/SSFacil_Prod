@@ -190,6 +190,9 @@ object DMCadLote: TDMCadLote
     object sdsLoteCARGA: TFloatField
       FieldName = 'CARGA'
     end
+    object sdsLoteID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
   end
   object dspLote: TDataSetProvider
     DataSet = sdsLote
@@ -393,6 +396,9 @@ object DMCadLote: TDMCadLote
     end
     object cdsLoteCARGA: TFloatField
       FieldName = 'CARGA'
+    end
+    object cdsLoteID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
     end
   end
   object dsLote: TDataSource
@@ -2642,6 +2648,11 @@ object DMCadLote: TDMCadLote
     end
     object qParametros_LoteID_PROCESSO_SEMI_EST: TIntegerField
       FieldName = 'ID_PROCESSO_SEMI_EST'
+    end
+    object qParametros_LoteRESERVA_EST_LOTE: TStringField
+      FieldName = 'RESERVA_EST_LOTE'
+      FixedChar = True
+      Size = 1
     end
   end
   object sdsPendente_Ped: TSQLDataSet

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, Grids, DBGrids, SMDBGrid, UDMCadLote, NxCollection,
-  RzPanel, SqlExpr, dbXPress, StdCtrls, UDMEstoque_Res, DB;
+  RzPanel, SqlExpr, dbXPress, StdCtrls, UDMEstoque_Res, UDMEstoque, DB;
 
 type
   TfrmGerar_Lote_Aux = class(TForm)
@@ -42,6 +42,7 @@ type
     vCont : Integer;
 
     fDMEstoque_Res: TDMEstoque_Res;
+    fDMEstoque: TDMEstoque;
 
     procedure prc_Gravar_Lote(Tipo_Lote : String);
     procedure prc_Le_Consumo(Tipo : String); //P= Produto Pedido   S= Semi Acabado
@@ -49,6 +50,7 @@ type
     procedure prc_Le_Consumo2;
     procedure prc_UsaEstoque;
     procedure prc_Gerar_Estoque_Res;
+    procedure prc_Gerar_Estoque;
     procedure prc_Grava_BaixaProcesso(ID_Processo : Integer);
 
   public
@@ -69,7 +71,10 @@ uses rsDBUtils, DmdDatabase, UGerar_Lote_AuxEst;
 procedure TfrmGerar_Lote_Aux.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  FreeAndNil(fDMEstoque_Res);
+  if fDMCadLote.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S' then
+    FreeAndNil(fDMEstoque_Res)
+  else
+    FreeAndNil(fDMEstoque);
   Action := Cafree;
 end;
 
@@ -77,7 +82,10 @@ procedure TfrmGerar_Lote_Aux.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadLote);
   NxFlipPanel1.Expanded := False;
-  fDMEstoque_Res := TDMEstoque_Res.Create(Self);
+  if fDMCadLote.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S' then
+    fDMEstoque_Res := TDMEstoque_Res.Create(Self)
+  else
+    fDMEstoque := TDMEstoque.Create(Self);
 end;
 
 procedure TfrmGerar_Lote_Aux.NxButton1Click(Sender: TObject);
@@ -335,7 +343,10 @@ begin
   else
   begin
     prc_Grava_BaixaProcesso(fDMCadLote.qParametros_LoteID_PROCESSO_EST.AsInteger);
-    prc_Gerar_Estoque_Res;
+    if fDMCadLote.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S' then
+      prc_Gerar_Estoque_Res
+    else
+      prc_Gerar_Estoque;
   end;
 end;
 
@@ -704,6 +715,56 @@ begin
       AFont.Style := [fsBold]
     end;
   end;
+end;
+
+procedure TfrmGerar_Lote_Aux.prc_Gerar_Estoque;
+var
+  vID_MovEstoque : Integer;
+  vID_Cor : Integer;
+begin
+  vID_Cor := fDMCadLote.cdsLoteID_COMBINACAO.AsInteger;
+  if (fDMCadLote.cdsLoteTIPO_LOTE.AsString = 'E') and (fDMCadLote.cdsLoteTIPO_LOTE_ESTOQUE.AsString = 'S')
+    and (fDMCadLote.cdsLoteID_COMBINACAO.AsInteger <= 0) then
+    vID_Cor := fDMCadLote.qParametros_LoteID_COR_CRU.AsInteger;
+
+
+  vID_MovEstoque := fDMEstoque.fnc_Gravar_Estoque(0,
+                                                  fDMCadLote.cdsLoteFILIAL.AsInteger,
+                                                  1,
+                                                  fDMCadLote.cdsLoteID_PRODUTO.AsInteger,
+                                                  fDMCadLote.cdsLoteNUM_LOTE.AsInteger, // Numero nota
+                                                  0, // Cliente
+                                                  0, // CFOP
+                                                  0, // ID nota fiscal
+                                                  0,
+                                                  'S', //Entrada / Saida
+                                                  'LOT',
+                                                  fDMCadLote.mAuxLoteUnidade.AsString,
+                                                  fDMCadLote.mAuxLoteUnidade.AsString,
+                                                  '', //serie
+                                                  '', //Tamanho
+                                                  Date,
+                                                  0,
+                                                  fDMCadLote.cdsLoteQTD.AsFloat,
+                                                  0, //%ICMS
+                                                  0, //%IPI
+                                                  0, //Desconto
+                                                  0, //% Trib ICMS
+                                                  0, //Valor Frete
+                                                  fDMCadLote.cdsLoteQTD.AsFloat,
+                                                  0,
+                                                  0, //Desconto
+                                                  0,
+                                                  fDMCadLote.mAuxLoteUnidade.AsString,
+                                                  vID_Cor, // Cor
+                                                  fDMCadLote.cdsLoteNUM_LOTE_CONTROLE.AsString,
+                                                  'N',
+                                                  0,
+                                                  0);
+                                                   
+  fDMCadLote.cdsLote.Edit;
+  fDMCadLote.cdsLoteID_MOVESTOQUE.AsInteger := vID_MovEstoque;
+  fDMCadLote.cdsLote.Post;
 end;
 
 end.

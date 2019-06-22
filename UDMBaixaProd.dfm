@@ -830,7 +830,9 @@ object DMBaixaProd: TDMBaixaProd
       
         'SELECT P.LOTE_PROCESSO, P.LOTE_TEXTIL, R.NOME NOME_PROCESSO_CONF' +
         ', USA_LOTE_PEDIDO, '
-      'ID_PROCESSO_EST, ID_PROCESSO_SEMI_EST, ID_COR_CRU, CONT_LOTE_ANT'
+      
+        'ID_PROCESSO_EST, ID_PROCESSO_SEMI_EST, ID_COR_CRU, CONT_LOTE_ANT' +
+        ', RESERVA_EST_LOTE'
       'FROM PARAMETROS_LOTE P'
       'LEFT JOIN PROCESSO R'
       'ON P.ID_PROCESSO_CONF = R.ID')
@@ -867,6 +869,11 @@ object DMBaixaProd: TDMBaixaProd
     end
     object qParametros_LoteCONT_LOTE_ANT: TStringField
       FieldName = 'CONT_LOTE_ANT'
+      Size = 1
+    end
+    object qParametros_LoteRESERVA_EST_LOTE: TStringField
+      FieldName = 'RESERVA_EST_LOTE'
+      FixedChar = True
       Size = 1
     end
   end

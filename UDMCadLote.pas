@@ -1105,6 +1105,9 @@ type
     qEstSemiQTD: TFloatField;
     qEstSemiQTD_RESERVA: TFloatField;
     cdsPendenteTIPO_ALGODAO: TStringField;
+    qParametros_LoteRESERVA_EST_LOTE: TStringField;
+    sdsLoteID_MOVESTOQUE: TIntegerField;
+    cdsLoteID_MOVESTOQUE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

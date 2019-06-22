@@ -374,6 +374,7 @@ type
     cdsFuncionarioNOME: TStringField;
     cdsFuncionarioSENHA: TStringField;
     cdsFuncionarioNUM_CARTAO: TIntegerField;
+    qParametros_LoteRESERVA_EST_LOTE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

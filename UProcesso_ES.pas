@@ -335,7 +335,10 @@ begin
     //03/10/2018 Grava o estoque do produto acabado
     if (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger) or
         (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) then
-      prc_Baixa_Estoque('R');
+    begin
+      if fDMBaixaProd.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S' then
+        prc_Baixa_Estoque('R');
+    end;
     //******************
     if fDMBaixaProd.cdsBaixa_Processo.State in [dsEdit] then
       fDMBaixaProd.cdsBaixa_Processo.Post;

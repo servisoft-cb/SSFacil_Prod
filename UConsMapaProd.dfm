@@ -234,10 +234,10 @@ object frmConsMapaProd: TfrmConsMapaProd
     Top = 65
     Width = 963
     Height = 485
-    ActivePage = TS_Grade
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     FixedDimension = 19
     object TS_Grade: TRzTabSheet

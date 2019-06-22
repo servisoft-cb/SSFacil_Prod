@@ -286,21 +286,21 @@ object fMenu: TfMenu
       Wrap = True
       OnClick = tbBaixarLoteClick
     end
-    object tbMapa: TToolButton
-      Left = 0
-      Top = 206
-      Caption = 'Mapa'
-      ImageIndex = 18
-      Wrap = True
-      OnClick = tbMapaClick
-    end
     object tbBaixaGeral: TToolButton
       Left = 0
-      Top = 274
+      Top = 206
       Caption = 'Baixa Geral'
       ImageIndex = 19
       Wrap = True
       OnClick = BaixaGeral1Click
+    end
+    object tbMapa: TToolButton
+      Left = 0
+      Top = 274
+      Caption = 'Mapa'
+      ImageIndex = 18
+      Wrap = True
+      OnClick = tbMapaClick
     end
     object tbPreFat: TToolButton
       Left = 0
