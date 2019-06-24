@@ -375,6 +375,10 @@ type
     cdsFuncionarioSENHA: TStringField;
     cdsFuncionarioNUM_CARTAO: TIntegerField;
     qParametros_LoteRESERVA_EST_LOTE: TStringField;
+    sdsLoteID_MOVESTOQUE_RES: TIntegerField;
+    sdsLoteQTD_ESTOQUE_USADA: TFloatField;
+    cdsLoteID_MOVESTOQUE_RES: TIntegerField;
+    cdsLoteQTD_ESTOQUE_USADA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

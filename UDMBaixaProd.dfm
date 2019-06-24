@@ -21,7 +21,7 @@ object DMBaixaProd: TDMBaixaProd
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 144
-    Top = 48
+    Top = 47
     object sdsLoteID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -156,6 +156,12 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'TIPO_LOTE_ESTOQUE'
       FixedChar = True
       Size = 1
+    end
+    object sdsLoteID_MOVESTOQUE_RES: TIntegerField
+      FieldName = 'ID_MOVESTOQUE_RES'
+    end
+    object sdsLoteQTD_ESTOQUE_USADA: TFloatField
+      FieldName = 'QTD_ESTOQUE_USADA'
     end
   end
   object dspLote: TDataSetProvider
@@ -305,6 +311,12 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'TIPO_LOTE_ESTOQUE'
       FixedChar = True
       Size = 1
+    end
+    object cdsLoteID_MOVESTOQUE_RES: TIntegerField
+      FieldName = 'ID_MOVESTOQUE_RES'
+    end
+    object cdsLoteQTD_ESTOQUE_USADA: TFloatField
+      FieldName = 'QTD_ESTOQUE_USADA'
     end
   end
   object sdsPedido_Item: TSQLDataSet

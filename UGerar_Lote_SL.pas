@@ -1590,7 +1590,7 @@ begin
       //else
       //  vAux := 0;
       fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
-            fDMCadLote.mAuxLoteCarga.AsFloat := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+      fDMCadLote.mAuxLoteCarga.AsFloat        := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
     end;
   end;
   fDMCadLote.mAuxLote.Post;

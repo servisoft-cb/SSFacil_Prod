@@ -336,7 +336,8 @@ begin
     if (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_EST.AsInteger) or
         (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) then
     begin
-      if fDMBaixaProd.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S' then
+    //24/06/2019 o or foi incluído
+      if (fDMBaixaProd.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S') or (fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) then 
         prc_Baixa_Estoque('R');
     end;
     //******************
@@ -1236,6 +1237,7 @@ var
   vLote_Controle : String;
   vPreco : Real;
   vGeraCusto : String;
+  vEstoque : Boolean;
 begin
   vES             := 'S';
   vID_MovEstoque  := 0;
@@ -1287,8 +1289,13 @@ begin
                                                                 vLote_Controle);
   end;
 
-  if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S'))
-    and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) and (Tipo <> 'R')  then
+  vEstoque := False;
+  if (((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')) or
+    ((trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) = 'S') and (fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) and (Tipo = 'R')))
+    and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then
+    //vEstoque := True;
+  //if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S'))
+    //or ((fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) and (Tipo = 'R')) and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then
   begin
     vID_MovEstoque := fDMEstoque.fnc_Gravar_Estoque(0,
                                                     fDMBaixaProd.cdsLoteFILIAL.AsInteger,

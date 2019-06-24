@@ -330,7 +330,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 1
+          TabOrder = 3
         end
         object DateEdit2: TDateEdit
           Left = 242
@@ -340,7 +340,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 2
+          TabOrder = 4
         end
         object CurrencyEdit1: TCurrencyEdit
           Left = 108
@@ -352,7 +352,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           DecimalPlaces = 0
           DisplayFormat = '0'
           ParentCtl3D = False
-          TabOrder = 3
+          TabOrder = 1
         end
         object CurrencyEdit2: TCurrencyEdit
           Left = 242
@@ -364,7 +364,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           DecimalPlaces = 0
           DisplayFormat = '0'
           ParentCtl3D = False
-          TabOrder = 4
+          TabOrder = 2
         end
         object cbxOpcao: TNxComboBox
           Left = 108
@@ -406,10 +406,11 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Width = 77
           Height = 16
           Cursor = crArrow
+          TabStop = False
           BevelOuter = bvSpace
           BorderStyle = bsNone
           Color = clSilver
-          TabOrder = 7
+          TabOrder = 10
           Text = 'Dt. Emiss'#227'o:'
           ReadOnly = True
           HideFocus = False
@@ -488,7 +489,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 9
           Transparent = True
           OnClick = btnConsultarClick
         end
@@ -506,14 +507,14 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           OnKeyDown = CurrencyEdit3KeyDown
         end
         object Edit1: TEdit
-          Left = 495
+          Left = 496
           Top = 21
           Width = 154
           Height = 19
           CharCase = ecUpperCase
           Ctl3D = False
           ParentCtl3D = False
-          TabOrder = 9
+          TabOrder = 7
         end
         object CurrencyEdit5: TCurrencyEdit
           Left = 495
@@ -525,7 +526,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           DecimalPlaces = 0
           DisplayFormat = '0'
           ParentCtl3D = False
-          TabOrder = 10
+          TabOrder = 8
           OnKeyDown = CurrencyEdit5KeyDown
         end
       end
