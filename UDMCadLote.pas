@@ -1170,6 +1170,8 @@ type
 
     procedure prc_SaldoEst(Filial, ID_Produto, ID_Cor : Integer ; Num_Lote_Controle, Tipo : String);
 
+    procedure prc_Calcula_Carga;
+
   end;
 
 var
@@ -1788,6 +1790,21 @@ begin
   else
     sdsSaldoEst.ParamByName('ID_COR2').AsInteger := -1;}
   cdsSaldoEst.Open;
+end;
+
+procedure TDMCadLote.prc_Calcula_Carga;
+begin
+  if cdsProdutoID.AsInteger <> mAuxLoteID_Produto.AsInteger then
+    cdsProduto.Locate('ID',mAuxLoteID_Produto.AsInteger,[loCaseInsensitive]);
+    
+  if (cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (mAuxLoteTipo_Lote.AsString = 'S') then
+  begin
+    if StrToFloat(FormatFloat('0.000',cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
+    begin
+      mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',cdsProdutoMETROS_CARGA.AsFloat));
+      mAuxLoteCarga.AsFloat        := StrToFloat(FormatFloat('0.00',mAuxLoteQtd.AsFloat / cdsProdutoMETROS_CARGA.AsFloat));
+    end;
+  end;
 end;
 
 end.

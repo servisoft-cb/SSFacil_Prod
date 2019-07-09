@@ -641,7 +641,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -660,7 +659,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -849,7 +847,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Encerado'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -859,7 +856,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -895,7 +891,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = [fsBold]
-            Width = 64
             Visible = True
           end
           item
@@ -930,7 +925,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -938,7 +932,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -947,7 +940,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Consumo Unit'#225'rio'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item

@@ -30,7 +30,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
     Left = 905
     Top = 63
     Width = 10
-    Height = 345
+    Height = 346
     Align = alRight
     ResizeStyle = rsLine
   end
@@ -38,7 +38,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
     Left = 0
     Top = 63
     Width = 905
-    Height = 345
+    Height = 346
     Align = alClient
     Ctl3D = False
     DataSource = DMCadLote.dsmAuxLote
@@ -341,7 +341,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
     Left = 915
     Top = 63
     Width = 211
-    Height = 345
+    Height = 346
     Align = alRight
     BorderColor = clNavy
     BorderInner = fsButtonUp
@@ -363,7 +363,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
       Left = 5
       Top = 18
       Width = 201
-      Height = 322
+      Height = 323
       Align = alClient
       Ctl3D = False
       DataSource = DMCadLote.dsmAuxLote_Ped
@@ -498,9 +498,9 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
   end
   object NxFlipPanel1: TNxFlipPanel
     Left = 0
-    Top = 408
+    Top = 409
     Width = 1126
-    Height = 207
+    Height = 206
     Align = alBottom
     Caption = 'Estoque Semi Acabado'
     CollapseGlyph.Data = {
@@ -545,7 +545,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
       Left = 0
       Top = 18
       Width = 156
-      Height = 189
+      Height = 188
       Align = alLeft
       Caption = 'Cons. Estoque'
       Font.Charset = DEFAULT_CHARSET
@@ -618,7 +618,7 @@ object frmGerar_Lote_Aux: TfrmGerar_Lote_Aux
       Left = 156
       Top = 18
       Width = 970
-      Height = 189
+      Height = 188
       Align = alClient
       Ctl3D = False
       DataSource = DMCadLote.dsEstoque_Semi

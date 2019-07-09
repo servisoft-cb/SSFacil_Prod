@@ -1328,7 +1328,7 @@ begin
                                                     vID_Cor, // Cor
                                                     vLote_Controle,
                                                     vGeraCusto,
-                                                    vPreco,0); //ver aqui sobre Lote Controle  04/11/2015
+                                                    vPreco,0,0,0,0); //ver aqui sobre Lote Controle  04/11/2015
   end;
 
   if Tipo = 'R' then

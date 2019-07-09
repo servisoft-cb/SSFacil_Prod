@@ -599,23 +599,26 @@ begin
   ffrmGerar_Lote_AuxEst.vQtdUsada  := StrToFloat(FormatFloat('0.0000',vQtdAux));
   ffrmGerar_Lote_AuxEst.ShowModal;
   FreeAndNil(ffrmGerar_Lote_AuxEst);
+
+
 end;
 
 procedure TfrmGerar_Lote_Aux.prc_UsaEstoque;
 var
   vQtd : Real;
 begin
+  if fDMCadLote.cdsProdutoID.AsInteger <> fDMCadLote.mAuxLoteID_Produto.AsInteger then
+    fDMCadLote.cdsProduto.Locate('ID',fDMCadLote.mAuxLoteID_Produto.AsInteger,[loCaseInsensitive]);
+
+  fDMCadLote.mAuxLote.Edit;
   if fDMCadLote.mAuxLoteUsa_Estoque.AsString = 'S' then
   begin
-    fDMCadLote.mAuxLote.Edit;
     fDMCadLote.mAuxLoteQtd.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat));
     fDMCadLote.mAuxLoteUsa_Estoque.AsString    := 'N';
     fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat := StrToFloat(FormatFloat('0.0000',0));
-    fDMCadLote.mAuxLote.Post;
   end
   else
-  begin              
-    fDMCadLote.mAuxLote.Edit;
+  begin
     vQtd := 0;
     if StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat)) >= StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat)) then
       vQtd := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat))
@@ -624,8 +627,11 @@ begin
     fDMCadLote.mAuxLoteQtd.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat - vQtd));
     fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat := StrToFloat(FormatFloat('0.0000',vQtd));
     fDMCadLote.mAuxLoteUsa_Estoque.AsString    := 'S';
-    fDMCadLote.mAuxLote.Post;
   end;
+
+  fDMCadLote.prc_Calcula_Carga;
+
+  fDMCadLote.mAuxLote.Post;
 end;
 
 procedure TfrmGerar_Lote_Aux.prc_Gerar_Estoque_Res;
@@ -760,7 +766,7 @@ begin
                                                   fDMCadLote.cdsLoteNUM_LOTE_CONTROLE.AsString,
                                                   'N',
                                                   0,
-                                                  0);
+                                                  0,0,0,0);
                                                    
   fDMCadLote.cdsLote.Edit;
   fDMCadLote.cdsLoteID_MOVESTOQUE.AsInteger := vID_MovEstoque;

@@ -1576,11 +1576,13 @@ begin
   if fDMCadLote.cdsPendenteTIPO_REG_PROD.AsString = 'P' then
     fDMCadLote.mAuxLoteQtd_Pares.AsFloat := fDMCadLote.mAuxLoteQtd_Pares.AsFloat + fDMCadLote.cdsPendenteQTD_RESTANTE.AsFloat;
 
-  if (fDMCadLote.cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (Tipo = 'S') then
+  //09/07/2019 Foi tirado esse bloco e deixado somente a procedure no DMCadLote
+  fDMCadLote.prc_Calcula_Carga;
+  {if (fDMCadLote.cdsProdutoTIPO_PRODUCAO.AsString = 'T') and (Tipo = 'S') then
   begin
     if StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)) > 0 then
     begin
-      vAux := StrToFloat(FormatFloat('0.00',(fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) -  trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)));
+      //vAux := StrToFloat(FormatFloat('0.00',(fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) -  trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat)));
       //18/06/2019  Tirado conforme pedido do Marcelo
       //if vAux >= 0.50 then
       //  vAux := 1.00
@@ -1590,10 +1592,12 @@ begin
       //else
       //  vAux := 0;
       fDMCadLote.mAuxLoteMetros_Carga.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
-      fDMCadLote.mAuxLoteCarga.AsFloat        := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+      //fDMCadLote.mAuxLoteCarga.AsFloat        := trunc(StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat))) + vAux;
+      fDMCadLote.mAuxLoteCarga.AsFloat        := StrToFloat(FormatFloat('0.00',fDMCadLote.mAuxLoteQtd.AsFloat / fDMCadLote.cdsProdutoMETROS_CARGA.AsFloat));
     end;
   end;
-  fDMCadLote.mAuxLote.Post;
+  fDMCadLote.mAuxLote.Post;}
+  //***************************
 
   if (fDMCadLote.mAuxLote_Ped.Locate('ID_PEDIDO;ITEM_PEDIDO',VarArrayOf([fDMCadLote.cdsPendenteID.AsInteger,fDMCadLote.cdsPendenteITEM.AsInteger]),[locaseinsensitive])) then
     fDMCadLote.mAuxLote_Ped.Edit
