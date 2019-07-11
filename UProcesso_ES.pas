@@ -337,8 +337,9 @@ begin
         (fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger = fDMBaixaProd.qParametros_LoteID_PROCESSO_SEMI_EST.AsInteger) then
     begin
     //24/06/2019 o or foi incluído
-      if (fDMBaixaProd.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S') or (fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) then 
-        prc_Baixa_Estoque('R');
+      //Tirado dia 11/07/2019
+      //if (fDMBaixaProd.qParametros_LoteRESERVA_EST_LOTE.AsString = 'S') or (fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) then
+       // prc_Baixa_Estoque('R');
     end;
     //******************
     if fDMBaixaProd.cdsBaixa_Processo.State in [dsEdit] then
@@ -1274,7 +1275,8 @@ begin
   //if fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger > 0 then
 
   vID_MovEstoque_Res := 0;
-  if Tipo = 'R' then
+  //Tirado dia 11/07/2019 , por enquanto vai ficar sem reserva
+  {if Tipo = 'R' then
   begin
     vID_MovEstoque_Res := fDMEstoque_Res.fnc_Gravar_Estoque_Res(0,
                                                                 fDMBaixaProd.cdsLoteFILIAL.AsInteger,
@@ -1287,11 +1289,14 @@ begin
                                                                 vQtd,
                                                                 Date,
                                                                 vLote_Controle);
-  end;
+  end;}
 
   vEstoque := False;
-  if (((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')) or
+  //Tirado o esquema da Reserva 11/07/2019
+  {if (((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')) or
     ((trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) = 'S') and (fDMBaixaProd.cdsLoteID_MOVESTOQUE_RES.AsInteger > 0) and (Tipo = 'R')))
+    and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then}
+  if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S')) 
     and (fDMBaixaProd.cdsBaixa_ProcessoID_MOVESTOQUE.AsInteger <= 0) then
     //vEstoque := True;
   //if ((fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.IsNull) or (trim(fDMBaixaProd.cdsLoteTIPO_LOTE_ESTOQUE.AsString) <> 'S'))
