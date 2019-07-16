@@ -623,12 +623,12 @@ begin
   end;
 
   fDMLoteImp.cdsProcesso.Locate('ID',fDMLoteImp.cdsConsulta_LoteID_PROCESSO.AsInteger,[loCaseInsensitive]);
-  if (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') and (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) then
-  begin
-    MessageDlg('*** Essa entrada é automática, é preciso excluir o lançamento anterior!' , mtInformation, [mbOk], 0);
-    FreeAndNil(fDMBaixaProd);
-    exit;
-  end;
+  //if (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') and (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) then
+  //begin
+  //  MessageDlg('*** Essa entrada é automática, é preciso excluir o lançamento anterior!' , mtInformation, [mbOk], 0);
+  //  FreeAndNil(fDMBaixaProd);
+  //  exit;
+  //end;
 
   prc_Excluir_Baixa;
 
