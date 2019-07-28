@@ -3,7 +3,9 @@ object frmBaixaTalao_Calc2: TfrmBaixaTalao_Calc2
   Top = 32
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
-  Caption = 'Ordem de Produ'#231#227'o/Lote/Tal'#227'o Controle de Entrada e Sa'#237'da'
+  Caption = 
+    'Ordem de Produ'#231#227'o/Lote/Tal'#227'o Controle de Entrada e Sa'#237'da    (frm' +
+    'BaixaTalao_Calc2)'
   ClientHeight = 600
   ClientWidth = 992
   Color = clBtnFace

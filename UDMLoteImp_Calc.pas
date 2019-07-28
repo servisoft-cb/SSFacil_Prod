@@ -221,6 +221,40 @@ type
     dspConsProdutividade: TDataSetProvider;
     cdsConsProdutividade: TClientDataSet;
     dsConsProdutividade: TDataSource;
+    sdsConsTalao_Setor: TSQLDataSet;
+    dspConsTalao_Setor: TDataSetProvider;
+    cdsConsTalao_Setor: TClientDataSet;
+    dsConsTalao_Setor: TDataSource;
+    cdsConsTalao_SetorQTD: TFloatField;
+    cdsConsTalao_SetorQTD_PRODUZIDO: TFloatField;
+    cdsConsTalao_SetorQTD_PENDENTE: TFloatField;
+    cdsConsTalao_SetorID_SETOR: TIntegerField;
+    cdsConsTalao_SetorNOME_SETOR: TStringField;
+    sdsConsTalao_Setor_Ref: TSQLDataSet;
+    dspConsTalao_Setor_Ref: TDataSetProvider;
+    cdsConsTalao_Setor_Ref: TClientDataSet;
+    dsConsTalao_Setor_Ref: TDataSource;
+    cdsConsTalao_Setor_RefQTD: TFloatField;
+    cdsConsTalao_Setor_RefQTD_PRODUZIDO: TFloatField;
+    cdsConsTalao_Setor_RefQTD_PENDENTE: TFloatField;
+    cdsConsTalao_Setor_RefID_SETOR: TIntegerField;
+    cdsConsTalao_Setor_RefNOME_SETOR: TStringField;
+    cdsConsTalao_Setor_RefREFERENCIA: TStringField;
+    sdsConsTalao_Ref: TSQLDataSet;
+    dspConsTalao_Ref: TDataSetProvider;
+    cdsConsTalao_Ref: TClientDataSet;
+    dsConsTalao_Ref: TDataSource;
+    cdsConsTalao_RefQTD: TFloatField;
+    cdsConsTalao_RefQTD_PRODUZIDO: TFloatField;
+    cdsConsTalao_RefQTD_PENDENTE: TFloatField;
+    cdsConsTalao_RefID_SETOR: TIntegerField;
+    cdsConsTalao_RefNOME_SETOR: TStringField;
+    cdsConsTalao_RefREFERENCIA: TStringField;
+    qParametros_LoteID_SETOR_EST: TIntegerField;
+    cdsConsTalao_RefagTotal: TAggregateField;
+    cdsConsTalao_RefagTotal_Prod: TAggregateField;
+    cdsConsTalao_RefagTotal_Pend: TAggregateField;
+    cdsConsTalao_RefagTotal2: TAggregateField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -239,6 +273,9 @@ type
     { Public declarations }
     ctConsulta_Lote: String;
     ctConsProcesso: String;
+    ctConsTalao_Setor : String;
+    ctConsTalao_Setor_Ref : String;
+    ctConsTalao_Ref : String;
     vObsPedido: String;
     vTipo_Imp: String;
 
@@ -264,8 +301,11 @@ end;
 
 procedure TDMLoteImp_Calc.DataModuleCreate(Sender: TObject);
 begin
-  ctConsulta_Lote := sdsConsulta_Lote.CommandText;
-  ctConsProcesso  := sdsConsProcesso.CommandText;
+  ctConsulta_Lote       := sdsConsulta_Lote.CommandText;
+  ctConsProcesso        := sdsConsProcesso.CommandText;
+  ctConsTalao_Setor     := sdsConsTalao_Setor.CommandText;
+  ctConsTalao_Setor_Ref := sdsConsTalao_Setor_Ref.CommandText;
+  ctConsTalao_Ref       := sdsConsTalao_Ref.CommandText;
   cdsSetor.Open;
   qParametros_Lote.Open;
 end;

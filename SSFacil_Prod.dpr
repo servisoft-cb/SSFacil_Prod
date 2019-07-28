@@ -104,7 +104,8 @@ uses
   DmdDatabase_NFeBD in '..\ssfacil\DmdDatabase_NFeBD.pas' {dmDatabase_NFeBD: TDataModule},
   UConsMatKG in 'UConsMatKG.pas' {frmConsMatKG},
   UConsEstTing in 'UConsEstTing.pas' {frmConsEstTing},
-  UConsEstRed in '..\ssfacil\UConsEstRed.pas' {frmConsEstRed};
+  UConsEstRed in '..\ssfacil\UConsEstRed.pas' {frmConsEstRed},
+  UAltEstLocal in '..\ssfacil\UAltEstLocal.pas' {frmAltEstLocal};
 
 {$R *.res}
 

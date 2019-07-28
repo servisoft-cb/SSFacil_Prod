@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMLoteImp_Calc, DBVGrids, DBGrids,
-  Grids, SMDBGrid, StdCtrls, NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls, RzTabs, DB;
+  Grids, SMDBGrid, StdCtrls, NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls, RzTabs, DB,
+  TeEngine, Series, TeeProcs, Chart, DbChart, DBCtrls;
 
 type
   TfrmConsLote_Calc = class(TForm)
@@ -42,6 +43,28 @@ type
     NxLabel10: TNxLabel;
     RxDBLookupCombo2: TRxDBLookupCombo;
     SMDBGrid2: TSMDBGrid;
+    TS_Setor: TRzTabSheet;
+    RzPageControl2: TRzPageControl;
+    TS_Setor_Dados: TRzTabSheet;
+    TS_Setor_Graf: TRzTabSheet;
+    DBChart1: TDBChart;
+    Series1: TBarSeries;
+    SMDBGrid3: TSMDBGrid;
+    TS_Setor_Ref: TRzTabSheet;
+    SMDBGrid4: TSMDBGrid;
+    TS_Ref: TRzTabSheet;
+    Panel2: TPanel;
+    Label1: TLabel;
+    RxDBLookupCombo3: TRxDBLookupCombo;
+    SMDBGrid5: TSMDBGrid;
+    Panel3: TPanel;
+    Label2: TLabel;
+    DBText1: TDBText;
+    DBText2: TDBText;
+    Label3: TLabel;
+    DBText3: TDBText;
+    Label5: TLabel;
+    DBText4: TDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -56,6 +79,7 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SMDBGrid4TitleClick(Column: TColumn);
   private
     { Private declarations }
     fDMLoteImp_Calc: TDMLoteImp_Calc;
@@ -64,6 +88,8 @@ type
     procedure prc_Monta_Opcao;
     procedure prc_Consulta_Lote;
     procedure prc_ConsProcesso;
+    procedure prc_ConsTalao_Setor;
+
   public
     { Public declarations }
   end;
@@ -73,7 +99,7 @@ var
 
 implementation
 
-uses rsDBUtils, USel_Pessoa, uUtilPadrao, Math, USel_Produto;
+uses rsDBUtils, USel_Pessoa, uUtilPadrao, Math, USel_Produto, StrUtils;
 
 {$R *.dfm}
 
@@ -104,6 +130,9 @@ begin
   end;
 
   TS_Processo.TabVisible := (fDMLoteImp_Calc.qParametros_LoteLOTE_CALCADO_NOVO.AsString = 'S');
+
+  if fDMLoteImp_Calc.qParametros_LoteID_SETOR_EST.AsInteger > 0 then
+    RxDBLookupCombo3.KeyValue := fDMLoteImp_Calc.qParametros_LoteID_SETOR_EST.AsInteger;
 end;
 
 procedure TfrmConsLote_Calc.btnConsTalaoClick(Sender: TObject);
@@ -111,7 +140,10 @@ begin
   if RzPageControl1.ActivePage = TS_Talao then
     prc_Consulta_Lote
   else
-    prc_ConsProcesso;
+  if RzPageControl1.ActivePage = TS_Processo then
+    prc_ConsProcesso
+  else
+    prc_ConsTalao_Setor;
 end;
 
 procedure TfrmConsLote_Calc.SMDBGrid1TitleClick(Column: TColumn);
@@ -325,6 +357,113 @@ begin
     if trim(vReferencia_Pos) <> '' then
       Edit1.Text := vReferencia_Pos;
   end;
+end;
+
+procedure TfrmConsLote_Calc.prc_ConsTalao_Setor;
+var
+  i : Integer;
+  vComandoAux, vComandoAux2, vComando : String;
+  vNumAux : String;
+begin
+  if RzPageControl1.ActivePage = TS_Ref then
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Ref.Close;
+    i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Ref),0);
+    vComandoAux  := copy(fDMLoteImp_Calc.ctConsTalao_Ref,i,Length(fDMLoteImp_Calc.ctConsTalao_Ref) - i + 1);
+    vComandoAux2 := copy(fDMLoteImp_Calc.ctConsTalao_Ref,1,i-1);
+  end
+  else
+  if RzPageControl2.ActivePage = TS_Setor_Ref then
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Close;
+    i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor_Ref),0);
+    vComandoAux  := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor_Ref) - i + 1);
+    vComandoAux2 := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref,1,i-1);
+  end
+  else
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Close;
+    i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor),0);
+    vComandoAux  := copy(fDMLoteImp_Calc.ctConsTalao_Setor,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor) - i + 1);
+    vComandoAux2 := copy(fDMLoteImp_Calc.ctConsTalao_Setor,1,i-1);
+  end;
+
+  vComando := ' WHERE 0 = 0 ';
+  vNumAux  := Edit2.Text;
+  if fDMLoteImp_Calc.qParametros_LoteUSA_REMESSA.AsString <> 'S' then
+    vNumAux := Monta_Numero(Edit2.Text,0);
+  if trim(vNumAux) <> '' then
+  begin
+    if fDMLoteImp_Calc.qParametros_LoteUSA_REMESSA.AsString = 'S' then
+      vComando := vComando + '  AND L.NUM_REMESSA = ' + QuotedStr(vNumAux)
+    else
+      vComando := vComando + '  AND L.NUM_ORDEM = ' + vNumAux ;
+  end;
+  if CurrencyEdit1.AsInteger > 0 then
+    vComando := vComando + '  AND L.NUM_LOTE >= ' + IntToStr(CurrencyEdit1.AsInteger);
+  if CurrencyEdit2.AsInteger > 0 then
+    vComando := vComando + '  AND L.NUM_LOTE <= ' + IntToStr(CurrencyEdit2.AsInteger);
+  if DateEdit1.Date > 10 then
+    vComando := vComando + ' AND TS.DTENTRADA >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
+  if DateEdit2.Date > 10 then
+    vComando := vComando + ' AND TS.DTENTRADA <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+  if DateEdit3.Date > 10 then
+    vComando := vComando + ' AND TS.DTSAIDA >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit3.date));
+  if DateEdit4.Date > 10 then
+    vComando := vComando + ' AND TS.DTSAIDA <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
+  case cbxOpcao.ItemIndex of
+    1: vComando := vComando + ' AND TS.DTSAIDA is null ';
+    2: vComando := vComando + ' AND TS.DTSAIDA is not null ';
+    3: vComando := vComando + ' AND TS.DTENTRADA is null ';
+  end;
+  if trim(Edit1.Text) <> '' then
+    vComando := vComando + ' AND L.REFERENCIA LIKE ' + QuotedStr(Edit1.Text+'%');
+  if trim(RxDBLookupCombo1.Text) <> '' then
+    vComando := vComando + ' AND TS.ID_SETOR = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+
+  if (RzPageControl1.ActivePage = TS_Ref) and (trim(RxDBLookupCombo3.Text) <> '') then
+    vComando := vComando + ' AND TS.ID_SETOR = ' + IntToStr(RxDBLookupCombo3.KeyValue);
+
+  if (RzPageControl1.ActivePage = TS_Ref) then
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Ref.Close;
+    fDMLoteImp_Calc.sdsConsTalao_Ref.CommandText := vComandoAux2 + vComando + vComandoAux;
+    fDMLoteImp_Calc.cdsConsTalao_Ref.Open;
+    fDMLoteImp_Calc.cdsConsTalao_Ref.IndexFieldNames := 'REFERENCIA';
+  end
+  else
+  if RzPageControl2.ActivePage = TS_Setor_Ref then
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Close;
+    fDMLoteImp_Calc.sdsConsTalao_Setor_Ref.CommandText := vComandoAux2 + vComando + vComandoAux;
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Open;
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := 'NOME_SETOR;REFERENCIA';
+  end
+  else
+  begin
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Close;
+    fDMLoteImp_Calc.sdsConsTalao_Setor.CommandText := vComandoAux2 + vComando + vComandoAux;
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Open;
+    fDMLoteImp_Calc.cdsConsTalao_Setor.IndexFieldNames := 'NOME_SETOR';
+  end;
+end;
+
+procedure TfrmConsLote_Calc.SMDBGrid4TitleClick(Column: TColumn);
+var
+  i: Integer;
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := Column.FieldName;
+  if ColunaOrdenada = 'REFERENCIA' then
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := Column.FieldName + ';NOME_SETOR'
+  else
+  if (ColunaOrdenada = 'NOME_SETOR') or (ColunaOrdenada = 'ID_SETOR') then
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := Column.FieldName + ';REFERENCIA';
+  Column.Title.Color := clBtnShadow;
+  for i := 0 to SMDBGrid1.Columns.Count - 1 do
+    if not (SMDBGrid1.Columns.Items[I] = Column) then
+      SMDBGrid1.Columns.Items[I].Title.Color := $00C4FFFF;
 end;
 
 end.

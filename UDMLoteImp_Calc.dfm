@@ -2,7 +2,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 263
-  Top = 32
+  Top = 15
   Height = 713
   Width = 798
   object frxReport1: TfrxReport
@@ -303,7 +303,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT USA_REMESSA, LOTE_CALCADO_NOVO'
+      'SELECT USA_REMESSA, LOTE_CALCADO_NOVO, ID_SETOR_EST'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
     Left = 648
@@ -317,6 +317,9 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       FieldName = 'LOTE_CALCADO_NOVO'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_LoteID_SETOR_EST: TIntegerField
+      FieldName = 'ID_SETOR_EST'
     end
   end
   object sdsConsLote_Novo: TSQLDataSet
@@ -1353,5 +1356,180 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     DataSet = cdsConsProdutividade
     Left = 183
     Top = 296
+  end
+  object sdsConsTalao_Setor: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(ts.qtd) qtd, sum(ts.qtd_produzido) qtd_produzido, sum' +
+      '(ts.qtd_pendente) qtd_pendente,'#13#10'ts.id_setor, s.nome nome_setor'#13 +
+      #10'from talao_setor ts'#13#10'inner join lote l'#13#10'on ts.id = l.id'#13#10'left j' +
+      'oin setor s'#13#10'on ts.id_setor = s.id'#13#10'group by ts.id_setor, s.nome' +
+      #13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 27
+    Top = 365
+  end
+  object dspConsTalao_Setor: TDataSetProvider
+    DataSet = sdsConsTalao_Setor
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 68
+    Top = 365
+  end
+  object cdsConsTalao_Setor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsTalao_Setor'
+    Left = 130
+    Top = 365
+    object cdsConsTalao_SetorQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsTalao_SetorQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsConsTalao_SetorQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsConsTalao_SetorID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsConsTalao_SetorNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+  end
+  object dsConsTalao_Setor: TDataSource
+    DataSet = cdsConsTalao_Setor
+    Left = 179
+    Top = 365
+  end
+  object sdsConsTalao_Setor_Ref: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(ts.qtd) qtd, sum(ts.qtd_produzido) qtd_produzido, sum' +
+      '(ts.qtd_pendente) qtd_pendente,'#13#10'ts.id_setor, s.nome nome_setor,' +
+      ' L.referencia'#13#10'from talao_setor ts'#13#10'inner join lote l'#13#10'on ts.id ' +
+      '= l.id'#13#10'left join setor s'#13#10'on ts.id_setor = s.id'#13#10'group by ts.id' +
+      '_setor, s.nome, L.referencia'#13#10#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 27
+    Top = 429
+  end
+  object dspConsTalao_Setor_Ref: TDataSetProvider
+    DataSet = sdsConsTalao_Setor_Ref
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 68
+    Top = 429
+  end
+  object cdsConsTalao_Setor_Ref: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsTalao_Setor_Ref'
+    Left = 126
+    Top = 427
+    object cdsConsTalao_Setor_RefQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsTalao_Setor_RefQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsConsTalao_Setor_RefQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsConsTalao_Setor_RefID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsConsTalao_Setor_RefNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsConsTalao_Setor_RefREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+  end
+  object dsConsTalao_Setor_Ref: TDataSource
+    DataSet = cdsConsTalao_Setor_Ref
+    Left = 179
+    Top = 429
+  end
+  object sdsConsTalao_Ref: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(ts.qtd) qtd, sum(ts.qtd_produzido) qtd_produzido, sum' +
+      '(ts.qtd_pendente) qtd_pendente,'#13#10'ts.id_setor, s.nome nome_setor,' +
+      ' L.referencia'#13#10'from talao_setor ts'#13#10'inner join lote l'#13#10'on ts.id ' +
+      '= l.id'#13#10'left join setor s'#13#10'on ts.id_setor = s.id'#13#10'group by ts.id' +
+      '_setor, s.nome, L.referencia'#13#10#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 27
+    Top = 485
+  end
+  object dspConsTalao_Ref: TDataSetProvider
+    DataSet = sdsConsTalao_Ref
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 68
+    Top = 485
+  end
+  object cdsConsTalao_Ref: TClientDataSet
+    Aggregates = <
+      item
+        AggregateName = 'agTotal3'
+        Expression = 'sum(qtd_produzido)'
+        Visible = False
+      end>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspConsTalao_Ref'
+    Left = 126
+    Top = 482
+    object cdsConsTalao_RefQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsTalao_RefQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsConsTalao_RefQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsConsTalao_RefID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsConsTalao_RefNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsConsTalao_RefREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsTalao_RefagTotal: TAggregateField
+      FieldName = 'agTotal'
+      Expression = 'SUM(QTD)'
+    end
+    object cdsConsTalao_RefagTotal_Prod: TAggregateField
+      FieldName = 'agTotal_Prod'
+      Expression = 'SUM(QTD_PRODUZIDO)'
+    end
+    object cdsConsTalao_RefagTotal_Pend: TAggregateField
+      FieldName = 'agTotal_Pend'
+      Expression = 'SUM(QTD_PENDENTE)'
+    end
+    object cdsConsTalao_RefagTotal2: TAggregateField
+      FieldName = 'agTotal2'
+      Expression = 'SUM(QTD)'
+    end
+  end
+  object dsConsTalao_Ref: TDataSource
+    DataSet = cdsConsTalao_Ref
+    Left = 179
+    Top = 485
   end
 end

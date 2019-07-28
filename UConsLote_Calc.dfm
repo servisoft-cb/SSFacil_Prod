@@ -203,6 +203,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Height = 13
       Alignment = taRightJustify
       Caption = 'Processo:'
+      Visible = False
       HorizontalPosition = hpLeft
       InnerHorizontal = True
       InnerVertical = False
@@ -486,6 +487,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       LookupSource = DMLoteImp_Calc.dsProcesso
       ParentCtl3D = False
       TabOrder = 12
+      Visible = False
     end
   end
   object RzPageControl1: TRzPageControl
@@ -493,10 +495,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 920
     Height = 420
-    ActivePage = TS_Talao
+    ActivePage = TS_Ref
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -567,7 +569,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Ordem'
             Title.Color = 12058551
-            Width = 67
+            Width = 57
             Visible = True
           end
           item
@@ -586,7 +588,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Lote'
             Title.Color = 12058551
-            Width = 66
+            Width = 55
             Visible = True
           end
           item
@@ -595,6 +597,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Tal'#227'o'
             Title.Color = 12058551
+            Width = 36
             Visible = True
           end
           item
@@ -604,16 +607,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Tamanho'
             Title.Color = 12058551
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'ITEM'
-            Title.Alignment = taCenter
-            Title.Caption = 'Item'
-            Title.Color = 12058551
-            Width = 37
+            Width = 49
             Visible = True
           end
           item
@@ -726,6 +720,16 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'ID Produto'
             Title.Color = 12058551
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ITEM'
+            Title.Alignment = taCenter
+            Title.Caption = 'Item (Tal'#227'o Setor)'
+            Title.Color = 12058551
+            Width = 42
             Visible = True
           end>
       end
@@ -937,6 +941,475 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Caption = 'Combina'#231#227'o'
             Title.Color = 8454143
             Width = 202
+            Visible = True
+          end>
+      end
+    end
+    object TS_Setor: TRzTabSheet
+      Caption = 'Por Setor'
+      object RzPageControl2: TRzPageControl
+        Left = 0
+        Top = 0
+        Width = 916
+        Height = 397
+        ActivePage = TS_Setor_Dados
+        ActivePageDefault = TS_Setor_Dados
+        Align = alClient
+        TabIndex = 0
+        TabOrder = 0
+        FixedDimension = 19
+        object TS_Setor_Dados: TRzTabSheet
+          Caption = 'Setor'
+          object SMDBGrid3: TSMDBGrid
+            Left = 0
+            Top = 0
+            Width = 912
+            Height = 374
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMLoteImp_Calc.dsConsTalao_Setor
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 6
+            RowCount = 2
+            Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ID_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Setor'
+                Title.Color = 16777170
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Setor'
+                Title.Color = 16777170
+                Width = 209
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd.'
+                Title.Color = 16777170
+                Width = 114
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PRODUZIDO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Produzido'
+                Title.Color = 16777170
+                Width = 97
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PENDENTE'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pendente'
+                Title.Color = 16777170
+                Width = 87
+                Visible = True
+              end>
+          end
+        end
+        object TS_Setor_Graf: TRzTabSheet
+          Caption = 'Gr'#225'fico'
+          object DBChart1: TDBChart
+            Left = 0
+            Top = 0
+            Width = 912
+            Height = 374
+            BackWall.Brush.Color = clWhite
+            BackWall.Brush.Style = bsClear
+            MarginRight = 5
+            Title.Font.Charset = ANSI_CHARSET
+            Title.Font.Color = clBlue
+            Title.Font.Height = -16
+            Title.Font.Name = 'Verdana'
+            Title.Font.Style = [fsBold]
+            Title.Text.Strings = (
+              'Qtd. Produzida')
+            Legend.ColorWidth = 20
+            Legend.Font.Charset = DEFAULT_CHARSET
+            Legend.Font.Color = clBlack
+            Legend.Font.Height = -11
+            Legend.Font.Name = 'Arial'
+            Legend.Font.Style = [fsItalic]
+            Legend.HorizMargin = 2
+            View3D = False
+            View3DOptions.Elevation = 342
+            View3DOptions.Zoom = 101
+            Align = alClient
+            BevelInner = bvRaised
+            TabOrder = 0
+            object Series1: TBarSeries
+              Marks.ArrowLength = 20
+              Marks.Style = smsValue
+              Marks.Visible = True
+              DataSource = DMLoteImp_Calc.cdsConsTalao_Setor
+              SeriesColor = clRed
+              XLabelsSource = 'NOME_SETOR'
+              BarWidthPercent = 30
+              XValues.DateTime = False
+              XValues.Name = 'X'
+              XValues.Multiplier = 1.000000000000000000
+              XValues.Order = loAscending
+              XValues.ValueSource = 'ID_SETOR'
+              YValues.DateTime = False
+              YValues.Name = 'Bar'
+              YValues.Multiplier = 1.000000000000000000
+              YValues.Order = loNone
+              YValues.ValueSource = 'QTD_PRODUZIDO'
+            end
+          end
+        end
+        object TS_Setor_Ref: TRzTabSheet
+          Caption = 'Setor Por Refer'#234'ncia'
+          object SMDBGrid4: TSMDBGrid
+            Left = 0
+            Top = 0
+            Width = 912
+            Height = 374
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            OnTitleClick = SMDBGrid4TitleClick
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 7
+            RowCount = 2
+            Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ID_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Setor'
+                Title.Color = 12910591
+                Width = 52
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Setor'
+                Title.Color = 12910591
+                Width = 176
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'REFERENCIA'
+                Title.Alignment = taCenter
+                Title.Caption = 'Refer'#234'ncia'
+                Title.Color = 12910591
+                Width = 154
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd.'
+                Title.Color = 12910591
+                Width = 81
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PRODUZIDO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Produzido'
+                Title.Color = 12910591
+                Width = 89
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PENDENTE'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pendente'
+                Title.Color = 12910591
+                Width = 89
+                Visible = True
+              end>
+          end
+        end
+      end
+    end
+    object TS_Ref: TRzTabSheet
+      Caption = 'Por Produto'
+      object Panel3: TPanel
+        Left = 0
+        Top = 368
+        Width = 916
+        Height = 29
+        Align = alBottom
+        Color = 11842740
+        TabOrder = 2
+        object Label2: TLabel
+          Left = 166
+          Top = 8
+          Width = 73
+          Height = 16
+          Caption = 'Qtd. Total:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object DBText1: TDBText
+          Left = 242
+          Top = 8
+          Width = 81
+          Height = 15
+          DataField = 'agTotal'
+          DataSource = DMLoteImp_Calc.dsConsTalao_Ref
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object DBText2: TDBText
+          Left = 432
+          Top = 7
+          Width = 81
+          Height = 15
+          DataField = 'agTotal_Prod'
+          DataSource = DMLoteImp_Calc.dsConsTalao_Ref
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label3: TLabel
+          Left = 324
+          Top = 8
+          Width = 103
+          Height = 16
+          Caption = 'Qtd. Produzido:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object DBText3: TDBText
+          Left = 633
+          Top = 8
+          Width = 81
+          Height = 15
+          DataField = 'agTotal_Pend'
+          DataSource = DMLoteImp_Calc.dsConsTalao_Ref
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 524
+          Top = 8
+          Width = 102
+          Height = 16
+          Caption = 'Qtd. Pendente:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object DBText4: TDBText
+          Left = 776
+          Top = 6
+          Width = 81
+          Height = 15
+          DataField = 'agTotal2'
+          DataSource = DMLoteImp_Calc.dsConsTalao_Ref
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 916
+        Height = 26
+        Align = alTop
+        Color = clSilver
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 8
+          Top = 11
+          Width = 120
+          Height = 13
+          Caption = 'Setor Controle Produzido:'
+        end
+        object RxDBLookupCombo3: TRxDBLookupCombo
+          Left = 130
+          Top = 3
+          Width = 241
+          Height = 21
+          DropDownCount = 8
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMLoteImp_Calc.dsSetor
+          TabOrder = 0
+        end
+      end
+      object SMDBGrid5: TSMDBGrid
+        Left = 0
+        Top = 26
+        Width = 916
+        Height = 342
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMLoteImp_Calc.dsConsTalao_Ref
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+        ParentCtl3D = False
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnTitleClick = SMDBGrid4TitleClick
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        RowCount = 2
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'REFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 16756318
+            Width = 164
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'QTD'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd.'
+            Title.Color = 16756318
+            Width = 117
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'QTD_PRODUZIDO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Produzido'
+            Title.Color = 16756318
+            Width = 89
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'QTD_PENDENTE'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Pendente'
+            Title.Color = 16756318
+            Width = 117
             Visible = True
           end>
       end
