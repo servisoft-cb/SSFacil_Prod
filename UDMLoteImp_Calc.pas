@@ -255,6 +255,7 @@ type
     cdsConsTalao_RefagTotal_Prod: TAggregateField;
     cdsConsTalao_RefagTotal_Pend: TAggregateField;
     cdsConsTalao_RefagTotal2: TAggregateField;
+    frxLoteSetorReferencia: TfrxDBDataset;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

@@ -173,17 +173,40 @@ procedure TfrmConsLote_Calc.btnImprimirClick(Sender: TObject);
 var
   vArq: String;
 begin
-  prc_Monta_Opcao;
-  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Det_Calc.fr3';
-  if FileExists(vArq) then
-    fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(vArq)
-  else
+  if RzPageControl1.ActivePage = TS_Talao then
   begin
-    MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
-    exit;
+    prc_Monta_Opcao;
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Det_Calc.fr3';
+    if FileExists(vArq) then
+      fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(vArq)
+    else
+    begin
+      MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
+      exit;
+    end;
+    fDMLoteImp_Calc.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
+    fDMLoteImp_Calc.frxReport1.ShowReport;
   end;
-  fDMLoteImp_Calc.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
-  fDMLoteImp_Calc.frxReport1.ShowReport;
+  if RzPageControl1.ActivePage = TS_Setor then
+  begin
+    if RzPageControl2.ActivePage = TS_Setor_Ref then
+    begin
+      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IsEmpty then
+      begin
+        ShowMessage('Consulta sem registro, refaça a consulta!');
+        Exit;
+      end;
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia.fr3';
+      if FileExists(vArq) then
+        fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(vArq)
+      else
+      begin
+        MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
+        exit;
+      end;
+      fDMLoteImp_Calc.frxReport1.ShowReport;
+    end;
+  end;
 end;
 
 procedure TfrmConsLote_Calc.prc_Monta_Opcao;

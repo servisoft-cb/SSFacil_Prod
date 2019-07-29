@@ -19,7 +19,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 920
+    Width = 912
     Height = 113
     Align = alTop
     Color = clSilver
@@ -493,12 +493,12 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 113
-    Width = 920
-    Height = 420
-    ActivePage = TS_Ref
+    Width = 912
+    Height = 412
+    ActivePage = TS_Setor
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 3
+    TabIndex = 2
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -507,8 +507,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
+        Width = 908
+        Height = 389
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsulta_Lote
@@ -739,8 +739,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
+        Width = 908
+        Height = 389
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsProcesso
@@ -950,12 +950,12 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
-        ActivePage = TS_Setor_Dados
+        Width = 908
+        Height = 389
+        ActivePage = TS_Setor_Ref
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet
@@ -963,8 +963,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 904
+            Height = 366
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor
@@ -1053,8 +1053,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object DBChart1: TDBChart
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 904
+            Height = 366
             BackWall.Brush.Color = clWhite
             BackWall.Brush.Style = bsClear
             MarginRight = 5
@@ -1104,8 +1104,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid4: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 904
+            Height = 366
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
@@ -1206,8 +1206,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Caption = 'Por Produto'
       object Panel3: TPanel
         Left = 0
-        Top = 368
-        Width = 916
+        Top = 360
+        Width = 908
         Height = 29
         Align = alBottom
         Color = 11842740
@@ -1311,7 +1311,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 908
         Height = 26
         Align = alTop
         Color = clSilver
@@ -1338,8 +1338,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid5: TSMDBGrid
         Left = 0
         Top = 26
-        Width = 916
-        Height = 342
+        Width = 908
+        Height = 334
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsTalao_Ref

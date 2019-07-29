@@ -1,8 +1,8 @@
 object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 263
-  Top = 15
+  Left = 264
+  Top = 25
   Height = 713
   Width = 798
   object frxReport1: TfrxReport
@@ -14,8 +14,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 43593.632386666660000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 43675.772996134260000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1531,5 +1531,20 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     DataSet = cdsConsTalao_Ref
     Left = 179
     Top = 485
+  end
+  object frxLoteSetorReferencia: TfrxDBDataset
+    UserName = 'frxLoteSetorReferencia'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'QTD=QTD'
+      'QTD_PRODUZIDO=QTD_PRODUZIDO'
+      'QTD_PENDENTE=QTD_PENDENTE'
+      'ID_SETOR=ID_SETOR'
+      'NOME_SETOR=NOME_SETOR'
+      'REFERENCIA=REFERENCIA')
+    DataSource = dsConsTalao_Setor_Ref
+    BCDToCurrency = False
+    Left = 616
+    Top = 384
   end
 end
