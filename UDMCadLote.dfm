@@ -692,36 +692,37 @@ object DMCadLote: TDMCadLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT PED.NUM_PEDIDO, PED.PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.D' +
-      'TEMISSAO, PED.ID, PED.FILIAL,'#13#10'PI.item, PI.id_produto, PI.id_cor' +
-      ',  PI.tamanho, PI.dtentrega, PI.numos,'#13#10'PI.nomeproduto, PI.refer' +
-      'encia, CLI.nome NOME_CLIENTE, CLI.fantasia, PI.CARIMBO,'#13#10'COMB.NO' +
-      'ME NOME_COMBINACAO, PI.item_original, PI.selecionado, PROD.id_co' +
-      'r ID_COR_PROD,'#13#10'COR.NOME NOME_COR_PROD, PROD.TIPO_MAT, PROD.id_p' +
-      'rocesso_grupo,'#13#10'PROD.tipo_reg TIPO_REG_PROD, SEMI.id_material1 I' +
-      'D_MATERIAL, SEMI.qtd_consumo1 QTD_CONSUMO_MAT,'#13#10'SEMI.unidade1 UN' +
-      'IDADE_MAT, PROD.ID_FORMA, PI.ENCERADO, PSEMI.TIPO_ALGODAO,'#13#10'CASE' +
-      #13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <> P' +
-      'I.unidade) THEN PI.QTD * COALESCE(PI.CONV_UNIDADE,1)'#13#10'  ELSE PI.' +
-      'QTD'#13#10'  END QTD_RESTANTE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not N' +
-      'ULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.UNIDADE_PROD'#13#10' ' +
-      ' ELSE PI.UNIDADE'#13#10'  END UNIDADE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod ' +
-      'IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN ((PI.QTD *' +
-      ' COALESCE(PI.CONV_UNIDADE,1)) *  COALESCE(SEMI.qtd_consumo1,1))'#13 +
-      #10'  ELSE coalesce(semi.qtd_consumo1,1) * pi.qtd'#13#10'  END consumo_ca' +
-      'lc, PSEMI.id_processo_grupo id_processo_SEMI,'#13#10'case'#13#10'  WHEN (SEL' +
-      'ECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'I'#39' THE' +
-      'N PI.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WH' +
-      'ERE ID = 1) = '#39'P'#39' THEN PROD.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE ' +
-      'FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39 +
-      ') || '#39' '#39' || coalesce(prod.obs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE'#13#10#13#10 +
-      'FROM PEDIDO PED'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10'ON PED.ID = PI.ID'#13#10'I' +
-      'NNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.codigo'#13#10'LEFT JOIN ' +
-      'COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.ID'#13#10'LEFT JOIN PRODUTO PROD'#13 +
-      #10'ON PI.id_produto = PROD.ID'#13#10'LEFT JOIN COR'#13#10'ON PROD.ID_COR = COR' +
-      '.ID'#13#10'LEFT JOIN PRODUTO_SEMI SEMI'#13#10'ON PROD.ID = SEMI.ID'#13#10'LEFT JOI' +
-      'N PRODUTO PSEMI'#13#10'ON PSEMI.ID = SEMI.ID_MATERIAL1'#13#10'WHERE PED.TIPO' +
-      '_REG = '#39'P'#39#13#10'  AND PI.GERAR_LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13#10#13#10#13#10#13#10
+      'SELECT prod.tipo_algodao tipo_algodao_prod, PED.NUM_PEDIDO, PED.' +
+      'PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.DTEMISSAO, PED.ID, PED.FILIA' +
+      'L,'#13#10'PI.item, PI.id_produto, PI.id_cor,  PI.tamanho, PI.dtentrega' +
+      ', PI.numos,'#13#10'PI.nomeproduto, PI.referencia, CLI.nome NOME_CLIENT' +
+      'E, CLI.fantasia, PI.CARIMBO,'#13#10'COMB.NOME NOME_COMBINACAO, PI.item' +
+      '_original, PI.selecionado, PROD.id_cor ID_COR_PROD,'#13#10'COR.NOME NO' +
+      'ME_COR_PROD, PROD.TIPO_MAT, PROD.id_processo_grupo,'#13#10'PROD.tipo_r' +
+      'eg TIPO_REG_PROD, SEMI.id_material1 ID_MATERIAL, SEMI.qtd_consum' +
+      'o1 QTD_CONSUMO_MAT,'#13#10'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, P' +
+      'I.ENCERADO, PSEMI.TIPO_ALGODAO,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod I' +
+      'S not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD * CO' +
+      'ALESCE(PI.CONV_UNIDADE,1)'#13#10'  ELSE PI.QTD'#13#10'  END QTD_RESTANTE,'#13#10'C' +
+      'ASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <' +
+      '> PI.unidade) THEN PI.UNIDADE_PROD'#13#10'  ELSE PI.UNIDADE'#13#10'  END UNI' +
+      'DADE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidad' +
+      'e_prod <> PI.unidade) THEN ((PI.QTD * COALESCE(PI.CONV_UNIDADE,1' +
+      ')) *  COALESCE(SEMI.qtd_consumo1,1))'#13#10'  ELSE coalesce(semi.qtd_c' +
+      'onsumo1,1) * pi.qtd'#13#10'  END consumo_calc, PSEMI.id_processo_grupo' +
+      ' id_processo_SEMI,'#13#10'case'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PA' +
+      'RAMETROS_LOTE WHERE ID = 1) = '#39'I'#39' THEN PI.OBS'#13#10'  WHEN (SELECT GR' +
+      'AVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'P'#39' THEN PROD' +
+      '.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ' +
+      'ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39') || '#39' '#39' || coalesce(prod.o' +
+      'bs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN' +
+      ' PEDIDO_ITEM PI'#13#10'ON PED.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PE' +
+      'D.ID_CLIENTE = CLI.codigo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_C' +
+      'OR = COMB.ID'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID' +
+      #13#10'LEFT JOIN COR'#13#10'ON PROD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI' +
+      ' SEMI'#13#10'ON PROD.ID = SEMI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.I' +
+      'D = SEMI.ID_MATERIAL1'#13#10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_' +
+      'LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13#10#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -886,6 +887,11 @@ object DMCadLote: TDMCadLote
     end
     object cdsPendenteTIPO_ALGODAO: TStringField
       FieldName = 'TIPO_ALGODAO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPendenteTIPO_ALGODAO_PROD: TStringField
+      FieldName = 'TIPO_ALGODAO_PROD'
       FixedChar = True
       Size = 1
     end

@@ -1108,6 +1108,7 @@ type
     qParametros_LoteRESERVA_EST_LOTE: TStringField;
     sdsLoteID_MOVESTOQUE: TIntegerField;
     cdsLoteID_MOVESTOQUE: TIntegerField;
+    cdsPendenteTIPO_ALGODAO_PROD: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

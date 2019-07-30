@@ -78,7 +78,6 @@ uses
   UConsTalao_Etiq in 'UConsTalao_Etiq.pas' {frmConsTalao_Etiq},
   UGerar_Talao_Ajuste in 'UGerar_Talao_Ajuste.pas' {frmGerar_Talao_Ajuste},
   USel_PedItem in 'USel_PedItem.pas' {frmSel_PedItem},
-  UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst},
   UDMEstoque_Res in '..\ssfacil\UDMEstoque_Res.pas' {DMEstoque_Res: TDataModule},
   UBaixaLote_Ped in 'UBaixaLote_Ped.pas' {frmBaixaLote_Ped},
   UBaixaTalao_Calc2 in 'UBaixaTalao_Calc2.pas' {frmBaixaTalao_Calc2},
@@ -105,7 +104,8 @@ uses
   UConsMatKG in 'UConsMatKG.pas' {frmConsMatKG},
   UConsEstTing in 'UConsEstTing.pas' {frmConsEstTing},
   UConsEstRed in '..\ssfacil\UConsEstRed.pas' {frmConsEstRed},
-  UAltEstLocal in '..\ssfacil\UAltEstLocal.pas' {frmAltEstLocal};
+  UAltEstLocal in '..\ssfacil\UAltEstLocal.pas' {frmAltEstLocal},
+  UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst};
 
 {$R *.res}
 

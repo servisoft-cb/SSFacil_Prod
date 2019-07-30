@@ -1498,7 +1498,9 @@ begin
   end;
 
   //29/05/2019 quando é algodão com o fio na cor
-  if (Tipo = 'S') and (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and (fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString <> 'C') and
+  if (Tipo = 'S') and (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and ((fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString = 'N') or
+    ((trim(fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString) = '') and (fDMCadLote.cdsPendenteTIPO_ALGODAO_PROD.AsString = 'N')))
+  and
      (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
     vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
   //************
