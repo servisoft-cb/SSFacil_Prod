@@ -82,7 +82,6 @@ uses
   UBaixaLote_Ped in 'UBaixaLote_Ped.pas' {frmBaixaLote_Ped},
   UBaixaTalao_Calc2 in 'UBaixaTalao_Calc2.pas' {frmBaixaTalao_Calc2},
   UBaixaLote_Calc2 in 'UBaixaLote_Calc2.pas' {frmBaixaLote_Calc2},
-  uNFeConsts in '..\NFe 4.00\NFESrv\uNFeConsts.pas',
   UDMConsProc in 'UDMConsProc.pas' {DMConsProc: TDataModule},
   UConsProc in 'UConsProc.pas' {frmConsProc},
   UDMConsLote in 'UDMConsLote.pas' {DMConsLote: TDataModule},
@@ -105,7 +104,8 @@ uses
   UConsEstTing in 'UConsEstTing.pas' {frmConsEstTing},
   UConsEstRed in '..\ssfacil\UConsEstRed.pas' {frmConsEstRed},
   UAltEstLocal in '..\ssfacil\UAltEstLocal.pas' {frmAltEstLocal},
-  UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst};
+  UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst},
+  uNFeConsts in '..\ssfacil\uNFeConsts.pas';
 
 {$R *.res}
 
