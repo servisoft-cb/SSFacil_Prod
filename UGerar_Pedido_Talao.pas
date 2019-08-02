@@ -56,8 +56,8 @@ type
     fDMPedido_Talao: TDMPedido_Talao;
     vItem_Talao : Integer;
     vQtdDiv: Integer;
-    vQtdPed: Integer;
-    vQtdPac: Integer;
+    vQtdPed: Real;
+    vQtdPac: Real;
 
     procedure prc_Consultar(Num_Pedido, Item : Integer);
     procedure prc_Gravar_Qtd;
@@ -227,6 +227,7 @@ var
   vTexto: String;
   //vQtdPed: Integer;
   //vQtdPac: Integer;
+  vQtdAux2 : Real;
 begin
   if (fDMPedido_Talao.cdsPedidoImp_ItensGEROU_PED_TALAO.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsFloat)) <= 0) then
   begin
@@ -234,8 +235,8 @@ begin
     fDMPedido_Talao.cdsPedido_Talao.First;
     while not fDMPedido_Talao.cdsPedido_Talao.Eof do
     begin
-      vQtdPed     := fDMPedido_Talao.cdsPedido_TalaoQTD.AsInteger;
-      vQtdPac     := fDMPedido_Talao.cdsPedido_TalaoQTD.AsInteger;
+      vQtdPed     := fDMPedido_Talao.cdsPedido_TalaoQTD.AsFloat;
+      vQtdPac     := fDMPedido_Talao.cdsPedido_TalaoQTD.AsFloat;
       vItem_Talao := fDMPedido_Talao.cdsPedido_TalaoITEM_TALAO.AsInteger;
 
       prc_Grava_mEtiqueta;
@@ -250,11 +251,20 @@ begin
     //vQtdDiv := fDMPedido_Talao.cdsPedidoImp_ItensQTD.AsInteger div fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger;
     //if fDMPedido_Talao.cdsPedidoImp_ItensQTD.AsInteger mod fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger > 0 then
     //  vQtdDiv := vQtdDiv + 1;
-    vQtdPed := fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsInteger;
+    vQtdPed := fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsFloat;
     vQtdPac := fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger;
-    vQtdDiv := fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsInteger div fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger;
-    if fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsInteger mod fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger > 0 then
+    if vQtdPac = 0 then
+      vQtdPac := 1;
+
+
+    vQtdAux2 := fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsFloat / vQtdPac;
+    vQtdDiv := Trunc(vQtdAux2);
+    if (vQtdAux2 - Trunc(vQtdAux2)) > 0 then
       vQtdDiv := vQtdDiv + 1;
+
+//    vQtdDiv := fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsInteger div fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger;
+//    if fDMPedido_Talao.cdsPedidoImp_ItensQTD_PENDENTE_TAL.AsInteger mod fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger > 0 then
+//      vQtdDiv := vQtdDiv + 1;
     for i := 1 to vQtdDiv do
     begin
       vItem_Talao := vItem_Talao + 1;
@@ -273,7 +283,7 @@ begin
   fDMPedido_Talao.cdsPedido_TalaoID.AsInteger := fDMPedido_Talao.cdsPedidoImp_ItensID.AsInteger;
   fDMPedido_Talao.cdsPedido_TalaoITEM.AsInteger := fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger;
   fDMPedido_Talao.cdsPedido_TalaoITEM_TALAO.AsInteger := fDMPedido_Talao.mEtiqueta_NavItem_Talao.AsInteger;
-  fDMPedido_Talao.cdsPedido_TalaoQTD.AsInteger        := fDMPedido_Talao.mEtiqueta_NavQtd.AsInteger;
+  fDMPedido_Talao.cdsPedido_TalaoQTD.AsFloat        := fDMPedido_Talao.mEtiqueta_NavQtd.AsFloat;
   fDMPedido_Talao.cdsPedido_TalaoCODBARRA.AsString    := fDMPedido_Talao.mEtiqueta_NavCodBarra.AsString;
   fDMPedido_Talao.cdsPedido_TalaoDTBAIXA.Clear;
   fDMPedido_Talao.cdsPedido_TalaoHRBAIXA.Clear;
@@ -358,13 +368,13 @@ begin
   fDMPedido_Talao.mEtiqueta_NavNome_Cliente.AsString   := fDMPedido_Talao.cdsPedidoImp_ItensNOME_CLI.AsString;
   fDMPedido_Talao.mEtiqueta_NavFantasia_Cli.AsString   := fDMPedido_Talao.cdsPedidoImp_ItensFANTASIA_CLI.AsString;
   fDMPedido_Talao.mEtiqueta_NavPedido_Cliente.AsString := fDMPedido_Talao.cdsPedidoImp_ItensPEDIDO_CLIENTE.AsString;
-  fDMPedido_Talao.mEtiqueta_NavCodBarra.AsString       := '21' + FormatFloat('000000',fDMPedido_Talao.cdsPedidoImp_ItensNUM_PEDIDO.AsInteger) 
+  fDMPedido_Talao.mEtiqueta_NavCodBarra.AsString       := '21' + FormatFloat('000000',fDMPedido_Talao.cdsPedidoImp_ItensNUM_PEDIDO.AsInteger)
                                                         + FormatFloat('000',fDMPedido_Talao.cdsPedidoImp_ItensITEM.AsInteger)
                                                         + FormatFloat('000',fDMPedido_Talao.mEtiqueta_NavItem_Talao.AsInteger);
   if vQtdPed > vQtdPac then
-    fDMPedido_Talao.mEtiqueta_NavQtd.AsInteger := vQtdPac
+    fDMPedido_Talao.mEtiqueta_NavQtd.AsFloat := StrtoFloat(FormatFloat('0.0000', vQtdPac))
   else
-    fDMPedido_Talao.mEtiqueta_NavQtd.AsInteger := vQtdPed;
+    fDMPedido_Talao.mEtiqueta_NavQtd.AsFloat := StrToFloat(FormatFloat('0.0000', vQtdPed));
   //fDMPedido_Talao.mEtiqueta_Nav.Post;
   vQtdPed := vQtdPed - vQtdPac;
   //if vQtdPed <= 0 then
@@ -406,8 +416,8 @@ begin
   begin
     if (SMDBGrid2.SelectedRows.CurrentRowSelected) then
     begin
-      vQtdPed     := fDMPedido_Talao.cdsConsulta_TalaoQTD.AsInteger;
-      vQtdPac     := fDMPedido_Talao.cdsConsulta_TalaoQTD.AsInteger;
+      vQtdPed     := fDMPedido_Talao.cdsConsulta_TalaoQTD.AsFloat;
+      vQtdPac     := fDMPedido_Talao.cdsConsulta_TalaoQTD.AsFloat;
       vItem_Talao := fDMPedido_Talao.cdsConsulta_TalaoITEM_TALAO.AsInteger;
 
       prc_Consultar(fDMPedido_Talao.cdsConsulta_TalaoNUM_PEDIDO.AsInteger,fDMPedido_Talao.cdsConsulta_TalaoITEM.AsInteger);

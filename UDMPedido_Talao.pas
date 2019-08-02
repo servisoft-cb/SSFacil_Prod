@@ -67,7 +67,6 @@ type
     mEtiqueta_NavReferencia: TStringField;
     mEtiqueta_NavNome_Produto: TStringField;
     mEtiqueta_NavNome_Cliente: TStringField;
-    mEtiqueta_NavQtd: TIntegerField;
     mEtiqueta_NavPedido_Cliente: TStringField;
     mEtiqueta_NavFantasia_Cli: TStringField;
     mEtiqueta_NavDtEmissao: TDateField;
@@ -120,6 +119,7 @@ type
     cdsConsulta_TalaoNOME_COR: TStringField;
     qParametros_Lote: TSQLQuery;
     qParametros_LoteQTD_PADRAO_ETIQ: TIntegerField;
+    mEtiqueta_NavQtd: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
