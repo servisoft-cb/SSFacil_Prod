@@ -19,7 +19,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 912
+    Width = 920
     Height = 113
     Align = alTop
     Color = clSilver
@@ -493,8 +493,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 113
-    Width = 912
-    Height = 412
+    Width = 920
+    Height = 420
     ActivePage = TS_Setor
     ActivePageDefault = TS_Talao
     Align = alClient
@@ -507,8 +507,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 908
-        Height = 389
+        Width = 916
+        Height = 397
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsulta_Lote
@@ -739,8 +739,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 908
-        Height = 389
+        Width = 916
+        Height = 397
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsProcesso
@@ -950,12 +950,12 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 0
-        Width = 908
-        Height = 389
-        ActivePage = TS_Setor_Ref
+        Width = 916
+        Height = 397
+        ActivePage = TS_Setor_Dados
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet
@@ -963,8 +963,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 904
-            Height = 366
+            Width = 912
+            Height = 374
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor
@@ -995,7 +995,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 6
+            ColCount = 7
             RowCount = 2
             Columns = <
               item
@@ -1014,6 +1014,14 @@ object frmConsLote_Calc: TfrmConsLote_Calc
                 Title.Caption = 'Nome Setor'
                 Title.Color = 16777170
                 Width = 209
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR2'
+                Title.Alignment = taCenter
+                Title.Caption = 'Setor (Esteira)'
+                Title.Color = 16777170
                 Visible = True
               end
               item
@@ -1053,8 +1061,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object DBChart1: TDBChart
             Left = 0
             Top = 0
-            Width = 904
-            Height = 366
+            Width = 912
+            Height = 374
             BackWall.Brush.Color = clWhite
             BackWall.Brush.Style = bsClear
             MarginRight = 5
@@ -1104,8 +1112,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid4: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 904
-            Height = 366
+            Width = 912
+            Height = 374
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
@@ -1137,7 +1145,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 7
+            ColCount = 8
             RowCount = 2
             Columns = <
               item
@@ -1157,6 +1165,14 @@ object frmConsLote_Calc: TfrmConsLote_Calc
                 Title.Caption = 'Nome Setor'
                 Title.Color = 12910591
                 Width = 176
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR2'
+                Title.Alignment = taCenter
+                Title.Caption = 'Setot (Esteira)'
+                Title.Color = 12910591
                 Visible = True
               end
               item
@@ -1206,8 +1222,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Caption = 'Por Produto'
       object Panel3: TPanel
         Left = 0
-        Top = 360
-        Width = 908
+        Top = 368
+        Width = 916
         Height = 29
         Align = alBottom
         Color = 11842740
@@ -1311,7 +1327,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 26
         Align = alTop
         Color = clSilver
@@ -1338,8 +1354,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid5: TSMDBGrid
         Left = 0
         Top = 26
-        Width = 908
-        Height = 334
+        Width = 916
+        Height = 342
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsTalao_Ref

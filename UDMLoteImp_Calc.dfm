@@ -1361,11 +1361,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select sum(ts.qtd) qtd, sum(ts.qtd_produzido) qtd_produzido, sum' +
-      '(ts.qtd_pendente) qtd_pendente,'#13#10'ts.id_setor, s.nome nome_setor'#13 +
-      #10'from talao_setor ts'#13#10'inner join lote l'#13#10'on ts.id = l.id'#13#10'left j' +
-      'oin setor s'#13#10'on ts.id_setor = s.id'#13#10'group by ts.id_setor, s.nome' +
-      #13#10
+      'SELECT SUM(TS.QTD) QTD, SUM(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, SUM' +
+      '(TS.QTD_PENDENTE) QTD_PENDENTE,'#13#10'TS.ID_SETOR, S.NOME NOME_SETOR,' +
+      ' S2.NOME NOME_SETOR2'#13#10'FROM TALAO_SETOR TS'#13#10'INNER JOIN LOTE L ON ' +
+      'TS.ID = L.ID'#13#10'LEFT JOIN SETOR S ON TS.ID_SETOR = S.ID'#13#10'LEFT JOIN' +
+      ' SETOR S2 ON TS.ID_SETOR2 = S2.ID'#13#10'GROUP BY TS.ID_SETOR, S.NOME,' +
+      ' S2.NOME'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1400,6 +1401,9 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsTalao_SetorNOME_SETOR: TStringField
       FieldName = 'NOME_SETOR'
     end
+    object cdsConsTalao_SetorNOME_SETOR2: TStringField
+      FieldName = 'NOME_SETOR2'
+    end
   end
   object dsConsTalao_Setor: TDataSource
     DataSet = cdsConsTalao_Setor
@@ -1410,11 +1414,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select sum(ts.qtd) qtd, sum(ts.qtd_produzido) qtd_produzido, sum' +
-      '(ts.qtd_pendente) qtd_pendente,'#13#10'ts.id_setor, s.nome nome_setor,' +
-      ' L.referencia'#13#10'from talao_setor ts'#13#10'inner join lote l'#13#10'on ts.id ' +
-      '= l.id'#13#10'left join setor s'#13#10'on ts.id_setor = s.id'#13#10'group by ts.id' +
-      '_setor, s.nome, L.referencia'#13#10#13#10#13#10#13#10#13#10
+      'SELECT SUM(TS.QTD) QTD, SUM(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, SUM' +
+      '(TS.QTD_PENDENTE) QTD_PENDENTE,'#13#10'TS.ID_SETOR, S.NOME NOME_SETOR ' +
+      ', S2.NOME NOME_SETOR2, L.REFERENCIA'#13#10'FROM TALAO_SETOR TS'#13#10'INNER ' +
+      'JOIN LOTE L ON TS.ID = L.ID'#13#10'LEFT JOIN SETOR S ON TS.ID_SETOR = ' +
+      'S.ID'#13#10'LEFT JOIN SETOR S2 ON TS.ID_SETOR2 = S2.ID'#13#10'GROUP BY TS.ID' +
+      '_SETOR, S.NOME, S2.NOME, L.REFERENCIA'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1448,6 +1453,9 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     end
     object cdsConsTalao_Setor_RefNOME_SETOR: TStringField
       FieldName = 'NOME_SETOR'
+    end
+    object cdsConsTalao_Setor_RefNOME_SETOR2: TStringField
+      FieldName = 'NOME_SETOR2'
     end
     object cdsConsTalao_Setor_RefREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
