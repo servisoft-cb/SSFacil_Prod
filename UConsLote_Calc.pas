@@ -196,7 +196,8 @@ begin
         ShowMessage('Consulta sem registro, refaça a consulta!');
         Exit;
       end;
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia.fr3';
+//      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia.fr3';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia2.fr3';
       if FileExists(vArq) then
         fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(vArq)
       else

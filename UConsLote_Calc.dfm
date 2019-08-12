@@ -952,10 +952,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         Top = 0
         Width = 916
         Height = 397
-        ActivePage = TS_Setor_Dados
+        ActivePage = TS_Setor_Ref
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet
