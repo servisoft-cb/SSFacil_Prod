@@ -84,7 +84,8 @@ type
     { Private declarations }
     fDMLoteImp_Calc: TDMLoteImp_Calc;
     vOpcaoImp: String;
-
+    procedure prc_Gravar_mSetorReferencia;
+    procedure prc_Gravar_mSetorReferencia_Esteira;
     procedure prc_Monta_Opcao;
     procedure prc_Consulta_Lote;
     procedure prc_ConsProcesso;
@@ -137,6 +138,8 @@ end;
 
 procedure TfrmConsLote_Calc.btnConsTalaoClick(Sender: TObject);
 begin
+  fDMLoteImp_Calc.mSetorReferencia.EmptyDataSet;
+  fDMLoteImp_Calc.mSetorReferencia_Esteira.EmptyDataSet;
   if RzPageControl1.ActivePage = TS_Talao then
     prc_Consulta_Lote
   else
@@ -191,6 +194,7 @@ begin
   begin
     if RzPageControl2.ActivePage = TS_Setor_Ref then
     begin
+      prc_Monta_Opcao;
       if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IsEmpty then
       begin
         ShowMessage('Consulta sem registro, refaça a consulta!');
@@ -204,6 +208,7 @@ begin
         MessageDlg('*** Relatório ' + vArq + ', não encontrado!' , mtInformation, [mbOk], 0);
         exit;
       end;
+      fDMLoteImp_Calc.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcaoImp);
       fDMLoteImp_Calc.frxReport1.ShowReport;
     end;
   end;
@@ -212,7 +217,7 @@ end;
 procedure TfrmConsLote_Calc.prc_Monta_Opcao;
 begin
   vOpcaoImp := '';
-  if trim(Edit2.Text) = '' then
+  if trim(Edit2.Text) <> '' then
   begin
     if fDMLoteImp_Calc.qParametros_LoteUSA_REMESSA.AsString = 'S' then
       vOpcaoImp := vOpcaoImp + '(Nº Remessa: ' + Edit2.Text + ')'
@@ -385,8 +390,9 @@ end;
 procedure TfrmConsLote_Calc.prc_ConsTalao_Setor;
 var
   i : Integer;
-  vComandoAux, vComandoAux2, vComando : String;
+  vComandoAux, vComandoAux2, vComando, vComandoAux3, vComandoAux4 : String;
   vNumAux : String;
+  vUsaEsteira : String;
 begin
   if RzPageControl1.ActivePage = TS_Ref then
   begin
@@ -402,6 +408,12 @@ begin
     i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor_Ref),0);
     vComandoAux  := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor_Ref) - i + 1);
     vComandoAux2 := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref,1,i-1);
+
+    vUsaEsteira := ' AND S2.TIPO_SETOR = ' + QuotedStr('E');
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Close;
+    i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est),0);
+    vComandoAux4  := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est) - i + 1);
+    vComandoAux3 := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est,1,i-1);
   end
   else
   begin
@@ -460,7 +472,15 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Close;
     fDMLoteImp_Calc.sdsConsTalao_Setor_Ref.CommandText := vComandoAux2 + vComando + vComandoAux;
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Open;
-    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := 'NOME_SETOR;REFERENCIA';
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := 'REFERENCIA;NOME_SETOR';
+    prc_Gravar_mSetorReferencia;
+
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Close;
+    fDMLoteImp_Calc.sdsConsTalao_Setor_Ref_Est.CommandText := vComandoAux3 + vComando + vUsaEsteira + vComandoAux4;
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Open;
+
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.IndexFieldNames := 'REFERENCIA;NOME_SETOR';
+    prc_Gravar_mSetorReferencia_Esteira;
   end
   else
   begin
@@ -487,6 +507,102 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := $00C4FFFF;
+end;
+
+procedure TfrmConsLote_Calc.prc_Gravar_mSetorReferencia;
+var
+  Ordem : String;
+  NomeSetor : String;
+  vId_Setor_Ant, vItem : Integer;
+begin
+  if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IsEmpty then
+    Exit;
+  fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.DisableControls;
+  try
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.First;
+    while not fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Eof do
+    begin
+      Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger);
+      NomeSetor :=  'NomeSetor';
+      NomeSetor := NomeSetor +  Ordem;
+      if vId_Setor_Ant = fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.AsInteger then
+        Inc(vItem)
+      else
+        vItem := 1;
+      if fDMLoteImp_Calc.mSetorReferencia.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_RefREFERENCIA.AsString,vItem]),[loCaseInsensitive]) then
+        begin
+          fDMLoteImp_Calc.mSetorReferencia.Edit;
+          fDMLoteImp_Calc.mSetorReferencia.FieldByName('Qtde'+ Ordem).Value := fDMLoteImp_Calc.mSetorReferencia.FieldByName('Qtde'+ Ordem).Value + fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD.Value;
+        end
+      else
+        fDMLoteImp_Calc.mSetorReferencia.Insert;
+      Ordem :=  IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger);
+      fDMLoteImp_Calc.mSetorReferenciaItem.AsInteger := vItem;
+      fDMLoteImp_Calc.mSetorReferenciaReferencia.AsString := fDMLoteImp_Calc.cdsConsTalao_Setor_RefREFERENCIA.AsString;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Setor'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.Value;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Qtde'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PRODUZIDO.Value;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Estoque'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PENDENTE.Value;
+        fDMLoteImp_Calc.mSetorReferencia.FieldByName(NomeSetor).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefNOME_SETOR.Value;
+      vId_Setor_Ant := fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.AsInteger;
+      fDMLoteImp_Calc.mSetorReferencia.Post;
+      fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Next;
+    end;
+  finally
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.EnableControls;
+  end;
+end;
+
+
+procedure TfrmConsLote_Calc.prc_Gravar_mSetorReferencia_Esteira;
+var
+  vItem : Integer;
+  NomeSetor, Ordem : String;
+  vId_Setor_Ant : Integer;
+begin
+  if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.IsEmpty then
+    Exit;
+  fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.DisableControls;
+  try
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.First;
+    while not fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Eof do
+    begin
+      Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ORC.AsInteger);
+      NomeSetor :=  'NomeSetor';
+      NomeSetor := NomeSetor +  Ordem;
+      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger > 0 then
+        vItem := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger
+      else
+        vItem := 1;
+
+//      if vId_Setor_Ant = fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstID_SETOR.AsInteger then
+//        Inc(vItem)
+//      else
+//        vItem := 1;
+      if fDMLoteImp_Calc.mSetorReferencia_Esteira.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString,vItem]),[loCaseInsensitive]) then
+        begin
+          fDMLoteImp_Calc.mSetorReferencia_Esteira.Edit;
+          fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName('Qtde'+ Ordem).Value := fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName('Qtde'+ Ordem).Value + fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstQTD.Value;
+        end
+      else
+        fDMLoteImp_Calc.mSetorReferencia_Esteira.Insert;
+      Ordem :=  IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ORC.AsInteger);
+      fDMLoteImp_Calc.mSetorReferencia_EsteiraItem.AsInteger := vItem;
+      fDMLoteImp_Calc.mSetorReferencia_EsteiraReferencia.AsString := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString;
+      fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName('Setor'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstID_SETOR.Value;
+      fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName('Qtde'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstQTD_PRODUZIDO.Value;
+      fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName('Estoque'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstQTD_PENDENTE.Value;
+      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstNOME_SETOR2.Value <> '' then
+        fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName(NomeSetor).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstNOME_SETOR2.Value
+      else
+        fDMLoteImp_Calc.mSetorReferencia_Esteira.FieldByName(NomeSetor).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstNOME_SETOR.Value;
+      vId_Setor_Ant := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstID_SETOR.AsInteger;
+      fDMLoteImp_Calc.mSetorReferencia_Esteira.Post;
+      fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Next;
+    end;
+  finally
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.EnableControls;
+  end;
+
 end;
 
 end.

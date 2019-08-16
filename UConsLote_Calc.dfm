@@ -1,8 +1,8 @@
 object frmConsLote_Calc: TfrmConsLote_Calc
-  Left = 246
-  Top = 101
-  Width = 928
-  Height = 564
+  Left = -8
+  Top = -8
+  Width = 1382
+  Height = 744
   Caption = 'Consulta Lotes e Processos  (frmConsLote_Calc)'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 920
+    Width = 1366
     Height = 113
     Align = alTop
     Color = clSilver
@@ -493,12 +493,12 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 113
-    Width = 920
-    Height = 420
-    ActivePage = TS_Setor
+    Width = 1366
+    Height = 592
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -507,8 +507,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
+        Width = 1362
+        Height = 569
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsulta_Lote
@@ -625,7 +625,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -703,7 +702,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Produzido'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -739,8 +737,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
+        Width = 1362
+        Height = 569
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsProcesso
@@ -877,7 +875,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -886,7 +883,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Posi'#231#227'o'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -922,7 +918,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Cliente'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -950,12 +945,12 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 0
-        Width = 916
-        Height = 397
-        ActivePage = TS_Setor_Dados
+        Width = 1362
+        Height = 569
+        ActivePage = TS_Setor_Ref
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet
@@ -963,8 +958,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 1358
+            Height = 546
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor
@@ -1061,8 +1056,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object DBChart1: TDBChart
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 904
+            Height = 366
             BackWall.Brush.Color = clWhite
             BackWall.Brush.Style = bsClear
             MarginRight = 5
@@ -1112,8 +1107,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid4: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 912
-            Height = 374
+            Width = 1358
+            Height = 546
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
@@ -1145,7 +1140,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 8
+            ColCount = 7
             RowCount = 2
             Columns = <
               item
@@ -1165,14 +1160,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
                 Title.Caption = 'Nome Setor'
                 Title.Color = 12910591
                 Width = 176
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'NOME_SETOR2'
-                Title.Alignment = taCenter
-                Title.Caption = 'Setot (Esteira)'
-                Title.Color = 12910591
                 Visible = True
               end
               item
@@ -1222,8 +1209,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Caption = 'Por Produto'
       object Panel3: TPanel
         Left = 0
-        Top = 368
-        Width = 916
+        Top = 540
+        Width = 1362
         Height = 29
         Align = alBottom
         Color = 11842740
@@ -1327,7 +1314,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 1362
         Height = 26
         Align = alTop
         Color = clSilver
@@ -1354,8 +1341,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid5: TSMDBGrid
         Left = 0
         Top = 26
-        Width = 916
-        Height = 342
+        Width = 1362
+        Height = 514
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsTalao_Ref

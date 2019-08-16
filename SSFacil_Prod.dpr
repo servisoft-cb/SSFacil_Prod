@@ -105,7 +105,9 @@ uses
   UConsEstRed in '..\ssfacil\UConsEstRed.pas' {frmConsEstRed},
   UAltEstLocal in '..\ssfacil\UAltEstLocal.pas' {frmAltEstLocal},
   UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst},
-  uNFeConsts in '..\ssfacil\uNFeConsts.pas';
+  uNFeConsts in '..\ssfacil\uNFeConsts.pas',
+  UConsProdutoNCM in '..\ssfacil\UConsProdutoNCM.pas' {frmConsProdutoNCM},
+  UDMConsProduto in '..\ssfacil\UDMConsProduto.pas' {DMConsProduto: TDataModule};
 
 {$R *.res}
 

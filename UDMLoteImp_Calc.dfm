@@ -1,10 +1,10 @@
 object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 264
-  Top = 25
-  Height = 713
-  Width = 798
+  Left = 276
+  Top = 67
+  Height = 584
+  Width = 748
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
@@ -15,12 +15,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43675.772996134260000000
+    ReportOptions.LastChange = 43692.902335266200000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 368
-    Top = 335
+    Left = 304
+    Top = 311
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -43,8 +43,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     CenterWindow = False
     PrintScaling = False
     PdfA = False
-    Left = 408
-    Top = 335
+    Left = 344
+    Top = 311
   end
   object frxMailExport1: TfrxMailExport
     UseFileCache = True
@@ -58,16 +58,16 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     ConfurmReading = False
     UseMAPI = SMTP
     MAPISendFlag = 0
-    Left = 448
-    Top = 335
+    Left = 384
+    Top = 311
   end
   object frxRichObject1: TfrxRichObject
-    Left = 480
-    Top = 335
+    Left = 416
+    Top = 311
   end
   object frxBarCodeObject1: TfrxBarCodeObject
-    Left = 512
-    Top = 336
+    Left = 448
+    Top = 312
   end
   object sdsConsulta_Lote: TSQLDataSet
     NoMetadata = True
@@ -87,21 +87,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 32
-    Top = 32
+    Top = 8
   end
   object dspConsulta_Lote: TDataSetProvider
     DataSet = sdsConsulta_Lote
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 80
-    Top = 32
+    Left = 64
+    Top = 8
   end
   object cdsConsulta_Lote: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsulta_Lote'
-    Left = 127
-    Top = 32
+    Left = 95
+    Top = 8
     object cdsConsulta_LoteID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -185,8 +185,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsulta_Lote: TDataSource
     DataSet = cdsConsulta_Lote
-    Left = 175
-    Top = 32
+    Left = 119
+    Top = 8
   end
   object sdsSetor: TSQLDataSet
     NoMetadata = True
@@ -196,21 +196,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 32
-    Top = 152
+    Top = 72
   end
   object dspSetor: TDataSetProvider
     DataSet = sdsSetor
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 72
-    Top = 152
+    Left = 64
+    Top = 72
   end
   object cdsSetor: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspSetor'
-    Left = 127
-    Top = 152
+    Left = 95
+    Top = 72
     object cdsSetorID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -265,8 +265,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsSetor: TDataSource
     DataSet = cdsSetor
-    Left = 175
-    Top = 152
+    Left = 119
+    Top = 72
   end
   object frxConsulta_Lote: TfrxDBDataset
     UserName = 'frxConsulta_Lote'
@@ -296,8 +296,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'QTD_PENDENTE=QTD_PENDENTE')
     DataSource = dsConsulta_Lote
     BCDToCurrency = False
-    Left = 368
-    Top = 383
+    Left = 304
+    Top = 359
   end
   object qParametros_Lote: TSQLQuery
     MaxBlobSize = -1
@@ -306,8 +306,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'SELECT USA_REMESSA, LOTE_CALCADO_NOVO, ID_SETOR_EST'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
-    Left = 648
-    Top = 32
+    Left = 584
+    Top = 24
     object qParametros_LoteUSA_REMESSA: TStringField
       FieldName = 'USA_REMESSA'
       FixedChar = True
@@ -347,21 +347,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 368
-    Top = 16
+    Left = 304
+    Top = 8
   end
   object dspConsLote_Novo: TDataSetProvider
     DataSet = sdsConsLote_Novo
-    Left = 408
-    Top = 16
+    Left = 336
+    Top = 8
   end
   object cdsConsLote_Novo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsLote_Novo'
     OnCalcFields = cdsConsLote_NovoCalcFields
-    Left = 456
-    Top = 16
+    Left = 368
+    Top = 8
     object cdsConsLote_NovoID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end
@@ -450,8 +450,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsLote_Novo: TDataSource
     DataSet = cdsConsLote_Novo
-    Left = 504
-    Top = 16
+    Left = 400
+    Top = 8
   end
   object frxConsLote_Novo: TfrxDBDataset
     UserName = 'frxConsLote_Novo'
@@ -485,8 +485,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     OnOpen = frxConsLote_NovoFirst
     DataSource = dsConsLote_Novo
     BCDToCurrency = False
-    Left = 408
-    Top = 383
+    Left = 344
+    Top = 359
   end
   object sdsConsTalao_Novo: TSQLDataSet
     NoMetadata = True
@@ -508,13 +508,13 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 368
-    Top = 64
+    Left = 304
+    Top = 56
   end
   object dspConsTalao_Novo: TDataSetProvider
     DataSet = sdsConsTalao_Novo
-    Left = 408
-    Top = 64
+    Left = 336
+    Top = 56
   end
   object cdsConsTalao_Novo: TClientDataSet
     Aggregates = <>
@@ -522,8 +522,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     ProviderName = 'dspConsTalao_Novo'
     OnCalcFields = cdsConsTalao_NovoCalcFields
-    Left = 456
-    Top = 64
+    Left = 368
+    Top = 56
     object cdsConsTalao_NovoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -557,8 +557,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsTalao_Novo: TDataSource
     DataSet = cdsConsTalao_Novo
-    Left = 504
-    Top = 64
+    Left = 400
+    Top = 56
   end
   object frxConsTalao_Novo: TfrxDBDataset
     UserName = 'frxConsTalao_Novo'
@@ -574,8 +574,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'clCodBarra=clCodBarra')
     DataSource = dsConsTalao_Novo
     BCDToCurrency = False
-    Left = 448
-    Top = 383
+    Left = 384
+    Top = 359
   end
   object sdsProdMat: TSQLDataSet
     NoMetadata = True
@@ -603,21 +603,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 368
-    Top = 112
+    Left = 304
+    Top = 104
   end
   object dspProdMat: TDataSetProvider
     DataSet = sdsProdMat
-    Left = 416
-    Top = 112
+    Left = 336
+    Top = 104
   end
   object cdsProdMat: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'ORDEM_ORC;NOME_SETOR;NOME_POSICAO;NOME_MATERIAL'
     Params = <>
     ProviderName = 'dspProdMat'
-    Left = 464
-    Top = 112
+    Left = 368
+    Top = 104
     object cdsProdMatID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -685,8 +685,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsProdMat: TDataSource
     DataSet = cdsProdMat
-    Left = 512
-    Top = 112
+    Left = 400
+    Top = 104
   end
   object frxProdMat: TfrxDBDataset
     UserName = 'frxProdMat'
@@ -712,8 +712,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'NOME_COR_MAT=NOME_COR_MAT')
     DataSource = dsProdMat
     BCDToCurrency = False
-    Left = 496
-    Top = 383
+    Left = 416
+    Top = 359
   end
   object sdsConsTalao_Tam: TSQLDataSet
     NoMetadata = True
@@ -735,21 +735,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 368
-    Top = 160
+    Left = 304
+    Top = 152
   end
   object dspConsTalao_Tam: TDataSetProvider
     DataSet = sdsConsTalao_Tam
-    Left = 408
-    Top = 160
+    Left = 336
+    Top = 152
   end
   object cdsConsTalao_Tam: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'TAMANHO'
     Params = <>
     ProviderName = 'dspConsTalao_Tam'
-    Left = 464
-    Top = 160
+    Left = 368
+    Top = 152
     object cdsConsTalao_TamQTD: TFloatField
       FieldName = 'QTD'
     end
@@ -760,8 +760,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsTalao_Tam: TDataSource
     DataSet = cdsConsTalao_Tam
-    Left = 512
-    Top = 160
+    Left = 400
+    Top = 152
   end
   object frxConsTalao_Tam: TfrxDBDataset
     UserName = 'frxConsTalao_Tam'
@@ -771,8 +771,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'TAMANHO=TAMANHO')
     DataSource = dsConsTalao_Tam
     BCDToCurrency = False
-    Left = 536
-    Top = 383
+    Left = 416
+    Top = 415
   end
   object mImpAux: TClientDataSet
     Active = True
@@ -800,8 +800,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     IndexFieldNames = 'Num_Lote'
     Params = <>
     StoreDefs = True
-    Left = 296
-    Top = 448
+    Left = 512
+    Top = 104
     Data = {
       430000009619E0BD010000001800000003000000000003000000430002494404
       00010000000000044974656D0400010000000000084E756D5F4C6F7465040001
@@ -818,8 +818,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsmImpAux: TDataSource
     DataSet = mImpAux
-    Left = 344
-    Top = 448
+    Left = 544
+    Top = 104
   end
   object frxmImpAux: TfrxDBDataset
     UserName = 'frxmImpAux'
@@ -831,8 +831,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'Item=Item')
     DataSource = dsmImpAux
     BCDToCurrency = False
-    Left = 576
-    Top = 383
+    Left = 384
+    Top = 415
   end
   object sdsConsLote_Processo: TSQLDataSet
     NoMetadata = True
@@ -852,20 +852,20 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 368
-    Top = 208
+    Left = 304
+    Top = 200
   end
   object dspConsLote_Processo: TDataSetProvider
     DataSet = sdsConsLote_Processo
-    Left = 408
-    Top = 208
+    Left = 336
+    Top = 200
   end
   object cdsConsLote_Processo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsLote_Processo'
-    Left = 456
-    Top = 208
+    Left = 368
+    Top = 200
     object cdsConsLote_ProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -909,8 +909,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsLote_Processo: TDataSource
     DataSet = cdsConsLote_Processo
-    Left = 504
-    Top = 208
+    Left = 400
+    Top = 200
   end
   object frxConsLote_Processo: TfrxDBDataset
     UserName = 'frxConsLote_Processo'
@@ -930,8 +930,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ITEM=ITEM')
     DataSource = dsConsLote_Processo
     BCDToCurrency = False
-    Left = 640
-    Top = 335
+    Left = 304
+    Top = 415
   end
   object sdsConsProcesso: TSQLDataSet
     NoMetadata = True
@@ -955,21 +955,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 568
-    Top = 272
+    Left = 304
+    Top = 248
   end
   object dspConsProcesso: TDataSetProvider
     DataSet = sdsConsProcesso
-    Left = 600
-    Top = 272
+    Left = 336
+    Top = 248
   end
   object cdsConsProcesso: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsProcesso'
     OnCalcFields = cdsConsProcessoCalcFields
-    Left = 632
-    Top = 272
+    Left = 368
+    Top = 248
     object cdsConsProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1075,8 +1075,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
-    Left = 666
-    Top = 272
+    Left = 402
+    Top = 248
   end
   object frxConsProcesso: TfrxDBDataset
     UserName = 'frxConsProcesso'
@@ -1117,8 +1117,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     OnOpen = frxConsProcessoNext
     DataSource = dsConsProcesso
     BCDToCurrency = False
-    Left = 704
-    Top = 271
+    Left = 344
+    Top = 415
   end
   object sdsProcesso: TSQLDataSet
     NoMetadata = True
@@ -1128,35 +1128,35 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 32
-    Top = 200
+    Top = 120
   end
   object dspProcesso: TDataSetProvider
     DataSet = sdsProcesso
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 72
-    Top = 200
+    Left = 64
+    Top = 120
   end
   object cdsProcesso: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspProcesso'
-    Left = 127
-    Top = 200
+    Left = 95
+    Top = 120
   end
   object dsProcesso: TDataSource
     DataSet = cdsProcesso
-    Left = 175
-    Top = 200
+    Left = 119
+    Top = 120
   end
   object mMaterial: TClientDataSet
     Active = True
     Aggregates = <>
     IndexFieldNames = 'Item'
     Params = <>
-    Left = 440
-    Top = 496
+    Left = 504
+    Top = 152
     Data = {
       570100009619E0BD01000000180000000B000000000003000000570104497465
       6D04000100000000000B4E6F6D655F5365746F72310100490000000100055749
@@ -1213,8 +1213,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsmMaterial: TDataSource
     DataSet = mMaterial
-    Left = 472
-    Top = 496
+    Left = 536
+    Top = 152
   end
   object frxmMaterial: TfrxDBDataset
     UserName = 'frxmMaterial'
@@ -1235,8 +1235,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'Qtd_Consumo2=Qtd_Consumo2')
     DataSource = dsmMaterial
     BCDToCurrency = False
-    Left = 496
-    Top = 495
+    Left = 560
+    Top = 151
   end
   object sdsMatProc: TSQLDataSet
     NoMetadata = True
@@ -1273,21 +1273,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 584
-    Top = 584
+    Left = 24
+    Top = 464
   end
   object dspMatProc: TDataSetProvider
     DataSet = sdsMatProc
-    Left = 616
-    Top = 584
+    Left = 56
+    Top = 464
   end
   object cdsMatProc: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspMatProc'
     OnCalcFields = cdsConsProcessoCalcFields
-    Left = 648
-    Top = 584
+    Left = 88
+    Top = 464
     object cdsMatProcNOME: TStringField
       FieldName = 'NOME'
       Size = 100
@@ -1303,8 +1303,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsMatProc: TDataSource
     DataSet = cdsMatProc
-    Left = 682
-    Top = 584
+    Left = 122
+    Top = 464
   end
   object frxMatProc: TfrxDBDataset
     UserName = 'frxMatProc'
@@ -1315,8 +1315,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'NOME_POSICAO=NOME_POSICAO')
     DataSource = dsMatProc
     BCDToCurrency = False
-    Left = 728
-    Top = 583
+    Left = 168
+    Top = 463
   end
   object sdsConsProdutividade: TSQLDataSet
     NoMetadata = True
@@ -1335,27 +1335,27 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 32
-    Top = 296
+    Left = 24
+    Top = 192
   end
   object dspConsProdutividade: TDataSetProvider
     DataSet = sdsConsProdutividade
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 72
-    Top = 296
+    Left = 56
+    Top = 192
   end
   object cdsConsProdutividade: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsProdutividade'
-    Left = 135
-    Top = 296
+    Left = 87
+    Top = 192
   end
   object dsConsProdutividade: TDataSource
     DataSet = cdsConsProdutividade
-    Left = 183
-    Top = 296
+    Left = 119
+    Top = 192
   end
   object sdsConsTalao_Setor: TSQLDataSet
     NoMetadata = True
@@ -1371,21 +1371,21 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 27
-    Top = 365
+    Top = 245
   end
   object dspConsTalao_Setor: TDataSetProvider
     DataSet = sdsConsTalao_Setor
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 68
-    Top = 365
+    Left = 60
+    Top = 245
   end
   object cdsConsTalao_Setor: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsTalao_Setor'
-    Left = 130
-    Top = 365
+    Left = 90
+    Top = 245
     object cdsConsTalao_SetorQTD: TFloatField
       FieldName = 'QTD'
     end
@@ -1407,38 +1407,37 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsTalao_Setor: TDataSource
     DataSet = cdsConsTalao_Setor
-    Left = 179
-    Top = 365
+    Left = 123
+    Top = 245
   end
   object sdsConsTalao_Setor_Ref: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT SUM(TS.QTD) QTD, SUM(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, SUM' +
-      '(TS.QTD_PENDENTE) QTD_PENDENTE,'#13#10'TS.ID_SETOR, S.NOME NOME_SETOR ' +
-      ', S2.NOME NOME_SETOR2, L.REFERENCIA'#13#10'FROM TALAO_SETOR TS'#13#10'INNER ' +
-      'JOIN LOTE L ON TS.ID = L.ID'#13#10'LEFT JOIN SETOR S ON TS.ID_SETOR = ' +
-      'S.ID'#13#10'LEFT JOIN SETOR S2 ON TS.ID_SETOR2 = S2.ID'#13#10'GROUP BY TS.ID' +
-      '_SETOR, S.NOME, S2.NOME, L.REFERENCIA'
+      'select sum(TS.QTD) QTD, sum(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, sum' +
+      '(TS.QTD_PENDENTE) QTD_PENDENTE, TS.ID_SETOR,'#13#10'       S.NOME NOME' +
+      '_SETOR, L.REFERENCIA, S.ORDEM_ORC'#13#10'from TALAO_SETOR TS'#13#10'inner jo' +
+      'in LOTE L on TS.ID = L.ID'#13#10'left join SETOR S on TS.ID_SETOR = S.' +
+      'ID'#13#10'group by TS.ID_SETOR, S.NOME, L.REFERENCIA, S.ORDEM_ORC'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 27
-    Top = 429
+    Top = 309
   end
   object dspConsTalao_Setor_Ref: TDataSetProvider
     DataSet = sdsConsTalao_Setor_Ref
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 68
-    Top = 429
+    Left = 60
+    Top = 309
   end
   object cdsConsTalao_Setor_Ref: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsTalao_Setor_Ref'
-    Left = 126
-    Top = 427
+    Left = 94
+    Top = 307
     object cdsConsTalao_Setor_RefQTD: TFloatField
       FieldName = 'QTD'
     end
@@ -1454,17 +1453,17 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsTalao_Setor_RefNOME_SETOR: TStringField
       FieldName = 'NOME_SETOR'
     end
-    object cdsConsTalao_Setor_RefNOME_SETOR2: TStringField
-      FieldName = 'NOME_SETOR2'
-    end
     object cdsConsTalao_Setor_RefREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
+    end
+    object cdsConsTalao_Setor_RefORDEM_ORC: TIntegerField
+      FieldName = 'ORDEM_ORC'
     end
   end
   object dsConsTalao_Setor_Ref: TDataSource
     DataSet = cdsConsTalao_Setor_Ref
-    Left = 179
-    Top = 429
+    Left = 123
+    Top = 309
   end
   object sdsConsTalao_Ref: TSQLDataSet
     NoMetadata = True
@@ -1479,14 +1478,14 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 27
-    Top = 485
+    Top = 413
   end
   object dspConsTalao_Ref: TDataSetProvider
     DataSet = sdsConsTalao_Ref
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
-    Left = 68
-    Top = 485
+    Left = 60
+    Top = 413
   end
   object cdsConsTalao_Ref: TClientDataSet
     Aggregates = <
@@ -1498,8 +1497,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     AggregatesActive = True
     Params = <>
     ProviderName = 'dspConsTalao_Ref'
-    Left = 126
-    Top = 482
+    Left = 94
+    Top = 410
     object cdsConsTalao_RefQTD: TFloatField
       FieldName = 'QTD'
     end
@@ -1537,22 +1536,614 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   end
   object dsConsTalao_Ref: TDataSource
     DataSet = cdsConsTalao_Ref
-    Left = 179
-    Top = 485
+    Left = 125
+    Top = 411
   end
   object frxLoteSetorReferencia: TfrxDBDataset
     UserName = 'frxLoteSetorReferencia'
+    OnFirst = frxLoteSetorReferenciaFirst
+    OnNext = frxLoteSetorReferenciaNext
     CloseDataSource = False
     FieldAliases.Strings = (
-      'QTD=QTD'
-      'QTD_PRODUZIDO=QTD_PRODUZIDO'
-      'QTD_PENDENTE=QTD_PENDENTE'
-      'ID_SETOR=ID_SETOR'
-      'NOME_SETOR=NOME_SETOR'
-      'REFERENCIA=REFERENCIA')
-    DataSource = dsConsTalao_Setor_Ref
+      'Referencia=Referencia'
+      'Item=Item'
+      'Setor1=Setor1'
+      'NomeSetor1=NomeSetor1'
+      'Qtde1=Qtde1'
+      'Estoque1=Estoque1'
+      'Setor2=Setor2'
+      'NomeSetor2=NomeSetor2'
+      'Qtde2=Qtde2'
+      'Estoque2=Estoque2'
+      'Setor3=Setor3'
+      'NomeSetor3=NomeSetor3'
+      'Qtde3=Qtde3'
+      'Estoque3=Estoque3'
+      'Setor4=Setor4'
+      'NomeSetor4=NomeSetor4'
+      'Qtde4=Qtde4'
+      'Estoque4=Estoque4'
+      'Setor5=Setor5'
+      'NomeSetor5=NomeSetor5'
+      'Qtde5=Qtde5'
+      'Estoque5=Estoque5'
+      'Setor6=Setor6'
+      'NomeSetor6=NomeSetor6'
+      'Qtde6=Qtde6'
+      'Estoque6=Estoque6')
+    DataSource = dsmSetorReferencia
     BCDToCurrency = False
-    Left = 616
-    Top = 384
+    Left = 568
+    Top = 200
+  end
+  object mSetorReferencia: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Referencia'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Item'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Setor1'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor1'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde1'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque1'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor2'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor2'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde2'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque2'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor3'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor3'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde3'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque3'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor4'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor4'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde4'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque4'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor5'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor5'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde5'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque5'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor6'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor6'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde6'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque6'
+        DataType = ftFloat
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end
+      item
+        Name = 'mSetorReferenciaIndex3'
+        Fields = 'Referencia;Item'
+        Options = [ixDescending]
+      end>
+    IndexFieldNames = 'Referencia;Item'
+    Params = <>
+    StoreDefs = True
+    Left = 504
+    Top = 200
+    Data = {
+      2A0200009619E0BD01000000180000001A0000000000030000002A020A526566
+      6572656E6369610100490000000100055749445448020002001E00044974656D
+      0400010000000000065365746F723104000100000000000A4E6F6D655365746F
+      7231010049000000010005574944544802000200140005517464653108000400
+      00000000084573746F717565310800040000000000065365746F723204000100
+      000000000A4E6F6D655365746F72320100490000000100055749445448020002
+      0014000551746465320800040000000000084573746F71756532080004000000
+      0000065365746F723304000100000000000A4E6F6D655365746F723301004900
+      0000010005574944544802000200140005517464653308000400000000000845
+      73746F717565330800040000000000065365746F723404000100000000000A4E
+      6F6D655365746F72340100490000000100055749445448020002001400055174
+      6465340800040000000000084573746F71756534080004000000000006536574
+      6F723504000100000000000A4E6F6D655365746F723501004900000001000557
+      494454480200020014000551746465350800040000000000084573746F717565
+      350800040000000000065365746F723604000100000000000A4E6F6D65536574
+      6F72360100490000000100055749445448020002001400055174646536080004
+      0000000000084573746F71756536080004000000000001000D44454641554C54
+      5F4F524445520200820000000000}
+    object mSetorReferenciaReferencia: TStringField
+      FieldName = 'Referencia'
+      Size = 30
+    end
+    object mSetorReferenciaItem: TIntegerField
+      FieldName = 'Item'
+    end
+    object mSetorReferenciaSetor1: TIntegerField
+      FieldName = 'Setor1'
+    end
+    object mSetorReferenciaNomeSetor1: TStringField
+      FieldName = 'NomeSetor1'
+    end
+    object mSetorReferenciaQtde1: TFloatField
+      FieldName = 'Qtde1'
+    end
+    object mSetorReferenciaEstoque1: TFloatField
+      FieldName = 'Estoque1'
+    end
+    object mSetorReferenciaSetor2: TIntegerField
+      FieldName = 'Setor2'
+    end
+    object mSetorReferenciaNomeSetor2: TStringField
+      FieldName = 'NomeSetor2'
+    end
+    object mSetorReferenciaQtde2: TFloatField
+      FieldName = 'Qtde2'
+    end
+    object mSetorReferenciaEstoque2: TFloatField
+      FieldName = 'Estoque2'
+    end
+    object mSetorReferenciaSetor3: TIntegerField
+      FieldName = 'Setor3'
+    end
+    object mSetorReferenciaNomeSetor3: TStringField
+      FieldName = 'NomeSetor3'
+    end
+    object mSetorReferenciaQtde3: TFloatField
+      FieldName = 'Qtde3'
+    end
+    object mSetorReferenciaEstoque3: TFloatField
+      FieldName = 'Estoque3'
+    end
+    object mSetorReferenciaSetor4: TIntegerField
+      FieldName = 'Setor4'
+    end
+    object mSetorReferenciaNomeSetor4: TStringField
+      FieldName = 'NomeSetor4'
+    end
+    object mSetorReferenciaQtde4: TFloatField
+      FieldName = 'Qtde4'
+    end
+    object mSetorReferenciaEstoque4: TFloatField
+      FieldName = 'Estoque4'
+    end
+    object mSetorReferenciaSetor5: TIntegerField
+      FieldName = 'Setor5'
+    end
+    object mSetorReferenciaNomeSetor5: TStringField
+      FieldName = 'NomeSetor5'
+    end
+    object mSetorReferenciaQtde5: TFloatField
+      FieldName = 'Qtde5'
+    end
+    object mSetorReferenciaEstoque5: TFloatField
+      FieldName = 'Estoque5'
+    end
+    object mSetorReferenciaSetor6: TIntegerField
+      FieldName = 'Setor6'
+    end
+    object mSetorReferenciaNomeSetor6: TStringField
+      FieldName = 'NomeSetor6'
+    end
+    object mSetorReferenciaQtde6: TFloatField
+      FieldName = 'Qtde6'
+    end
+    object mSetorReferenciaEstoque6: TFloatField
+      FieldName = 'Estoque6'
+    end
+  end
+  object dsmSetorReferencia: TDataSource
+    DataSet = mSetorReferencia
+    Left = 536
+    Top = 200
+  end
+  object mSetorReferencia_Esteira: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Referencia'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Item'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Setor1'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor1'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde1'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque1'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor2'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor2'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde2'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque2'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor3'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor3'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde3'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque3'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor4'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor4'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde4'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque4'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor5'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor5'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde5'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque5'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Setor6'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NomeSetor6'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtde6'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Estoque6'
+        DataType = ftFloat
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end
+      item
+        Name = 'mSetorReferenciaIndex3'
+        Fields = 'Referencia;Item'
+        Options = [ixDescending]
+      end>
+    IndexFieldNames = 'Referencia;Item'
+    Params = <>
+    StoreDefs = True
+    Left = 504
+    Top = 248
+    Data = {
+      2A0200009619E0BD01000000180000001A0000000000030000002A020A526566
+      6572656E6369610100490000000100055749445448020002001E00044974656D
+      0400010000000000065365746F723104000100000000000A4E6F6D655365746F
+      7231010049000000010005574944544802000200140005517464653108000400
+      00000000084573746F717565310800040000000000065365746F723204000100
+      000000000A4E6F6D655365746F72320100490000000100055749445448020002
+      0014000551746465320800040000000000084573746F71756532080004000000
+      0000065365746F723304000100000000000A4E6F6D655365746F723301004900
+      0000010005574944544802000200140005517464653308000400000000000845
+      73746F717565330800040000000000065365746F723404000100000000000A4E
+      6F6D655365746F72340100490000000100055749445448020002001400055174
+      6465340800040000000000084573746F71756534080004000000000006536574
+      6F723504000100000000000A4E6F6D655365746F723501004900000001000557
+      494454480200020014000551746465350800040000000000084573746F717565
+      350800040000000000065365746F723604000100000000000A4E6F6D65536574
+      6F72360100490000000100055749445448020002001400055174646536080004
+      0000000000084573746F71756536080004000000000001000D44454641554C54
+      5F4F524445520200820000000000}
+    object mSetorReferencia_EsteiraReferencia: TStringField
+      FieldName = 'Referencia'
+      Size = 30
+    end
+    object mSetorReferencia_EsteiraItem: TIntegerField
+      FieldName = 'Item'
+    end
+    object mSetorReferencia_EsteiraSetor1: TIntegerField
+      FieldName = 'Setor1'
+    end
+    object mSetorReferencia_EsteiraNomeSetor1: TStringField
+      FieldName = 'NomeSetor1'
+    end
+    object mSetorReferencia_EsteiraQtde1: TFloatField
+      FieldName = 'Qtde1'
+    end
+    object mSetorReferencia_EsteiraEstoque1: TFloatField
+      FieldName = 'Estoque1'
+    end
+    object mSetorReferencia_EsteiraSetor2: TIntegerField
+      FieldName = 'Setor2'
+    end
+    object StringField3: TStringField
+      FieldName = 'NomeSetor2'
+    end
+    object mSetorReferencia_EsteiraQtde2: TFloatField
+      FieldName = 'Qtde2'
+    end
+    object mSetorReferencia_EsteiraEstoque2: TFloatField
+      FieldName = 'Estoque2'
+    end
+    object mSetorReferencia_EsteiraSetor3: TIntegerField
+      FieldName = 'Setor3'
+    end
+    object mSetorReferencia_EsteiraNomeSetor3: TStringField
+      FieldName = 'NomeSetor3'
+    end
+    object mSetorReferencia_EsteiraQtde3: TFloatField
+      FieldName = 'Qtde3'
+    end
+    object mSetorReferencia_EsteiraEstoque3: TFloatField
+      FieldName = 'Estoque3'
+    end
+    object mSetorReferencia_EsteiraSetor4: TIntegerField
+      FieldName = 'Setor4'
+    end
+    object mSetorReferencia_EsteiraNomeSetor4: TStringField
+      FieldName = 'NomeSetor4'
+    end
+    object mSetorReferencia_EsteiraQtde4: TFloatField
+      FieldName = 'Qtde4'
+    end
+    object mSetorReferencia_EsteiraEstoque4: TFloatField
+      FieldName = 'Estoque4'
+    end
+    object mSetorReferencia_EsteiraSetor5: TIntegerField
+      FieldName = 'Setor5'
+    end
+    object mSetorReferencia_EsteiraNomeSetor5: TStringField
+      FieldName = 'NomeSetor5'
+    end
+    object mSetorReferencia_EsteiraQtde5: TFloatField
+      FieldName = 'Qtde5'
+    end
+    object mSetorReferencia_EsteiraEstoque5: TFloatField
+      FieldName = 'Estoque5'
+    end
+    object mSetorReferencia_EsteiraSetor6: TIntegerField
+      FieldName = 'Setor6'
+    end
+    object mSetorReferencia_EsteiraNomeSetor6: TStringField
+      FieldName = 'NomeSetor6'
+    end
+    object mSetorReferencia_EsteiraQtde6: TFloatField
+      FieldName = 'Qtde6'
+    end
+    object mSetorReferencia_EsteiraEstoque6: TFloatField
+      FieldName = 'Estoque6'
+    end
+  end
+  object dsmSetorReferencia_Esteira: TDataSource
+    DataSet = mSetorReferencia_Esteira
+    Left = 536
+    Top = 248
+  end
+  object sdsConsTalao_Setor_Ref_Est: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(TS.QTD) QTD, sum(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, sum' +
+      '(TS.QTD_PENDENTE) QTD_PENDENTE, TS.ID_SETOR,'#13#10'       S.NOME NOME' +
+      '_SETOR, S2.NOME NOME_SETOR2, L.REFERENCIA, S.ORDEM_ORC, S2.ORDEM' +
+      '_ESTEIRA'#13#10'from TALAO_SETOR TS'#13#10'inner join LOTE L on TS.ID = L.ID' +
+      #13#10'left join SETOR S on TS.ID_SETOR = S.ID'#13#10'left join SETOR S2 on' +
+      ' TS.ID_SETOR2 = S2.ID'#13#10'group by TS.ID_SETOR, S.NOME, S2.NOME, L.' +
+      'REFERENCIA, S.ORDEM_ORC, S2.ORDEM_ESTEIRA'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 27
+    Top = 357
+  end
+  object dspConsTalao_Setor_Ref_Est: TDataSetProvider
+    DataSet = sdsConsTalao_Setor_Ref_Est
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 60
+    Top = 357
+  end
+  object cdsConsTalao_Setor_Ref_Est: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsTalao_Setor_Ref_Est'
+    Left = 94
+    Top = 355
+    object cdsConsTalao_Setor_Ref_EstQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsTalao_Setor_Ref_EstQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsConsTalao_Setor_Ref_EstQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsConsTalao_Setor_Ref_EstID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsConsTalao_Setor_Ref_EstNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsConsTalao_Setor_Ref_EstNOME_SETOR2: TStringField
+      FieldName = 'NOME_SETOR2'
+    end
+    object cdsConsTalao_Setor_Ref_EstREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsTalao_Setor_Ref_EstORDEM_ORC: TIntegerField
+      FieldName = 'ORDEM_ORC'
+    end
+    object cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA: TIntegerField
+      FieldName = 'ORDEM_ESTEIRA'
+    end
+  end
+  object dsConsTalao_Setor_Ref_Est: TDataSource
+    DataSet = cdsConsTalao_Setor_Ref_Est
+    Left = 123
+    Top = 357
+  end
+  object frxLoteSetorReferenciaEst: TfrxDBDataset
+    UserName = 'frxLoteSetorReferenciaEst'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'Referencia=Referencia'
+      'Item=Item'
+      'Setor1=Setor1'
+      'NomeSetor1=NomeSetor1'
+      'Qtde1=Qtde1'
+      'Estoque1=Estoque1'
+      'Setor2=Setor2'
+      'NomeSetor2=NomeSetor2'
+      'Qtde2=Qtde2'
+      'Estoque2=Estoque2'
+      'Setor3=Setor3'
+      'NomeSetor3=NomeSetor3'
+      'Qtde3=Qtde3'
+      'Estoque3=Estoque3'
+      'Setor4=Setor4'
+      'NomeSetor4=NomeSetor4'
+      'Qtde4=Qtde4'
+      'Estoque4=Estoque4'
+      'Setor5=Setor5'
+      'NomeSetor5=NomeSetor5'
+      'Qtde5=Qtde5'
+      'Estoque5=Estoque5'
+      'Setor6=Setor6'
+      'NomeSetor6=NomeSetor6'
+      'Qtde6=Qtde6'
+      'Estoque6=Estoque6')
+    DataSource = dsmSetorReferencia_Esteira
+    BCDToCurrency = False
+    Left = 568
+    Top = 248
   end
 end

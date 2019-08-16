@@ -234,12 +234,6 @@ type
     dspConsTalao_Setor_Ref: TDataSetProvider;
     cdsConsTalao_Setor_Ref: TClientDataSet;
     dsConsTalao_Setor_Ref: TDataSource;
-    cdsConsTalao_Setor_RefQTD: TFloatField;
-    cdsConsTalao_Setor_RefQTD_PRODUZIDO: TFloatField;
-    cdsConsTalao_Setor_RefQTD_PENDENTE: TFloatField;
-    cdsConsTalao_Setor_RefID_SETOR: TIntegerField;
-    cdsConsTalao_Setor_RefNOME_SETOR: TStringField;
-    cdsConsTalao_Setor_RefREFERENCIA: TStringField;
     sdsConsTalao_Ref: TSQLDataSet;
     dspConsTalao_Ref: TDataSetProvider;
     cdsConsTalao_Ref: TClientDataSet;
@@ -257,7 +251,83 @@ type
     cdsConsTalao_RefagTotal2: TAggregateField;
     frxLoteSetorReferencia: TfrxDBDataset;
     cdsConsTalao_SetorNOME_SETOR2: TStringField;
-    cdsConsTalao_Setor_RefNOME_SETOR2: TStringField;
+    mSetorReferencia: TClientDataSet;
+    dsmSetorReferencia: TDataSource;
+    mSetorReferenciaReferencia: TStringField;
+    mSetorReferenciaSetor1: TIntegerField;
+    mSetorReferenciaEstoque1: TFloatField;
+    mSetorReferenciaSetor2: TIntegerField;
+    mSetorReferenciaEstoque2: TFloatField;
+    mSetorReferenciaSetor3: TIntegerField;
+    mSetorReferenciaEstoque3: TFloatField;
+    mSetorReferenciaSetor4: TIntegerField;
+    mSetorReferenciaEstoque4: TFloatField;
+    mSetorReferenciaSetor5: TIntegerField;
+    mSetorReferenciaEstoque5: TFloatField;
+    mSetorReferenciaSetor6: TIntegerField;
+    mSetorReferenciaQtde1: TFloatField;
+    mSetorReferenciaQtde2: TFloatField;
+    mSetorReferenciaQtde3: TFloatField;
+    mSetorReferenciaQtde4: TFloatField;
+    mSetorReferenciaQtde5: TFloatField;
+    mSetorReferenciaQtde6: TFloatField;
+    mSetorReferenciaEstoque6: TFloatField;
+    mSetorReferenciaNomeSetor1: TStringField;
+    mSetorReferenciaNomeSetor2: TStringField;
+    mSetorReferenciaNomeSetor3: TStringField;
+    mSetorReferenciaNomeSetor4: TStringField;
+    mSetorReferenciaNomeSetor5: TStringField;
+    mSetorReferenciaNomeSetor6: TStringField;
+    mSetorReferenciaItem: TIntegerField;
+    cdsConsTalao_Setor_RefQTD: TFloatField;
+    cdsConsTalao_Setor_RefQTD_PRODUZIDO: TFloatField;
+    cdsConsTalao_Setor_RefQTD_PENDENTE: TFloatField;
+    cdsConsTalao_Setor_RefID_SETOR: TIntegerField;
+    cdsConsTalao_Setor_RefNOME_SETOR: TStringField;
+    cdsConsTalao_Setor_RefREFERENCIA: TStringField;
+    cdsConsTalao_Setor_RefORDEM_ORC: TIntegerField;
+    mSetorReferencia_Esteira: TClientDataSet;
+    mSetorReferencia_EsteiraReferencia: TStringField;
+    mSetorReferencia_EsteiraItem: TIntegerField;
+    mSetorReferencia_EsteiraSetor1: TIntegerField;
+    mSetorReferencia_EsteiraNomeSetor1: TStringField;
+    mSetorReferencia_EsteiraQtde1: TFloatField;
+    mSetorReferencia_EsteiraEstoque1: TFloatField;
+    mSetorReferencia_EsteiraSetor2: TIntegerField;
+    StringField3: TStringField;
+    mSetorReferencia_EsteiraQtde2: TFloatField;
+    mSetorReferencia_EsteiraEstoque2: TFloatField;
+    mSetorReferencia_EsteiraSetor3: TIntegerField;
+    mSetorReferencia_EsteiraNomeSetor3: TStringField;
+    mSetorReferencia_EsteiraQtde3: TFloatField;
+    mSetorReferencia_EsteiraEstoque3: TFloatField;
+    mSetorReferencia_EsteiraSetor4: TIntegerField;
+    mSetorReferencia_EsteiraNomeSetor4: TStringField;
+    mSetorReferencia_EsteiraQtde4: TFloatField;
+    mSetorReferencia_EsteiraEstoque4: TFloatField;
+    mSetorReferencia_EsteiraSetor5: TIntegerField;
+    mSetorReferencia_EsteiraNomeSetor5: TStringField;
+    mSetorReferencia_EsteiraQtde5: TFloatField;
+    mSetorReferencia_EsteiraEstoque5: TFloatField;
+    mSetorReferencia_EsteiraSetor6: TIntegerField;
+    mSetorReferencia_EsteiraNomeSetor6: TStringField;
+    mSetorReferencia_EsteiraQtde6: TFloatField;
+    mSetorReferencia_EsteiraEstoque6: TFloatField;
+    dsmSetorReferencia_Esteira: TDataSource;
+    sdsConsTalao_Setor_Ref_Est: TSQLDataSet;
+    dspConsTalao_Setor_Ref_Est: TDataSetProvider;
+    cdsConsTalao_Setor_Ref_Est: TClientDataSet;
+    dsConsTalao_Setor_Ref_Est: TDataSource;
+    cdsConsTalao_Setor_Ref_EstQTD: TFloatField;
+    cdsConsTalao_Setor_Ref_EstQTD_PRODUZIDO: TFloatField;
+    cdsConsTalao_Setor_Ref_EstQTD_PENDENTE: TFloatField;
+    cdsConsTalao_Setor_Ref_EstID_SETOR: TIntegerField;
+    cdsConsTalao_Setor_Ref_EstNOME_SETOR: TStringField;
+    cdsConsTalao_Setor_Ref_EstNOME_SETOR2: TStringField;
+    cdsConsTalao_Setor_Ref_EstREFERENCIA: TStringField;
+    cdsConsTalao_Setor_Ref_EstORDEM_ORC: TIntegerField;
+    frxLoteSetorReferenciaEst: TfrxDBDataset;
+    cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -268,6 +338,8 @@ type
     procedure frxmImpAuxFirst(Sender: TObject);
     procedure cdsConsProcessoCalcFields(DataSet: TDataSet);
     procedure frxConsProcessoNext(Sender: TObject);
+    procedure frxLoteSetorReferenciaFirst(Sender: TObject);
+    procedure frxLoteSetorReferenciaNext(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Montra_SQL_ConsProcesso;
@@ -278,6 +350,7 @@ type
     ctConsProcesso: String;
     ctConsTalao_Setor : String;
     ctConsTalao_Setor_Ref : String;
+    ctConsTalao_Setor_Ref_Est : String;
     ctConsTalao_Ref : String;
     vObsPedido: String;
     vTipo_Imp: String;
@@ -308,6 +381,7 @@ begin
   ctConsProcesso        := sdsConsProcesso.CommandText;
   ctConsTalao_Setor     := sdsConsTalao_Setor.CommandText;
   ctConsTalao_Setor_Ref := sdsConsTalao_Setor_Ref.CommandText;
+  ctConsTalao_Setor_Ref_Est := sdsConsTalao_Setor_Ref_Est.CommandText;
   ctConsTalao_Ref       := sdsConsTalao_Ref.CommandText;
   cdsSetor.Open;
   qParametros_Lote.Open;
@@ -445,6 +519,20 @@ begin
     cdsMatProc.Next;
   end;
   frxReport1.variables['PosicaoMaterial'] := QuotedStr(vObsAux);
+end;
+
+procedure TDMLoteImp_Calc.frxLoteSetorReferenciaFirst(Sender: TObject);
+begin
+  mSetorReferencia_Esteira.Filtered := False;
+  mSetorReferencia_Esteira.Filter := 'Referencia = ' + QuotedStr(mSetorReferenciaReferencia.AsString);
+  mSetorReferencia_Esteira.Filtered := True;
+end;
+
+procedure TDMLoteImp_Calc.frxLoteSetorReferenciaNext(Sender: TObject);
+begin
+  mSetorReferencia_Esteira.Filtered := False;
+  mSetorReferencia_Esteira.Filter := 'Referencia = ' + QuotedStr(mSetorReferenciaReferencia.AsString);
+  mSetorReferencia_Esteira.Filtered := True;
 end;
 
 end.
