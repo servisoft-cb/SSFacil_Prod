@@ -625,6 +625,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -702,6 +703,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Produzido'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -875,6 +877,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -883,6 +886,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Posi'#231#227'o'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -918,6 +922,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Cliente'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -947,10 +952,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         Top = 0
         Width = 1362
         Height = 569
-        ActivePage = TS_Setor_Ref
+        ActivePage = TS_Setor_Dados
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet

@@ -1,8 +1,8 @@
 object DMLoteImp_Calc: TDMLoteImp_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 276
-  Top = 67
+  Left = 313
+  Top = 110
   Height = 584
   Width = 748
   object frxReport1: TfrxReport
@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43692.902335266200000000
+    ReportOptions.LastChange = 43696.565785543980000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1562,15 +1562,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'Setor4=Setor4'
       'NomeSetor4=NomeSetor4'
       'Qtde4=Qtde4'
-      'Estoque4=Estoque4'
-      'Setor5=Setor5'
-      'NomeSetor5=NomeSetor5'
-      'Qtde5=Qtde5'
-      'Estoque5=Estoque5'
-      'Setor6=Setor6'
-      'NomeSetor6=NomeSetor6'
-      'Qtde6=Qtde6'
-      'Estoque6=Estoque6')
+      'Estoque4=Estoque4')
     DataSource = dsmSetorReferencia
     BCDToCurrency = False
     Left = 568
@@ -1656,40 +1648,6 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       item
         Name = 'Estoque4'
         DataType = ftFloat
-      end
-      item
-        Name = 'Setor5'
-        DataType = ftInteger
-      end
-      item
-        Name = 'NomeSetor5'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Qtde5'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Estoque5'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Setor6'
-        DataType = ftInteger
-      end
-      item
-        Name = 'NomeSetor6'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Qtde6'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Estoque6'
-        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -1709,7 +1667,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Left = 504
     Top = 200
     Data = {
-      2A0200009619E0BD01000000180000001A0000000000030000002A020A526566
+      900100009619E0BD01000000180000001200000000000300000090010A526566
       6572656E6369610100490000000100055749445448020002001E00044974656D
       0400010000000000065365746F723104000100000000000A4E6F6D655365746F
       7231010049000000010005574944544802000200140005517464653108000400
@@ -1720,13 +1678,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       0000010005574944544802000200140005517464653308000400000000000845
       73746F717565330800040000000000065365746F723404000100000000000A4E
       6F6D655365746F72340100490000000100055749445448020002001400055174
-      6465340800040000000000084573746F71756534080004000000000006536574
-      6F723504000100000000000A4E6F6D655365746F723501004900000001000557
-      494454480200020014000551746465350800040000000000084573746F717565
-      350800040000000000065365746F723604000100000000000A4E6F6D65536574
-      6F72360100490000000100055749445448020002001400055174646536080004
-      0000000000084573746F71756536080004000000000001000D44454641554C54
-      5F4F524445520200820000000000}
+      6465340800040000000000084573746F71756534080004000000000001000D44
+      454641554C545F4F524445520200820000000000}
     object mSetorReferenciaReferencia: TStringField
       FieldName = 'Referencia'
       Size = 30
@@ -1781,30 +1734,6 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     end
     object mSetorReferenciaEstoque4: TFloatField
       FieldName = 'Estoque4'
-    end
-    object mSetorReferenciaSetor5: TIntegerField
-      FieldName = 'Setor5'
-    end
-    object mSetorReferenciaNomeSetor5: TStringField
-      FieldName = 'NomeSetor5'
-    end
-    object mSetorReferenciaQtde5: TFloatField
-      FieldName = 'Qtde5'
-    end
-    object mSetorReferenciaEstoque5: TFloatField
-      FieldName = 'Estoque5'
-    end
-    object mSetorReferenciaSetor6: TIntegerField
-      FieldName = 'Setor6'
-    end
-    object mSetorReferenciaNomeSetor6: TStringField
-      FieldName = 'NomeSetor6'
-    end
-    object mSetorReferenciaQtde6: TFloatField
-      FieldName = 'Qtde6'
-    end
-    object mSetorReferenciaEstoque6: TFloatField
-      FieldName = 'Estoque6'
     end
   end
   object dsmSetorReferencia: TDataSource
@@ -1892,40 +1821,6 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       item
         Name = 'Estoque4'
         DataType = ftFloat
-      end
-      item
-        Name = 'Setor5'
-        DataType = ftInteger
-      end
-      item
-        Name = 'NomeSetor5'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Qtde5'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Estoque5'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Setor6'
-        DataType = ftInteger
-      end
-      item
-        Name = 'NomeSetor6'
-        DataType = ftString
-        Size = 20
-      end
-      item
-        Name = 'Qtde6'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Estoque6'
-        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -1945,7 +1840,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     Left = 504
     Top = 248
     Data = {
-      2A0200009619E0BD01000000180000001A0000000000030000002A020A526566
+      900100009619E0BD01000000180000001200000000000300000090010A526566
       6572656E6369610100490000000100055749445448020002001E00044974656D
       0400010000000000065365746F723104000100000000000A4E6F6D655365746F
       7231010049000000010005574944544802000200140005517464653108000400
@@ -1956,13 +1851,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       0000010005574944544802000200140005517464653308000400000000000845
       73746F717565330800040000000000065365746F723404000100000000000A4E
       6F6D655365746F72340100490000000100055749445448020002001400055174
-      6465340800040000000000084573746F71756534080004000000000006536574
-      6F723504000100000000000A4E6F6D655365746F723501004900000001000557
-      494454480200020014000551746465350800040000000000084573746F717565
-      350800040000000000065365746F723604000100000000000A4E6F6D65536574
-      6F72360100490000000100055749445448020002001400055174646536080004
-      0000000000084573746F71756536080004000000000001000D44454641554C54
-      5F4F524445520200820000000000}
+      6465340800040000000000084573746F71756534080004000000000001000D44
+      454641554C545F4F524445520200820000000000}
     object mSetorReferencia_EsteiraReferencia: TStringField
       FieldName = 'Referencia'
       Size = 30
@@ -2017,30 +1907,6 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     end
     object mSetorReferencia_EsteiraEstoque4: TFloatField
       FieldName = 'Estoque4'
-    end
-    object mSetorReferencia_EsteiraSetor5: TIntegerField
-      FieldName = 'Setor5'
-    end
-    object mSetorReferencia_EsteiraNomeSetor5: TStringField
-      FieldName = 'NomeSetor5'
-    end
-    object mSetorReferencia_EsteiraQtde5: TFloatField
-      FieldName = 'Qtde5'
-    end
-    object mSetorReferencia_EsteiraEstoque5: TFloatField
-      FieldName = 'Estoque5'
-    end
-    object mSetorReferencia_EsteiraSetor6: TIntegerField
-      FieldName = 'Setor6'
-    end
-    object mSetorReferencia_EsteiraNomeSetor6: TStringField
-      FieldName = 'NomeSetor6'
-    end
-    object mSetorReferencia_EsteiraQtde6: TFloatField
-      FieldName = 'Qtde6'
-    end
-    object mSetorReferencia_EsteiraEstoque6: TFloatField
-      FieldName = 'Estoque6'
     end
   end
   object dsmSetorReferencia_Esteira: TDataSource
@@ -2132,15 +1998,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'Setor4=Setor4'
       'NomeSetor4=NomeSetor4'
       'Qtde4=Qtde4'
-      'Estoque4=Estoque4'
-      'Setor5=Setor5'
-      'NomeSetor5=NomeSetor5'
-      'Qtde5=Qtde5'
-      'Estoque5=Estoque5'
-      'Setor6=Setor6'
-      'NomeSetor6=NomeSetor6'
-      'Qtde6=Qtde6'
-      'Estoque6=Estoque6')
+      'Estoque4=Estoque4')
     DataSource = dsmSetorReferencia_Esteira
     BCDToCurrency = False
     Left = 568

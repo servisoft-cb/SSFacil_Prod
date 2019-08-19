@@ -201,7 +201,7 @@ begin
         Exit;
       end;
 //      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia.fr3';
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia2.fr3';
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_SetorReferencia.fr3';
       if FileExists(vArq) then
         fDMLoteImp_Calc.frxReport1.Report.LoadFromFile(vArq)
       else
@@ -523,6 +523,12 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.First;
     while not fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Eof do
     begin
+      if fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger <= 0 then
+      begin
+        fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Next;
+        Continue;
+      end;
+
       Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger);
       NomeSetor :=  'NomeSetor';
       NomeSetor := NomeSetor +  Ordem;
@@ -567,6 +573,11 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.First;
     while not fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Eof do
     begin
+      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ORC.AsInteger <= 0 then
+      begin
+        fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Next;
+        Continue;
+      end;
       Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ORC.AsInteger);
       NomeSetor :=  'NomeSetor';
       NomeSetor := NomeSetor +  Ordem;
@@ -575,10 +586,6 @@ begin
       else
         vItem := 1;
 
-//      if vId_Setor_Ant = fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstID_SETOR.AsInteger then
-//        Inc(vItem)
-//      else
-//        vItem := 1;
       if fDMLoteImp_Calc.mSetorReferencia_Esteira.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString,vItem]),[loCaseInsensitive]) then
         begin
           fDMLoteImp_Calc.mSetorReferencia_Esteira.Edit;
