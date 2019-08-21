@@ -1,6 +1,6 @@
 object frmConsLote_Calc: TfrmConsLote_Calc
-  Left = -8
-  Top = -8
+  Left = -6
+  Top = 8
   Width = 1382
   Height = 744
   Caption = 'Consulta Lotes e Processos  (frmConsLote_Calc)'
@@ -625,7 +625,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -703,7 +702,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Produzido'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -877,7 +875,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -886,7 +883,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Posi'#231#227'o'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -922,7 +918,6 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Cliente'
             Title.Color = 8454143
-            Width = 64
             Visible = True
           end
           item
@@ -1113,7 +1108,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Left = 0
             Top = 0
             Width = 1358
-            Height = 546
+            Height = 376
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
@@ -1206,6 +1201,20 @@ object frmConsLote_Calc: TfrmConsLote_Calc
                 Width = 89
                 Visible = True
               end>
+          end
+          object DBGrid1: TDBGrid
+            Left = 0
+            Top = 376
+            Width = 1358
+            Height = 170
+            Align = alBottom
+            DataSource = DMLoteImp_Calc.dsmSetorReferencia_Esteira
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
           end
         end
       end

@@ -324,6 +324,7 @@ type
     procedure frxConsProcessoNext(Sender: TObject);
     procedure frxLoteSetorReferenciaFirst(Sender: TObject);
     procedure frxLoteSetorReferenciaNext(Sender: TObject);
+    procedure frxLoteSetorReferenciaClose(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Montra_SQL_ConsProcesso;
@@ -517,6 +518,11 @@ begin
   mSetorReferencia_Esteira.Filtered := False;
   mSetorReferencia_Esteira.Filter := 'Referencia = ' + QuotedStr(mSetorReferenciaReferencia.AsString);
   mSetorReferencia_Esteira.Filtered := True;
+end;
+
+procedure TDMLoteImp_Calc.frxLoteSetorReferenciaClose(Sender: TObject);
+begin
+  mSetorReferencia_Esteira.Filtered := False;
 end;
 
 end.

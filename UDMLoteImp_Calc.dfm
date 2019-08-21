@@ -15,7 +15,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43696.565785543980000000
+    ReportOptions.LastChange = 43698.372048356480000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1563,6 +1563,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'NomeSetor4=NomeSetor4'
       'Qtde4=Qtde4'
       'Estoque4=Estoque4')
+    OnClose = frxLoteSetorReferenciaClose
     DataSource = dsmSetorReferencia
     BCDToCurrency = False
     Left = 568
@@ -1920,11 +1921,11 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     CommandText = 
       'select sum(TS.QTD) QTD, sum(TS.QTD_PRODUZIDO) QTD_PRODUZIDO, sum' +
       '(TS.QTD_PENDENTE) QTD_PENDENTE, TS.ID_SETOR,'#13#10'       S.NOME NOME' +
-      '_SETOR, S2.NOME NOME_SETOR2, L.REFERENCIA, S.ORDEM_ORC, S2.ORDEM' +
-      '_ESTEIRA'#13#10'from TALAO_SETOR TS'#13#10'inner join LOTE L on TS.ID = L.ID' +
-      #13#10'left join SETOR S on TS.ID_SETOR = S.ID'#13#10'left join SETOR S2 on' +
-      ' TS.ID_SETOR2 = S2.ID'#13#10'group by TS.ID_SETOR, S.NOME, S2.NOME, L.' +
-      'REFERENCIA, S.ORDEM_ORC, S2.ORDEM_ESTEIRA'
+      '_SETOR, S2.APELIDO NOME_SETOR2, L.REFERENCIA, S.ORDEM_ORC, S2.OR' +
+      'DEM_ESTEIRA'#13#10'from TALAO_SETOR TS'#13#10'inner join LOTE L on TS.ID = L' +
+      '.ID'#13#10'left join SETOR S on TS.ID_SETOR = S.ID'#13#10'left join SETOR S2' +
+      ' on TS.ID_SETOR2 = S2.ID'#13#10'group by TS.ID_SETOR, S.NOME, S2.APELI' +
+      'DO, L.REFERENCIA, S.ORDEM_ORC, S2.ORDEM_ESTEIRA'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

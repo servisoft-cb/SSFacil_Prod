@@ -65,6 +65,7 @@ type
     DBText3: TDBText;
     Label5: TLabel;
     DBText4: TDBText;
+    DBGrid1: TDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -140,6 +141,7 @@ procedure TfrmConsLote_Calc.btnConsTalaoClick(Sender: TObject);
 begin
   fDMLoteImp_Calc.mSetorReferencia.EmptyDataSet;
   fDMLoteImp_Calc.mSetorReferencia_Esteira.EmptyDataSet;
+  fDMLoteImp_Calc.mSetorReferencia_Esteira.Filtered := False;
   if RzPageControl1.ActivePage = TS_Talao then
     prc_Consulta_Lote
   else
@@ -532,10 +534,12 @@ begin
       Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger);
       NomeSetor :=  'NomeSetor';
       NomeSetor := NomeSetor +  Ordem;
+
       if vId_Setor_Ant = fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.AsInteger then
         Inc(vItem)
       else
         vItem := 1;
+
       if fDMLoteImp_Calc.mSetorReferencia.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_RefREFERENCIA.AsString,vItem]),[loCaseInsensitive]) then
         begin
           fDMLoteImp_Calc.mSetorReferencia.Edit;
@@ -562,7 +566,7 @@ end;
 
 procedure TfrmConsLote_Calc.prc_Gravar_mSetorReferencia_Esteira;
 var
-  vItem : Integer;
+  vItem, i : Integer;
   NomeSetor, Ordem : String;
   vId_Setor_Ant : Integer;
 begin
@@ -578,13 +582,36 @@ begin
         fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Next;
         Continue;
       end;
+
       Ordem := IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ORC.AsInteger);
       NomeSetor :=  'NomeSetor';
       NomeSetor := NomeSetor +  Ordem;
-      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger > 0 then
-        vItem := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger
-      else
-        vItem := 1;
+
+//      if fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger > 0 then
+//        vItem := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger
+//      else
+//        vItem := 1;
+
+      vItem := 1;
+      for i := fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstORDEM_ESTEIRA.AsInteger downto 1 do
+      begin
+//        ShowMessage(inttostr(i));
+        if (vId_Setor_Ant <> fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstID_SETOR.AsInteger) then
+        begin
+          if fDMLoteImp_Calc.mSetorReferencia_Esteira.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString,i]),[loCaseInsensitive]) then
+          begin
+            vItem := i;
+            break;
+          end;
+        end
+        else
+        if fDMLoteImp_Calc.mSetorReferencia_Esteira.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString,i-1]),[loCaseInsensitive]) then
+        begin
+          vItem := i;
+          break;
+        end;
+
+      end;
 
       if fDMLoteImp_Calc.mSetorReferencia_Esteira.Locate('Referencia;Item',VarArrayOf([fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_EstREFERENCIA.AsString,vItem]),[loCaseInsensitive]) then
         begin
