@@ -107,7 +107,8 @@ uses
   UGerar_Lote_AuxEst in '..\ssfacil\UGerar_Lote_AuxEst.pas' {frmGerar_Lote_AuxEst},
   uNFeConsts in '..\ssfacil\uNFeConsts.pas',
   UConsProdutoNCM in '..\ssfacil\UConsProdutoNCM.pas' {frmConsProdutoNCM},
-  UDMConsProduto in '..\ssfacil\UDMConsProduto.pas' {DMConsProduto: TDataModule};
+  UDMConsProduto in '..\ssfacil\UDMConsProduto.pas' {DMConsProduto: TDataModule},
+  UAltCFOPProd in '..\ssfacil\UAltCFOPProd.pas' {frmAltCFOPProd};
 
 {$R *.res}
 
