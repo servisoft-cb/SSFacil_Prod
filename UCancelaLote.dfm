@@ -19,7 +19,7 @@ object frmCancelaLote: TfrmCancelaLote
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 920
+    Width = 912
     Height = 44
     Align = alTop
     Color = clSilver
@@ -182,8 +182,8 @@ object frmCancelaLote: TfrmCancelaLote
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 221
-    Width = 920
-    Height = 312
+    Width = 912
+    Height = 304
     Align = alClient
     Ctl3D = False
     DataSource = DMCancelaLote.dsConsultaLote
@@ -344,7 +344,7 @@ object frmCancelaLote: TfrmCancelaLote
   object Panel3: TPanel
     Left = 0
     Top = 44
-    Width = 920
+    Width = 912
     Height = 177
     Align = alTop
     TabOrder = 2

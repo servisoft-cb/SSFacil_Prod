@@ -130,8 +130,8 @@ begin
   except
       on e: Exception do
       begin
-        raise Exception.Create('Erro ao gravar Baixa Processo: ' + #13+#13 + e.Message);
         dmDatabase.scoDados.Rollback(ID);
+        raise Exception.Create('Erro ao gravar Baixa Processo: ' + #13+#13 + e.Message);
       end;
   end;
   Panel2.Visible := False;
