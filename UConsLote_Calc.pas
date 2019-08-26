@@ -65,7 +65,7 @@ type
     DBText3: TDBText;
     Label5: TLabel;
     DBText4: TDBText;
-    DBGrid1: TDBGrid;
+    SMDBGrid6: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -393,7 +393,7 @@ end;
 procedure TfrmConsLote_Calc.prc_ConsTalao_Setor;
 var
   i : Integer;
-  vComandoAux, vComandoAux2, vComando, vComandoAux3, vComandoAux4 : String;
+  vComandoAux, vComandoAux2, vComando, vComandoAux3, vComandoAux4, vComandoAux5, vComandoAux6 : String;
   vNumAux : String;
   vUsaEsteira : String;
 begin
@@ -417,6 +417,12 @@ begin
     i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est),0);
     vComandoAux4  := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est) - i + 1);
     vComandoAux3 := copy(fDMLoteImp_Calc.ctConsTalao_Setor_Ref_Est,1,i-1);
+
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Close;
+    i := PosEx('GROUP',UpperCase(fDMLoteImp_Calc.ctConsTalao_Setor),0);
+    vComandoAux5  := copy(fDMLoteImp_Calc.ctConsTalao_Setor,i,Length(fDMLoteImp_Calc.ctConsTalao_Setor) - i + 1);
+    vComandoAux6 := copy(fDMLoteImp_Calc.ctConsTalao_Setor,1,i-1);
+
   end
   else
   begin
@@ -481,9 +487,14 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Close;
     fDMLoteImp_Calc.sdsConsTalao_Setor_Ref_Est.CommandText := vComandoAux3 + vComando + vUsaEsteira + vComandoAux4;
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Open;
-
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.IndexFieldNames := 'REFERENCIA;NOME_SETOR';
     prc_Gravar_mSetorReferencia_Esteira;
+
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Close;
+    fDMLoteImp_Calc.sdsConsTalao_Setor.CommandText := vComandoAux6 + vComando + vComandoAux5;
+    fDMLoteImp_Calc.cdsConsTalao_Setor.Open;
+    fDMLoteImp_Calc.cdsConsTalao_Setor.IndexFieldNames := 'NOME_SETOR';
+
   end
   else
   begin

@@ -1,6 +1,6 @@
 object frmConsLote_Calc: TfrmConsLote_Calc
-  Left = -6
-  Top = 8
+  Left = -1374
+  Top = 47
   Width = 1382
   Height = 744
   Caption = 'Consulta Lotes e Processos  (frmConsLote_Calc)'
@@ -495,10 +495,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 1366
     Height = 592
-    ActivePage = TS_Talao
+    ActivePage = TS_Setor
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -625,6 +625,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Esteira'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -702,6 +703,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Produzido'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -875,6 +877,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Setor'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -883,6 +886,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Posi'#231#227'o'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -918,6 +922,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Cliente'
             Title.Color = 8454143
+            Width = 64
             Visible = True
           end
           item
@@ -1202,19 +1207,100 @@ object frmConsLote_Calc: TfrmConsLote_Calc
                 Visible = True
               end>
           end
-          object DBGrid1: TDBGrid
+          object SMDBGrid6: TSMDBGrid
             Left = 0
             Top = 376
             Width = 1358
             Height = 170
             Align = alBottom
-            DataSource = DMLoteImp_Calc.dsmSetorReferencia_Esteira
+            Ctl3D = False
+            DataSource = DMLoteImp_Calc.dsConsTalao_Setor
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+            ParentCtl3D = False
+            ReadOnly = True
             TabOrder = 1
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
             TitleFont.Height = -11
             TitleFont.Name = 'MS Sans Serif'
             TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 7
+            RowCount = 2
+            Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ID_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Setor'
+                Title.Color = 16777170
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR'
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Setor'
+                Title.Color = 16777170
+                Width = 209
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_SETOR2'
+                Title.Alignment = taCenter
+                Title.Caption = 'Setor (Esteira)'
+                Title.Color = 16777170
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd.'
+                Title.Color = 16777170
+                Width = 114
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PRODUZIDO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Produzido'
+                Title.Color = 16777170
+                Width = 97
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_PENDENTE'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pendente'
+                Title.Color = 16777170
+                Width = 87
+                Visible = True
+              end>
           end
         end
       end
