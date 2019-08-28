@@ -72,6 +72,8 @@ type
     NxLabel10: TNxLabel;
     Edit3: TEdit;
     DBMemo1: TDBMemo;
+    NxLabel11: TNxLabel;
+    CurrencyEdit4: TCurrencyEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -92,6 +94,7 @@ type
       Shift: TShiftState);
     procedure btnGerarAuxiliarClick(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
+    procedure SMDBGrid3TitleClick(Column: TColumn);
   private
     { Private declarations }
     fDMCadLote: TDMCadLote;
@@ -100,6 +103,7 @@ type
     vQtd_Selecionada: Real;
     vID_BaixaProcesso: Integer;
     vIDLoteAux: Integer;
+    vNumLoteIni, vNumLoteFin : Integer;
 
     vItem_Ordem: Integer;
 
@@ -143,9 +147,9 @@ begin
   fDMCadLote := TDMCadLote.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMCadLote);
   
-  fDMCadLote.qProxima_Ordem.Close;
-  fDMCadLote.qProxima_Ordem.Open;
-  CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
+  //fDMCadLote.qProxima_Ordem.Close;
+  //fDMCadLote.qProxima_Ordem.Open;
+  //CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
 
   Label15.Visible      := (fDMCadLote.qParametros_LoteLOTE_POR_PEDIDO.AsString <> 'S');
   Label16.Visible      := (fDMCadLote.qParametros_LoteLOTE_POR_PEDIDO.AsString <> 'S');
@@ -161,6 +165,7 @@ begin
     RzPageControl1.ActivePage := TS_Processo;
   if fDMCadLote.qParametros_LoteUSA_LOTE_PED_SPROC.AsString = 'S' then
     NxLabel4.Caption := 'Nº OP Ini:';
+  CurrencyEdit4.SetFocus;
 end;
 
 procedure TfrmGerar_Lote_Ped.btnConsultar_PedidosClick(Sender: TObject);
@@ -261,6 +266,10 @@ begin
   fDMCadLote.cdsLoteOBS.AsString          := fDMCadLote.cdsPendenteOBS_LOTE.AsString;
   fDMCadLote.cdsLoteNOME_PRODUTO.AsString := fDMCadLote.cdsPendenteNOMEPRODUTO.AsString;
   fDMCadLote.cdsLote.Post;
+
+  if vNumLoteIni <= 0 then
+    vNumLoteIni := fDMCadLote.cdsLoteNUM_LOTE.AsInteger;
+  vNumLoteFin := fDMCadLote.cdsLoteNUM_LOTE.AsInteger;
 
   if trim(fDMCadLote.qParametros_LoteUSA_LOTE_PED_SPROC.AsString) = 'S' then
   begin
@@ -379,10 +388,18 @@ end;
 
 procedure TfrmGerar_Lote_Ped.prc_Limpar_Var;
 begin
-  CurrencyEdit3.Clear;
   DateEdit1.Clear;
   DateEdit2.Clear;
+  DateEdit3.Clear;
+  DateEdit4.Clear;
   cbxOpcao.ItemIndex := 0;
+  Edit1.Clear;
+  Edit2.Clear;
+  Edit3.Clear;
+  CurrencyEdit1.Clear;
+  CurrencyEdit2.Clear;
+  CurrencyEdit3.Clear;
+  CurrencyEdit4.Clear;
 end;
 
 procedure TfrmGerar_Lote_Ped.btnExcluirClick(Sender: TObject);
@@ -393,7 +410,27 @@ begin
   if MessageDlg('Deseja excluir os Lotes/Talões selecionados?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
 
-  vNumOrdemAux := InputBox('Exclusão dos Lotes/Talões','Informe o número do controle: ', '');
+  //Foi alterado para excluir os lotes, vai excluir o lote selecionado e não mais informar o número da OP.
+  fDMCadLote.cdsConsulta_Lote_Ped.First;
+  while not fDMCadLote.cdsConsulta_Lote_Ped.Eof do
+  begin
+    if SMDBGrid3.SelectedRows.CurrentRowSelected then
+    begin
+      if (fDMCadLote.cdsConsulta_Lote_PedDTENTRADA.AsDateTime > 10) or (fDMCadLote.cdsConsulta_Lote_PedDTBAIXA.AsDateTime > 10) then
+        MessageDlg('*** Nº OP ' + fDMCadLote.cdsConsulta_Lote_PedNUM_LOTE.AsString + ', esta com movimentação de Dt. Entrada/Baixa' , mtInformation, [mbOk], 0)
+      else
+      begin
+        fDMCadLote.prc_Localizar(fDMCadLote.cdsConsulta_Lote_PedID.AsInteger);
+        fDMCadLote.prc_Excluir;
+      end;
+    end;
+    fDMCadLote.cdsConsulta_Lote_Ped.Next;
+  end;
+  btnConsultarClick(Sender);
+  //exit;
+  //*****************
+
+  {vNumOrdemAux := InputBox('Exclusão dos Lotes/Talões','Informe o número do controle: ', '');
   vNumOrdemAux := Monta_Numero(vNumOrdemAux,0);
   if (trim(vNumOrdemAux) = '') or (vNumOrdemAux = '0') then
     exit;
@@ -441,7 +478,7 @@ begin
   finally
     FreeAndNil(sds);
     btnConsultarClick(Sender);
-  end;
+  end;}
 end;
 
 procedure TfrmGerar_Lote_Ped.RzPageControl2Change(Sender: TObject);
@@ -453,9 +490,9 @@ begin
   begin
     if CurrencyEdit3.AsInteger <= 0 then
     begin
-      fDMCadLote.qProxima_Ordem.Close;
-      fDMCadLote.qProxima_Ordem.Open;
-      CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
+      //fDMCadLote.qProxima_Ordem.Close;
+      //fDMCadLote.qProxima_Ordem.Open;
+      //CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
     end;
   end;
 end;
@@ -770,9 +807,12 @@ begin
 
   if fDMCadLote.vGerado then
   begin
-    fDMCadLote.qProxima_Ordem.Close;
-    fDMCadLote.qProxima_Ordem.Open;
-    CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
+    //fDMCadLote.qProxima_Ordem.Close;
+    //fDMCadLote.qProxima_Ordem.Open;
+    //CurrencyEdit3.AsInteger := fDMCadLote.qProxima_OrdemNUM_ORDEM.AsInteger;
+    prc_Limpar_Var;
+    CurrencyEdit1.AsInteger := vNumLoteIni;
+    CurrencyEdit2.AsInteger := vNumLoteFin;
     RzPageControl2.ActivePage := TS_Consulta;
     btnConsultarClick(Sender);
   end;
@@ -783,6 +823,9 @@ var
   ID: TTransactionDesc;
   sds: TSQLDataSet;
 begin
+  vNumLoteIni := 0;
+  vNumLoteFin := 0;
+
   sds := TSQLDataSet.Create(nil);
   ID.TransactionID  := 1;
   ID.IsolationLevel := xilREADCOMMITTED;
@@ -867,8 +910,23 @@ begin
     vComando :=  vComando + ' AND L.NUM_LOTE >= ' + IntToStr(CurrencyEdit1.AsInteger);
   if CurrencyEdit2.AsInteger > 0 then
     vComando :=  vComando + ' AND L.NUM_LOTE <= ' + IntToStr(CurrencyEdit2.AsInteger);
+  if CurrencyEdit4.AsInteger > 0 then
+    vComando :=  vComando + ' AND PED.NUM_PEDIDO = ' + IntToStr(CurrencyEdit4.AsInteger);
   fDMCadLote.sdsConsulta_Lote_Ped.CommandText := fDMCadLote.sdsConsulta_Lote_Ped.CommandText + vComando;
   fDMCadLote.cdsConsulta_Lote_Ped.Open;
+end;
+
+procedure TfrmGerar_Lote_Ped.SMDBGrid3TitleClick(Column: TColumn);
+var
+  i: Integer;
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMCadLote.cdsConsulta_Lote_Ped.IndexFieldNames := Column.FieldName;
+  Column.Title.Color := clBtnShadow;
+  for i := 0 to SMDBGrid3.Columns.Count - 1 do
+    if not (SMDBGrid3.Columns.Items[I] = Column) then
+      SMDBGrid3.Columns.Items[I].Title.Color := $00C6FFC6;
 end;
 
 end.

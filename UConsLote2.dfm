@@ -737,10 +737,10 @@ object frmConsLote2: TfrmConsLote2
     Top = 140
     Width = 920
     Height = 393
-    ActivePage = TS_Talao
+    ActivePage = TS_Pedido
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     FixedDimension = 19
     object TS_Talao: TRzTabSheet
@@ -1117,7 +1117,7 @@ object frmConsLote2: TfrmConsLote2
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 16
+        ColCount = 17
         RowCount = 2
         Columns = <
           item
@@ -1151,12 +1151,13 @@ object frmConsLote2: TfrmConsLote2
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
-            FieldName = 'OBS_PED'
+            FieldName = 'NUM_PEDIDO'
             Title.Alignment = taCenter
-            Title.Caption = 'N'#186' Pedido Cliente'
+            Title.Caption = 'N'#186' Ped. Interno'
             Title.Color = 12058551
-            Width = 144
+            Width = 71
             Visible = True
           end
           item
@@ -1268,6 +1269,15 @@ object frmConsLote2: TfrmConsLote2
             Title.Caption = 'N'#186' Controle'
             Title.Color = 12058551
             Width = 62
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'OBS_PED'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Pedido Cliente'
+            Title.Color = 12058551
+            Width = 144
             Visible = True
           end>
       end

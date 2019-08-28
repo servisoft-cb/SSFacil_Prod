@@ -270,21 +270,21 @@ object fMenu: TfMenu
       Wrap = True
       OnClick = tbGerarLoteClick
     end
-    object tbConsultaLote: TToolButton
-      Left = 0
-      Top = 70
-      Caption = 'Consulta Lote'
-      ImageIndex = 17
-      Wrap = True
-      OnClick = tbConsultaLoteClick
-    end
     object tbBaixarLote: TToolButton
       Left = 0
-      Top = 138
+      Top = 70
       Caption = 'Baixar Lote'
       ImageIndex = 16
       Wrap = True
       OnClick = tbBaixarLoteClick
+    end
+    object tbConsultaLote: TToolButton
+      Left = 0
+      Top = 138
+      Caption = 'Consulta Lote'
+      ImageIndex = 17
+      Wrap = True
+      OnClick = tbConsultaLoteClick
     end
     object tbBaixaGeral: TToolButton
       Left = 0

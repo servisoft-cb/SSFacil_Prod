@@ -1109,6 +1109,7 @@ type
     sdsLoteID_MOVESTOQUE: TIntegerField;
     cdsLoteID_MOVESTOQUE: TIntegerField;
     cdsPendenteTIPO_ALGODAO_PROD: TStringField;
+    cdsConsulta_Lote_PedNUM_PEDIDO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1202,6 +1203,9 @@ procedure TDMCadLote.prc_Excluir;
 begin
   if not(cdsLote.Active) or (cdsLote.IsEmpty) then
     exit;
+  cdsLote_Ped.First;
+  while not cdsLote_Ped.Eof do
+    cdsLote_Ped.Delete;
   cdsLote.Delete;
   cdsLote.ApplyUpdates(0);
 end;

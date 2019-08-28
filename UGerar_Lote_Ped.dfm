@@ -214,7 +214,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           VerticalPosition = vpTop
         end
         object NxLabel6: TNxLabel
-          Left = 72
+          Left = 56
           Top = 64
           Width = 35
           Height = 13
@@ -228,7 +228,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           VerticalPosition = vpTop
         end
         object NxLabel7: TNxLabel
-          Left = 53
+          Left = 36
           Top = 46
           Width = 55
           Height = 13
@@ -257,12 +257,12 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           VerticalPosition = vpTop
         end
         object Label1: TLabel
-          Left = 4
+          Left = 204
           Top = 8
-          Width = 104
+          Width = 57
           Height = 13
           Alignment = taRightJustify
-          Caption = 'N'#186' OC Pedido Cliente:'
+          Caption = 'Ped.Cliente:'
         end
         object NxLabel1: TNxLabel
           Left = 382
@@ -280,7 +280,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           VerticalPosition = vpTop
         end
         object NxLabel4: TNxLabel
-          Left = 54
+          Left = 38
           Top = 28
           Width = 53
           Height = 13
@@ -295,7 +295,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           VerticalPosition = vpTop
         end
         object NxLabel5: TNxLabel
-          Left = 215
+          Left = 236
           Top = 28
           Width = 25
           Height = 13
@@ -352,6 +352,21 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           InnerMargins.Vertical = 2
           VerticalPosition = vpTop
         end
+        object NxLabel11: TNxLabel
+          Left = 33
+          Top = 8
+          Width = 58
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Ped.Interno:'
+          Transparent = False
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
         object DateEdit1: TDateEdit
           Left = 437
           Top = 2
@@ -360,7 +375,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 5
+          TabOrder = 6
         end
         object DateEdit2: TDateEdit
           Left = 570
@@ -370,16 +385,16 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 6
+          TabOrder = 7
         end
         object cbxOpcao: TNxComboBox
-          Left = 109
+          Left = 93
           Top = 57
           Width = 156
           Height = 21
           Cursor = crArrow
           BevelOuter = bvSpace
-          TabOrder = 4
+          TabOrder = 5
           Text = 'Ambos'
           ReadOnly = True
           HideFocus = False
@@ -462,7 +477,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 11
+          TabOrder = 12
           Transparent = True
           OnClick = btnConsultarClick
         end
@@ -476,44 +491,31 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           DecimalPlaces = 0
           DisplayFormat = '0'
           ParentCtl3D = False
-          TabOrder = 10
+          TabOrder = 11
           OnKeyDown = CurrencyEdit3KeyDown
         end
         object Edit1: TEdit
-          Left = 109
+          Left = 263
           Top = 2
-          Width = 233
+          Width = 100
           Height = 19
           CharCase = ecUpperCase
           Ctl3D = False
           ParentCtl3D = False
-          TabOrder = 0
+          TabOrder = 1
         end
         object Edit2: TEdit
-          Left = 109
+          Left = 93
           Top = 40
           Width = 156
           Height = 19
           CharCase = ecUpperCase
           Ctl3D = False
           ParentCtl3D = False
-          TabOrder = 3
+          TabOrder = 4
         end
         object CurrencyEdit1: TCurrencyEdit
-          Left = 109
-          Top = 20
-          Width = 100
-          Height = 21
-          AutoSize = False
-          Ctl3D = False
-          DecimalPlaces = 0
-          DisplayFormat = '0'
-          ParentCtl3D = False
-          TabOrder = 1
-          OnKeyDown = CurrencyEdit3KeyDown
-        end
-        object CurrencyEdit2: TCurrencyEdit
-          Left = 242
+          Left = 93
           Top = 20
           Width = 100
           Height = 21
@@ -525,6 +527,19 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           TabOrder = 2
           OnKeyDown = CurrencyEdit3KeyDown
         end
+        object CurrencyEdit2: TCurrencyEdit
+          Left = 263
+          Top = 20
+          Width = 100
+          Height = 21
+          AutoSize = False
+          Ctl3D = False
+          DecimalPlaces = 0
+          DisplayFormat = '0'
+          ParentCtl3D = False
+          TabOrder = 3
+          OnKeyDown = CurrencyEdit3KeyDown
+        end
         object DateEdit3: TDateEdit
           Left = 437
           Top = 20
@@ -533,7 +548,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 7
+          TabOrder = 8
         end
         object DateEdit4: TDateEdit
           Left = 570
@@ -543,7 +558,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 8
+          TabOrder = 9
         end
         object Edit3: TEdit
           Left = 437
@@ -553,7 +568,20 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           CharCase = ecUpperCase
           Ctl3D = False
           ParentCtl3D = False
-          TabOrder = 9
+          TabOrder = 10
+        end
+        object CurrencyEdit4: TCurrencyEdit
+          Left = 93
+          Top = 0
+          Width = 100
+          Height = 21
+          AutoSize = False
+          Ctl3D = False
+          DecimalPlaces = 0
+          DisplayFormat = '0'
+          ParentCtl3D = False
+          TabOrder = 0
+          OnKeyDown = CurrencyEdit3KeyDown
         end
       end
       object RzPageControl1: TRzPageControl
@@ -797,6 +825,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             TitleFont.Height = -11
             TitleFont.Name = 'MS Sans Serif'
             TitleFont.Style = []
+            OnTitleClick = SMDBGrid3TitleClick
             Flat = True
             BandsFont.Charset = DEFAULT_CHARSET
             BandsFont.Color = clWindowText
@@ -815,7 +844,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 16
+            ColCount = 17
             RowCount = 2
             Columns = <
               item
@@ -868,11 +897,11 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
               item
                 Alignment = taCenter
                 Expanded = False
-                FieldName = 'OBS_PED'
+                FieldName = 'NUM_PEDIDO'
                 Title.Alignment = taCenter
-                Title.Caption = 'N'#186' Pedido Cliente'
+                Title.Caption = 'N'#186' Ped. Interno'
                 Title.Color = 13041606
-                Width = 109
+                Width = 71
                 Visible = True
               end
               item
@@ -964,6 +993,16 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
                 Title.Caption = 'N'#186' Controle'
                 Title.Color = 13041606
                 Width = 57
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'OBS_PED'
+                Title.Alignment = taCenter
+                Title.Caption = 'N'#186' Pedido Cliente'
+                Title.Color = 13041606
+                Width = 109
                 Visible = True
               end>
           end
@@ -1455,7 +1494,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           ParentFont = False
         end
         object btnGerarAuxiliar: TNxButton
-          Left = 11
+          Left = 10
           Top = 2
           Width = 190
           Height = 30

@@ -13,7 +13,7 @@ object DMCadLote: TDMCadLote
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 112
-    Top = 8
+    Top = 11
     object sdsLoteID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -726,8 +726,8 @@ object DMCadLote: TDMCadLote
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 456
-    Top = 16
+    Left = 455
+    Top = 17
   end
   object dspPendente: TDataSetProvider
     DataSet = sdsPendente
@@ -5676,11 +5676,11 @@ object DMCadLote: TDMCadLote
       'e NOME_COMBINACAO, L.obs_ped, L.obs,'#13#10'CLI.nome NOME_CLIENTE, L.u' +
       'nidade UNIDADE_TALAO,'#13#10'CLI.fantasia FANTASIA_CLIENTE,'#13#10'IT.qtd_re' +
       'stante QTD_NAOFATURADO, L.qtd, L.dtentrada, L.dtbaixa,'#13#10'L.hrentr' +
-      'ada, L.hrbaixa'#13#10'FROM LOTE L'#13#10'LEFT JOIN PEDIDO_ITEM IT'#13#10'ON L.ID_P' +
-      'EDIDO = IT.ID'#13#10'AND L.ITEM_PEDIDO = IT.ITEM'#13#10'INNER JOIN FILIAL FI' +
-      'L'#13#10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN combinacao COMB'#13#10'ON L.id_comb' +
-      'inacao = COMB.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.id_cliente = CLI.co' +
-      'digo'#13#10
+      'ada, L.hrbaixa, PED.num_pedido'#13#10'FROM LOTE L'#13#10'LEFT JOIN PEDIDO_IT' +
+      'EM IT'#13#10'ON L.ID_PEDIDO = IT.ID'#13#10'AND L.ITEM_PEDIDO = IT.ITEM'#13#10'INNE' +
+      'R JOIN PEDIDO PED'#13#10'ON IT.ID = PED.ID'#13#10'INNER JOIN FILIAL FIL'#13#10'ON ' +
+      'L.FILIAL = FIL.ID'#13#10'LEFT JOIN combinacao COMB'#13#10'ON L.id_combinacao' +
+      ' = COMB.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.id_cliente = CLI.codigo'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5783,6 +5783,9 @@ object DMCadLote: TDMCadLote
     end
     object cdsConsulta_Lote_PedHRBAIXA: TTimeField
       FieldName = 'HRBAIXA'
+    end
+    object cdsConsulta_Lote_PedNUM_PEDIDO: TIntegerField
+      FieldName = 'NUM_PEDIDO'
     end
   end
   object dsConsulta_Lote_Ped: TDataSource
