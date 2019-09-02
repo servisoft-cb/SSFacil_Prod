@@ -1,8 +1,8 @@
 object frmConsLote_Calc: TfrmConsLote_Calc
-  Left = -1374
-  Top = 47
-  Width = 1382
-  Height = 744
+  Left = 20
+  Top = 30
+  Width = 1338
+  Height = 679
   Caption = 'Consulta Lotes e Processos  (frmConsLote_Calc)'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1366
+    Width = 1330
     Height = 113
     Align = alTop
     Color = clSilver
@@ -155,28 +155,28 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       VerticalPosition = vpTop
     end
     object Shape4: TShape
-      Left = 784
+      Left = 960
       Top = 90
       Width = 32
       Height = 17
       Brush.Color = 7864183
     end
     object Label4: TLabel
-      Left = 819
+      Left = 995
       Top = 93
       Width = 79
       Height = 13
       Caption = 'Tal'#227'o Encerrado'
     end
     object Shape6: TShape
-      Left = 784
+      Left = 960
       Top = 74
       Width = 32
       Height = 17
       Brush.Color = 16777145
     end
     object Label6: TLabel
-      Left = 819
+      Left = 995
       Top = 77
       Width = 93
       Height = 13
@@ -489,16 +489,34 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       TabOrder = 12
       Visible = False
     end
+    object btnOpcao: TNxButton
+      Left = 749
+      Top = 75
+      Width = 153
+      Height = 30
+      Caption = 'Op'#231#245'es'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Verdana'
+      Font.Style = []
+      GlyphSpacing = 5
+      ParentFont = False
+      PopupMenu = PopupMenu1
+      ShowArrow = True
+      TabOrder = 13
+      Transparent = True
+    end
   end
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 113
-    Width = 1366
-    Height = 592
-    ActivePage = TS_Setor
+    Width = 1330
+    Height = 535
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -507,8 +525,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1362
-        Height = 569
+        Width = 1326
+        Height = 495
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsulta_Lote
@@ -521,6 +539,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
+        OnKeyDown = SMDBGrid1KeyDown
         OnTitleClick = SMDBGrid1TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
@@ -733,14 +752,29 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Visible = True
           end>
       end
+      object StaticText1: TStaticText
+        Left = 0
+        Top = 495
+        Width = 1326
+        Height = 17
+        Align = alBottom
+        Caption = 'F3= Alterar Data'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+      end
     end
     object TS_Processo: TRzTabSheet
       Caption = 'Processos'
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1362
-        Height = 569
+        Width = 1326
+        Height = 512
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsProcesso
@@ -950,8 +984,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1362
-        Height = 569
+        Width = 1326
+        Height = 512
         ActivePage = TS_Setor_Dados
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
@@ -963,8 +997,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1358
-            Height = 546
+            Width = 1322
+            Height = 489
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor
@@ -1112,8 +1146,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           object SMDBGrid4: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1358
-            Height = 376
+            Width = 1322
+            Height = 319
             Align = alClient
             Ctl3D = False
             DataSource = DMLoteImp_Calc.dsConsTalao_Setor_Ref
@@ -1209,8 +1243,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
           end
           object SMDBGrid6: TSMDBGrid
             Left = 0
-            Top = 376
-            Width = 1358
+            Top = 319
+            Width = 1322
             Height = 170
             Align = alBottom
             Ctl3D = False
@@ -1309,8 +1343,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Caption = 'Por Produto'
       object Panel3: TPanel
         Left = 0
-        Top = 540
-        Width = 1362
+        Top = 483
+        Width = 1326
         Height = 29
         Align = alBottom
         Color = 11842740
@@ -1414,7 +1448,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 1362
+        Width = 1326
         Height = 26
         Align = alTop
         Color = clSilver
@@ -1441,8 +1475,8 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       object SMDBGrid5: TSMDBGrid
         Left = 0
         Top = 26
-        Width = 1362
-        Height = 514
+        Width = 1326
+        Height = 457
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsTalao_Ref
@@ -1516,6 +1550,21 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Visible = True
           end>
       end
+    end
+  end
+  object UCControls1: TUCControls
+    GroupName = 'Consulta Lotes (Cal'#231'ados)'
+    UserControl = fMenu.UserControl1
+    NotAllowed = naDisabled
+    Left = 782
+    Top = 238
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 942
+    Top = 208
+    object AlterarData1: TMenuItem
+      Caption = 'Alterar Data'
+      OnClick = AlterarData1Click
     end
   end
 end

@@ -108,7 +108,8 @@ uses
   uNFeConsts in '..\ssfacil\uNFeConsts.pas',
   UConsProdutoNCM in '..\ssfacil\UConsProdutoNCM.pas' {frmConsProdutoNCM},
   UDMConsProduto in '..\ssfacil\UDMConsProduto.pas' {DMConsProduto: TDataModule},
-  UAltCFOPProd in '..\ssfacil\UAltCFOPProd.pas' {frmAltCFOPProd};
+  UAltCFOPProd in '..\ssfacil\UAltCFOPProd.pas' {frmAltCFOPProd},
+  UAlteraData in 'UAlteraData.pas' {frmAlteraData};
 
 {$R *.res}
 

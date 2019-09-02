@@ -4908,4 +4908,103 @@ object DMCadLote_Calc: TDMCadLote_Calc
     Left = 376
     Top = 16
   end
+  object sdsTalao_Estoque: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select T.*'#13#10'from TALAO_ESTOQUE T'#13#10'where T.ID_LOTE = :ID_LOTE and' +
+      #13#10'      T.NUM_TALAO = :NUM_TALAO and'#13#10'      T.ID_SETOR = :ID_SET' +
+      'OR and'#13#10'      T.DATA = :DATA   '
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_LOTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'NUM_TALAO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_SETOR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DATA'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 603
+    Top = 472
+    object sdsTalao_EstoqueID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsTalao_EstoqueID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object sdsTalao_EstoqueNUM_TALAO: TIntegerField
+      FieldName = 'NUM_TALAO'
+    end
+    object sdsTalao_EstoqueID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object sdsTalao_EstoqueQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsTalao_EstoqueID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object sdsTalao_EstoqueDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object sdsTalao_EstoqueID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
+  end
+  object dspTalao_Estoque: TDataSetProvider
+    DataSet = sdsTalao_Estoque
+    UpdateMode = upWhereKeyOnly
+    OnGetTableName = dspTalao_EstoqueGetTableName
+    Left = 642
+    Top = 471
+  end
+  object cdsTalao_Estoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspTalao_Estoque'
+    Left = 681
+    Top = 472
+    object cdsTalao_EstoqueID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTalao_EstoqueID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
+    object cdsTalao_EstoqueNUM_TALAO: TIntegerField
+      FieldName = 'NUM_TALAO'
+    end
+    object cdsTalao_EstoqueID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsTalao_EstoqueQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsTalao_EstoqueID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsTalao_EstoqueDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object cdsTalao_EstoqueID_SETOR2: TIntegerField
+      FieldName = 'ID_SETOR2'
+    end
+  end
 end

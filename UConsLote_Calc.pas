@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMLoteImp_Calc, DBVGrids, DBGrids,
   Grids, SMDBGrid, StdCtrls, NxCollection, RxLookup, NxEdit, CurrEdit, Mask, ToolEdit, ExtCtrls, RzTabs, DB,
-  TeEngine, Series, TeeProcs, Chart, DbChart, DBCtrls;
+  TeEngine, Series, TeeProcs, Chart, DbChart, DBCtrls, UCBase, Menus;
 
 type
   TfrmConsLote_Calc = class(TForm)
@@ -66,6 +66,11 @@ type
     Label5: TLabel;
     DBText4: TDBText;
     SMDBGrid6: TSMDBGrid;
+    btnOpcao: TNxButton;
+    UCControls1: TUCControls;
+    PopupMenu1: TPopupMenu;
+    AlterarData1: TMenuItem;
+    StaticText1: TStaticText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -81,6 +86,9 @@ type
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure SMDBGrid4TitleClick(Column: TColumn);
+    procedure AlterarData1Click(Sender: TObject);
+    procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMLoteImp_Calc: TDMLoteImp_Calc;
@@ -101,7 +109,8 @@ var
 
 implementation
 
-uses rsDBUtils, USel_Pessoa, uUtilPadrao, Math, USel_Produto, StrUtils;
+uses rsDBUtils, USel_Pessoa, uUtilPadrao, Math, USel_Produto, StrUtils,
+  UAlteraData;
 
 {$R *.dfm}
 
@@ -649,6 +658,47 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.EnableControls;
   end;
 
+end;
+
+procedure TfrmConsLote_Calc.AlterarData1Click(Sender: TObject);
+var
+  vNum_LoteAux, vNum_TalaoAux, vItemAux : Integer;
+begin
+  if not(fDMLoteImp_Calc.cdsConsulta_Lote.Active) or (fDMLoteImp_Calc.cdsConsulta_Lote.IsEmpty) then
+    exit;
+
+  if fDMLoteImp_Calc.cdsConsulta_LoteDTENTRADA.AsDateTime <= 10 then
+    exit;
+
+  vNum_LoteAux  := fDMLoteImp_Calc.cdsConsulta_LoteNUM_LOTE.AsInteger;
+  vNum_TalaoAux := fDMLoteImp_Calc.cdsConsulta_LoteNUM_TALAO.AsInteger;
+  vItemAux      := fDMLoteImp_Calc.cdsConsulta_LoteITEM.AsInteger;
+
+  frmAlteraData := TfrmAlteraData.Create(self);
+  frmAlteraData.Label8.Caption := fDMLoteImp_Calc.cdsConsulta_LoteNOME_SETOR.AsString;
+  frmAlteraData.DateEdit1.Date := fDMLoteImp_Calc.cdsConsulta_LoteDTENTRADA.AsDateTime;
+  frmAlteraData.DateEdit2.Date := fDMLoteImp_Calc.cdsConsulta_LoteDTSAIDA.AsDateTime;
+  frmAlteraData.RzDateTimeEdit1.Time := fDMLoteImp_Calc.cdsConsulta_LoteHRENTRADA.AsDateTime;
+  frmAlteraData.RzDateTimeEdit2.Time := fDMLoteImp_Calc.cdsConsulta_LoteHRSAIDA.AsDateTime;
+  frmAlteraData.Label8.Caption := fDMLoteImp_Calc.cdsConsulta_LoteNOME_SETOR.AsString;
+  frmAlteraData.vID_Lote_Loc   := fDMLoteImp_Calc.cdsConsulta_LoteID.AsInteger;
+  frmAlteraData.vNum_Lote_Loc  := fDMLoteImp_Calc.cdsConsulta_LoteNUM_LOTE.AsInteger;
+  frmAlteraData.vNum_Talao_Loc := fDMLoteImp_Calc.cdsConsulta_LoteNUM_TALAO.AsInteger;
+  frmAlteraData.vItem_Loc      := fDMLoteImp_Calc.cdsConsulta_LoteITEM.AsInteger;
+  frmAlteraData.vID_Setor_Loc  := fDMLoteImp_Calc.cdsConsulta_LoteID_SETOR.AsInteger;
+  frmAlteraData.ShowModal;
+  FreeAndNil(frmAlteraData);
+
+  btnConsTalaoClick(Sender);
+
+  fDMLoteImp_Calc.cdsConsulta_Lote.Locate('NUM_LOTE;NUM_TALAO;ITEM',VarArrayOf([vNum_LoteAux,vNum_TalaoAux,vItemAux]),[locaseinsensitive]);
+end;
+
+procedure TfrmConsLote_Calc.SMDBGrid1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = vk_F3) and (AlterarData1.Enabled) then
+    AlterarData1Click(Sender);
 end;
 
 end.

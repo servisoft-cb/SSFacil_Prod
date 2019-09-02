@@ -904,6 +904,25 @@ type
     cdsConsProcessoID_PRODUTO: TIntegerField;
     cdsConsProcessoID_COMBINACAO: TIntegerField;
     frxConsLoteNovo: TfrxDBDataset;
+    sdsTalao_Estoque: TSQLDataSet;
+    sdsTalao_EstoqueID: TIntegerField;
+    sdsTalao_EstoqueID_LOTE: TIntegerField;
+    sdsTalao_EstoqueNUM_TALAO: TIntegerField;
+    sdsTalao_EstoqueID_SETOR: TIntegerField;
+    sdsTalao_EstoqueQTD: TFloatField;
+    sdsTalao_EstoqueID_MOVESTOQUE: TIntegerField;
+    sdsTalao_EstoqueDATA: TDateField;
+    sdsTalao_EstoqueID_SETOR2: TIntegerField;
+    dspTalao_Estoque: TDataSetProvider;
+    cdsTalao_Estoque: TClientDataSet;
+    cdsTalao_EstoqueID: TIntegerField;
+    cdsTalao_EstoqueID_LOTE: TIntegerField;
+    cdsTalao_EstoqueNUM_TALAO: TIntegerField;
+    cdsTalao_EstoqueID_SETOR: TIntegerField;
+    cdsTalao_EstoqueQTD: TFloatField;
+    cdsTalao_EstoqueID_MOVESTOQUE: TIntegerField;
+    cdsTalao_EstoqueDATA: TDateField;
+    cdsTalao_EstoqueID_SETOR2: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -915,6 +934,8 @@ type
     procedure frxLote_BolNext(Sender: TObject);
     procedure frxLote_BolOpen(Sender: TObject);
     procedure cdsTalao_SetorNewRecord(DataSet: TDataSet);
+    procedure dspTalao_EstoqueGetTableName(Sender: TObject;
+      DataSet: TDataSet; var TableName: String);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -1464,6 +1485,12 @@ begin
   cdsTalao_SetorQTD.AsInteger           := 0;
   cdsTalao_SetorQTD_PENDENTE.AsInteger  := 0;
   cdsTalao_SetorQTD_PRODUZIDO.AsInteger := 0;
+end;
+
+procedure TDMCadLote_Calc.dspTalao_EstoqueGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: String);
+begin
+  TableName := 'TALAO_ESTOQUE';
 end;
 
 end.
