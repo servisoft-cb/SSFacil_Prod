@@ -129,14 +129,20 @@ begin
       fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('id_lote').AsInteger   := vID_Lote_Loc;
       fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('num_talao').AsInteger := vNum_Talao_Loc;
       fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('id_setor').AsInteger  := vID_Setor_Loc;
-      fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('data').AsDate         := vDtSaidaAnt;
+      if vDtSaidaAnt > 10 then
+        fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('data').AsDate := vDtSaidaAnt
+      else
+        fDMCadLote_Calc.sdsTalao_Estoque.ParamByName('data').AsDate := vDtEntradaAnt;
       fDMCadLote_Calc.cdsTalao_Estoque.Open;
 
       fDMCadLote_Calc.cdsTalao_Estoque.First;
       while not fDMCadLote_Calc.cdsTalao_Estoque.Eof do
       begin
         fDMCadLote_Calc.cdsTalao_Estoque.Edit;
-        fDMCadLote_Calc.cdsTalao_EstoqueDATA.AsDateTime := DateEdit2.Date;
+        if DateEdit2.Date > 10 then
+          fDMCadLote_Calc.cdsTalao_EstoqueDATA.AsDateTime := DateEdit2.Date
+        else
+          fDMCadLote_Calc.cdsTalao_EstoqueDATA.AsDateTime := DateEdit1.Date;
         fDMCadLote_Calc.cdsTalao_Estoque.Post;
 
         prc_Alt_DtEstoque(fDMCadLote_Calc.cdsTalao_EstoqueID_MOVESTOQUE.AsInteger);
@@ -172,7 +178,10 @@ begin
   sds.Close;
   sds.CommandText   := 'update estoque_mov e set e.DTMOVIMENTO = :DTMOVIMENTO WHERE ID = :ID ';
 
-  sds.ParamByName('DTMOVIMENTO').AsDate := DateEdit2.Date;
+  if DateEdit2.Date > 10 then
+    sds.ParamByName('DTMOVIMENTO').AsDate := DateEdit2.Date
+  else
+    sds.ParamByName('DTMOVIMENTO').AsDate := DateEdit1.Date;
   sds.ParamByName('ID').AsInteger       := ID;
   sds.ExecSQL;
 end;
