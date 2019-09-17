@@ -334,6 +334,7 @@ type
     cdsConsulta_LoteID_FUNCIONARIO_BAIXA: TIntegerField;
     cdsConsulta_LoteNOME_FUNCIONARIO_ENTRADA: TStringField;
     cdsConsulta_LoteNOME_FUNCIONARIO_BAIXA: TStringField;
+    cdsLote_PedNOME_VENDEDOR_INT: TStringField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
