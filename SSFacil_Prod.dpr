@@ -109,7 +109,8 @@ uses
   UConsProdutoNCM in '..\ssfacil\UConsProdutoNCM.pas' {frmConsProdutoNCM},
   UDMConsProduto in '..\ssfacil\UDMConsProduto.pas' {DMConsProduto: TDataModule},
   UAltCFOPProd in '..\ssfacil\UAltCFOPProd.pas' {frmAltCFOPProd},
-  UAlteraData in 'UAlteraData.pas' {frmAlteraData};
+  UAlteraData in 'UAlteraData.pas' {frmAlteraData},
+  UConsModelo_Custo in 'UConsModelo_Custo.pas' {frmConsModelo_Custo};
 
 {$R *.res}
 

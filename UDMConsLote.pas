@@ -65,6 +65,41 @@ type
     cdsLoteProdutoQTD: TFloatField;
     cdsLoteProdutoREFERENCIA: TStringField;
     cdsLoteProdutoMODELO_COMBINACAO: TStringField;
+    sdsModelo_Setor: TSQLDataSet;
+    dspModelo_Setor: TDataSetProvider;
+    cdsModelo_Setor: TClientDataSet;
+    cdsModelo_SetorID_PRODUTO: TIntegerField;
+    cdsModelo_SetorNOME_MODELO: TStringField;
+    cdsModelo_SetorREFERENCIA: TStringField;
+    cdsModelo_SetorNOME_PRODUTO: TStringField;
+    cdsModelo_SetorID_COMBINACAO: TFMTBCDField;
+    cdsModelo_SetorNOME_COMBINACAO: TStringField;
+    cdsModelo_SetorID_SETOR: TIntegerField;
+    cdsModelo_SetorNOME_SETOR: TStringField;
+    cdsModelo_SetorQTD_PARES: TFloatField;
+    cdsModelo_SetorID_CLIENTE: TIntegerField;
+    cdsModelo_SetorNOME_CLIENTE: TStringField;
+    dsModelo_Setor: TDataSource;
+    sdsSetor: TSQLDataSet;
+    dspSetor: TDataSetProvider;
+    cdsSetor: TClientDataSet;
+    dsSetor: TDataSource;
+    cdsSetorID: TIntegerField;
+    cdsSetorNOME: TStringField;
+    sdsModelo_Mat: TSQLDataSet;
+    dspModelo_Mat: TDataSetProvider;
+    cdsModelo_Mat: TClientDataSet;
+    dsModelo_Mat: TDataSource;
+    cdsModelo_MatORDEM_IMP: TIntegerField;
+    cdsModelo_MatID_PRODUTO: TIntegerField;
+    cdsModelo_MatID_MATERIAL: TIntegerField;
+    cdsModelo_MatNOME_MATERIAL: TStringField;
+    cdsModelo_MatID_SETOR: TIntegerField;
+    cdsModelo_MatID_POSICAO: TIntegerField;
+    cdsModelo_MatNOME_POSICAO: TStringField;
+    cdsModelo_MatNOME_COR_MAT: TStringField;
+    cdsModelo_MatPRECO_CUSTO: TFloatField;
+    cdsModelo_MatQTD_CONSUMO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);
@@ -78,6 +113,7 @@ type
     { Public declarations }
     ctMatLote: String;
     ctLoteProduto: String;
+    ctModelo_Setor : String;
   end;
 
 var
@@ -91,8 +127,9 @@ uses DmdDatabase;
 
 procedure TDMConsLote.DataModuleCreate(Sender: TObject);
 begin
-  ctMatLote := sdsMatLote.CommandText;
-  ctLoteProduto := sdsLoteProduto.CommandText;
+  ctMatLote      := sdsMatLote.CommandText;
+  ctLoteProduto  := sdsLoteProduto.CommandText;
+  ctModelo_Setor := sdsModelo_Setor.CommandText;
   qParametros.Open;
   qParametros_Lote.Open;
   qParametros_Prod.Open;

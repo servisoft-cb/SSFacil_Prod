@@ -436,8 +436,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             'Dt. Entrega:')
         end
         object btnConsultar: TNxButton
-          Left = 340
-          Top = 94
+          Left = 339
+          Top = 93
           Width = 175
           Height = 30
           Caption = 'Efetuar Pesquisa'

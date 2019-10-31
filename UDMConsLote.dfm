@@ -3,7 +3,7 @@ object DMConsLote: TDMConsLote
   OnCreate = DataModuleCreate
   Left = 379
   Top = 144
-  Height = 318
+  Height = 475
   Width = 707
   object qParametros: TSQLQuery
     MaxBlobSize = -1
@@ -387,5 +387,224 @@ object DMConsLote: TDMConsLote
     DataSet = cdsLoteProduto
     Left = 165
     Top = 120
+  end
+  object sdsModelo_Setor: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT p.id id_produto, p.nome_modelo, p.referencia,'#13#10'p.nome nom' +
+      'e_produto, comb.id id_combinacao, comb.nome nome_combinacao,'#13#10's.' +
+      'id id_setor, s.nome nome_setor,  sum(ts.qtd) QTD_PARES,'#13#10'p.id_cl' +
+      'iente, cli.nome nome_cliente'#13#10'FROM lote l'#13#10'inner join produto p'#13 +
+      #10'on l.id_produto = p.id'#13#10'inner join talao t'#13#10'on l.id = t.id'#13#10'inn' +
+      'er join talao_setor ts'#13#10'on t.id = ts.id'#13#10'and t.num_talao = ts.nu' +
+      'm_talao'#13#10'inner join setor s'#13#10'on ts.id_setor = s.id'#13#10'left join co' +
+      'mbinacao comb'#13#10'on l.id_combinacao = comb.id'#13#10'left join pessoa cl' +
+      'i'#13#10'on p.id_cliente = cli.codigo'#13#10'  where s.imp_mat_custo = '#39'S'#39#13#10 +
+      '  and ts.dtsaida between :data1 and :data2'#13#10'  and (ts.id_setor =' +
+      ' :id_setor or :id_setor = 0)'#13#10'group by p.id, p.nome_modelo, p.re' +
+      'ferencia, p.nome, comb.id, comb.nome,'#13#10's.id, s.nome, p.id_client' +
+      'e, cli.nome'#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftDate
+        Name = 'data1'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'data2'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'id_setor'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'id_setor'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 65
+    Top = 222
+  end
+  object dspModelo_Setor: TDataSetProvider
+    DataSet = sdsModelo_Setor
+    Left = 107
+    Top = 221
+  end
+  object cdsModelo_Setor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspModelo_Setor'
+    Left = 148
+    Top = 223
+    object cdsModelo_SetorID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+      Required = True
+    end
+    object cdsModelo_SetorNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
+    object cdsModelo_SetorREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsModelo_SetorNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsModelo_SetorID_COMBINACAO: TFMTBCDField
+      FieldName = 'ID_COMBINACAO'
+      Precision = 15
+      Size = 0
+    end
+    object cdsModelo_SetorNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 60
+    end
+    object cdsModelo_SetorID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+      Required = True
+    end
+    object cdsModelo_SetorNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsModelo_SetorQTD_PARES: TFloatField
+      FieldName = 'QTD_PARES'
+    end
+    object cdsModelo_SetorID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object cdsModelo_SetorNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
+    end
+  end
+  object dsModelo_Setor: TDataSource
+    DataSet = cdsModelo_Setor
+    Left = 190
+    Top = 224
+  end
+  object sdsSetor: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT S.ID, S.NOME'#13#10'FROM SETOR S'#13#10'WHERE IMP_MAT_CUSTO = '#39'S'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 394
+    Top = 281
+  end
+  object dspSetor: TDataSetProvider
+    DataSet = sdsSetor
+    Left = 436
+    Top = 280
+  end
+  object cdsSetor: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspSetor'
+    Left = 478
+    Top = 282
+    object cdsSetorID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsSetorNOME: TStringField
+      FieldName = 'NOME'
+    end
+  end
+  object dsSetor: TDataSource
+    DataSet = cdsSetor
+    Left = 520
+    Top = 283
+  end
+  object sdsModelo_Mat: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select ps.ordem_imp, P.ID ID_PRODUTO, cmat.id_material, mat.nome' +
+      ' nome_material, cmat.id_setor,'#13#10'cmat.id_posicao, ps.nome nome_po' +
+      'sicao, cormat.nome nome_cor_mat,'#13#10'case'#13#10'  when coalesce(cormat.p' +
+      'reco_custo,0) > 0 then cormat.preco_custo'#13#10'  else mat.preco_cust' +
+      'o'#13#10'  end preco_custo, cmat.qtd_consumo'#13#10#13#10'from produto p'#13#10'INNER ' +
+      'JOIN PRODUTO_COMB COMB'#13#10'ON p.id = comb.id'#13#10'inner join produto_co' +
+      'mb_mat cmat'#13#10'on comb.id = cmat.id'#13#10'and comb.item = cmat.item'#13#10'in' +
+      'ner join produto mat'#13#10'on cmat.id_material = mat.id'#13#10'left join po' +
+      'sicao ps'#13#10'on cmat.id_posicao = ps.id'#13#10'left join produto_comb Cor' +
+      'Mat'#13#10'on cmat.id_material = cormat.id'#13#10'and cmat.id_cor = cormat.i' +
+      'd_cor_combinacao'#13#10'where p.id = :id_produto'#13#10'  and cmat.id_setor ' +
+      '= :id_setor'#13#10'order by coalesce(ps.ordem_imp,99), ps.nome'#13#10#13#10#13#10#13#10 +
+      #13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'id_produto'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'id_setor'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 144
+    Top = 307
+  end
+  object dspModelo_Mat: TDataSetProvider
+    DataSet = sdsModelo_Mat
+    Left = 189
+    Top = 306
+  end
+  object cdsModelo_Mat: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspModelo_Mat'
+    Left = 229
+    Top = 308
+    object cdsModelo_MatORDEM_IMP: TIntegerField
+      FieldName = 'ORDEM_IMP'
+    end
+    object cdsModelo_MatID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+      Required = True
+    end
+    object cdsModelo_MatID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsModelo_MatNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsModelo_MatID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsModelo_MatID_POSICAO: TIntegerField
+      FieldName = 'ID_POSICAO'
+    end
+    object cdsModelo_MatNOME_POSICAO: TStringField
+      FieldName = 'NOME_POSICAO'
+      Size = 30
+    end
+    object cdsModelo_MatNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 50
+    end
+    object cdsModelo_MatPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
+    object cdsModelo_MatQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+  end
+  object dsModelo_Mat: TDataSource
+    DataSet = cdsModelo_Mat
+    Left = 271
+    Top = 309
   end
 end
