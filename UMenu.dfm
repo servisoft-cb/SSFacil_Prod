@@ -24,8 +24,8 @@ object fMenu: TfMenu
   OnCreate = FormCreate
   OnShow = FormShow
   DesignSize = (
-    829
-    634)
+    821
+    626)
   PixelsPerInch = 96
   TextHeight = 13
   object Image2: TImage
@@ -253,7 +253,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 85
-    Height = 634
+    Height = 626
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -431,6 +431,10 @@ object fMenu: TfMenu
       object ConsultaMateriaisTingimento1: TMenuItem
         Caption = 'Consulta Materiais Tingimento'
         OnClick = ConsultaMateriaisTingimento1Click
+      end
+      object ConsultaCustoMaterialpModelo1: TMenuItem
+        Caption = 'Consulta Custo Material p/Modelo'
+        OnClick = ConsultaCustoMaterialpModelo1Click
       end
     end
     object N19: TMenuItem

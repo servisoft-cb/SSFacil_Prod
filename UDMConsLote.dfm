@@ -263,8 +263,8 @@ object DMConsLote: TDMConsLote
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 43485.488944282410000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 43769.668638414350000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -344,7 +344,7 @@ object DMConsLote: TDMConsLote
       'Qtd_Consumo=Qtd_Consumo')
     DataSource = dsmMatGrade
     BCDToCurrency = False
-    Left = 552
+    Left = 536
     Top = 199
   end
   object sdsLoteProduto: TSQLDataSet
@@ -392,39 +392,40 @@ object DMConsLote: TDMConsLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT p.id id_produto, p.nome_modelo, p.referencia,'#13#10'p.nome nom' +
-      'e_produto, comb.id id_combinacao, comb.nome nome_combinacao,'#13#10's.' +
-      'id id_setor, s.nome nome_setor,  sum(ts.qtd) QTD_PARES,'#13#10'p.id_cl' +
-      'iente, cli.nome nome_cliente'#13#10'FROM lote l'#13#10'inner join produto p'#13 +
-      #10'on l.id_produto = p.id'#13#10'inner join talao t'#13#10'on l.id = t.id'#13#10'inn' +
-      'er join talao_setor ts'#13#10'on t.id = ts.id'#13#10'and t.num_talao = ts.nu' +
-      'm_talao'#13#10'inner join setor s'#13#10'on ts.id_setor = s.id'#13#10'left join co' +
-      'mbinacao comb'#13#10'on l.id_combinacao = comb.id'#13#10'left join pessoa cl' +
-      'i'#13#10'on p.id_cliente = cli.codigo'#13#10'  where s.imp_mat_custo = '#39'S'#39#13#10 +
-      '  and ts.dtsaida between :data1 and :data2'#13#10'  and (ts.id_setor =' +
-      ' :id_setor or :id_setor = 0)'#13#10'group by p.id, p.nome_modelo, p.re' +
-      'ferencia, p.nome, comb.id, comb.nome,'#13#10's.id, s.nome, p.id_client' +
-      'e, cli.nome'#13#10#13#10#13#10#13#10
+      'select P.ID ID_PRODUTO, P.NOME_MODELO, P.REFERENCIA, P.NOME NOME' +
+      '_PRODUTO, COMB.ID ID_COMBINACAO,'#13#10'       COMB.NOME NOME_COMBINAC' +
+      'AO, S.ID ID_SETOR, S.NOME NOME_SETOR, sum(TS.QTD) QTD_PARES, P.I' +
+      'D_CLIENTE,'#13#10'       CLI.NOME NOME_CLIENTE, cast(0 as float) TEMPO' +
+      ', cast(0 as float) VLR_HORA'#13#10'from LOTE L'#13#10'inner join PRODUTO P o' +
+      'n L.ID_PRODUTO = P.ID'#13#10'inner join TALAO T on L.ID = T.ID'#13#10'inner ' +
+      'join TALAO_SETOR TS on T.ID = TS.ID and T.NUM_TALAO = TS.NUM_TAL' +
+      'AO'#13#10'inner join SETOR S on TS.ID_SETOR = S.ID'#13#10'left join COMBINAC' +
+      'AO COMB on L.ID_COMBINACAO = COMB.ID'#13#10'left join PESSOA CLI on P.' +
+      'ID_CLIENTE = CLI.CODIGO'#13#10'where S.IMP_MAT_CUSTO = '#39'S'#39' and'#13#10'      ' +
+      'TS.DTSAIDA between :DATA1 and :DATA2 and'#13#10'      (TS.ID_SETOR = :' +
+      'ID_SETOR or :ID_SETOR = 0)'#13#10'group by P.ID, P.NOME_MODELO, P.REFE' +
+      'RENCIA, P.NOME, COMB.ID, COMB.NOME, S.ID, S.NOME, P.ID_CLIENTE, ' +
+      'CLI.NOME  '
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftDate
-        Name = 'data1'
+        Name = 'DATA1'
         ParamType = ptInput
       end
       item
         DataType = ftDate
-        Name = 'data2'
+        Name = 'DATA2'
         ParamType = ptInput
       end
       item
         DataType = ftInteger
-        Name = 'id_setor'
+        Name = 'ID_SETOR'
         ParamType = ptInput
       end
       item
         DataType = ftInteger
-        Name = 'id_setor'
+        Name = 'ID_SETOR'
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
@@ -440,6 +441,7 @@ object DMConsLote: TDMConsLote
     Aggregates = <>
     Params = <>
     ProviderName = 'dspModelo_Setor'
+    OnCalcFields = cdsModelo_SetorCalcFields
     Left = 148
     Top = 223
     object cdsModelo_SetorID_PRODUTO: TIntegerField
@@ -465,6 +467,24 @@ object DMConsLote: TDMConsLote
     object cdsModelo_SetorNOME_COMBINACAO: TStringField
       FieldName = 'NOME_COMBINACAO'
       Size = 60
+    end
+    object cdsModelo_SetorTEMPO: TFloatField
+      FieldName = 'TEMPO'
+      Required = True
+      DisplayFormat = '##0.00'
+      EditFormat = '##0.00'
+    end
+    object cdsModelo_SetorVLR_HORA: TFloatField
+      FieldName = 'VLR_HORA'
+      Required = True
+      DisplayFormat = '##0.00'
+      EditFormat = '##0.00'
+    end
+    object cdsModelo_Setorcl_Vlr_Total: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'cl_Vlr_Total'
+      DisplayFormat = '##0.00'
+      Calculated = True
     end
     object cdsModelo_SetorID_SETOR: TIntegerField
       FieldName = 'ID_SETOR'
@@ -565,6 +585,7 @@ object DMConsLote: TDMConsLote
     Aggregates = <>
     Params = <>
     ProviderName = 'dspModelo_Mat'
+    OnCalcFields = cdsModelo_MatCalcFields
     Left = 229
     Top = 308
     object cdsModelo_MatORDEM_IMP: TIntegerField
@@ -601,10 +622,60 @@ object DMConsLote: TDMConsLote
     object cdsModelo_MatQTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
     end
+    object cdsModelo_Matcl_Vlr_Total: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'cl_Vlr_Total'
+      Calculated = True
+    end
   end
   object dsModelo_Mat: TDataSource
     DataSet = cdsModelo_Mat
     Left = 271
     Top = 309
+  end
+  object frxModeloSetor: TfrxDBDataset
+    UserName = 'frxModeloSetor'
+    OnFirst = frxModeloSetorFirst
+    OnNext = frxModeloSetorNext
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_PRODUTO=ID_PRODUTO'
+      'NOME_MODELO=NOME_MODELO'
+      'REFERENCIA=REFERENCIA'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'ID_COMBINACAO=ID_COMBINACAO'
+      'NOME_COMBINACAO=NOME_COMBINACAO'
+      'TEMPO=TEMPO'
+      'VLR_HORA=VLR_HORA'
+      'cl_Vlr_Total=cl_Vlr_Total'
+      'ID_SETOR=ID_Setor'
+      'NOME_SETOR=NOME_SETOR'
+      'QTD_PARES=QTD_PARES'
+      'ID_CLIENTE=ID_CLIENTE'
+      'NOME_CLIENTE=NOME_CLIENTE')
+    DataSource = dsModelo_Setor
+    BCDToCurrency = False
+    Left = 576
+    Top = 255
+  end
+  object frxModelo_Mat: TfrxDBDataset
+    UserName = 'frxModelo_Mat'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ORDEM_IMP=ORDEM_IMP'
+      'ID_PRODUTO=ID_PRODUTO'
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'ID_SETOR=ID_Setor'
+      'ID_POSICAO=ID_POSICAO'
+      'NOME_POSICAO=NOME_POSICAO'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'PRECO_CUSTO=PRECO_CUSTO'
+      'QTD_CONSUMO=QTD_CONSUMO'
+      'cl_Vlr_Total=cl_Vlr_Total')
+    DataSource = dsModelo_Mat
+    BCDToCurrency = False
+    Left = 624
+    Top = 255
   end
 end

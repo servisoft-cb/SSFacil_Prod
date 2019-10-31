@@ -100,12 +100,22 @@ type
     cdsModelo_MatNOME_COR_MAT: TStringField;
     cdsModelo_MatPRECO_CUSTO: TFloatField;
     cdsModelo_MatQTD_CONSUMO: TFloatField;
+    cdsModelo_Setorcl_Vlr_Total: TFloatField;
+    cdsModelo_SetorTEMPO: TFloatField;
+    cdsModelo_SetorVLR_HORA: TFloatField;
+    frxModeloSetor: TfrxDBDataset;
+    frxModelo_Mat: TfrxDBDataset;
+    cdsModelo_Matcl_Vlr_Total: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);
     procedure frxmMatFirst(Sender: TObject);
     procedure frxmMatNext(Sender: TObject);
     procedure frxmMatOpen(Sender: TObject);
+    procedure cdsModelo_SetorCalcFields(DataSet: TDataSet);
+    procedure frxModeloSetorFirst(Sender: TObject);
+    procedure frxModeloSetorNext(Sender: TObject);
+    procedure cdsModelo_MatCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     procedure prc_Filtrar_MatGrade;
@@ -166,6 +176,34 @@ end;
 procedure TDMConsLote.frxmMatOpen(Sender: TObject);
 begin
   prc_Filtrar_MatGrade;
+end;
+
+procedure TDMConsLote.cdsModelo_SetorCalcFields(DataSet: TDataSet);
+begin
+  if (cdsModelo_SetorTempo.AsFloat > 0) and (cdsModelo_SetorVlr_Hora.AsFloat > 0) then
+    cdsModelo_Setorcl_Vlr_Total.AsFloat := cdsModelo_SetorTempo.AsFloat * cdsModelo_SetorVlr_Hora.AsFloat;
+end;
+
+procedure TDMConsLote.frxModeloSetorFirst(Sender: TObject);
+begin
+  cdsModelo_Mat.Close;
+  sdsModelo_Mat.ParamByName('id_produto').AsInteger := cdsModelo_SetorID_PRODUTO.AsInteger;
+  sdsModelo_Mat.ParamByName('id_setor').AsInteger   := cdsModelo_SetorID_SETOR.AsInteger;
+  cdsModelo_Mat.Open;
+end;
+
+procedure TDMConsLote.frxModeloSetorNext(Sender: TObject);
+begin
+  cdsModelo_Mat.Close;
+  sdsModelo_Mat.ParamByName('id_produto').AsInteger := cdsModelo_SetorID_PRODUTO.AsInteger;
+  sdsModelo_Mat.ParamByName('id_setor').AsInteger   := cdsModelo_SetorID_SETOR.AsInteger;
+  cdsModelo_Mat.Open;
+end;
+
+procedure TDMConsLote.cdsModelo_MatCalcFields(DataSet: TDataSet);
+begin
+  if (cdsModelo_MatPRECO_CUSTO.AsFloat > 0) and (cdsModelo_MatQTD_CONSUMO.AsFloat > 0) then
+    cdsModelo_Matcl_Vlr_Total.AsFloat := cdsModelo_MatPRECO_CUSTO.AsFloat * cdsModelo_MatQTD_CONSUMO.AsFloat;
 end;
 
 end.
