@@ -1,6 +1,6 @@
 object frmConsModelo_Custo: TfrmConsModelo_Custo
-  Left = 172
-  Top = 82
+  Left = 217
+  Top = 63
   Width = 1013
   Height = 570
   Caption = 'Consulta Materiais Por Lote'
@@ -229,6 +229,7 @@ object frmConsModelo_Custo: TfrmConsModelo_Custo
         ReadOnly = True
         Title.Alignment = taCenter
         Title.Caption = 'Refer'#234'ncia'
+        Width = 64
         Visible = True
       end
       item

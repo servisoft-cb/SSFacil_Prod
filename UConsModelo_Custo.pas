@@ -199,6 +199,7 @@ var
 begin
   if fDMConsLote.cdsModelo_Setor.IsEmpty then
     Exit;
+  fDMConsLote.cdsModelo_Setor.First;
   fDMConsLote.cdsModelo_Setor.DisableControls;
   try
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Modelo_Custo.fr3';
