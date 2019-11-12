@@ -1110,6 +1110,11 @@ type
     cdsLoteID_MOVESTOQUE: TIntegerField;
     cdsPendenteTIPO_ALGODAO_PROD: TStringField;
     cdsConsulta_Lote_PedNUM_PEDIDO: TIntegerField;
+    qParametros_LoteGERAR_MAT_POR_LOTE: TStringField;
+    sdsLote_MatNUM_LOTE: TIntegerField;
+    sdsLote_MatID_LOTE: TIntegerField;
+    cdsLote_MatNUM_LOTE: TIntegerField;
+    cdsLote_MatID_LOTE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

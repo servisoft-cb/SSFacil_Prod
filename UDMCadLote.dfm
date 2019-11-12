@@ -2297,6 +2297,12 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object sdsLote_MatNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object sdsLote_MatID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
+    end
   end
   object dspLote_Mat: TDataSetProvider
     DataSet = sdsLote_Mat
@@ -2381,6 +2387,12 @@ object DMCadLote: TDMCadLote
       FieldName = 'TIPO_PRODUCAO'
       FixedChar = True
       Size = 1
+    end
+    object cdsLote_MatNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object cdsLote_MatID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
     end
   end
   object dsLote_Mat: TDataSource
@@ -2657,6 +2669,11 @@ object DMCadLote: TDMCadLote
     end
     object qParametros_LoteRESERVA_EST_LOTE: TStringField
       FieldName = 'RESERVA_EST_LOTE'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_LoteGERAR_MAT_POR_LOTE: TStringField
+      FieldName = 'GERAR_MAT_POR_LOTE'
       FixedChar = True
       Size = 1
     end

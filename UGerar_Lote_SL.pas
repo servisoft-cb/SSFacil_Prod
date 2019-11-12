@@ -97,6 +97,7 @@ type
     SMDBGrid6: TSMDBGrid;
     Label9: TLabel;
     Shape13: TShape;
+    TS_Material: TRzTabSheet;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);

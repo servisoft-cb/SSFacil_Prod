@@ -21,7 +21,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Tingimento
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -2285,6 +2285,9 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           end
         end
       end
+    end
+    object TS_Material: TRzTabSheet
+      Caption = 'Tal'#227'o de Material'
     end
   end
   object PopupMenu1: TPopupMenu
