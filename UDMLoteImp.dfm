@@ -14,8 +14,8 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43411.400438541700000000
-    ReportOptions.LastChange = 43610.754072349540000000
+    ReportOptions.CreateDate = 42751.456864641200000000
+    ReportOptions.LastChange = 43579.746433333300000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1315,7 +1315,7 @@ object DMLoteImp: TDMLoteImp
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 528
+    Left = 529
     Top = 344
     Data = {
       5C0000009619E0BD0100000018000000030000000000030000005C00094E756D
@@ -1399,7 +1399,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspTalao_Ajuste'
     OnCalcFields = cdsTalao_AjusteCalcFields
     Left = 615
-    Top = 48
+    Top = 47
     object cdsTalao_AjusteID: TIntegerField
       FieldName = 'ID'
       Required = True

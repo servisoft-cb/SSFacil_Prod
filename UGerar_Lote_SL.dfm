@@ -1,7 +1,7 @@
 object frmGerar_Lote_SL: TfrmGerar_Lote_SL
   Left = 157
   Top = 62
-  Width = 928
+  Width = 1006
   Height = 569
   Caption = 'Gerar Lote (3)'
   Color = clBtnFace
@@ -19,9 +19,9 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
   object RzPageControl2: TRzPageControl
     Left = 0
     Top = 0
-    Width = 920
+    Width = 998
     Height = 538
-    ActivePage = TS_Tingimento
+    ActivePage = TS_Material
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 3
+    TabIndex = 4
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -38,7 +38,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 994
         Height = 32
         Align = alTop
         Color = 8404992
@@ -194,7 +194,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 916
+        Width = 994
         Height = 105
         Align = alTop
         Color = clSilver
@@ -533,7 +533,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 137
-        Width = 916
+        Width = 994
         Height = 361
         Align = alClient
         Ctl3D = False
@@ -704,7 +704,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object StaticText3: TStaticText
         Left = 0
         Top = 498
-        Width = 916
+        Width = 994
         Height = 17
         Align = alBottom
         Caption = 'Duplo clique para alterar a quantidade'
@@ -722,7 +722,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object NxSplitter1: TNxSplitter
         Left = 0
         Top = 332
-        Width = 916
+        Width = 994
         Height = 7
         Cursor = crVSplit
         Align = alBottom
@@ -731,7 +731,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object NxPanel1: TNxPanel
         Left = 0
         Top = 164
-        Width = 916
+        Width = 994
         Height = 7
         Align = alTop
         BackgroundStyle = pbTransparent
@@ -745,7 +745,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 171
-        Width = 916
+        Width = 994
         Height = 161
         Align = alClient
         Ctl3D = False
@@ -962,7 +962,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object NxFlipPanel1: TNxFlipPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 994
         Height = 83
         Align = alTop
         Caption = 'Dados para Consulta'
@@ -1241,7 +1241,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object NxFlipPanel2: TNxFlipPanel
         Left = 0
         Top = 83
-        Width = 916
+        Width = 994
         Height = 81
         Align = alTop
         BorderColor = clTeal
@@ -1455,7 +1455,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object Panel3: TPanel
         Left = 0
         Top = 339
-        Width = 916
+        Width = 994
         Height = 35
         Align = alBottom
         Color = 8404992
@@ -1549,7 +1549,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object NxFlipPanel3: TNxFlipPanel
         Left = 0
         Top = 374
-        Width = 916
+        Width = 994
         Height = 141
         Align = alBottom
         BorderColor = clTeal
@@ -1668,7 +1668,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
         object SMDBGrid3: TSMDBGrid
           Left = 156
           Top = 18
-          Width = 760
+          Width = 838
           Height = 123
           Align = alClient
           Ctl3D = False
@@ -1869,7 +1869,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 994
         Height = 51
         Align = alTop
         BevelInner = bvRaised
@@ -1977,7 +1977,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 51
-        Width = 916
+        Width = 994
         Height = 464
         Align = alClient
         Ctl3D = False
@@ -2060,7 +2060,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 916
+        Width = 994
         Height = 65
         Align = alTop
         TabOrder = 0
@@ -2130,7 +2130,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
       object RzPageControl1: TRzPageControl
         Left = 0
         Top = 65
-        Width = 916
+        Width = 994
         Height = 450
         ActivePage = TS_TingDet
         Align = alClient
@@ -2142,7 +2142,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           object SMDBGrid6: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 912
+            Width = 990
             Height = 427
             Align = alClient
             Ctl3D = False
@@ -2288,6 +2288,259 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
     object TS_Material: TRzTabSheet
       Caption = 'Tal'#227'o de Material'
+      object Panel4: TPanel
+        Left = 0
+        Top = 0
+        Width = 994
+        Height = 86
+        Align = alTop
+        Color = clSilver
+        TabOrder = 0
+        object Label10: TLabel
+          Left = 24
+          Top = 21
+          Width = 54
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'ID Material:'
+        end
+        object Label17: TLabel
+          Left = 170
+          Top = 21
+          Width = 31
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Nome:'
+        end
+        object Label18: TLabel
+          Left = 29
+          Top = 43
+          Width = 49
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'N'#186' Ordem:'
+        end
+        object CurrencyEdit6: TCurrencyEdit
+          Left = 81
+          Top = 13
+          Width = 82
+          Height = 21
+          AutoSize = False
+          DecimalPlaces = 0
+          DisplayFormat = '0'
+          TabOrder = 0
+        end
+        object Edit3: TEdit
+          Left = 203
+          Top = 13
+          Width = 353
+          Height = 21
+          CharCase = ecUpperCase
+          TabOrder = 1
+        end
+        object CurrencyEdit8: TCurrencyEdit
+          Left = 81
+          Top = 35
+          Width = 82
+          Height = 21
+          AutoSize = False
+          DecimalPlaces = 0
+          DisplayFormat = '0'
+          TabOrder = 2
+        end
+        object btnConsMaterial: TNxButton
+          Left = 80
+          Top = 58
+          Width = 148
+          Height = 26
+          Caption = 'Efetuar a Pesquisa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+          OnClick = btnConsMaterialClick
+        end
+        object btnImpriomir_Mat: TNxButton
+          Left = 228
+          Top = 58
+          Width = 148
+          Height = 26
+          Caption = 'Imprimir'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+          OnClick = btnImpriomir_MatClick
+        end
+      end
+      object SMDBGrid5: TSMDBGrid
+        Left = 0
+        Top = 86
+        Width = 994
+        Height = 429
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMCadLote.dsConsLote_Mat_Prod
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+        ParentCtl3D = False
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnDblClick = SMDBGrid2DblClick
+        OnTitleClick = SMDBGrid2TitleClick
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid2GetCellParams
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 23
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 16
+        RowCount = 2
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'NUM_ORDEM'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Ordem'
+            Width = 55
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ITEM'
+            Title.Alignment = taCenter
+            Title.Caption = 'Item'
+            Width = 32
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'REFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Width = 105
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COMBINACAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Refer'#234'ncia'
+            Width = 170
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_MATERIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Material'
+            Width = 53
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_MATERIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Material'
+            Width = 232
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COR_MAT'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Material'
+            Width = 160
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_CONSUMO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Consumo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_PRODUTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Produto'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DTPAGO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Pagamento'
+            Width = 64
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DTRETORNO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Retorno'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_PAGO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Pago'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_RETORNO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Retorno'
+            Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_DIFERENCA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Diferen'#231'a'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_CONES'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Cones'
+            Visible = True
+          end>
+      end
     end
   end
   object PopupMenu1: TPopupMenu
@@ -2299,8 +2552,8 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
   end
   object PopupMenu2: TPopupMenu
-    Left = 329
-    Top = 340
+    Left = 471
+    Top = 75
     object MarcarDesmarcargerarOCIndividual1: TMenuItem
       Caption = 'Marcar/Desmarcar Item (Individual)'
       OnClick = MarcarDesmarcargerarOCIndividual1Click

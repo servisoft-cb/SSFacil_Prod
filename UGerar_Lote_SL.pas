@@ -98,6 +98,16 @@ type
     Label9: TLabel;
     Shape13: TShape;
     TS_Material: TRzTabSheet;
+    Panel4: TPanel;
+    Label10: TLabel;
+    CurrencyEdit6: TCurrencyEdit;
+    Edit3: TEdit;
+    Label17: TLabel;
+    Label18: TLabel;
+    CurrencyEdit8: TCurrencyEdit;
+    btnConsMaterial: TNxButton;
+    SMDBGrid5: TSMDBGrid;
+    btnImpriomir_Mat: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -131,6 +141,8 @@ type
     procedure SMDBGrid1DblClick(Sender: TObject);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure btnConsMaterialClick(Sender: TObject);
+    procedure btnImpriomir_MatClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadLote: TDMCadLote;
@@ -186,6 +198,7 @@ type
     function fnc_Busca_Ped(Num_Lote_Cli : Integer)  : String;
 
     procedure prc_Consultar_TingDet;
+    procedure prc_ConsLote_Mat_SL;
 
   public
     { Public declarations }
@@ -653,6 +666,10 @@ begin
                      + ' WHERE NUM_ORDEM = ' + vNumOrdemAux;
     sds.ExecSQL();
 
+    sds.CommandText   := ' DELETE FROM LOTE_MAT_PROD  '
+                     + ' WHERE NUM_ORDEM = ' + vNumOrdemAux;
+    sds.ExecSQL();
+
     MessageDlg('*** Nº Controle ' + vNumOrdemAux + ' excluído!', mtInformation, [mbok], 0);
 
   finally
@@ -808,32 +825,12 @@ var
   vArq : String;
   sds : TSQLDataSet;
 begin
-  {if fDMCadLote.mLoteNum_Ordem.AsInteger > 0 then
-    vNumOrdemAux := fDMCadLote.mLoteNum_Ordem.AsString
-  else
-    vNumOrdemAux := '';
-  vNumOrdemAux := InputBox('Imprimir Ordem de Produção','Informe o número da Ordem de Produção: ', vNumOrdemAux);
-  vNumOrdemAux := Monta_Numero(vNumOrdemAux,0);
-  if (trim(vNumOrdemAux) = '') or (vNumOrdemAux = '0') then
-  begin
-    MessageDlg('*** Ordem de Produção não informada!', mtError, [mbOk], 0);
-    exit;
-  end;}
-
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Talao_SLTextil_Lote.fr3';
   if not (FileExists(vArq)) then
   begin
     MessageDlg('*** Relatório não localizado: ' + vArq , mtInformation, [mbOk], 0);
     exit;
   end;
-  {fDMCadLote.qImpressao.Close;
-  fDMCadLote.qImpressao.ParamByName('NUM_ORDEM').AsInteger := StrToInt(vNumOrdemAux);
-  fDMCadLote.qImpressao.Open;
-  if not (fDMCadLote.qImpressao.IsEmpty) then
-  begin
-    if MessageDlg('OP já impressa, deseja Reimprimir?',mtInformation,[mbYes,mbNo],0) = mrNo then
-    Exit;
-  end;}
 
   SMDBGrid2.DisableScroll;
 
@@ -1725,6 +1722,42 @@ begin
     Background  := clOlive;
     AFont.Color := clWhite;
   end;
+end;
+
+procedure TfrmGerar_Lote_SL.btnConsMaterialClick(Sender: TObject);
+begin
+  prc_ConsLote_Mat_SL;
+end;
+
+procedure TfrmGerar_Lote_SL.prc_ConsLote_Mat_SL;
+var
+  vComando : String;
+begin
+  fDMCadLote.cdsConsLote_Mat_Prod.Close;
+  vComando := ' WHERE 0 = 0 ';
+  if CurrencyEdit6.AsInteger > 0 then
+    vComando := vComando + ' AND L.ID_MATERIAL = ' + IntToStr(CurrencyEdit6.AsInteger);
+  if trim(Edit3.Text) <> '' then
+    vComando := vComando + ' AND MAT.NOME LIKE ' + QuotedStr('%'+Edit3.Text+'%');
+  if CurrencyEdit8.AsInteger > 0 then
+    vComando := vComando + ' AND L.NUM_ORDEM = ' + IntToStr(CurrencyEdit8.AsInteger);
+  fDMCadLote.sdsConsLote_Mat_Prod.CommandText := fDMCadLote.ctConsLote_Mat_Prod + vComando;
+  fDMCadLote.cdsConsLote_Mat_Prod.Open;
+end;
+
+procedure TfrmGerar_Lote_SL.btnImpriomir_MatClick(Sender: TObject);
+var
+  vArq : String;
+begin
+  fDMCadLote.cdsConsLote_Mat_Prod.First;
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Talao_SLTextil_Mat.fr3';
+  if not (FileExists(vArq)) then
+  begin
+    MessageDlg('*** Relatório não localizado: ' + vArq , mtInformation, [mbOk], 0);
+    exit;
+  end;
+  fDMCadLote.frxReport1.Report.LoadFromFile(vArq);
+  fDMCadLote.frxReport1.ShowReport;
 end;
 
 end.

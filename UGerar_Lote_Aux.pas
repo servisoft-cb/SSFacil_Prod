@@ -31,6 +31,7 @@ type
     { Private declarations }
     vNumLote : Integer;
     vNumOrdem : Integer;
+    vID_Lote_Mat_Prod, vItem_Lote_Mat_Prod : Integer;
     vID_Material_Pri : Integer;
     vID_Cor_Mat_Pri : Integer;
     vID_Cor_Mat_Pri2 : Integer;
@@ -51,6 +52,7 @@ type
     procedure prc_UsaEstoque;
     procedure prc_Gerar_Estoque_Res;
     procedure prc_Gerar_Estoque;
+    procedure prc_Gravar_Lote_Mat_Prod;
     procedure prc_Grava_BaixaProcesso(ID_Processo : Integer);
 
   public
@@ -117,6 +119,12 @@ begin
     sds.CommandText := ' UPDATE TABELALOC SET FLAG = 1 WHERE TABELA = ' + QuotedStr('LOTE');
     sds.ExecSQL();
 
+    //21/11/2019
+    vID_Lote_Mat_Prod   := 0;
+    vItem_Lote_Mat_Prod := 0;
+    fDMCadLote.prc_Abrir_Lote_Mat_Prod(vNumOrdem);
+    //****************
+
     fDMCadLote.mAuxLote.First;
     while not fDMCadLote.mAuxLote.Eof do
     begin
@@ -148,9 +156,11 @@ begin
     end;
   
     fDMCadLote.cdsLote_Mat.ApplyUpdates(0);
+    fDMCadLote.cdsLote_Mat_Prod.ApplyUpdates(0);
     fDMCadLote.cdsLote_Ting.ApplyUpdates(0);
 
     fDMCadLote.cdsLote.ApplyUpdates(0);
+
     fDMCadLote.cdsBaixa_Processo.ApplyUpdates(0);
     MessageDlg('*** Lotes/Talões Gerados!', mtInformation, [mbok], 0);
     dmDatabase.scoDados.Commit(ID);
@@ -336,6 +346,11 @@ begin
     fDMCadLote.cdsLote_Ped.Post;
     fDMCadLote.mAuxLote_Ped.Next;
   end;
+
+  //21/11/2019
+  if fDMCadLote.cdsLoteTIPO_LOTE.AsString = 'S' then
+    prc_Gravar_Lote_Mat_Prod;
+  //**********************
 
   //30/09/2018  Foi incluido o IF do tipo do Lote
   if fDMCadLote.cdsLoteTIPO_LOTE.AsString <> 'E' then
@@ -771,6 +786,52 @@ begin
   fDMCadLote.cdsLote.Edit;
   fDMCadLote.cdsLoteID_MOVESTOQUE.AsInteger := vID_MovEstoque;
   fDMCadLote.cdsLote.Post;
+end;
+
+procedure TfrmGerar_Lote_Aux.prc_Gravar_Lote_Mat_Prod;
+begin
+  fDMCadLote.cdsConsumo.Close;
+  fDMCadLote.sdsConsumo.ParamByName('ID_PRODUTO').AsInteger    := fDMCadLote.cdsLoteID_PRODUTO.AsInteger;
+  fDMCadLote.sdsConsumo.ParamByName('ID_COMBINACAO').AsInteger := fDMCadLote.cdsLoteID_COMBINACAO.AsInteger;
+  fDMCadLote.cdsConsumo.Open;
+
+  fDMCadLote.cdsConsumo.First;
+  while not fDMCadLote.cdsConsumo.Eof do
+  begin
+    if fDMCadLote.cdsLote_Mat_Prod.Locate('REFERENCIA;ID_COR_PRODUTO;ID_MATERIAL;ID_COR_MATERIAL',VarArrayOf([fDMCadLote.cdsLoteREFERENCIA.AsString
+                                          ,fDMCadLote.cdsLoteID_COMBINACAO.AsInteger
+                                          ,fDMCadLote.cdsConsumoID_MATERIAL.AsInteger
+                                          ,fDMCadLote.cdsConsumoID_COR.AsInteger]),[locaseinsensitive]) then
+      fDMCadLote.cdsLote_Mat_Prod.Edit
+    else
+    begin
+      if vID_Lote_Mat_Prod <= 0 then
+        vID_Lote_Mat_Prod := dmDatabase.ProximaSequencia('LOTE_MAT_PROD',0);
+      fDMCadLote.cdsLote_Mat_Prod.Insert;
+      fDMCadLote.cdsLote_Mat_ProdID.AsInteger              := vID_Lote_Mat_Prod;
+      vItem_Lote_Mat_Prod                                  := vItem_Lote_Mat_Prod + 1;
+      fDMCadLote.cdsLote_Mat_ProdITEM.AsInteger            := vItem_Lote_Mat_Prod;
+      fDMCadLote.cdsLote_Mat_ProdNUM_ORDEM.AsInteger       := vNumOrdem;
+      fDMCadLote.cdsLote_Mat_ProdREFERENCIA.AsString       := fDMCadLote.cdsLoteREFERENCIA.AsString;
+      fDMCadLote.cdsLote_Mat_ProdID_COR_PRODUTO.AsInteger  := fDMCadLote.cdsLoteID_COMBINACAO.AsInteger;
+      fDMCadLote.cdsLote_Mat_ProdID_MATERIAL.AsInteger     := fDMCadLote.cdsConsumoID_MATERIAL.AsInteger;
+      fDMCadLote.cdsLote_Mat_ProdID_COR_MATERIAL.AsInteger := fDMCadLote.cdsConsumoID_COR.AsInteger;
+      fDMCadLote.cdsLote_Mat_ProdQTD_CONSUMO.AsFloat       := 0;
+    end;
+    if fDMCadLote.cdsLote_Mat_ProdNUM_LOTE_AUX.AsInteger <> fDMCadLote.cdsLoteNUM_LOTE.AsInteger then
+      fDMCadLote.cdsLote_Mat_ProdQTD_PRODUTO.AsFloat := fDMCadLote.cdsLote_Mat_ProdQTD_PRODUTO.AsFloat + fDMCadLote.cdsLoteQTD.AsFloat;
+    fDMCadLote.cdsLote_Mat_ProdQTD_CONSUMO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadLote.cdsLote_Mat_ProdQTD_CONSUMO.AsFloat
+                                                     + (fDMCadLote.cdsLoteQTD.AsFloat * fDMCadLote.cdsConsumoQTD_CONSUMO.AsFloat)));
+    fDMCadLote.cdsLote_Mat_ProdQTD_PAGO.AsFloat      := 0;
+    fDMCadLote.cdsLote_Mat_ProdQTD_RETORNO.AsFloat   := 0;
+    fDMCadLote.cdsLote_Mat_ProdQTD_DIFERENCA.AsFloat := 0;
+    fDMCadLote.cdsLote_Mat_ProdQTD_CONES.AsInteger   := 0;
+    fDMCadLote.cdsLote_Mat_ProdDTRETORNO.Clear;
+    fDMCadLote.cdsLote_Mat_ProdDTPAGO.Clear;
+    fDMCadLote.cdsLote_Mat_ProdNUM_LOTE_AUX.AsInteger := fDMCadLote.cdsLoteNUM_LOTE.AsInteger;
+    fDMCadLote.cdsLote_Mat_Prod.Post;
+    fDMCadLote.cdsConsumo.Next;
+  end;
 end;
 
 end.

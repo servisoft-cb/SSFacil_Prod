@@ -1115,6 +1115,65 @@ type
     sdsLote_MatID_LOTE: TIntegerField;
     cdsLote_MatNUM_LOTE: TIntegerField;
     cdsLote_MatID_LOTE: TIntegerField;
+    sdsConsLote_Mat_Prod: TSQLDataSet;
+    dspConsLote_Mat_Prod: TDataSetProvider;
+    cdsConsLote_Mat_Prod: TClientDataSet;
+    dsConsLote_Mat_Prod: TDataSource;
+    frxConsLote_Mat_SL: TfrxDBDataset;
+    sdsLote_Mat_Prod: TSQLDataSet;
+    dspLote_Mat_Prod: TDataSetProvider;
+    cdsLote_Mat_Prod: TClientDataSet;
+    dsLote_Mat_Prod: TDataSource;
+    sdsLote_Mat_ProdID: TIntegerField;
+    sdsLote_Mat_ProdITEM: TIntegerField;
+    sdsLote_Mat_ProdNUM_ORDEM: TIntegerField;
+    sdsLote_Mat_ProdID_COR_PRODUTO: TIntegerField;
+    sdsLote_Mat_ProdID_MATERIAL: TIntegerField;
+    sdsLote_Mat_ProdID_COR_MATERIAL: TIntegerField;
+    sdsLote_Mat_ProdQTD_CONSUMO: TFloatField;
+    sdsLote_Mat_ProdQTD_PRODUTO: TFloatField;
+    sdsLote_Mat_ProdQTD_PAGO: TFloatField;
+    sdsLote_Mat_ProdQTD_RETORNO: TFloatField;
+    sdsLote_Mat_ProdQTD_DIFERENCA: TFloatField;
+    sdsLote_Mat_ProdQTD_CONES: TIntegerField;
+    sdsLote_Mat_ProdDTRETORNO: TDateField;
+    sdsLote_Mat_ProdDTPAGO: TDateField;
+    cdsLote_Mat_ProdID: TIntegerField;
+    cdsLote_Mat_ProdITEM: TIntegerField;
+    cdsLote_Mat_ProdNUM_ORDEM: TIntegerField;
+    cdsLote_Mat_ProdID_COR_PRODUTO: TIntegerField;
+    cdsLote_Mat_ProdID_MATERIAL: TIntegerField;
+    cdsLote_Mat_ProdID_COR_MATERIAL: TIntegerField;
+    cdsLote_Mat_ProdQTD_CONSUMO: TFloatField;
+    cdsLote_Mat_ProdQTD_PRODUTO: TFloatField;
+    cdsLote_Mat_ProdQTD_PAGO: TFloatField;
+    cdsLote_Mat_ProdQTD_RETORNO: TFloatField;
+    cdsLote_Mat_ProdQTD_DIFERENCA: TFloatField;
+    cdsLote_Mat_ProdQTD_CONES: TIntegerField;
+    cdsLote_Mat_ProdDTRETORNO: TDateField;
+    cdsLote_Mat_ProdDTPAGO: TDateField;
+    sdsLote_Mat_ProdNUM_LOTE_AUX: TIntegerField;
+    cdsLote_Mat_ProdNUM_LOTE_AUX: TIntegerField;
+    sdsLote_Mat_ProdREFERENCIA: TStringField;
+    cdsLote_Mat_ProdREFERENCIA: TStringField;
+    cdsConsLote_Mat_ProdREFERENCIA: TStringField;
+    cdsConsLote_Mat_ProdNOME_MATERIAL: TStringField;
+    cdsConsLote_Mat_ProdNOME_COR_MAT: TStringField;
+    cdsConsLote_Mat_ProdQTD_CONSUMO: TFloatField;
+    cdsConsLote_Mat_ProdQTD_PRODUTO: TFloatField;
+    cdsConsLote_Mat_ProdNUM_ORDEM: TIntegerField;
+    cdsConsLote_Mat_ProdITEM: TIntegerField;
+    cdsConsLote_Mat_ProdID_MATERIAL: TIntegerField;
+    cdsConsLote_Mat_ProdID_COR_PRODUTO: TIntegerField;
+    cdsConsLote_Mat_ProdID_COR_MATERIAL: TIntegerField;
+    cdsConsLote_Mat_ProdNOME_COMBINACAO: TStringField;
+    cdsConsLote_Mat_ProdCODBARRAS: TStringField;
+    cdsConsLote_Mat_ProdDTRETORNO: TDateField;
+    cdsConsLote_Mat_ProdDTPAGO: TDateField;
+    cdsConsLote_Mat_ProdQTD_PAGO: TFloatField;
+    cdsConsLote_Mat_ProdQTD_RETORNO: TFloatField;
+    cdsConsLote_Mat_ProdQTD_DIFERENCA: TFloatField;
+    cdsConsLote_Mat_ProdQTD_CONES: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1149,6 +1208,7 @@ type
     ctPedido_Calc : String;
     ctBaixa_Processo : String;
     ctExcBaixa_Processo : String;
+    ctConsLote_Mat_Prod : String;
     vAltura_Etiq_Rot: Integer;
     vGerado : Boolean;
     vTalao_Loc :Integer;
@@ -1169,6 +1229,8 @@ type
 
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
     procedure prc_Gravar_Lote_Mat;
+
+    procedure prc_Abrir_Lote_Mat_Prod(Num_Ordem: Integer);
 
     procedure prc_Abrir_Lote_Ting(Num_Ordem: Integer);
     procedure prc_Gravar_Lote_Ting(Primeira :Integer = 1);
@@ -1258,6 +1320,7 @@ begin
   ctBaixa_Processo     := sdsBaixa_Processo.CommandText;
   ctExcBaixa_Processo  := sdsExc_Baixa_Processo.CommandText;
   ctSaldoEst           := sdsSaldoEst.CommandText;
+  ctConsLote_Mat_Prod  := sdsConsLote_Mat_Prod.CommandText;
   cdsProduto.Close;
   cdsProduto.Open;
   qParametros.Open;
@@ -1815,6 +1878,13 @@ begin
       mAuxLoteCarga.AsFloat        := StrToFloat(FormatFloat('0.00',mAuxLoteQtd.AsFloat / cdsProdutoMETROS_CARGA.AsFloat));
     end;
   end;
+end;
+
+procedure TDMCadLote.prc_Abrir_Lote_Mat_Prod(Num_Ordem: Integer);
+begin
+  cdsLote_Mat_Prod.Close;
+  sdsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger := Num_Ordem;
+  cdsLote_Mat_Prod.Open;
 end;
 
 end.
