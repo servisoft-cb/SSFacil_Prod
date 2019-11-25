@@ -106,6 +106,8 @@ type
     frxModeloSetor: TfrxDBDataset;
     frxModelo_Mat: TfrxDBDataset;
     cdsModelo_Matcl_Vlr_Total: TFloatField;
+    cdsModelo_MatNOME_SETOR: TStringField;
+    cdsModelo_MatORDEM_ORC: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);

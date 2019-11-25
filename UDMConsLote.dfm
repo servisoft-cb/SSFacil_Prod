@@ -264,7 +264,7 @@ object DMConsLote: TDMConsLote
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43769.668638414350000000
+    ReportOptions.LastChange = 43794.436030115740000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -547,21 +547,29 @@ object DMConsLote: TDMConsLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select ps.ordem_imp, P.ID ID_PRODUTO, cmat.id_material, mat.nome' +
-      ' nome_material, cmat.id_setor,'#13#10'cmat.id_posicao, ps.nome nome_po' +
-      'sicao, cormat.nome nome_cor_mat,'#13#10'case'#13#10'  when coalesce(cormat.p' +
-      'reco_custo,0) > 0 then cormat.preco_custo'#13#10'  else mat.preco_cust' +
-      'o'#13#10'  end preco_custo, cmat.qtd_consumo'#13#10#13#10'from produto p'#13#10'INNER ' +
-      'JOIN PRODUTO_COMB COMB'#13#10'ON p.id = comb.id'#13#10'inner join produto_co' +
-      'mb_mat cmat'#13#10'on comb.id = cmat.id'#13#10'and comb.item = cmat.item'#13#10'in' +
-      'ner join produto mat'#13#10'on cmat.id_material = mat.id'#13#10'left join po' +
-      'sicao ps'#13#10'on cmat.id_posicao = ps.id'#13#10'left join produto_comb Cor' +
-      'Mat'#13#10'on cmat.id_material = cormat.id'#13#10'and cmat.id_cor = cormat.i' +
-      'd_cor_combinacao'#13#10'where p.id = :id_produto'#13#10'  and cmat.id_setor ' +
-      '= :id_setor'#13#10'order by coalesce(ps.ordem_imp,99), ps.nome'#13#10#13#10#13#10#13#10 +
-      #13#10#13#10#13#10#13#10
+      'select s2.nome nome_setor, s2.ordem_orc, ps.ordem_imp, P.ID ID_P' +
+      'RODUTO, cmat.id_material, mat.nome nome_material, cmat.id_setor,' +
+      #13#10'cmat.id_posicao, ps.nome nome_posicao, cormat.nome nome_cor_ma' +
+      't,'#13#10'case'#13#10'  when coalesce(cormat.preco_custo,0) > 0 then cormat.' +
+      'preco_custo'#13#10'  else mat.preco_custo'#13#10'  end preco_custo, cmat.qtd' +
+      '_consumo'#13#10'from produto p'#13#10'INNER JOIN PRODUTO_COMB COMB'#13#10'ON p.id ' +
+      '= comb.id'#13#10'inner join produto_comb_mat cmat'#13#10'on comb.id = cmat.i' +
+      'd'#13#10'and comb.item = cmat.item'#13#10'inner join setor s2'#13#10'on cmat.id_se' +
+      'tor = s2.id'#13#10'inner join produto mat'#13#10'on cmat.id_material = mat.i' +
+      'd'#13#10'left join setor s3'#13#10'on s3.id = :id_setor'#13#10'left join posicao p' +
+      's'#13#10'on cmat.id_posicao = ps.id'#13#10'left join produto_comb CorMat'#13#10'on' +
+      ' cmat.id_material = cormat.id'#13#10'and cmat.id_cor = cormat.id_cor_c' +
+      'ombinacao'#13#10'where p.id = :id_produto'#13#10'  and ((cmat.id_setor = :id' +
+      '_setor)'#13#10'       or ((s2.ordem_orc < s3.ordem_orc ) and (coalesce' +
+      '(s3.imp_mat_ant,'#39'N'#39') = '#39'S'#39')))'#13#10'order by s2.ordem_orc, coalesce(p' +
+      's.ordem_imp,99), ps.nome'#13#10
     MaxBlobSize = -1
     Params = <
+      item
+        DataType = ftInteger
+        Name = 'id_setor'
+        ParamType = ptInput
+      end
       item
         DataType = ftInteger
         Name = 'id_produto'
@@ -573,7 +581,7 @@ object DMConsLote: TDMConsLote
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 144
+    Left = 139
     Top = 307
   end
   object dspModelo_Mat: TDataSetProvider
@@ -583,11 +591,12 @@ object DMConsLote: TDMConsLote
   end
   object cdsModelo_Mat: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'ORDEM_ORC;ORDEM_IMP;NOME_POSICAO'
     Params = <>
     ProviderName = 'dspModelo_Mat'
     OnCalcFields = cdsModelo_MatCalcFields
-    Left = 229
-    Top = 308
+    Left = 228
+    Top = 309
     object cdsModelo_MatORDEM_IMP: TIntegerField
       FieldName = 'ORDEM_IMP'
     end
@@ -626,6 +635,12 @@ object DMConsLote: TDMConsLote
       FieldKind = fkCalculated
       FieldName = 'cl_Vlr_Total'
       Calculated = True
+    end
+    object cdsModelo_MatNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsModelo_MatORDEM_ORC: TIntegerField
+      FieldName = 'ORDEM_ORC'
     end
   end
   object dsModelo_Mat: TDataSource
@@ -666,13 +681,14 @@ object DMConsLote: TDMConsLote
       'ID_PRODUTO=ID_PRODUTO'
       'ID_MATERIAL=ID_MATERIAL'
       'NOME_MATERIAL=NOME_MATERIAL'
-      'ID_SETOR=ID_Setor'
+      'ID_SETOR=ID_SETOR'
       'ID_POSICAO=ID_POSICAO'
       'NOME_POSICAO=NOME_POSICAO'
       'NOME_COR_MAT=NOME_COR_MAT'
       'PRECO_CUSTO=PRECO_CUSTO'
       'QTD_CONSUMO=QTD_CONSUMO'
-      'cl_Vlr_Total=cl_Vlr_Total')
+      'cl_Vlr_Total=cl_Vlr_Total'
+      'NOME_SETOR=NOME_SETOR')
     DataSource = dsModelo_Mat
     BCDToCurrency = False
     Left = 624

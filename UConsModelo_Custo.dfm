@@ -19,7 +19,7 @@ object frmConsModelo_Custo: TfrmConsModelo_Custo
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 997
+    Width = 1005
     Height = 53
     Align = alTop
     Color = clSilver
@@ -172,8 +172,8 @@ object frmConsModelo_Custo: TfrmConsModelo_Custo
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 53
-    Width = 997
-    Height = 478
+    Width = 1005
+    Height = 486
     Align = alClient
     Ctl3D = False
     DataSource = DMConsLote.dsModelo_Setor
@@ -203,7 +203,7 @@ object frmConsModelo_Custo: TfrmConsModelo_Custo
     WidthOfIndicator = 13
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 10
+    ColCount = 11
     RowCount = 2
     Columns = <
       item
@@ -221,6 +221,15 @@ object frmConsModelo_Custo: TfrmConsModelo_Custo
         Title.Alignment = taCenter
         Title.Caption = 'Nome Modelo'
         Width = 196
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'ID_PRODUTO'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID Produto'
+        Width = 55
         Visible = True
       end
       item
