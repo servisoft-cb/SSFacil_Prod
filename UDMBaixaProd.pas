@@ -379,6 +379,9 @@ type
     sdsLoteQTD_ESTOQUE_USADA: TFloatField;
     cdsLoteID_MOVESTOQUE_RES: TIntegerField;
     cdsLoteQTD_ESTOQUE_USADA: TFloatField;
+    sdsLoteID_MOVESTOQUE: TIntegerField;
+    cdsLoteID_MOVESTOQUE: TIntegerField;
+    qProdPRECO_VENDA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

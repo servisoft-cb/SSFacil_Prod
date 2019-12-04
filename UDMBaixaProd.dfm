@@ -20,7 +20,7 @@ object DMBaixaProd: TDMBaixaProd
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 144
+    Left = 143
     Top = 47
     object sdsLoteID: TIntegerField
       FieldName = 'ID'
@@ -162,6 +162,9 @@ object DMBaixaProd: TDMBaixaProd
     end
     object sdsLoteQTD_ESTOQUE_USADA: TFloatField
       FieldName = 'QTD_ESTOQUE_USADA'
+    end
+    object sdsLoteID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
     end
   end
   object dspLote: TDataSetProvider
@@ -317,6 +320,9 @@ object DMBaixaProd: TDMBaixaProd
     end
     object cdsLoteQTD_ESTOQUE_USADA: TFloatField
       FieldName = 'QTD_ESTOQUE_USADA'
+    end
+    object cdsLoteID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
     end
   end
   object sdsPedido_Item: TSQLDataSet
@@ -1673,7 +1679,7 @@ object DMBaixaProd: TDMBaixaProd
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT P.ID, P.NOME, P.preco_custo'
+      'SELECT P.ID, P.NOME, P.preco_custo, P.PRECO_VENDA'
       'FROM PRODUTO P'
       'WHERE P.ID = :ID')
     SQLConnection = dmDatabase.scoDados
@@ -1689,6 +1695,9 @@ object DMBaixaProd: TDMBaixaProd
     end
     object qProdPRECO_CUSTO: TFloatField
       FieldName = 'PRECO_CUSTO'
+    end
+    object qProdPRECO_VENDA: TFloatField
+      FieldName = 'PRECO_VENDA'
     end
   end
   object qTingimento: TSQLQuery

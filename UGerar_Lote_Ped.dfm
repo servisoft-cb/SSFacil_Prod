@@ -21,7 +21,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19

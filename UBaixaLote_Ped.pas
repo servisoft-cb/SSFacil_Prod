@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UDMBaixaProd, StdCtrls, RzEdit, Mask, ToolEdit;
+  Dialogs, UDMBaixaProd, StdCtrls, RzEdit, Mask, ToolEdit, UDMEstoque, dbXPress;
 
 type
   TfrmBaixaLote_Ped = class(TForm)
@@ -28,6 +28,8 @@ type
     procedure prc_Baixa_Lote;
     
     function fnc_Lote_OK : Boolean;
+
+    function fnc_Gravar_Estoque : Integer;
     
   public
     { Public declarations }
@@ -38,7 +40,7 @@ var
 
 implementation
 
-uses rsDBUtils, uUtilPadrao;
+uses rsDBUtils, uUtilPadrao, DmdDatabase;
 
 {$R *.dfm}
 
@@ -117,6 +119,8 @@ var
   vData : TDateTime;
   vHora : TTime;
   vMSGAux : String;
+  ID: TTransactionDesc;
+  vNumLote : Integer;
 begin
   Memo1.Lines.Clear;
   vMSGAux := '';
@@ -128,36 +132,115 @@ begin
     vHora := RzDateTimeEdit1.Time
   else
     vHora := Now;
-  fDMBaixaProd.cdsLote.Edit;
-  if fDMBaixaProd.cdsLoteDTENTRADA.IsNull then
-  begin
-    fDMBaixaProd.cdsLoteDTENTRADA.AsDateTime := vData;
-    fDMBaixaProd.cdsLoteHRENTRADA.AsDateTime := vHora;
-    vMSGAux                                  := 'Entrada em Produção';
-  end
-  else
-  if fDMBaixaProd.cdsLoteDTBAIXA.IsNull then
-  begin
-    fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime    := vData;
-    fDMBaixaProd.cdsLoteHRBAIXA.AsDateTime    := vHora;
-    fDMBaixaProd.cdsLoteQTD_PRODUZIDO.AsFloat := fDMBaixaProd.cdsLoteQTD.AsFloat;
-    fDMBaixaProd.cdsLoteQTD_PENDENTE.AsFloat  := 0;
-    vMSGAux                                   := 'Encerrada a Produção';
-  end;
-  fDMBaixaProd.cdsLote.Post;
 
-  Memo1.Lines.Add('OP: ' + fDMBaixaProd.cdsLoteNUM_LOTE.AsString);
-  Memo1.Lines.Add('');
-  Memo1.Lines.Add('Pedido OC: ' + fDMBaixaProd.cdsLoteOBS_PED.AsString);
-  Memo1.Lines.Add('');
-  Memo1.Lines.Add(vMSGAux);
-  fDMBaixaProd.cdsLote.ApplyUpdates(0);
+  ID.TransactionID  := 2;
+  ID.IsolationLevel := xilREADCOMMITTED;
+  dmDatabase.scoDados.StartTransaction(ID);
+  try
+    fDMBaixaProd.cdsLote.Edit;
+    if fDMBaixaProd.cdsLoteDTENTRADA.IsNull then
+    begin
+      fDMBaixaProd.cdsLoteDTENTRADA.AsDateTime := vData;
+      fDMBaixaProd.cdsLoteHRENTRADA.AsDateTime := vHora;
+      vMSGAux                                  := 'Entrada em Produção';
+    end
+    else
+    if fDMBaixaProd.cdsLoteDTBAIXA.IsNull then
+    begin
+      fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime    := vData;
+      fDMBaixaProd.cdsLoteHRBAIXA.AsDateTime    := vHora;
+      fDMBaixaProd.cdsLoteQTD_PRODUZIDO.AsFloat := fDMBaixaProd.cdsLoteQTD.AsFloat;
+      fDMBaixaProd.cdsLoteQTD_PENDENTE.AsFloat  := 0;
+      vMSGAux                                   := 'Encerrada a Produção';
+
+      fDMBaixaProd.cdsLoteID_MOVESTOQUE.AsInteger := fnc_Gravar_Estoque;
+    end;
+    vNumLote := fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger;
+    fDMBaixaProd.cdsLote.Post;
+    fDMBaixaProd.cdsLote.ApplyUpdates(0);
+    dmDatabase.scoDados.Commit(ID);
+
+    fDMBaixaProd.cdsLote.Close;
+    fDMBaixaProd.sdsLote.ParamByName('NUM_LOTE').AsInteger := vNumLote;
+    fDMBaixaProd.cdsLote.Open;
+
+    Memo1.Lines.Add('OP: ' + fDMBaixaProd.cdsLoteNUM_LOTE.AsString);
+    Memo1.Lines.Add('');
+    Memo1.Lines.Add('Pedido OC: ' + fDMBaixaProd.cdsLoteOBS_PED.AsString);
+    Memo1.Lines.Add('');
+    Memo1.Lines.Add(vMSGAux);
+
+  except
+      on e: Exception do
+      begin
+        dmDatabase.scoDados.Rollback(ID);
+        raise Exception.Create('Erro ao gravar Baixa Processo: ' + #13+#13 + e.Message);
+      end;
+  end;
 
 end;
 
 procedure TfrmBaixaLote_Ped.Edit1Change(Sender: TObject);
 begin
   Memo1.Lines.Clear;
+end;
+
+function TfrmBaixaLote_Ped.fnc_Gravar_Estoque: Integer;
+var
+  fDMEstoque: TDMEstoque;
+  vPreco : Real;
+begin
+  Result := 0;
+  fDMBaixaProd.qProd.Close;
+  fDMBaixaProd.qProd.ParamByName('ID').AsInteger := fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger;
+  fDMBaixaProd.qProd.Open;
+  if StrToFloat(FormatFloat('0.00000',fDMBaixaProd.qProdPRECO_CUSTO.AsFloat)) > 0 then
+    vPreco := StrToFloat(FormatFloat('0.00000',fDMBaixaProd.qProdPRECO_CUSTO.AsFloat))
+  else
+    vPreco := StrToFloat(FormatFloat('0.00000',fDMBaixaProd.qProdPRECO_VENDA.AsFloat));
+
+  fDMEstoque := TDMEstoque.Create(Self);
+  try
+    Result := fDMEstoque.fnc_Gravar_Estoque(0,
+                                            fDMBaixaProd.cdsLoteFILIAL.AsInteger,
+                                            1,
+                                            fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger,
+                                            fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger, // Numero nota
+                                            fDMBaixaProd.cdsLoteID_CLIENTE.AsInteger, // Cliente
+                                            0, // CFOP
+                                            0, // ID nota fiscal
+                                            0, // ID Centro Custo
+                                            'E', //Tipo Nota  Entrada e Saída
+                                            'LOT',
+                                            fDMBaixaProd.cdsLoteUNIDADE.AsString,
+                                            fDMBaixaProd.cdsLoteUNIDADE.AsString,
+                                            '', //serie
+                                            '', //Tamanho
+                                            Date,
+                                            vPreco,
+                                            fDMBaixaProd.cdsLoteQTD.AsFloat,
+                                            0, //%ICMS
+                                            0, //%IPI
+                                            0, //Desconto
+                                            0, //% Trib ICMS
+                                            0, //Valor Frete
+                                            fDMBaixaProd.cdsLoteQTD.AsFloat,
+                                            vPreco,
+                                            0, //Desconto
+                                            0,
+                                            fDMBaixaProd.cdsLoteUNIDADE.AsString,
+                                            fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger, // Cor
+                                            '',
+                                            'S',
+                                            vPreco,
+                                            0,
+                                            0,
+                                            0,
+                                            0);
+
+  finally
+    FreeAndNil(fDMEstoque);
+  end;
 end;
 
 end.
