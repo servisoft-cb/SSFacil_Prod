@@ -1292,6 +1292,7 @@ begin
   end;
   fDMCadLote.mMaterial.EmptyDataSet;
   fDMCadLote.mAuxPed.EmptyDataSet;
+  fDMCadLote.mAuxEst.EmptyDataSet;
 
   vIDLoteAux := 0;
 

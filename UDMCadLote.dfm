@@ -4345,7 +4345,7 @@ object DMCadLote: TDMCadLote
       'FROM PARAMETROS_PED'
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 688
+    Left = 689
     Top = 328
     object qParametros_PedUSA_NUM_TALAO: TStringField
       FieldName = 'USA_NUM_TALAO'
@@ -6133,5 +6133,29 @@ object DMCadLote: TDMCadLote
     DataSet = cdsLote_Mat_Prod
     Left = 237
     Top = 473
+  end
+  object mAuxEst: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 756
+    Top = 400
+    Data = {
+      6E0000009619E0BD0100000018000000040000000000030000006E000A49445F
+      50726F6475746F04000100000000000649445F436F720400010000000000114E
+      756D5F4C6F74655F436F6E74726F6C6501004900000001000557494454480200
+      020014000351746408000400000000000000}
+    object mAuxEstID_Produto: TIntegerField
+      FieldName = 'ID_Produto'
+    end
+    object mAuxEstID_Cor: TIntegerField
+      FieldName = 'ID_Cor'
+    end
+    object mAuxEstNum_Lote_Controle: TStringField
+      FieldName = 'Num_Lote_Controle'
+    end
+    object mAuxEstQtd: TFloatField
+      FieldName = 'Qtd'
+    end
   end
 end

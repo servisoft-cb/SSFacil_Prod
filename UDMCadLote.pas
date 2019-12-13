@@ -1174,6 +1174,11 @@ type
     cdsConsLote_Mat_ProdQTD_RETORNO: TFloatField;
     cdsConsLote_Mat_ProdQTD_DIFERENCA: TFloatField;
     cdsConsLote_Mat_ProdQTD_CONES: TIntegerField;
+    mAuxEst: TClientDataSet;
+    mAuxEstID_Produto: TIntegerField;
+    mAuxEstID_Cor: TIntegerField;
+    mAuxEstNum_Lote_Controle: TStringField;
+    mAuxEstQtd: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
