@@ -6138,6 +6138,7 @@ object DMCadLote: TDMCadLote
     Active = True
     Aggregates = <>
     Params = <>
+    OnNewRecord = mAuxEstNewRecord
     Left = 756
     Top = 400
     Data = {

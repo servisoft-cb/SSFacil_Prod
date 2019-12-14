@@ -1190,6 +1190,7 @@ type
     procedure cdsLote_TingNewRecord(DataSet: TDataSet);
     procedure cdsBaixa_ProcessoNewRecord(DataSet: TDataSet);
     procedure mAuxLoteNewRecord(DataSet: TDataSet);
+    procedure mAuxEstNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -1219,6 +1220,7 @@ type
     vTalao_Loc :Integer;
     ctVerificaGrupo_Proc : String;
     ctSaldoEst : String;
+    vPossui_Saldo : Boolean;
 
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
@@ -1850,6 +1852,7 @@ procedure TDMCadLote.prc_SaldoEst(Filial, ID_Produto, ID_Cor: Integer;
 var
   vComandoAux, vComandoAux2: String;
   i : Integer;
+  vFlag : Boolean;
 begin
   cdsSaldoEst.Close;
   i := PosEx('GROUP',UpperCase(ctSaldoEst),0);
@@ -1868,6 +1871,22 @@ begin
   else
     sdsSaldoEst.ParamByName('ID_COR2').AsInteger := -1;}
   cdsSaldoEst.Open;
+
+  vFlag := False;
+  cdsSaldoEst.First;
+  while not cdsSaldoEst.Eof do
+  begin
+    if mAuxEst.Locate('Num_Lote_Controle',cdsSaldoEstNUM_LOTE_CONTROLE.AsString,[loCaseInsensitive]) then
+    begin
+      cdsSaldoEst.Edit;
+      cdsSaldoEstQTD2.AsFloat := StrToFloat(FormatFloat('0.00000',cdsSaldoEstQTD2.AsFloat - mAuxEstQtd.AsFloat));
+      cdsSaldoEst.Post;
+    end;
+    if StrToFloat(FormatFloat('0.00000',cdsSaldoEstQTD2.AsFloat)) > 0 then
+      vFlag := True;
+    cdsSaldoEst.Next;
+  end;
+  vPossui_Saldo := vFlag;
 end;
 
 procedure TDMCadLote.prc_Calcula_Carga;
@@ -1890,6 +1909,11 @@ begin
   cdsLote_Mat_Prod.Close;
   sdsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger := Num_Ordem;
   cdsLote_Mat_Prod.Open;
+end;
+
+procedure TDMCadLote.mAuxEstNewRecord(DataSet: TDataSet);
+begin
+  mAuxEstQtd.AsFloat := 0;
 end;
 
 end.

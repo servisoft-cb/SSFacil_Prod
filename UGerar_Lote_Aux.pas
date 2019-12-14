@@ -586,7 +586,7 @@ begin
     fDMCadLote.prc_SaldoEst(0,fDMCadLote.mAuxLoteID_Produto.AsInteger,StrToInt(FormatFloat('0',fDMCadLote.qParametros_LoteID_COR_CRU.AsInteger)),'','')
   else
     fDMCadLote.prc_SaldoEst(0,fDMCadLote.mAuxLoteID_Produto.AsInteger,fDMCadLote.mAuxLoteID_Combinacao.AsInteger,'','');
-  if fDMCadLote.cdsSaldoEst.IsEmpty then
+  if (fDMCadLote.cdsSaldoEst.IsEmpty) or not(fDMCadLote.vPossui_Saldo) then
   begin
     prc_UsaEstoque;
     exit;
@@ -614,8 +614,6 @@ begin
   ffrmGerar_Lote_AuxEst.vQtdUsada  := StrToFloat(FormatFloat('0.0000',vQtdAux));
   ffrmGerar_Lote_AuxEst.ShowModal;
   FreeAndNil(ffrmGerar_Lote_AuxEst);
-
-
 end;
 
 procedure TfrmGerar_Lote_Aux.prc_UsaEstoque;
@@ -628,9 +626,22 @@ begin
   fDMCadLote.mAuxLote.Edit;
   if fDMCadLote.mAuxLoteUsa_Estoque.AsString = 'S' then
   begin
+    //14/12/2019
+    if fDMCadLote.mAuxEst.Locate('ID_Produto;ID_Cor;Num_Lote_Controle',VarArrayOf([fDMCadLote.mAuxLoteID_Produto.AsInteger,
+                                  fDMCadLote.mAuxLoteID_Combinacao.AsInteger,fDMCadLote.mAuxLoteNum_Lote_Controle.AsString]),[locaseinsensitive]) then
+    begin
+      fDMCadLote.mAuxEst.Edit;
+      fDMCadLote.mAuxEstQtd.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadLote.mAuxEstQtd.AsFloat - fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat));
+      fDMCadLote.mAuxEst.Post;
+      if StrToFloat(FormatFloat('0.00000',fDMCadLote.mAuxEstQtd.AsFloat)) <= 0 then
+        fDMCadLote.mAuxEst.Delete;
+    end;
+    //***********************
+
     fDMCadLote.mAuxLoteQtd.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat));
     fDMCadLote.mAuxLoteUsa_Estoque.AsString    := 'N';
     fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat := StrToFloat(FormatFloat('0.0000',0));
+
   end
   else
   begin
@@ -641,7 +652,8 @@ begin
       vQtd := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque.AsFloat));
     fDMCadLote.mAuxLoteQtd.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Original.AsFloat - vQtd));
     fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat := StrToFloat(FormatFloat('0.0000',vQtd));
-    fDMCadLote.mAuxLoteUsa_Estoque.AsString    := 'S';
+    if StrToFloat(FormatFloat('0.0000',fDMCadLote.mAuxLoteQtd_Estoque_Usa.AsFloat)) > 0 then
+      fDMCadLote.mAuxLoteUsa_Estoque.AsString    := 'S';
   end;
 
   fDMCadLote.prc_Calcula_Carga;
