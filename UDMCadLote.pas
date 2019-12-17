@@ -1876,7 +1876,7 @@ begin
   cdsSaldoEst.First;
   while not cdsSaldoEst.Eof do
   begin
-    if mAuxEst.Locate('Num_Lote_Controle',cdsSaldoEstNUM_LOTE_CONTROLE.AsString,[loCaseInsensitive]) then
+    if mAuxEst.Locate('ID_Produto;ID_Cor;Num_Lote_Controle',VarArrayOf([ID_Produto,ID_Cor,cdsSaldoEstNUM_LOTE_CONTROLE.AsString]),[locaseinsensitive]) then
     begin
       cdsSaldoEst.Edit;
       cdsSaldoEstQTD2.AsFloat := StrToFloat(FormatFloat('0.00000',cdsSaldoEstQTD2.AsFloat - mAuxEstQtd.AsFloat));
