@@ -1179,6 +1179,7 @@ type
     mAuxEstID_Cor: TIntegerField;
     mAuxEstNum_Lote_Controle: TStringField;
     mAuxEstQtd: TFloatField;
+    cdsPendenteQTD_ESTOQUE: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

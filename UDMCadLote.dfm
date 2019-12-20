@@ -715,14 +715,15 @@ object DMCadLote: TDMCadLote
       'AVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'P'#39' THEN PROD' +
       '.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ' +
       'ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39') || '#39' '#39' || coalesce(prod.o' +
-      'bs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN' +
-      ' PEDIDO_ITEM PI'#13#10'ON PED.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PE' +
-      'D.ID_CLIENTE = CLI.codigo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_C' +
-      'OR = COMB.ID'#13#10'LEFT JOIN PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID' +
-      #13#10'LEFT JOIN COR'#13#10'ON PROD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI' +
-      ' SEMI'#13#10'ON PROD.ID = SEMI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.I' +
-      'D = SEMI.ID_MATERIAL1'#13#10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_' +
-      'LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13#10#13#10#13#10#13#10
+      'bs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE, cast (0 as Double precision) ' +
+      'qtd_estoque'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10'ON PE' +
+      'D.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.cod' +
+      'igo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.ID'#13#10'LEFT JOI' +
+      'N PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID'#13#10'LEFT JOIN COR'#13#10'ON PR' +
+      'OD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI SEMI'#13#10'ON PROD.ID = SE' +
+      'MI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.ID = SEMI.ID_MATERIAL1'#13 +
+      #10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13#10#13#10 +
+      #13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -738,7 +739,7 @@ object DMCadLote: TDMCadLote
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPendente'
-    Left = 576
+    Left = 577
     Top = 6
     object cdsPendenteNUM_PEDIDO: TIntegerField
       DisplayLabel = 'N'#186' Ped. Interno'
@@ -894,6 +895,11 @@ object DMCadLote: TDMCadLote
       FieldName = 'TIPO_ALGODAO_PROD'
       FixedChar = True
       Size = 1
+    end
+    object cdsPendenteQTD_ESTOQUE: TFloatField
+      FieldName = 'QTD_ESTOQUE'
+      Required = True
+      DisplayFormat = '0.000##'
     end
   end
   object dsPendente: TDataSource

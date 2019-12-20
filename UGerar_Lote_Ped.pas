@@ -176,8 +176,85 @@ end;
 procedure TfrmGerar_Lote_Ped.prc_Consultar;
 var
   vTextoData: String;
+  vTipoAux : String;
+  vTextoEstoque : String;
+  vComando : String;
 begin
+  vTipoAux := fnc_Verifica_Tipo_Lote;
+  if (vTipoAux = 'PED') or (vTipoAux = 'PED2') then
+    vTextoEstoque := ' cast ((select sum(ea.qtd) qtd_estoque from estoque_atual ea '
+                   + 'where ea.id_produto = pi.id_produto and ea.id_cor = pi.id_cor '
+                   + 'and ea.filial  = ped.filial and ea.tamanho = pi.tamanho) as double precision )qtd_estoque '
+  else
+    vTextoEstoque := ' cast (0 as Double precision) qtd_estoque ';
+  vComando := 'SELECT prod.tipo_algodao tipo_algodao_prod, PED.NUM_PEDIDO, PED.PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.DTEMISSAO, PED.ID, PED.FILIAL, '
+            + 'PI.item, PI.id_produto, PI.id_cor,  PI.tamanho, PI.dtentrega, PI.numos, '
+            + 'PI.nomeproduto, PI.referencia, CLI.nome NOME_CLIENTE, CLI.fantasia, PI.CARIMBO, '
+            + 'COMB.NOME NOME_COMBINACAO, PI.item_original, PI.selecionado, PROD.id_cor ID_COR_PROD, '
+            + 'COR.NOME NOME_COR_PROD, PROD.TIPO_MAT, PROD.id_processo_grupo, '
+            + 'PROD.tipo_reg TIPO_REG_PROD, SEMI.id_material1 ID_MATERIAL, SEMI.qtd_consumo1 QTD_CONSUMO_MAT, '
+            + 'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, PI.ENCERADO, PSEMI.TIPO_ALGODAO, '
+            + 'CASE '
+            + '  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD * COALESCE(PI.CONV_UNIDADE,1) '
+            + '  ELSE PI.QTD '
+            + '  END QTD_RESTANTE, '
+            + 'CASE '
+            + '  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.UNIDADE_PROD '
+            + '  ELSE PI.UNIDADE '
+            + '  END UNIDADE, '
+            + 'CASE '
+            + '  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN ((PI.QTD * COALESCE(PI.CONV_UNIDADE,1)) *  COALESCE(SEMI.qtd_consumo1,1)) '
+            + '  ELSE coalesce(semi.qtd_consumo1,1) * pi.qtd '
+            + '  END consumo_calc, PSEMI.id_processo_grupo id_processo_SEMI, '
+            + 'case '
+            + '  WHEN pl.GRAVAR_OBS_LOTE = ' + QuotedStr('I') + ' THEN PI.OBS '
+            + '  WHEN pl.GRAVAR_OBS_LOTE = ' + QuotedStr('P') + ' THEN PROD.OBS '
+            + '  WHEN pl.GRAVAR_OBS_LOTE = ' + QuotedStr('A') + ' THEN coalesce(PI.obs,'+QuotedStr('')+') || ' + QuotedStr(' ') + ' || coalesce(prod.obs,'+QuotedStr('')+') '
+            + '  ELSE ' + QuotedStr('')
+            + '  END OBS_LOTE, ' + vTextoEstoque
+            + 'FROM PEDIDO PED '
+            + 'INNER JOIN PEDIDO_ITEM PI '
+            + 'ON PED.ID = PI.ID '
+            + 'INNER JOIN PESSOA CLI '
+            + 'ON PED.ID_CLIENTE = CLI.codigo '
+            + 'inner join parametros_lote pl '
+            + 'on pl.id = 1 '
+            + 'LEFT JOIN COMBINACAO COMB '
+            + 'ON PI.ID_COR = COMB.ID '
+            + 'LEFT JOIN PRODUTO PROD '
+            + 'ON PI.id_produto = PROD.ID '
+            + 'LEFT JOIN COR '
+            + 'ON PROD.ID_COR = COR.ID '
+            + 'LEFT JOIN PRODUTO_SEMI SEMI '
+            + 'ON PROD.ID = SEMI.ID '
+            + 'LEFT JOIN PRODUTO PSEMI '
+            + 'ON PSEMI.ID = SEMI.ID_MATERIAL1 '
+            + 'WHERE PED.TIPO_REG = ' + QuotedStr('P')
+            + '  AND PI.GERAR_LOTE = ' + QuotedStr('S')
+            + '  and pi.qtd_restante > 0 ';
+
   if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
+    vTextoData := 'PED.DTENTREGA'
+  else
+    vTextoData := 'PI.DTENTREGA';
+  vQtd_Selecionada := 0;
+  fDMCadLote.cdsPendente.Close;
+  vComando := vComando + ' AND PI.QTD_RESTANTE > 0';
+  if DateEdit6.Date > 10 then
+    vComando := vComando + ' AND PED.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit6.date));
+  if DateEdit7.Date > 10 then
+    vComando := vComando + ' AND PED.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit7.date));
+  if DateEdit8.Date > 10 then
+    vComando := vComando + ' AND ' + vTextoData + '  >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit8.date));
+  if DateEdit9.Date > 10 then
+    vComando := vComando + ' AND ' + vTextoData + '  <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit9.date));
+  if trim(Edit5.Text) <> '' then
+    vComando := vComando + ' AND  CLI.NOME LIKE ' + QuotedStr('%'+Edit5.Text+'%');
+  fDMCadLote.sdsPendente.CommandText := vComando;
+  fDMCadLote.cdsPendente.Open;
+  fDMCadLote.cdsPendente.IndexFieldNames := 'NUM_PEDIDO;REFERENCIA;ID_PRODUTO;TAMANHO';
+
+  {if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
     vTextoData := 'PED.DTENTREGA'
   else
     vTextoData := 'PI.DTENTREGA';
@@ -196,7 +273,7 @@ begin
   if trim(Edit5.Text) <> '' then
     fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND  CLI.NOME LIKE ' + QuotedStr('%'+Edit5.Text+'%');
   fDMCadLote.cdsPendente.Open;
-  fDMCadLote.cdsPendente.IndexFieldNames := 'NUM_PEDIDO;REFERENCIA;ID_PRODUTO;TAMANHO';
+  fDMCadLote.cdsPendente.IndexFieldNames := 'NUM_PEDIDO;REFERENCIA;ID_PRODUTO;TAMANHO';}
 end;
 
 procedure TfrmGerar_Lote_Ped.prc_Gerar_Lote;

@@ -1087,7 +1087,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
         WidthOfIndicator = 11
         DefaultRowHeight = 16
         ScrollBars = ssHorizontal
-        ColCount = 15
+        ColCount = 16
         RowCount = 2
         Columns = <
           item
@@ -1163,10 +1163,29 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Alignment = taCenter
             Expanded = False
             FieldName = 'QTD_RESTANTE'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
             Title.Alignment = taCenter
             Title.Caption = 'Qtde. Pedido'
+            Title.Color = 4259584
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'MS Sans Serif'
+            Title.Font.Style = [fsBold]
+            Width = 86
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_ESTOQUE'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Estoque'
             Title.Color = 16777158
-            Width = 80
+            Width = 78
             Visible = True
           end
           item
