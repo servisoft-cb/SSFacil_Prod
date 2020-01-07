@@ -693,6 +693,9 @@ object DMPedido_Talao: TDMPedido_Talao
       FieldName = 'NOME_COR'
       Size = 60
     end
+    object cdsConsulta_TalaoQTD_POR_ROTULO: TIntegerField
+      FieldName = 'QTD_POR_ROTULO'
+    end
   end
   object dspConsulta_Talao: TDataSetProvider
     DataSet = sdsConsulta_Talao
@@ -704,10 +707,10 @@ object DMPedido_Talao: TDMPedido_Talao
     GetMetadata = False
     CommandText = 
       'select PL.*, P.num_pedido, PI.REFERENCIA, PI.NOMEPRODUTO, COMB.N' +
-      'OME NOME_COR'#13#10'from pedido_talao PL'#13#10'INNER JOIN PEDIDO P'#13#10'ON PL.I' +
-      'D = P.ID'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10' ON PL.ID = PI.ID'#13#10' AND PL.' +
-      'ITEM = PI.ITEM'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.I' +
-      'D'#13#10'where P.NUM_PEDIDO = :NUM_PEDIDO'#13#10#13#10
+      'OME NOME_COR, pi.qtd_por_rotulo'#13#10'from pedido_talao PL'#13#10'INNER JOI' +
+      'N PEDIDO P'#13#10'ON PL.ID = P.ID'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10' ON PL.I' +
+      'D = PI.ID'#13#10' AND PL.ITEM = PI.ITEM'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON' +
+      ' PI.ID_COR = COMB.ID'#13#10'where P.NUM_PEDIDO = :NUM_PEDIDO'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item

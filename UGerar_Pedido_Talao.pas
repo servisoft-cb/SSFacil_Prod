@@ -6,7 +6,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMPedido_Talao, StdCtrls, Mask, ToolEdit, CurrEdit, ExtCtrls,
-  NxCollection, RzTabs, Grids, DBGrids, SMDBGrid, DB;
+  NxCollection, RzTabs, Grids, DBGrids, SMDBGrid, DB, SqlExpr;
 
 type
   TfrmGerar_Pedido_Talao = class(TForm)
@@ -65,7 +65,7 @@ type
     procedure prc_Grava_mEtiqueta;
     procedure prc_Gravar_Pedido_Talao;
     procedure prc_Abrir_Talao_Ped(ID, Item, Item_Talao : Integer);
-    procedure prc_Grava_Gerou_Talao;
+    procedure prc_Grava_Gerou_Talao(Gerou : String; Qtd, ID, Item : Integer);
     procedure prc_Consultar_Talao;
 
     procedure prc_Imprimir;
@@ -79,7 +79,7 @@ var
 
 implementation
 
-uses rsDBUtils, uUtilPadrao, UConsPed;
+uses rsDBUtils, uUtilPadrao, UConsPed, DmdDatabase;
 
 {$R *.dfm}
 
@@ -201,22 +201,43 @@ begin
   if fDMPedido_Talao.mEtiqueta_Nav.IsEmpty then
    exit;
 
+  vItem := 0;
+  try
+    fDMPedido_Talao.cdsPedidoImp_Itens.First;
+    fDMPedido_Talao.mEtiqueta_Nav.IndexFieldNames := 'Item_Ped;Item_Talao';
+    fDMPedido_Talao.mEtiqueta_Nav.First;
+    while not fDMPedido_Talao.mEtiqueta_Nav.Eof do
+    begin
+      if vItem <> fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger  then
+        prc_Abrir_Talao_Ped(fDMPedido_Talao.cdsPedidoImp_ItensID.AsInteger,fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger,0);
+      prc_Gravar_Pedido_Talao;
+      vItem := fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger;
+      fDMPedido_Talao.mEtiqueta_Nav.Next;
+      //if (fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger <> vItem) or (fDMPedido_Talao.mEtiqueta_Nav.Eof) then
+      //  prc_Grava_Gerou_Talao;
+    end;
+  except
+    on e: Exception do
+      MessageDlg('*** Erro ao gravar Pedido_Talao ' + #13+ e.Message, mtError, [mbOk], 0);
+  end;
+
+  SMDBGrid1.DisableScroll;
+  try
+    fDMPedido_Talao.cdsPedidoImp_Itens.First;
+    while not fDMPedido_Talao.cdsPedidoImp_Itens.Eof do
+    begin
+      prc_Grava_Gerou_Talao('S',fDMPedido_Talao.cdsPedidoImp_ItensQTD_POR_ROTULO.AsInteger,fDMPedido_Talao.cdsPedidoImp_ItensID.AsInteger,fDMPedido_Talao.cdsPedidoImp_ItensITEM.AsInteger);
+      fDMPedido_Talao.cdsPedidoImp_Itens.Next;
+    end;
+  except
+    on e: Exception do
+      MessageDlg('*** Erro ao gravar que o Item do Pedido gerou o talão ' + #13+ e.Message, mtError, [mbOk], 0);
+  end;
+
+  SMDBGrid1.EnableScroll;
+
   prc_Imprimir;
 
-  vItem := 0;
-  fDMPedido_Talao.cdsPedidoImp_Itens.First; 
-  fDMPedido_Talao.mEtiqueta_Nav.IndexFieldNames := 'Item_Ped;Item_Talao';
-  fDMPedido_Talao.mEtiqueta_Nav.First;
-  while not fDMPedido_Talao.mEtiqueta_Nav.Eof do
-  begin
-    if vItem <> fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger  then
-      prc_Abrir_Talao_Ped(fDMPedido_Talao.cdsPedidoImp_ItensID.AsInteger,fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger,0);
-    prc_Gravar_Pedido_Talao;
-    vItem := fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger;
-    fDMPedido_Talao.mEtiqueta_Nav.Next;
-    if (fDMPedido_Talao.mEtiqueta_NavItem_Ped.AsInteger <> vItem) or (fDMPedido_Talao.mEtiqueta_Nav.Eof) then
-      prc_Grava_Gerou_Talao;
-  end;
   prc_Consultar(CurrencyEdit1.AsInteger,0);
 end;
 
@@ -290,6 +311,7 @@ begin
   fDMPedido_Talao.cdsPedido_TalaoDTEMISSAO.AsDateTime := Date;
   fDMPedido_Talao.cdsPedido_TalaoHREMISSAO.AsDateTime := Now;
   fDMPedido_Talao.cdsPedido_Talao.Post;
+  fDMPedido_Talao.cdsPedido_Talao.ApplyUpdates(0);
 end;
 
 procedure TfrmGerar_Pedido_Talao.prc_Abrir_Talao_Ped(ID, Item, Item_Talao : Integer);
@@ -306,11 +328,32 @@ begin
   fDMPedido_Talao.cdsPedido_Talao.Open;
 end;
 
-procedure TfrmGerar_Pedido_Talao.prc_Grava_Gerou_Talao;
+procedure TfrmGerar_Pedido_Talao.prc_Grava_Gerou_Talao(Gerou : String; Qtd, ID, Item : Integer);
+var
+  sds: TSQLDataSet;
+  vTexto : String;
 begin
-  fDMPedido_Talao.cdsPedidoImp_Itens.Locate('ITEM',fDMPedido_Talao.cdsPedido_TalaoITEM.AsInteger,[loCaseInsensitive]);
+  //fDMPedido_Talao.cdsPedidoImp_Itens.Locate('ITEM',fDMPedido_Talao.cdsPedido_TalaoITEM.AsInteger,[loCaseInsensitive]);
+  vTexto := 'where exists(select 1 from PEDIDO_TALAO T where T.ID = I.ID and T.ITEM = I.ITEM) and I.ID = :ID and I.ITEM = :ITEM ';
+  if Gerou = 'N' then
+    vTexto := 'where I.ID = :ID and I.ITEM = :ITEM ';
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'update PEDIDO_ITEM I set I.GEROU_PED_TALAO = :GEROU_PED_TALAO, I.QTD_POR_ROTULO = :QTD_POR_ROTULO ' + vTexto;
 
-  fDMPedido_Talao.cdsPedido_Itens.Close;
+    sds.ParamByName('GEROU_PED_TALAO').AsString := Gerou;
+    sds.ParamByName('QTD_POR_ROTULO').AsInteger := Qtd;
+    sds.ParamByName('ID').AsInteger             := ID;
+    sds.ParamByName('ITEM').AsInteger           := Item;
+    sds.ExecSQL;
+  finally
+    FreeAndNil(sds);
+  end;
+
+  {fDMPedido_Talao.cdsPedido_Itens.Close;
   fDMPedido_Talao.sdsPedido_Itens.ParamByName('ID').AsInteger   := fDMPedido_Talao.cdsPedido_TalaoID.AsInteger;
   fDMPedido_Talao.sdsPedido_Itens.ParamByName('ITEM').AsInteger := fDMPedido_Talao.cdsPedido_TalaoITEM.AsInteger;
   fDMPedido_Talao.cdsPedido_Itens.Open;
@@ -322,7 +365,7 @@ begin
   fDMPedido_Talao.cdsPedido_Itens.Post;
   fDMPedido_Talao.cdsPedido_Itens.ApplyUpdates(0);
 
-  fDMPedido_Talao.cdsPedido_Talao.ApplyUpdates(0);
+  fDMPedido_Talao.cdsPedido_Talao.ApplyUpdates(0);}
 end;
 
 procedure TfrmGerar_Pedido_Talao.prc_Grava_mEtiqueta;
@@ -483,6 +526,7 @@ begin
         fDMPedido_Talao.cdsPedido_Talao.Delete;
         fDMPedido_Talao.cdsPedido_Talao.ApplyUpdates(0);
         vContador := vContador + 1;
+        prc_Grava_Gerou_Talao('N',fDMPedido_Talao.cdsConsulta_TalaoQTD_POR_ROTULO.AsInteger,fDMPedido_Talao.cdsConsulta_TalaoID.AsInteger,fDMPedido_Talao.cdsConsulta_TalaoITEM.AsInteger);
       end;
     end;
     fDMPedido_Talao.cdsConsulta_Talao.Next;

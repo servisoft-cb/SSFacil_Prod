@@ -120,6 +120,7 @@ type
     qParametros_Lote: TSQLQuery;
     qParametros_LoteQTD_PADRAO_ETIQ: TIntegerField;
     mEtiqueta_NavQtd: TFloatField;
+    cdsConsulta_TalaoQTD_POR_ROTULO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

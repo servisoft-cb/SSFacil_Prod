@@ -20,7 +20,7 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 912
+    Width = 920
     Height = 45
     Align = alTop
     Color = clSilver
@@ -83,8 +83,8 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 45
-    Width = 912
-    Height = 396
+    Width = 920
+    Height = 404
     ActivePage = TS_Talao
     ActivePageDefault = TS_Itens
     Align = alClient
@@ -96,8 +96,8 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 28
-        Width = 908
-        Height = 345
+        Width = 916
+        Height = 353
         Align = alClient
         Ctl3D = False
         DataSource = DMPedido_Talao.dsPedidoImp_Itens
@@ -231,7 +231,7 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 28
         Align = alTop
         TabOrder = 1
@@ -299,8 +299,8 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 28
-        Width = 908
-        Height = 345
+        Width = 916
+        Height = 353
         Align = alClient
         Ctl3D = False
         DataSource = DMPedido_Talao.dsConsulta_Talao
@@ -441,7 +441,7 @@ object frmGerar_Pedido_Talao: TfrmGerar_Pedido_Talao
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 28
         Align = alTop
         TabOrder = 1
