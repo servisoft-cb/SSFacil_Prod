@@ -21,7 +21,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     Top = 0
     Width = 998
     Height = 538
-    ActivePage = TS_Gerar
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -2552,8 +2552,8 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
   end
   object PopupMenu2: TPopupMenu
-    Left = 471
-    Top = 75
+    Left = 702
+    Top = 96
     object MarcarDesmarcargerarOCIndividual1: TMenuItem
       Caption = 'Marcar/Desmarcar Item (Individual)'
       OnClick = MarcarDesmarcargerarOCIndividual1Click

@@ -15,11 +15,11 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 43579.746433333300000000
+    ReportOptions.LastChange = 43839.559050775460000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 800
+    Left = 799
     Top = 366
   end
   object frxPDFExport1: TfrxPDFExport
@@ -1140,7 +1140,7 @@ object DMLoteImp: TDMLoteImp
       'ID_PROCESSO=ID_PROCESSO')
     DataSource = dsTalao_Proc
     BCDToCurrency = False
-    Left = 928
+    Left = 927
     Top = 423
   end
   object sdsConsLoteRef: TSQLDataSet
@@ -1349,7 +1349,7 @@ object DMLoteImp: TDMLoteImp
     DataSource = dsmImpLote_SL
     BCDToCurrency = False
     Left = 855
-    Top = 471
+    Top = 470
   end
   object sdsTalao_Ajuste: TSQLDataSet
     NoMetadata = True
@@ -1751,7 +1751,7 @@ object DMLoteImp: TDMLoteImp
     DataSource = dsLote_Ped
     BCDToCurrency = False
     Left = 951
-    Top = 471
+    Top = 470
   end
   object mImpAux: TClientDataSet
     Active = True
