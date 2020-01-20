@@ -5891,10 +5891,10 @@ object DMCadLote: TDMCadLote
       'ERIAL, L.id_cor_produto, L.id_cor_material,'#13#10'COMB2.NOME NOME_COM' +
       'BINACAO, '#39'3'#39' || lpad(L.num_ordem,8,0) || lpad(L.Item,3,0) CODBAR' +
       'RAS,'#13#10'L.dtretorno, L.dtpago, L.qtd_pago, L.qtd_retorno, L.qtd_di' +
-      'ferenca, L.qtd_cones'#13#10'FROM lote_mat_prod L'#13#10'INNER JOIN PRODUTO M' +
-      #13#10'ON L.id_material = M.id'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON L.id_co' +
-      'r_material = COMB.ID'#13#10'LEFT JOIN COMBINACAO COMB2'#13#10'ON L.id_cor_pr' +
-      'oduto = COMB2.id'#13#10
+      'ferenca, L.qtd_cones, L.IMPRESSO'#13#10'FROM lote_mat_prod L'#13#10'INNER JO' +
+      'IN PRODUTO M'#13#10'ON L.id_material = M.id'#13#10'LEFT JOIN COMBINACAO COMB' +
+      #13#10'ON L.id_cor_material = COMB.ID'#13#10'LEFT JOIN COMBINACAO COMB2'#13#10'ON' +
+      ' L.id_cor_produto = COMB2.id'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5970,6 +5970,11 @@ object DMCadLote: TDMCadLote
     end
     object cdsConsLote_Mat_ProdQTD_CONES: TIntegerField
       FieldName = 'QTD_CONES'
+    end
+    object cdsConsLote_Mat_ProdIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsConsLote_Mat_Prod: TDataSource

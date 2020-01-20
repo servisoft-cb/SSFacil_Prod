@@ -108,6 +108,9 @@ type
     btnConsMaterial: TNxButton;
     SMDBGrid5: TSMDBGrid;
     btnImpriomir_Mat: TNxButton;
+    Shape1: TShape;
+    Label19: TLabel;
+    ckImpMaterial: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -143,6 +146,9 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure btnConsMaterialClick(Sender: TObject);
     procedure btnImpriomir_MatClick(Sender: TObject);
+    procedure SMDBGrid5TitleClick(Column: TColumn);
+    procedure SMDBGrid5GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     fDMCadLote: TDMCadLote;
@@ -594,7 +600,6 @@ var
   i: Integer;
   ColunaOrdenada: String;
 begin
-
   ColunaOrdenada := Column.FieldName;
   fDMCadLote.cdsConsulta_Lote_SL.IndexFieldNames := Column.FieldName;
   //Column.Title.Color := clBtnShadow;
@@ -839,9 +844,11 @@ begin
   sds.SQLConnection := dmDatabase.scoDados;
   sds.NoMetadata    := True;
   sds.GetMetadata   := False;
-  
+
   fDMLoteImp := TDMLoteImp.Create(Self);
   fDMLoteImp.mImpLote_SL.EmptyDataSet;
+  fDMLoteImp.cdsConsLote_Mat_Prod.Close;
+
   fDMCadLote.cdsConsulta_Lote_SL.First;
   while not fDMCadLote.cdsConsulta_Lote_SL.Eof do
   begin
@@ -873,6 +880,13 @@ begin
   FreeAndNil(sds);
 
   fDMLoteImp.mImpLote_SL.First;
+
+  if (CurrencyEdit3.AsInteger > 0) and (ckImpMaterial.Checked) and (fDMLoteImp.mImpLote_SL.RecordCount > 0) then
+  begin
+    fDMLoteImp.sdsConsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger := CurrencyEdit3.AsInteger;
+    fDMLoteImp.cdsConsLote_Mat_Prod.Open;
+    fDMLoteImp.cdsConsLote_Mat_Prod.First;
+  end;
 
   {fDMLoteImp.cdsTalao_SL.Close;
   fDMLoteImp.sdsTalao_SL.ParamByName('NUM_ORDEM').AsInteger := StrToInt(vNumOrdemAux) ;
@@ -1759,6 +1773,25 @@ begin
   end;
   fDMCadLote.frxReport1.Report.LoadFromFile(vArq);
   fDMCadLote.frxReport1.ShowReport;
+end;
+
+procedure TfrmGerar_Lote_SL.SMDBGrid5TitleClick(Column: TColumn);
+var
+  i: Integer;
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMCadLote.cdsConsLote_Mat_Prod.IndexFieldNames := Column.FieldName;
+end;
+
+procedure TfrmGerar_Lote_SL.SMDBGrid5GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if fDMCadLote.cdsConsLote_Mat_ProdIMPRESSO.AsString = 'S' then
+  begin
+    Background  := clOlive;
+    AFont.Color := clWhite;
+  end;
 end;
 
 end.

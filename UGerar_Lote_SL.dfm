@@ -294,7 +294,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Caption = 'N'#186' OC Pedido Cliente:'
         end
         object Label3: TLabel
-          Left = 420
+          Left = 421
           Top = 46
           Width = 74
           Height = 13
@@ -517,7 +517,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           TabOrder = 7
         end
         object CurrencyEdit5: TCurrencyEdit
-          Left = 495
+          Left = 496
           Top = 39
           Width = 121
           Height = 21
@@ -528,6 +528,14 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           ParentCtl3D = False
           TabOrder = 8
           OnKeyDown = CurrencyEdit5KeyDown
+        end
+        object ckImpMaterial: TCheckBox
+          Left = 497
+          Top = 4
+          Width = 155
+          Height = 17
+          Caption = 'Imprimir os materiais'
+          TabOrder = 11
         end
       end
       object SMDBGrid2: TSMDBGrid
@@ -2320,6 +2328,20 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Alignment = taRightJustify
           Caption = 'N'#186' Ordem:'
         end
+        object Shape1: TShape
+          Left = 517
+          Top = 66
+          Width = 30
+          Height = 16
+          Brush.Color = clOlive
+        end
+        object Label19: TLabel
+          Left = 549
+          Top = 69
+          Width = 56
+          Height = 13
+          Caption = 'J'#225' Impresso'
+        end
         object CurrencyEdit6: TCurrencyEdit
           Left = 81
           Top = 13
@@ -2349,7 +2371,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           TabOrder = 2
         end
         object btnConsMaterial: TNxButton
-          Left = 80
+          Left = 82
           Top = 58
           Width = 148
           Height = 26
@@ -2396,8 +2418,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
-        OnDblClick = SMDBGrid2DblClick
-        OnTitleClick = SMDBGrid2TitleClick
+        OnTitleClick = SMDBGrid5TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText
@@ -2411,7 +2432,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid2GetCellParams
+        OnGetCellParams = SMDBGrid5GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 23
@@ -2544,7 +2565,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 825
+    Left = 826
     Top = 31
     object ImprimirOrdemProduo1: TMenuItem
       Caption = 'Ordem Produ'#231#227'o'
@@ -2552,8 +2573,8 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
   end
   object PopupMenu2: TPopupMenu
-    Left = 702
-    Top = 96
+    Left = 719
+    Top = 99
     object MarcarDesmarcargerarOCIndividual1: TMenuItem
       Caption = 'Marcar/Desmarcar Item (Individual)'
       OnClick = MarcarDesmarcargerarOCIndividual1Click

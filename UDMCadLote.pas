@@ -1180,6 +1180,7 @@ type
     mAuxEstNum_Lote_Controle: TStringField;
     mAuxEstQtd: TFloatField;
     cdsPendenteQTD_ESTOQUE: TFloatField;
+    cdsConsLote_Mat_ProdIMPRESSO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

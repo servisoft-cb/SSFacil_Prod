@@ -4,7 +4,7 @@ object DMLoteImp: TDMLoteImp
   Left = 213
   Top = 62
   Height = 609
-  Width = 1059
+  Width = 1058
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
@@ -15,7 +15,7 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 43839.559050775460000000
+    ReportOptions.LastChange = 43848.667455243060000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -2084,5 +2084,138 @@ object DMLoteImp: TDMLoteImp
     object qConsumoQTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
     end
+  end
+  object sdsConsLote_Mat_Prod: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT L.referencia,'#13#10'M.nome NOME_MATERIAL, COMB.nome NOME_COR_M' +
+      'AT, L.qtd_consumo, L.qtd_produto,'#13#10'L.num_ordem, L.item, L.ID_MAT' +
+      'ERIAL, L.id_cor_produto, L.id_cor_material,'#13#10'COMB2.NOME NOME_COM' +
+      'BINACAO, '#39'3'#39' || lpad(L.num_ordem,8,0) || lpad(L.Item,3,0) CODBAR' +
+      'RAS,'#13#10'L.dtretorno, L.dtpago, L.qtd_pago, L.qtd_retorno, L.qtd_di' +
+      'ferenca, L.qtd_cones, L.IMPRESSO'#13#10'FROM lote_mat_prod L'#13#10'INNER JO' +
+      'IN PRODUTO M'#13#10'ON L.id_material = M.id'#13#10'LEFT JOIN COMBINACAO COMB' +
+      #13#10'ON L.id_cor_material = COMB.ID'#13#10'LEFT JOIN COMBINACAO COMB2'#13#10'ON' +
+      ' L.id_cor_produto = COMB2.id'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'NUM_ORDEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 470
+    Top = 170
+  end
+  object dspConsLote_Mat_Prod: TDataSetProvider
+    DataSet = sdsConsLote_Mat_Prod
+    Left = 527
+    Top = 170
+  end
+  object cdsConsLote_Mat_Prod: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsLote_Mat_Prod'
+    Left = 594
+    Top = 170
+    object cdsConsLote_Mat_ProdREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsLote_Mat_ProdNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsLote_Mat_ProdNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsLote_Mat_ProdQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+    object cdsConsLote_Mat_ProdQTD_PRODUTO: TFloatField
+      FieldName = 'QTD_PRODUTO'
+    end
+    object cdsConsLote_Mat_ProdNUM_ORDEM: TIntegerField
+      FieldName = 'NUM_ORDEM'
+    end
+    object cdsConsLote_Mat_ProdITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsConsLote_Mat_ProdID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsConsLote_Mat_ProdID_COR_PRODUTO: TIntegerField
+      FieldName = 'ID_COR_PRODUTO'
+    end
+    object cdsConsLote_Mat_ProdID_COR_MATERIAL: TIntegerField
+      FieldName = 'ID_COR_MATERIAL'
+    end
+    object cdsConsLote_Mat_ProdNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 60
+    end
+    object cdsConsLote_Mat_ProdCODBARRAS: TStringField
+      FieldName = 'CODBARRAS'
+      Size = 12
+    end
+    object cdsConsLote_Mat_ProdDTRETORNO: TDateField
+      FieldName = 'DTRETORNO'
+    end
+    object cdsConsLote_Mat_ProdDTPAGO: TDateField
+      FieldName = 'DTPAGO'
+    end
+    object cdsConsLote_Mat_ProdQTD_PAGO: TFloatField
+      FieldName = 'QTD_PAGO'
+    end
+    object cdsConsLote_Mat_ProdQTD_RETORNO: TFloatField
+      FieldName = 'QTD_RETORNO'
+    end
+    object cdsConsLote_Mat_ProdQTD_DIFERENCA: TFloatField
+      FieldName = 'QTD_DIFERENCA'
+    end
+    object cdsConsLote_Mat_ProdQTD_CONES: TIntegerField
+      FieldName = 'QTD_CONES'
+    end
+    object cdsConsLote_Mat_ProdIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dsConsLote_Mat_Prod: TDataSource
+    DataSet = cdsConsLote_Mat_Prod
+    Left = 640
+    Top = 170
+  end
+  object frxConsLote_Mat_SL: TfrxDBDataset
+    UserName = 'frxConsLote_Mat_SL'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'REFERENCIA=REFERENCIA'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'QTD_CONSUMO=QTD_CONSUMO'
+      'QTD_PRODUTO=QTD_PRODUTO'
+      'NUM_ORDEM=NUM_ORDEM'
+      'ITEM=ITEM'
+      'ID_MATERIAL=ID_MATERIAL'
+      'ID_COR_PRODUTO=ID_COR_PRODUTO'
+      'ID_COR_MATERIAL=ID_COR_MATERIAL'
+      'NOME_COMBINACAO=NOME_COMBINACAO'
+      'CODBARRAS=CODBARRAS'
+      'DTRETORNO=DTRETORNO'
+      'DTPAGO=DTPAGO'
+      'QTD_PAGO=QTD_PAGO'
+      'QTD_RETORNO=QTD_RETORNO'
+      'QTD_DIFERENCA=QTD_DIFERENCA'
+      'QTD_CONES=QTD_CONES'
+      'IMPRESSO=IMPRESSO')
+    DataSource = dsConsLote_Mat_Prod
+    BCDToCurrency = False
+    Left = 914
+    Top = 523
   end
 end

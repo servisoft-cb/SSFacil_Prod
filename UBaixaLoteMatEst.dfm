@@ -17,7 +17,7 @@ object frmLoteMaterialEstoque: TfrmLoteMaterialEstoque
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 566
+    Width = 574
     Height = 353
     Align = alTop
     Color = clMoneyGreen
@@ -119,7 +119,7 @@ object frmLoteMaterialEstoque: TfrmLoteMaterialEstoque
     object DBGrid1: TDBGrid
       Left = 1
       Top = 149
-      Width = 564
+      Width = 572
       Height = 203
       TabStop = False
       Align = alBottom
@@ -165,8 +165,8 @@ object frmLoteMaterialEstoque: TfrmLoteMaterialEstoque
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 408
-    Width = 566
+    Top = 415
+    Width = 574
     Height = 19
     Panels = <
       item
@@ -181,8 +181,8 @@ object frmLoteMaterialEstoque: TfrmLoteMaterialEstoque
   object Panel2: TPanel
     Left = 0
     Top = 353
-    Width = 566
-    Height = 55
+    Width = 574
+    Height = 62
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 2
@@ -384,7 +384,7 @@ object frmLoteMaterialEstoque: TfrmLoteMaterialEstoque
         A29CF5F6EEFFFFFDFFFFFFFEFFFFFDFEFCFCFBFEFFFEFCFBFFFF}
     end
     object btnConfirmar: TBitBtn
-      Left = 288
+      Left = 287
       Top = 12
       Width = 104
       Height = 30
