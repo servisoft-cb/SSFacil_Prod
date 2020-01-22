@@ -100,6 +100,11 @@ type
     sdsLote_Mat_Prod_EstUSUARIO: TStringField;
     cdsLote_Mat_Prod_EstFILIAL: TIntegerField;
     cdsLote_Mat_Prod_EstUSUARIO: TStringField;
+    sdsLote_Mat_ProdFINALIZADO: TStringField;
+    cdsLote_Mat_ProdFINALIZADO: TStringField;
+    cdsConsLoteMat_ProdFINALIZADO: TStringField;
+    SQLQuery1: TSQLQuery;
+    sdsPRC_Atualiza_Lote_Mat_Prod: TSQLDataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
@@ -110,6 +115,7 @@ type
      ctConsLoteMat_Prod : String;
 
      procedure prc_Abrir_Lote_Mat_Prod(Num_Ordem, Item : Integer);
+     function fnc_Finalizado(ID,Item : Integer) : String;
 
   end;
 
@@ -150,6 +156,29 @@ procedure TDMBaixaMaterial_Prod.dspLote_Mat_Prod_EstGetTableName(
   Sender: TObject; DataSet: TDataSet; var TableName: String);
 begin
   TableName := 'LOTE_MAT_PROD_EST';
+end;
+
+function TDMBaixaMaterial_Prod.fnc_Finalizado(ID,Item: Integer): String;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 'N';
+  sds               := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.Close;
+    sds.CommandText   := 'select count(1) CONTADOR from LOTE_MAT_PROD_EST L '
+                       + 'where L.ID = :ID and L.ITEM = :ITEM and L.TIPO_ES = ' + QuotedStr('E');
+    sds.ParamByName('ID').AsInteger   := ID;
+    sds.ParamByName('ITEM').AsInteger := Item;
+    sds.Open;
+    if sds.FieldByName('CONTADOR').AsInteger > 0 then
+      Result := 'S';
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

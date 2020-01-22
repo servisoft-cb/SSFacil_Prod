@@ -306,7 +306,6 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
         Title.Alignment = taCenter
         Title.Caption = 'Qtd. Retorno'
         Title.Color = 8454143
-        Width = 64
         Visible = True
       end
       item
@@ -315,7 +314,6 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
         Title.Alignment = taCenter
         Title.Caption = 'Qtd. Diferen'#231'a'
         Title.Color = 8454143
-        Width = 64
         Visible = True
       end
       item
@@ -348,7 +346,6 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
         Title.Alignment = taCenter
         Title.Caption = 'Refer'#234'ncia'
         Title.Color = 8454143
-        Width = 64
         Visible = True
       end
       item
@@ -357,7 +354,6 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
         Title.Alignment = taCenter
         Title.Caption = 'Cor da Refer'#234'ncia'
         Title.Color = 8454143
-        Width = 64
         Visible = True
       end>
   end

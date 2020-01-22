@@ -68,11 +68,13 @@ end;
 procedure TfrmBaixaMaterial_Prod_Dig.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMBaixaMaterial_Prod);
+  fDMBaixaMaterial_Prod.prc_Abrir_Lote_Mat_Prod(fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdNUM_ORDEM.AsInteger,fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger);
 end;
 
 procedure TfrmBaixaMaterial_Prod_Dig.btnExcluirClick(Sender: TObject);
 var
   vNumOrdem, vItem : Integer;
+  vFinalizado : String;
 begin
   if fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_Est.IsEmpty then
     exit;
@@ -85,12 +87,18 @@ begin
   try
     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_Est.Delete;
     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_Est.ApplyUpdates(0);
+
   finally
     fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Close;
     fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Open;
     fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Locate('NUM_ORDEM;ITEM',VarArrayOf([vNumOrdem,vItem]),[locaseinsensitive]);
     fDMBaixaMaterial_Prod.prc_Abrir_Lote_Mat_Prod(fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdNUM_ORDEM.AsInteger,fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger);
   end;
+
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.Close;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ParamByName('P_ID').AsInteger   := fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdID.AsInteger;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ParamByName('P_ITEM').AsInteger := fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ExecSQL;
 end;
 
 procedure TfrmBaixaMaterial_Prod_Dig.btnConfirmarClick(Sender: TObject);
@@ -101,7 +109,7 @@ var
   vES : String;
   vGeraCusto : String;
 begin
-  fDMBaixaMaterial_Prod.prc_Abrir_Lote_Mat_Prod(fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdNUM_ORDEM.AsInteger,fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger);
+  //fDMBaixaMaterial_Prod.prc_Abrir_Lote_Mat_Prod(fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdNUM_ORDEM.AsInteger,fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger);
   vQtdAux := StrToFloat(FormatFloat('0.0000',fDMBaixaMaterial_Prod.cdsLote_Mat_ProdQTD_PAGO.AsFloat - fDMBaixaMaterial_Prod.cdsLote_Mat_ProdQTD_RETORNO.AsFloat));
   if (NxComboBox1.ItemIndex = 2) and (CurrencyEdit1.Value > vQtdAux) then
   begin
@@ -199,6 +207,12 @@ begin
 
   fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_Est.Post;
   fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_Est.ApplyUpdates(0);
+
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.Close;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ParamByName('P_ID').AsInteger   := fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdID.AsInteger;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ParamByName('P_ITEM').AsInteger := fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger;
+  fDMBaixaMaterial_Prod.sdsPRC_Atualiza_Lote_Mat_Prod.ExecSQL;
+
   Close;
 end;
 

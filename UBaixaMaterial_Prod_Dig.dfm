@@ -75,7 +75,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 344
+    Left = 312
     Top = 14
     Width = 36
     Height = 16
@@ -178,7 +178,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabStop = False
     Color = clBtnFace
     Ctl3D = False
-    DataField = 'QTD_PAGO'
+    DataField = 'QTD_RETORNO'
     DataSource = DMBaixaMaterial_Prod.dsConsLoteMat_Prod
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -211,9 +211,9 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabOrder = 4
   end
   object DBEdit5: TDBEdit
-    Left = 382
+    Left = 351
     Top = 8
-    Width = 121
+    Width = 120
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -251,9 +251,9 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabOrder = 6
   end
   object DBEdit7: TDBEdit
-    Left = 222
+    Left = 220
     Top = 29
-    Width = 281
+    Width = 251
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -273,7 +273,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
   object DBEdit8: TDBEdit
     Left = 157
     Top = 50
-    Width = 346
+    Width = 314
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -293,7 +293,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
   object Panel1: TPanel
     Left = 3
     Top = 181
-    Width = 555
+    Width = 477
     Height = 262
     Align = alCustom
     Color = 16763541
@@ -408,7 +408,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabStop = False
     Color = clBtnFace
     Ctl3D = False
-    DataField = 'QTD_PAGO'
+    DataField = 'QTD_DIFERENCA'
     DataSource = DMBaixaMaterial_Prod.dsConsLoteMat_Prod
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -421,9 +421,9 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabOrder = 9
   end
   object NxPanel1: TNxPanel
-    Left = 558
+    Left = 480
     Top = 0
-    Width = 362
+    Width = 440
     Height = 443
     Align = alRight
     Caption = 'NxPanel1'
@@ -433,7 +433,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     object SMDBGrid1: TSMDBGrid
       Left = 0
       Top = 32
-      Width = 362
+      Width = 440
       Height = 411
       Align = alClient
       Ctl3D = False
@@ -465,7 +465,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 6
+      ColCount = 7
       RowCount = 2
       Columns = <
         item
@@ -485,7 +485,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
           Title.Alignment = taCenter
           Title.Caption = 'Item'
           Title.Color = 8454016
-          Width = 32
+          Width = 25
           Visible = True
         end
         item
@@ -505,7 +505,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
           Title.Alignment = taCenter
           Title.Caption = 'Hora'
           Title.Color = 8454016
-          Width = 49
+          Width = 41
           Visible = True
         end
         item
@@ -517,12 +517,20 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
           Title.Color = 8454016
           Width = 87
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'USUARIO'
+          Title.Alignment = taCenter
+          Title.Caption = 'Usu'#225'rio'
+          Title.Color = 8454016
+          Visible = True
         end>
     end
     object NxPanel2: TNxPanel
       Left = 0
       Top = 0
-      Width = 362
+      Width = 440
       Height = 32
       Align = alTop
       Color = clSilver
@@ -532,8 +540,8 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       ParentColor = False
       TabOrder = 1
       object btnExcluir: TNxButton
-        Left = 291
-        Top = 6
+        Left = 369
+        Top = 4
         Width = 65
         Caption = 'Excluir'
         Font.Charset = DEFAULT_CHARSET

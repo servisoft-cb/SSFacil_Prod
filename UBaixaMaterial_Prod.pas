@@ -153,7 +153,9 @@ begin
   FreeAndNil(frmBaixaMaterial_Prod_Dig);
   CurrencyEdit1.AsInteger := vNumOrd;
   CurrencyEdit2.AsInteger := vItem;
-  prc_ConsLoteMat_Prod;
+  fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Close;
+  fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Open;
+  fDMBaixaMaterial_Prod.cdsConsLoteMat_Prod.Locate('NUM_ORDEM;ITEM',VarArrayOf([vNumOrd,vItem]),[locaseinsensitive]);
 end;
 
 procedure TfrmBaixaMaterial_Prod.SMDBGrid1GetCellParams(Sender: TObject;

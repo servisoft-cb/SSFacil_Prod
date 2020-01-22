@@ -83,6 +83,11 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
       FixedChar = True
       Size = 1
     end
+    object sdsLote_Mat_ProdFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspLote_Mat_Prod: TDataSetProvider
     DataSet = sdsLote_Mat_Prod
@@ -151,6 +156,11 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsLote_Mat_ProdIMPRESSO: TStringField
       FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsLote_Mat_ProdFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
       FixedChar = True
       Size = 1
     end
@@ -264,6 +274,11 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     object cdsConsLoteMat_ProdUNIDADE_MATERIAL: TStringField
       FieldName = 'UNIDADE_MATERIAL'
       Size = 6
+    end
+    object cdsConsLoteMat_ProdFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsConsLoteMat_Prod: TDataSource
@@ -414,5 +429,29 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     object qParametros_EstID_FILIAL_LOTE_MAT_EST: TIntegerField
       FieldName = 'ID_FILIAL_LOTE_MAT_EST'
     end
+  end
+  object SQLQuery1: TSQLQuery
+    Params = <>
+    Left = 554
+    Top = 141
+  end
+  object sdsPRC_Atualiza_Lote_Mat_Prod: TSQLDataSet
+    CommandText = 'PRC_ATUALIZA_LOTE_MAT_PROD'
+    CommandType = ctStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'P_ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'P_ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 530
+    Top = 215
   end
 end
