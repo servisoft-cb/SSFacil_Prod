@@ -82,6 +82,7 @@ type
     ConsultaCustoMaterialpModelo1: TMenuItem;
     N8: TMenuItem;
     BaixaMaterialAlmoxarifado1: TMenuItem;
+    ConsultaPagamentoRetornoMateriaisAlmoxarifado1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EfetuarLogoff1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -116,6 +117,8 @@ type
     procedure ConsultaMateriaisTingimento1Click(Sender: TObject);
     procedure ConsultaCustoMaterialpModelo1Click(Sender: TObject);
     procedure BaixaMaterialAlmoxarifado1Click(Sender: TObject);
+    procedure ConsultaPagamentoRetornoMateriaisAlmoxarifado1Click(
+      Sender: TObject);
   private
     { Private declarations }
     procedure prc_Habilita_Menu;
@@ -142,7 +145,7 @@ uses DmdDatabase, uUtilPadrao, UGerar_Lote_SL, UProcesso_ES, UConsLote2, UGerar_
   UCancelaLote, UGerar_Lote_Proc, UConsLoteProc, UConsRemessa_Prod, UGerar_Pedido_Talao, uCadPreFat, UConsRefDtEntr, UConsProc,
   UGerar_Lote_Ped, UConsPedidoProc, UBaixaLote_Ped, UBaixaTalao_Calc2, UConsMatLote2, UConsProdutividade, UGerar_Programacao,
   UCadIntervalo_Tempo, UConsProgramacao, UConsMatKG, UConsEstTing, UConsModelo_Custo,
-  UBaixaMaterial_Prod;
+  UBaixaMaterial_Prod, UConsBaixaMaterial_Prod;
 
 
 {$R *.dfm}
@@ -458,6 +461,12 @@ end;
 procedure TfMenu.BaixaMaterialAlmoxarifado1Click(Sender: TObject);
 begin
   OpenForm(TfrmBaixaMaterial_Prod, wsMaximized);
+end;
+
+procedure TfMenu.ConsultaPagamentoRetornoMateriaisAlmoxarifado1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsBaixaMaterial_Prod, wsMaximized);
 end;
 
 initialization

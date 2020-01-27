@@ -311,8 +311,8 @@ object fMenu: TfMenu
     end
   end
   object mmMenu: TMainMenu
-    Left = 647
-    Top = 408
+    Left = 646
+    Top = 406
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 0
@@ -442,6 +442,10 @@ object fMenu: TfMenu
       object ConsultaCustoMaterialpModelo1: TMenuItem
         Caption = 'Consulta Custo Material p/Modelo'
         OnClick = ConsultaCustoMaterialpModelo1Click
+      end
+      object ConsultaPagamentoRetornoMateriaisAlmoxarifado1: TMenuItem
+        Caption = 'Consulta Pagamento/Retorno Materiais (Almoxarifado)'
+        OnClick = ConsultaPagamentoRetornoMateriaisAlmoxarifado1Click
       end
     end
     object N19: TMenuItem

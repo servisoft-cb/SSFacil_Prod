@@ -105,6 +105,47 @@ type
     cdsConsLoteMat_ProdFINALIZADO: TStringField;
     SQLQuery1: TSQLQuery;
     sdsPRC_Atualiza_Lote_Mat_Prod: TSQLDataSet;
+    sdsConsPagRet: TSQLDataSet;
+    dspConsPagRet: TDataSetProvider;
+    cdsConsPagRet: TClientDataSet;
+    dsConsPagRet: TDataSource;
+    cdsConsPagRetID: TIntegerField;
+    cdsConsPagRetID_MATERIAL: TIntegerField;
+    cdsConsPagRetNUM_ORDEM: TIntegerField;
+    cdsConsPagRetITEM: TIntegerField;
+    cdsConsPagRetID_COR_PRODUTO: TIntegerField;
+    cdsConsPagRetID_COR_MATERIAL: TIntegerField;
+    cdsConsPagRetQTD_CONSUMO: TFloatField;
+    cdsConsPagRetQTD_PRODUTO: TFloatField;
+    cdsConsPagRetQTD_PAGO: TFloatField;
+    cdsConsPagRetQTD_RETORNO: TFloatField;
+    cdsConsPagRetQTD_DIFERENCA: TFloatField;
+    cdsConsPagRetQTD_CONES: TIntegerField;
+    cdsConsPagRetNOME_MATERIAL: TStringField;
+    cdsConsPagRetREFERENCIA_MAT: TStringField;
+    cdsConsPagRetNOME_COR_MAT: TStringField;
+    cdsConsPagRetNOME_COR_PROD: TStringField;
+    cdsConsPagRetPRECO_CUSTO: TFloatField;
+    cdsConsPagRetUNIDADE_MATERIAL: TStringField;
+    cdsConsPagRetDATA: TDateField;
+    cdsConsPagRetITEM_EST: TIntegerField;
+    cdsConsPagRetTIPO_ES: TStringField;
+    cdsConsPagRetQTD: TFloatField;
+    cdsConsPagRetFINALIZADO: TStringField;
+    cdsConsPagRetDESC_TIPO: TStringField;
+    cdsConsPagRetREFERENCIA: TStringField;
+    sdsConsPagRet_Acum: TSQLDataSet;
+    dspConsPagRet_Acum: TDataSetProvider;
+    cdsConsPagRet_Acum: TClientDataSet;
+    dsConsPagRet_Acum: TDataSource;
+    cdsConsPagRet_AcumID_MATERIAL: TIntegerField;
+    cdsConsPagRet_AcumID_COR_MATERIAL: TIntegerField;
+    cdsConsPagRet_AcumNOME_MATERIAL: TStringField;
+    cdsConsPagRet_AcumNOME_COR_MAT: TStringField;
+    cdsConsPagRet_AcumUNIDADE_MATERIAL: TStringField;
+    cdsConsPagRet_AcumTIPO_ES: TStringField;
+    cdsConsPagRet_AcumQTD: TFloatField;
+    cdsConsPagRet_AcumDESC_TIPO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
@@ -113,6 +154,7 @@ type
   public
     { Public declarations }
      ctConsLoteMat_Prod : String;
+     ctConsPagRet : String;
 
      procedure prc_Abrir_Lote_Mat_Prod(Num_Ordem, Item : Integer);
      function fnc_Finalizado(ID,Item : Integer) : String;
@@ -131,6 +173,7 @@ uses DmdDatabase;
 procedure TDMBaixaMaterial_Prod.DataModuleCreate(Sender: TObject);
 begin
   ctConsLoteMat_Prod := sdsConsLoteMat_Prod.CommandText;
+  ctConsPagRet       := sdsConsPagRet.CommandText;
   qParametros_Est.Open;
 end;
 

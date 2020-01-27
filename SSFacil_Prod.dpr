@@ -113,7 +113,8 @@ uses
   UConsModelo_Custo in 'UConsModelo_Custo.pas' {frmConsModelo_Custo},
   UDMBaixaMaterial_Prod in 'UDMBaixaMaterial_Prod.pas' {DMBaixaMaterial_Prod: TDataModule},
   UBaixaMaterial_Prod in 'UBaixaMaterial_Prod.pas' {frmBaixaMaterial_Prod},
-  UBaixaMaterial_Prod_Dig in 'UBaixaMaterial_Prod_Dig.pas' {frmBaixaMaterial_Prod_Dig};
+  UBaixaMaterial_Prod_Dig in 'UBaixaMaterial_Prod_Dig.pas' {frmBaixaMaterial_Prod_Dig},
+  UConsBaixaMaterial_Prod in 'UConsBaixaMaterial_Prod.pas' {frmConsBaixaMaterial_Prod};
 
 {$R *.res}
 
