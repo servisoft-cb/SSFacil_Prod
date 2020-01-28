@@ -6074,6 +6074,19 @@ object DMCadLote: TDMCadLote
     object sdsLote_Mat_ProdREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
     end
+    object sdsLote_Mat_ProdIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsLote_Mat_ProdFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsLote_Mat_ProdDTGERACAO: TDateField
+      FieldName = 'DTGERACAO'
+    end
   end
   object dspLote_Mat_Prod: TDataSetProvider
     DataSet = sdsLote_Mat_Prod
@@ -6087,6 +6100,7 @@ object DMCadLote: TDMCadLote
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     ProviderName = 'dspLote_Mat_Prod'
+    OnNewRecord = cdsLote_Mat_ProdNewRecord
     Left = 188
     Top = 472
     object cdsLote_Mat_ProdID: TIntegerField
@@ -6138,6 +6152,19 @@ object DMCadLote: TDMCadLote
     end
     object cdsLote_Mat_ProdREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
+    end
+    object cdsLote_Mat_ProdIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsLote_Mat_ProdFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsLote_Mat_ProdDTGERACAO: TDateField
+      FieldName = 'DTGERACAO'
     end
   end
   object dsLote_Mat_Prod: TDataSource

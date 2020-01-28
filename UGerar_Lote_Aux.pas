@@ -841,6 +841,7 @@ begin
     fDMCadLote.cdsLote_Mat_ProdDTRETORNO.Clear;
     fDMCadLote.cdsLote_Mat_ProdDTPAGO.Clear;
     fDMCadLote.cdsLote_Mat_ProdNUM_LOTE_AUX.AsInteger := fDMCadLote.cdsLoteNUM_LOTE.AsInteger;
+    fDMCadLote.cdsLote_Mat_ProdDTGERACAO.AsDateTime   := fDMCadLote.cdsLoteDTEMISSAO.AsDateTime;
     fDMCadLote.cdsLote_Mat_Prod.Post;
     fDMCadLote.cdsConsumo.Next;
   end;

@@ -3,7 +3,8 @@ unit UDMBaixaMaterial_Prod;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr, Provider, DBClient;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, Provider, DBClient, frxClass,
+  frxDBSet, frxBarcode, frxRich, frxExportMail, frxExportPDF;
 
 type
   TDMBaixaMaterial_Prod = class(TDataModule)
@@ -146,6 +147,40 @@ type
     cdsConsPagRet_AcumTIPO_ES: TStringField;
     cdsConsPagRet_AcumQTD: TFloatField;
     cdsConsPagRet_AcumDESC_TIPO: TStringField;
+    mPagRet_Ref: TClientDataSet;
+    dsmPagRet_Ref: TDataSource;
+    mPagRet_RefReferencia: TStringField;
+    mPagRet_RefNome_Cor_Produto: TStringField;
+    mPagRet_RefID_Material: TIntegerField;
+    mPagRet_RefNome_Material: TStringField;
+    mPagRet_RefNome_Cor_Material: TStringField;
+    mPagRet_RefQtd_Pagto: TFloatField;
+    mPagRet_RefQtd_Retorno: TFloatField;
+    mPagRet_RefID_Cor_Material: TIntegerField;
+    mPagRet_RefID_Cor_Produto: TIntegerField;
+    cdsConsLoteMat_ProdDTGERACAO: TDateField;
+    sdsConsPagRet_Ref_Geracao: TSQLDataSet;
+    dspConsPagRet_Ref_Geracao: TDataSetProvider;
+    cdsConsPagRet_Ref_Geracao: TClientDataSet;
+    dsConsPagRet_Ref_Geracao: TDataSource;
+    cdsConsPagRet_Ref_GeracaoREFERENCIA: TStringField;
+    cdsConsPagRet_Ref_GeracaoID_MATERIAL: TIntegerField;
+    cdsConsPagRet_Ref_GeracaoID_COR_PRODUTO: TIntegerField;
+    cdsConsPagRet_Ref_GeracaoID_COR_MATERIAL: TIntegerField;
+    cdsConsPagRet_Ref_GeracaoQTD_CONSUMO: TFloatField;
+    cdsConsPagRet_Ref_GeracaoNOME_MATERIAL: TStringField;
+    cdsConsPagRet_Ref_GeracaoNOME_COR_MAT: TStringField;
+    cdsConsPagRet_Ref_GeracaoNOME_COR_PROD: TStringField;
+    cdsConsPagRet_Ref_GeracaoUNIDADE_MATERIAL: TStringField;
+    cdsConsPagRet_Ref_GeracaoQTD_PAGO: TFloatField;
+    cdsConsPagRet_Ref_GeracaoQTD_RETORNO: TFloatField;
+    cdsConsPagRet_Ref_GeracaoQTD_DIFERENCA: TFloatField;
+    frxReport1: TfrxReport;
+    frxPDFExport1: TfrxPDFExport;
+    frxMailExport1: TfrxMailExport;
+    frxRichObject1: TfrxRichObject;
+    frxBarCodeObject1: TfrxBarCodeObject;
+    frxConsPagRet_Ref_Geracao: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
@@ -155,6 +190,7 @@ type
     { Public declarations }
      ctConsLoteMat_Prod : String;
      ctConsPagRet : String;
+     ctConsPagRet_Ref_Geracao : String;
 
      procedure prc_Abrir_Lote_Mat_Prod(Num_Ordem, Item : Integer);
      function fnc_Finalizado(ID,Item : Integer) : String;
@@ -174,6 +210,7 @@ procedure TDMBaixaMaterial_Prod.DataModuleCreate(Sender: TObject);
 begin
   ctConsLoteMat_Prod := sdsConsLoteMat_Prod.CommandText;
   ctConsPagRet       := sdsConsPagRet.CommandText;
+  ctConsPagRet_Ref_Geracao := sdsConsPagRet_Ref_Geracao.CommandText;
   qParametros_Est.Open;
 end;
 

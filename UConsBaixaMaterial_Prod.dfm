@@ -20,7 +20,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     Left = 0
     Top = 0
     Width = 920
-    Height = 95
+    Height = 93
     Align = alTop
     UseDockManager = False
     ParentBackground = False
@@ -117,7 +117,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object Label9: TLabel
       Left = 491
-      Top = 13
+      Top = 33
       Width = 62
       Height = 13
       Alignment = taRightJustify
@@ -133,7 +133,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object Label10: TLabel
       Left = 662
-      Top = 13
+      Top = 33
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -149,7 +149,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object Label11: TLabel
       Left = 481
-      Top = 33
+      Top = 53
       Width = 72
       Height = 13
       Alignment = taRightJustify
@@ -165,7 +165,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object Label12: TLabel
       Left = 662
-      Top = 33
+      Top = 53
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -178,6 +178,36 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       ParentFont = False
       Transparent = True
       Visible = False
+    end
+    object Label17: TLabel
+      Left = 495
+      Top = 13
+      Width = 58
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Dt.Gera'#231#227'o:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
+    object Label18: TLabel
+      Left = 662
+      Top = 13
+      Width = 25
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Final:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
     end
     object CurrencyEdit1: TCurrencyEdit
       Left = 89
@@ -225,7 +255,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       Left = 223
       Top = 26
       Width = 251
-      Height = 21
+      Height = 19
       Ctl3D = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -254,7 +284,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       Left = 89
       Top = 46
       Width = 128
-      Height = 21
+      Height = 19
       Ctl3D = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -287,7 +317,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object DateEdit1: TDateEdit
       Left = 555
-      Top = 5
+      Top = 25
       Width = 100
       Height = 21
       Ctl3D = False
@@ -304,7 +334,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object DateEdit2: TDateEdit
       Left = 689
-      Top = 5
+      Top = 25
       Width = 100
       Height = 21
       Ctl3D = False
@@ -321,7 +351,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object DateEdit3: TDateEdit
       Left = 555
-      Top = 25
+      Top = 45
       Width = 100
       Height = 21
       Ctl3D = False
@@ -338,7 +368,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     end
     object DateEdit4: TDateEdit
       Left = 689
-      Top = 25
+      Top = 45
       Width = 100
       Height = 21
       Ctl3D = False
@@ -353,16 +383,75 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       TabOrder = 10
       Visible = False
     end
+    object DateEdit5: TDateEdit
+      Left = 555
+      Top = 5
+      Width = 100
+      Height = 21
+      Ctl3D = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      NumGlyphs = 2
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 11
+    end
+    object DateEdit6: TDateEdit
+      Left = 689
+      Top = 5
+      Width = 100
+      Height = 21
+      Ctl3D = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      NumGlyphs = 2
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 12
+    end
+    object btnImprimir: TNxButton
+      Left = 186
+      Top = 67
+      Width = 98
+      Caption = 'Imprimir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 13
+      OnClick = btnImprimirClick
+    end
+    object btnExcel: TNxButton
+      Left = 285
+      Top = 67
+      Width = 98
+      Caption = 'Excel'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 14
+      OnClick = btnExcelClick
+    end
   end
   object NxPageControl1: TNxPageControl
     Left = 0
-    Top = 95
+    Top = 93
     Width = 920
-    Height = 354
-    ActivePage = TS_Consulta
-    ActivePageIndex = 0
+    Height = 356
+    ActivePage = TS_Ref_Geracao
+    ActivePageIndex = 1
     Align = alClient
-    ShowHint = False
     TabOrder = 1
     OnChange = NxPageControl1Change
     Margin = 0
@@ -370,7 +459,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     TabHeight = 17
     TabStyle = tsClassic
     object TS_Consulta: TNxTabSheet
-      Caption = 'Consulta Materiais'
+      Caption = 'Materiais Detalhado'
       PageIndex = 0
       TabFont.Charset = DEFAULT_CHARSET
       TabFont.Color = clWindowText
@@ -381,7 +470,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         Left = 0
         Top = 0
         Width = 920
-        Height = 303
+        Height = 305
         Align = alClient
         Ctl3D = False
         DataSource = DMBaixaMaterial_Prod.dsConsLoteMat_Prod
@@ -541,7 +630,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       end
       object Panel1: TPanel
         Left = 0
-        Top = 303
+        Top = 305
         Width = 920
         Height = 30
         Align = alBottom
@@ -577,9 +666,150 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         end
       end
     end
-    object TS_ConsPagRet: TNxTabSheet
-      Caption = 'Consulta Por Pag/Retorno (Material)'
+    object TS_Ref_Geracao: TNxTabSheet
+      Caption = 'Refer'#234'ncia (Gera'#231#227'o)'
       PageIndex = 1
+      TabFont.Charset = DEFAULT_CHARSET
+      TabFont.Color = clWindowText
+      TabFont.Height = -11
+      TabFont.Name = 'MS Sans Serif'
+      TabFont.Style = []
+      object SMDBGrid5: TSMDBGrid
+        Left = 0
+        Top = 0
+        Width = 920
+        Height = 335
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMBaixaMaterial_Prod.dsConsPagRet_Ref_Geracao
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnTitleClick = SMDBGrid1TitleClick
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 11
+        RowCount = 2
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'REFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 13750737
+            Width = 98
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COR_PROD'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Produto'
+            Title.Color = 13750737
+            Width = 165
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_MATERIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Material'
+            Title.Color = 13750737
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_MATERIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Material'
+            Title.Color = 13750737
+            Width = 213
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COR_MAT'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Material'
+            Title.Color = 13750737
+            Width = 140
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'UNIDADE_MATERIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Unid.'
+            Title.Color = 13750737
+            Width = 43
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_CONSUMO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Consumo'
+            Title.Color = 13750737
+            Width = 93
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_PAGO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Pago'
+            Title.Color = 13750737
+            Width = 91
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_RETORNO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Retorno'
+            Title.Color = 13750737
+            Width = 84
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_DIFERENCA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Diferen'#231'a'
+            Title.Color = 13750737
+            Width = 91
+            Visible = True
+          end>
+      end
+    end
+    object TS_ConsPagRet: TNxTabSheet
+      Caption = 'Pagamento/Retorno (Material)'
+      PageIndex = 2
       TabFont.Charset = DEFAULT_CHARSET
       TabFont.Color = clWindowText
       TabFont.Height = -11
@@ -589,7 +819,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         Left = 0
         Top = 0
         Width = 920
-        Height = 303
+        Height = 305
         Align = alClient
         Ctl3D = False
         DataSource = DMBaixaMaterial_Prod.dsConsPagRet
@@ -729,7 +959,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       end
       object Panel2: TPanel
         Left = 0
-        Top = 303
+        Top = 305
         Width = 920
         Height = 30
         Align = alBottom
@@ -766,8 +996,8 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       end
     end
     object TS_ConsPagRet_Acum: TNxTabSheet
-      Caption = 'Consulta Pag/Retorno Acumulado'
-      PageIndex = 2
+      Caption = 'Pagamento/Retorno Acumulado'
+      PageIndex = 3
       TabFont.Charset = DEFAULT_CHARSET
       TabFont.Color = clWindowText
       TabFont.Height = -11
@@ -777,7 +1007,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         Left = 0
         Top = 0
         Width = 920
-        Height = 303
+        Height = 305
         Align = alClient
         Ctl3D = False
         DataSource = DMBaixaMaterial_Prod.dsConsPagRet_Acum
@@ -869,7 +1099,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
       end
       object Panel3: TPanel
         Left = 0
-        Top = 303
+        Top = 305
         Width = 920
         Height = 30
         Align = alBottom
@@ -903,6 +1133,119 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
           Height = 13
           Caption = 'Retorno'
         end
+      end
+    end
+    object TS_Ref: TNxTabSheet
+      Caption = 'Por Refer'#234'ncia (Pag/Ret)'
+      PageIndex = 4
+      TabFont.Charset = DEFAULT_CHARSET
+      TabFont.Color = clWindowText
+      TabFont.Height = -11
+      TabFont.Name = 'MS Sans Serif'
+      TabFont.Style = []
+      object SMDBGrid4: TSMDBGrid
+        Left = 0
+        Top = 0
+        Width = 920
+        Height = 335
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMBaixaMaterial_Prod.dsmPagRet_Ref
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnTitleClick = SMDBGrid3TitleClick
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid3GetCellParams
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 8
+        RowCount = 2
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Referencia'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 13224393
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Cor_Produto'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Refer'#234'ncia'
+            Title.Color = 13224393
+            Width = 160
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_Material'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Material'
+            Title.Color = 13224393
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Material'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Material'
+            Title.Color = 13224393
+            Width = 223
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Cor_Material'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor Material'
+            Title.Color = 13224393
+            Width = 249
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Qtd_Pagto'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd Pagto'
+            Title.Color = 13224393
+            Width = 106
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Qtd_Retorno'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Retorno'
+            Title.Color = 13224393
+            Width = 107
+            Visible = True
+          end>
       end
     end
   end

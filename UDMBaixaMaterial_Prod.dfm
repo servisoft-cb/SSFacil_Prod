@@ -3,8 +3,8 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
   OnCreate = DataModuleCreate
   Left = 360
   Top = 119
-  Height = 481
-  Width = 815
+  Height = 519
+  Width = 912
   object sdsLote_Mat_Prod: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -183,7 +183,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 342
+    Left = 343
     Top = 16
   end
   object dspConsLoteMat_Prod: TDataSetProvider
@@ -220,18 +220,23 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsConsLoteMat_ProdQTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsLoteMat_ProdQTD_PRODUTO: TFloatField
       FieldName = 'QTD_PRODUTO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsLoteMat_ProdQTD_PAGO: TFloatField
       FieldName = 'QTD_PAGO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsLoteMat_ProdQTD_RETORNO: TFloatField
       FieldName = 'QTD_RETORNO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsLoteMat_ProdQTD_DIFERENCA: TFloatField
       FieldName = 'QTD_DIFERENCA'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsLoteMat_ProdQTD_CONES: TIntegerField
       FieldName = 'QTD_CONES'
@@ -279,6 +284,9 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
       FieldName = 'FINALIZADO'
       FixedChar = True
       Size = 1
+    end
+    object cdsConsLoteMat_ProdDTGERACAO: TDateField
+      FieldName = 'DTGERACAO'
     end
   end
   object dsConsLoteMat_Prod: TDataSource
@@ -432,8 +440,8 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
   end
   object SQLQuery1: TSQLQuery
     Params = <>
-    Left = 582
-    Top = 199
+    Left = 609
+    Top = 202
   end
   object sdsPRC_Atualiza_Lote_Mat_Prod: TSQLDataSet
     CommandText = 'PRC_ATUALIZA_LOTE_MAT_PROD'
@@ -511,18 +519,23 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsConsPagRetQTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetQTD_PRODUTO: TFloatField
       FieldName = 'QTD_PRODUTO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetQTD_PAGO: TFloatField
       FieldName = 'QTD_PAGO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetQTD_RETORNO: TFloatField
       FieldName = 'QTD_RETORNO'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetQTD_DIFERENCA: TFloatField
       FieldName = 'QTD_DIFERENCA'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetQTD_CONES: TIntegerField
       FieldName = 'QTD_CONES'
@@ -562,6 +575,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsConsPagRetQTD: TFloatField
       FieldName = 'QTD'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRetFINALIZADO: TStringField
       FieldName = 'FINALIZADO'
@@ -613,7 +627,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsPagRet_Acum'
-    Left = 446
+    Left = 447
     Top = 125
     object cdsConsPagRet_AcumID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
@@ -639,6 +653,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsConsPagRet_AcumQTD: TFloatField
       FieldName = 'QTD'
+      DisplayFormat = '###,###,##0.000#'
     end
     object cdsConsPagRet_AcumDESC_TIPO: TStringField
       FieldName = 'DESC_TIPO'
@@ -651,5 +666,227 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     DataSet = cdsConsPagRet_Acum
     Left = 488
     Top = 125
+  end
+  object mPagRet_Ref: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 402
+    Top = 362
+    Data = {
+      0F0100009619E0BD0100000018000000090000000000030000000F010A526566
+      6572656E6369610100490000000100055749445448020002001400104E6F6D65
+      5F436F725F50726F6475746F0100490000000100055749445448020002003C00
+      0B49445F4D6174657269616C04000100000000000D4E6F6D655F4D6174657269
+      616C0100490000000100055749445448020002003C00114E6F6D655F436F725F
+      4D6174657269616C0100490000000100055749445448020002003C0009517464
+      5F506167746F08000400000000000B5174645F5265746F726E6F080004000000
+      00000F49445F436F725F4D6174657269616C04000100000000000E49445F436F
+      725F50726F6475746F04000100000000000000}
+    object mPagRet_RefReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+    object mPagRet_RefNome_Cor_Produto: TStringField
+      FieldName = 'Nome_Cor_Produto'
+      Size = 60
+    end
+    object mPagRet_RefID_Material: TIntegerField
+      FieldName = 'ID_Material'
+    end
+    object mPagRet_RefNome_Material: TStringField
+      FieldName = 'Nome_Material'
+      Size = 60
+    end
+    object mPagRet_RefNome_Cor_Material: TStringField
+      FieldName = 'Nome_Cor_Material'
+      Size = 60
+    end
+    object mPagRet_RefQtd_Pagto: TFloatField
+      FieldName = 'Qtd_Pagto'
+      DisplayFormat = '0.000#'
+    end
+    object mPagRet_RefQtd_Retorno: TFloatField
+      FieldName = 'Qtd_Retorno'
+      DisplayFormat = '0.000#'
+    end
+    object mPagRet_RefID_Cor_Material: TIntegerField
+      FieldName = 'ID_Cor_Material'
+    end
+    object mPagRet_RefID_Cor_Produto: TIntegerField
+      FieldName = 'ID_Cor_Produto'
+    end
+  end
+  object dsmPagRet_Ref: TDataSource
+    DataSet = mPagRet_Ref
+    Left = 456
+    Top = 364
+  end
+  object sdsConsPagRet_Ref_Geracao: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select L.REFERENCIA, L.ID_MATERIAL, L.ID_COR_PRODUTO, L.ID_COR_M' +
+      'ATERIAL, sum(L.QTD_CONSUMO) QTD_CONSUMO,'#13#10'       M.NOME NOME_MAT' +
+      'ERIAL, CMAT.NOME NOME_COR_MAT, CPROD.NOME NOME_COR_PROD, M.UNIDA' +
+      'DE UNIDADE_MATERIAL,'#13#10'       sum(coalesce(L.QTD_PAGO, 0)) QTD_PA' +
+      'GO, sum(coalesce(L.QTD_RETORNO, 0)) QTD_RETORNO,'#13#10'       sum(coa' +
+      'lesce(L.QTD_DIFERENCA, 0)) QTD_DIFERENCA'#13#10'from LOTE_MAT_PROD L'#13#10 +
+      'inner join PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'left join COMBINAC' +
+      'AO CMAT on L.ID_COR_MATERIAL = CMAT.ID'#13#10'left join COMBINACAO CPR' +
+      'OD on L.ID_COR_PRODUTO = CPROD.ID'#13#10'group by L.REFERENCIA, L.ID_M' +
+      'ATERIAL, L.ID_COR_PRODUTO, L.ID_COR_MATERIAL, M.NOME, CMAT.NOME,' +
+      ' CPROD.NOME, M.UNIDADE  '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 342
+    Top = 189
+  end
+  object dspConsPagRet_Ref_Geracao: TDataSetProvider
+    DataSet = sdsConsPagRet_Ref_Geracao
+    UpdateMode = upWhereKeyOnly
+    Left = 394
+    Top = 191
+  end
+  object cdsConsPagRet_Ref_Geracao: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsPagRet_Ref_Geracao'
+    Left = 446
+    Top = 191
+    object cdsConsPagRet_Ref_GeracaoREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsPagRet_Ref_GeracaoID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsConsPagRet_Ref_GeracaoID_COR_PRODUTO: TIntegerField
+      FieldName = 'ID_COR_PRODUTO'
+    end
+    object cdsConsPagRet_Ref_GeracaoID_COR_MATERIAL: TIntegerField
+      FieldName = 'ID_COR_MATERIAL'
+    end
+    object cdsConsPagRet_Ref_GeracaoQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+      DisplayFormat = '###,###,##0.000#'
+    end
+    object cdsConsPagRet_Ref_GeracaoNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsPagRet_Ref_GeracaoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsPagRet_Ref_GeracaoNOME_COR_PROD: TStringField
+      FieldName = 'NOME_COR_PROD'
+      Size = 60
+    end
+    object cdsConsPagRet_Ref_GeracaoUNIDADE_MATERIAL: TStringField
+      FieldName = 'UNIDADE_MATERIAL'
+      Size = 6
+    end
+    object cdsConsPagRet_Ref_GeracaoQTD_PAGO: TFloatField
+      FieldName = 'QTD_PAGO'
+      DisplayFormat = '###,###,##0.000#'
+    end
+    object cdsConsPagRet_Ref_GeracaoQTD_RETORNO: TFloatField
+      FieldName = 'QTD_RETORNO'
+      DisplayFormat = '###,###,##0.000#'
+    end
+    object cdsConsPagRet_Ref_GeracaoQTD_DIFERENCA: TFloatField
+      FieldName = 'QTD_DIFERENCA'
+      DisplayFormat = '###,###,##0.000#'
+    end
+  end
+  object dsConsPagRet_Ref_Geracao: TDataSource
+    DataSet = cdsConsPagRet_Ref_Geracao
+    Left = 484
+    Top = 191
+  end
+  object frxReport1: TfrxReport
+    Tag = 1
+    Version = '5.6.8'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 43698.372048356480000000
+    ScriptLanguage = 'PascalScript'
+    StoreInDFM = False
+    OnReportPrint = 'frxReportOnReportPrint'
+    Left = 636
+    Top = 352
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    Left = 676
+    Top = 352
+  end
+  object frxMailExport1: TfrxMailExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ShowExportDialog = True
+    SmtpPort = 25
+    UseIniFile = True
+    TimeOut = 60
+    ConfurmReading = False
+    UseMAPI = SMTP
+    MAPISendFlag = 0
+    Left = 716
+    Top = 352
+  end
+  object frxRichObject1: TfrxRichObject
+    Left = 748
+    Top = 352
+  end
+  object frxBarCodeObject1: TfrxBarCodeObject
+    Left = 780
+    Top = 353
+  end
+  object frxConsPagRet_Ref_Geracao: TfrxDBDataset
+    UserName = 'frxConsPagRet_Ref_Geracao'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'REFERENCIA=REFERENCIA'
+      'ID_MATERIAL=ID_MATERIAL'
+      'ID_COR_PRODUTO=ID_COR_PRODUTO'
+      'ID_COR_MATERIAL=ID_COR_MATERIAL'
+      'QTD_CONSUMO=QTD_CONSUMO'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'NOME_COR_PROD=NOME_COR_PROD'
+      'UNIDADE_MATERIAL=UNIDADE_MATERIAL'
+      'QTD_PAGO=QTD_PAGO'
+      'QTD_RETORNO=QTD_RETORNO'
+      'QTD_DIFERENCA=QTD_DIFERENCA')
+    DataSource = dsConsPagRet_Ref_Geracao
+    BCDToCurrency = False
+    Left = 636
+    Top = 399
   end
 end

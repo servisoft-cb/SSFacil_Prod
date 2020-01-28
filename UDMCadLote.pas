@@ -1181,6 +1181,12 @@ type
     mAuxEstQtd: TFloatField;
     cdsPendenteQTD_ESTOQUE: TFloatField;
     cdsConsLote_Mat_ProdIMPRESSO: TStringField;
+    sdsLote_Mat_ProdIMPRESSO: TStringField;
+    sdsLote_Mat_ProdFINALIZADO: TStringField;
+    sdsLote_Mat_ProdDTGERACAO: TDateField;
+    cdsLote_Mat_ProdIMPRESSO: TStringField;
+    cdsLote_Mat_ProdFINALIZADO: TStringField;
+    cdsLote_Mat_ProdDTGERACAO: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1193,6 +1199,7 @@ type
     procedure cdsBaixa_ProcessoNewRecord(DataSet: TDataSet);
     procedure mAuxLoteNewRecord(DataSet: TDataSet);
     procedure mAuxEstNewRecord(DataSet: TDataSet);
+    procedure cdsLote_Mat_ProdNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -1916,6 +1923,12 @@ end;
 procedure TDMCadLote.mAuxEstNewRecord(DataSet: TDataSet);
 begin
   mAuxEstQtd.AsFloat := 0;
+end;
+
+procedure TDMCadLote.cdsLote_Mat_ProdNewRecord(DataSet: TDataSet);
+begin
+  cdsLote_Mat_ProdIMPRESSO.AsString   := 'N';
+  cdsLote_Mat_ProdFINALIZADO.AsString := 'N';
 end;
 
 end.
