@@ -535,6 +535,8 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Width = 155
           Height = 17
           Caption = 'Imprimir os materiais'
+          Checked = True
+          State = cbChecked
           TabOrder = 11
         end
       end
