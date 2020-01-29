@@ -15,7 +15,7 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 43848.667455243060000000
+    ReportOptions.LastChange = 43848.682428645800000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -77,17 +77,17 @@ object DMLoteImp: TDMLoteImp
       '_MAT, '#13#10'l.id_material2, l.consumo_mat2, L.id_cor_mat, L.id_cor_m' +
       'at2,'#13#10'MAT2.NOME NOME_MATERIAL2, MAT2.REFERENCIA REF_MATERIAL2,'#13#10 +
       'COR1.nome NOME_COR_MAT, COR2.NOME NOME_COR_MAT2, L.id_cliente,'#13#10 +
-      'CLI.NOME NOME_CLIENTE, L.qtd_estoque_usada,'#13#10'CASE'#13#10'  WHEN L.TIPO' +
-      '_LOTE = '#39'S'#39' THEN '#39'SEMI ACABADO'#39#13#10'  WHEN L.TIPO_LOTE = '#39'E'#39' THEN '#39 +
-      'ESTOQUE'#39#13#10'  ELSE '#39'PRODUTO'#39#13#10'  END DESCRICAO_TIPO_LOTE, L.DTEMISS' +
-      'AO, L.CARGA'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10'ON L.id_produto =' +
-      ' P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON l.id_combinacao = COMB.ID'#13#10 +
-      'left join produto mat'#13#10'on l.id_material = mat.id'#13#10'left join prod' +
-      'uto mat2'#13#10'on l.id_material2 = mat2.id'#13#10'LEFT JOIN COMBINACAO COR1' +
-      #13#10'ON L.id_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINACAO COR2'#13#10'ON L.id_' +
-      'cor_mat2 = COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.ID_CLIENTE = CLI.' +
-      'CODIGO'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND L.NUM_LOTE = :NUM' +
-      '_LOTE'#13#10#13#10
+      'CLI.NOME NOME_CLIENTE, L.qtd_estoque_usada, l.id_combinacao,'#13#10'CA' +
+      'SE'#13#10'  WHEN L.TIPO_LOTE = '#39'S'#39' THEN '#39'SEMI ACABADO'#39#13#10'  WHEN L.TIPO_' +
+      'LOTE = '#39'E'#39' THEN '#39'ESTOQUE'#39#13#10'  ELSE '#39'PRODUTO'#39#13#10'  END DESCRICAO_TIP' +
+      'O_LOTE, L.DTEMISSAO, L.CARGA'#13#10'FROM LOTE L'#13#10'LEFT JOIN PRODUTO P'#13#10 +
+      'ON L.id_produto = P.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON l.id_combi' +
+      'nacao = COMB.ID'#13#10'left join produto mat'#13#10'on l.id_material = mat.i' +
+      'd'#13#10'left join produto mat2'#13#10'on l.id_material2 = mat2.id'#13#10'LEFT JOI' +
+      'N COMBINACAO COR1'#13#10'ON L.id_cor_mat = COR1.id'#13#10'LEFT JOIN COMBINAC' +
+      'AO COR2'#13#10'ON L.id_cor_mat2 = COR2.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.' +
+      'ID_CLIENTE = CLI.CODIGO'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10'   AND ' +
+      'L.NUM_LOTE = :NUM_LOTE'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -241,6 +241,9 @@ object DMLoteImp: TDMLoteImp
     end
     object cdsTalao_SLCARGA: TFloatField
       FieldName = 'CARGA'
+    end
+    object cdsTalao_SLID_COMBINACAO: TIntegerField
+      FieldName = 'ID_COMBINACAO'
     end
   end
   object dsTalao_SL: TDataSource
@@ -409,7 +412,7 @@ object DMLoteImp: TDMLoteImp
       'NOME_PROCESSO=NOME_PROCESSO')
     DataSource = dsLote_Processo
     BCDToCurrency = False
-    Left = 840
+    Left = 842
     Top = 423
   end
   object mLoteEmProc: TClientDataSet
@@ -983,7 +986,7 @@ object DMLoteImp: TDMLoteImp
     OnOpen = frxConsulta_LoteOpen
     DataSource = dsConsulta_Lote
     BCDToCurrency = False
-    Left = 880
+    Left = 881
     Top = 423
   end
   object sdsTalao_Proc: TSQLDataSet
@@ -1315,8 +1318,8 @@ object DMLoteImp: TDMLoteImp
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 529
-    Top = 344
+    Left = 536
+    Top = 362
     Data = {
       5C0000009619E0BD0100000018000000030000000000030000005C00094E756D
       5F4F7264656D0400010000000000084E756D5F4C6F746504000100000000000A
@@ -1334,8 +1337,8 @@ object DMLoteImp: TDMLoteImp
   end
   object dsmImpLote_SL: TDataSource
     DataSet = mImpLote_SL
-    Left = 576
-    Top = 344
+    Left = 583
+    Top = 362
   end
   object frxmImpLote_SL: TfrxDBDataset
     UserName = 'frxmImpLote_SL'
@@ -1750,7 +1753,7 @@ object DMLoteImp: TDMLoteImp
       'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT')
     DataSource = dsLote_Ped
     BCDToCurrency = False
-    Left = 951
+    Left = 952
     Top = 470
   end
   object mImpAux: TClientDataSet
@@ -2089,20 +2092,32 @@ object DMLoteImp: TDMLoteImp
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT L.referencia,'#13#10'M.nome NOME_MATERIAL, COMB.nome NOME_COR_M' +
-      'AT, L.qtd_consumo, L.qtd_produto,'#13#10'L.num_ordem, L.item, L.ID_MAT' +
-      'ERIAL, L.id_cor_produto, L.id_cor_material,'#13#10'COMB2.NOME NOME_COM' +
-      'BINACAO, '#39'3'#39' || lpad(L.num_ordem,8,0) || lpad(L.Item,3,0) CODBAR' +
-      'RAS,'#13#10'L.dtretorno, L.dtpago, L.qtd_pago, L.qtd_retorno, L.qtd_di' +
-      'ferenca, L.qtd_cones, L.IMPRESSO'#13#10'FROM lote_mat_prod L'#13#10'INNER JO' +
-      'IN PRODUTO M'#13#10'ON L.id_material = M.id'#13#10'LEFT JOIN COMBINACAO COMB' +
-      #13#10'ON L.id_cor_material = COMB.ID'#13#10'LEFT JOIN COMBINACAO COMB2'#13#10'ON' +
-      ' L.id_cor_produto = COMB2.id'#13#10'WHERE L.NUM_ORDEM = :NUM_ORDEM'#13#10
+      'select L.REFERENCIA, M.NOME NOME_MATERIAL, COMB.NOME NOME_COR_MA' +
+      'T, L.QTD_CONSUMO, L.QTD_PRODUTO, L.NUM_ORDEM, L.ITEM,'#13#10'       L.' +
+      'ID_MATERIAL, L.ID_COR_PRODUTO, L.ID_COR_MATERIAL, COMB2.NOME NOM' +
+      'E_COMBINACAO,'#13#10'       '#39'3'#39' || lpad(L.NUM_ORDEM, 8, 0) || lpad(L.I' +
+      'TEM, 3, 0) CODBARRAS, L.DTRETORNO, L.DTPAGO, L.QTD_PAGO, L.QTD_R' +
+      'ETORNO,'#13#10'       L.QTD_DIFERENCA, L.QTD_CONES, L.IMPRESSO'#13#10'from L' +
+      'OTE_MAT_PROD L'#13#10'inner join PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'le' +
+      'ft join COMBINACAO COMB on L.ID_COR_MATERIAL = COMB.ID'#13#10'left joi' +
+      'n COMBINACAO COMB2 on L.ID_COR_PRODUTO = COMB2.ID'#13#10'where L.NUM_O' +
+      'RDEM = :NUM_ORDEM and'#13#10'      L.REFERENCIA = :REFERENCIA and'#13#10'   ' +
+      '   L.ID_COR_PRODUTO = :ID_COR_PRODUTO'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
         Name = 'NUM_ORDEM'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'REFERENCIA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR_PRODUTO'
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
@@ -2118,7 +2133,7 @@ object DMLoteImp: TDMLoteImp
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsLote_Mat_Prod'
-    Left = 594
+    Left = 597
     Top = 170
     object cdsConsLote_Mat_ProdREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
@@ -2217,5 +2232,45 @@ object DMLoteImp: TDMLoteImp
     BCDToCurrency = False
     Left = 914
     Top = 523
+  end
+  object mImp_Lote_Mat_Prod: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 500
+    Top = 295
+    Data = {
+      620000009619E0BD0100000018000000030000000000030000006200094E756D
+      5F4F7264656D04000100000000000A5265666572656E63696101004900000001
+      000557494454480200020014000E49445F436F725F50726F6475746F04000100
+      000000000000}
+    object mImp_Lote_Mat_ProdNum_Ordem: TIntegerField
+      FieldName = 'Num_Ordem'
+    end
+    object mImp_Lote_Mat_ProdReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+    object mImp_Lote_Mat_ProdID_Cor_Produto: TIntegerField
+      FieldName = 'ID_Cor_Produto'
+    end
+  end
+  object dsmImp_Lote_Mat_Lote: TDataSource
+    DataSet = mImp_Lote_Mat_Prod
+    Left = 535
+    Top = 297
+  end
+  object frxmImp_Lote_Mat_Lote: TfrxDBDataset
+    UserName = 'frxmImp_Lote_Mat_Lote'
+    OnFirst = frxmImp_Lote_Mat_LoteFirst
+    OnNext = frxmImp_Lote_Mat_LoteFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'Num_Ordem=Num_Ordem'
+      'Referencia=Referencia'
+      'ID_Cor_Produto=ID_Cor_Produto')
+    DataSource = dsmImp_Lote_Mat_Lote
+    BCDToCurrency = False
+    Left = 969
+    Top = 519
   end
 end

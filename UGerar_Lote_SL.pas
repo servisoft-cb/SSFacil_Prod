@@ -848,6 +848,7 @@ begin
   fDMLoteImp := TDMLoteImp.Create(Self);
   fDMLoteImp.mImpLote_SL.EmptyDataSet;
   fDMLoteImp.cdsConsLote_Mat_Prod.Close;
+  fDMLoteImp.mImp_Lote_Mat_Prod.EmptyDataSet;
 
   fDMCadLote.cdsConsulta_Lote_SL.First;
   while not fDMCadLote.cdsConsulta_Lote_SL.Eof do
@@ -861,6 +862,20 @@ begin
       if trim(fDMCadLote.cdsConsulta_Lote_SLIMPRESSO.AsString) = 'S' then
         fDMLoteImp.mImpLote_SLReimpresso.AsString := 'S';
       fDMLoteImp.mImpLote_SL.Post;
+
+      if ckImpMaterial.Checked then
+      begin
+        if not fDMLoteImp.mImp_Lote_Mat_Prod.Locate('NUM_ORDEM;REFERENCIA;ID_COR_PRODUTO',VarArrayOf([fDMCadLote.cdsConsulta_Lote_SLNUM_ORDEM.AsInteger
+                                              ,fDMCadLote.cdsConsulta_Lote_SLREFERENCIA.AsString
+                                              ,fDMCadLote.cdsConsulta_Lote_SLID_COMBINACAO.AsInteger]),[locaseinsensitive]) then
+        begin
+          fDMLoteImp.mImp_Lote_Mat_Prod.Insert;
+          fDMLoteImp.mImp_Lote_Mat_ProdNum_Ordem.AsInteger      := fDMCadLote.cdsConsulta_Lote_SLNUM_ORDEM.AsInteger;
+          fDMLoteImp.mImp_Lote_Mat_ProdReferencia.AsString      := fDMCadLote.cdsConsulta_Lote_SLREFERENCIA.AsString;
+          fDMLoteImp.mImp_Lote_Mat_ProdID_Cor_Produto.AsInteger := fDMCadLote.cdsConsulta_Lote_SLID_COMBINACAO.AsInteger;
+          fDMLoteImp.mImp_Lote_Mat_Prod.Post;
+        end;
+      end;
 
       if trim(fDMCadLote.cdsConsulta_Lote_SLIMPRESSO.AsString) <> 'S' then
       begin
@@ -880,13 +895,15 @@ begin
   FreeAndNil(sds);
 
   fDMLoteImp.mImpLote_SL.First;
+  fDMLoteImp.mImp_Lote_Mat_Prod.First;
 
-  if (CurrencyEdit3.AsInteger > 0) and (ckImpMaterial.Checked) and (fDMLoteImp.mImpLote_SL.RecordCount > 0) then
+  //29/01/2020 Foi incluido no DMLOTEIMP para ler por referência
+  {if (CurrencyEdit3.AsInteger > 0) and (ckImpMaterial.Checked) and (fDMLoteImp.mImpLote_SL.RecordCount > 0) then
   begin
     fDMLoteImp.sdsConsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger := CurrencyEdit3.AsInteger;
     fDMLoteImp.cdsConsLote_Mat_Prod.Open;
     fDMLoteImp.cdsConsLote_Mat_Prod.First;
-  end;
+  end;}
 
   {fDMLoteImp.cdsTalao_SL.Close;
   fDMLoteImp.sdsTalao_SL.ParamByName('NUM_ORDEM').AsInteger := StrToInt(vNumOrdemAux) ;

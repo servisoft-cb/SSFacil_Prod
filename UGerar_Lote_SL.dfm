@@ -651,7 +651,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -670,7 +669,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
             Title.Color = 13041606
-            Width = 64
             Visible = True
           end
           item
@@ -859,7 +857,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Encerado'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -869,7 +866,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -905,7 +901,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = [fsBold]
-            Width = 64
             Visible = True
           end
           item
@@ -940,7 +935,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -948,7 +942,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -957,7 +950,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             Title.Alignment = taCenter
             Title.Caption = 'Consumo Unit'#225'rio'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -2388,7 +2380,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           OnClick = btnConsMaterialClick
         end
         object btnImpriomir_Mat: TNxButton
-          Left = 228
+          Left = 229
           Top = 58
           Width = 148
           Height = 26
@@ -2523,7 +2515,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FieldName = 'DTPAGO'
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Pagamento'
-            Width = 64
             Visible = True
           end
           item
@@ -2546,7 +2537,6 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
             FieldName = 'QTD_RETORNO'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Retorno'
-            Width = 64
             Visible = True
           end
           item
@@ -2567,7 +2557,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 826
+    Left = 829
     Top = 31
     object ImprimirOrdemProduo1: TMenuItem
       Caption = 'Ordem Produ'#231#227'o'

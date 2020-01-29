@@ -359,6 +359,13 @@ type
     cdsConsLote_Mat_ProdIMPRESSO: TStringField;
     dsConsLote_Mat_Prod: TDataSource;
     frxConsLote_Mat_SL: TfrxDBDataset;
+    cdsTalao_SLID_COMBINACAO: TIntegerField;
+    mImp_Lote_Mat_Prod: TClientDataSet;
+    mImp_Lote_Mat_ProdNum_Ordem: TIntegerField;
+    mImp_Lote_Mat_ProdReferencia: TStringField;
+    mImp_Lote_Mat_ProdID_Cor_Produto: TIntegerField;
+    dsmImp_Lote_Mat_Lote: TDataSource;
+    frxmImp_Lote_Mat_Lote: TfrxDBDataset;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -376,6 +383,7 @@ type
     procedure frxConsulta_LoteFirst(Sender: TObject);
     procedure frxConsulta_LoteNext(Sender: TObject);
     procedure frxConsulta_LoteOpen(Sender: TObject);
+    procedure frxmImp_Lote_Mat_LoteFirst(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Imprimir_Processos;
@@ -543,6 +551,15 @@ end;
 procedure TDMLoteImp.frxConsulta_LoteOpen(Sender: TObject);
 begin
   prc_Soma_KG;
+end;
+
+procedure TDMLoteImp.frxmImp_Lote_Mat_LoteFirst(Sender: TObject);
+begin
+  cdsConsLote_Mat_Prod.Close;
+  sdsConsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger      := mImp_Lote_Mat_ProdNum_Ordem.AsInteger;
+  sdsConsLote_Mat_Prod.ParamByName('REFERENCIA').AsString      := mImp_Lote_Mat_ProdReferencia.AsString;
+  sdsConsLote_Mat_Prod.ParamByName('ID_COR_PRODUTO').AsInteger := mImp_Lote_Mat_ProdID_Cor_Produto.AsInteger;
+  cdsConsLote_Mat_Prod.Open;
 end;
 
 end.
