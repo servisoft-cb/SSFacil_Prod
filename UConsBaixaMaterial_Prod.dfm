@@ -503,9 +503,27 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 15
+        ColCount = 16
         RowCount = 2
         Columns = <
+          item
+            Expanded = False
+            FieldName = 'NUM_ORDEM'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Ordem'
+            Title.Color = 13750737
+            Width = 58
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ITEM'
+            Title.Alignment = taCenter
+            Title.Caption = 'Item'
+            Title.Color = 13750737
+            Width = 33
+            Visible = True
+          end
           item
             Expanded = False
             FieldName = 'REFERENCIA'
@@ -521,7 +539,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Cor da Refer'#234'ncia'
             Title.Color = 13750737
-            Width = 181
+            Width = 138
             Visible = True
           end
           item
@@ -547,7 +565,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Cor Material'
             Title.Color = 13750737
-            Width = 130
+            Width = 122
             Visible = True
           end
           item
@@ -556,7 +574,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Necessidade'
             Title.Color = 13750737
-            Width = 107
+            Width = 75
             Visible = True
           end
           item
@@ -587,10 +605,20 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
           end
           item
             Expanded = False
-            FieldName = 'QTD_CONES'
+            FieldName = 'PERC_DIFERENCA'
             Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Cones'
+            Title.Caption = '% Diferen'#231'a'
             Title.Color = 13750737
+            Width = 65
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_REAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Q. Consumo Real'
+            Title.Color = 13750737
+            Width = 69
             Visible = True
           end
           item
@@ -607,24 +635,6 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Retorno'
             Title.Color = 13750737
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NUM_ORDEM'
-            Title.Alignment = taCenter
-            Title.Caption = 'N'#186' Ordem'
-            Title.Color = 13750737
-            Width = 75
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'ITEM'
-            Title.Alignment = taCenter
-            Title.Caption = 'Item'
-            Title.Color = 13750737
-            Width = 33
             Visible = True
           end>
       end
@@ -678,7 +688,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         Left = 0
         Top = 0
         Width = 920
-        Height = 335
+        Height = 305
         Align = alClient
         Ctl3D = False
         DataSource = DMBaixaMaterial_Prod.dsConsPagRet_Ref_Geracao
@@ -691,7 +701,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
-        OnTitleClick = SMDBGrid1TitleClick
+        OnTitleClick = SMDBGrid5TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText
@@ -705,12 +715,13 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid5GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 11
+        ColCount = 13
         RowCount = 2
         Columns = <
           item
@@ -720,7 +731,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
             Title.Color = 13750737
-            Width = 98
+            Width = 105
             Visible = True
           end
           item
@@ -739,6 +750,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'ID Material'
             Title.Color = 13750737
+            Width = 53
             Visible = True
           end
           item
@@ -756,7 +768,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Cor Material'
             Title.Color = 13750737
-            Width = 140
+            Width = 139
             Visible = True
           end
           item
@@ -773,9 +785,9 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Expanded = False
             FieldName = 'QTD_CONSUMO'
             Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Consumo'
+            Title.Caption = 'Qtd. Necessidade'
             Title.Color = 13750737
-            Width = 93
+            Width = 71
             Visible = True
           end
           item
@@ -804,7 +816,47 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Color = 13750737
             Width = 91
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'PERC_DIFERENCA'
+            Title.Alignment = taCenter
+            Title.Caption = '% Dif.'
+            Title.Color = 13750737
+            Width = 49
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_REAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Q. Consumo Real'
+            Title.Color = 13750737
+            Visible = True
           end>
+      end
+      object Panel4: TPanel
+        Left = 0
+        Top = 305
+        Width = 920
+        Height = 30
+        Align = alBottom
+        Color = clSilver
+        TabOrder = 1
+        object Shape8: TShape
+          Left = 154
+          Top = 8
+          Width = 28
+          Height = 18
+          Brush.Color = 4227327
+        end
+        object Label20: TLabel
+          Left = 188
+          Top = 12
+          Width = 62
+          Height = 13
+          Caption = 'Sem Retorno'
+        end
       end
     end
     object TS_ConsPagRet: TNxTabSheet

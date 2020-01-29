@@ -63,6 +63,9 @@ type
     SMDBGrid5: TSMDBGrid;
     btnImprimir: TNxButton;
     btnExcel: TNxButton;
+    Panel4: TPanel;
+    Shape8: TShape;
+    Label20: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -78,6 +81,9 @@ type
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure btnImprimirClick(Sender: TObject);
     procedure btnExcelClick(Sender: TObject);
+    procedure SMDBGrid5TitleClick(Column: TColumn);
+    procedure SMDBGrid5GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     fDMBaixaMaterial_Prod : TDMBaixaMaterial_Prod;
@@ -141,7 +147,7 @@ begin
     AFont.Color := clBlack;
   end
   else
-  if StrToFloat(FormatFloat('0.0000',fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdQTD_RETORNO.AsFloat)) <= 0 then
+  if (StrToFloat(FormatFloat('0.0000',fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdQTD_RETORNO.AsFloat)) <= 0) and (fDMBaixaMaterial_Prod.cdsLote_Mat_ProdFINALIZADO.AsString <> 'S')  then
   begin
     Background  := $004080FF;
     AFont.Color := clBlack;
@@ -584,6 +590,22 @@ begin
     Screen.Cursor := crDefault;
   end;
   grid.EnableScroll;
+end;
+
+procedure TfrmConsBaixaMaterial_Prod.SMDBGrid5TitleClick(Column: TColumn);
+begin
+  fDMBaixaMaterial_Prod.cdsConsPagRet_Ref_Geracao.IndexFieldNames := Column.FieldName;
+end;
+
+procedure TfrmConsBaixaMaterial_Prod.SMDBGrid5GetCellParams(
+  Sender: TObject; Field: TField; AFont: TFont; var Background: TColor;
+  Highlight: Boolean);
+begin
+  if fDMBaixaMaterial_Prod.cdsConsPagRet_Ref_GeracaoFINALIZADO.AsString <> 'S' then
+  begin
+    Background  := $004080FF;
+    AFont.Color := clBlack;
+  end;
 end;
 
 end.

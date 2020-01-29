@@ -176,14 +176,23 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     CommandText = 
       'select L.*, M.NOME NOME_MATERIAL, M.REFERENCIA REFERENCIA_MAT, C' +
       'MAT.NOME NOME_COR_MAT, CPROD.NOME NOME_COR_PROD,'#13#10'       M.PRECO' +
-      '_CUSTO, M.UNIDADE UNIDADE_MATERIAL'#13#10'from LOTE_MAT_PROD L'#13#10'inner ' +
-      'join PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'left join COMBINACAO CMA' +
-      'T on L.ID_COR_MATERIAL = CMAT.ID'#13#10'left join COMBINACAO CPROD on ' +
-      'L.ID_COR_PRODUTO = CPROD.ID  '
+      '_CUSTO, M.UNIDADE UNIDADE_MATERIAL,'#13#10'       case'#13#10'         when ' +
+      '(L.FINALIZADO = '#39'S'#39') and coalesce(L.QTD_CONSUMO, 0) <= 0 then 10' +
+      '0'#13#10'         when (L.FINALIZADO = '#39'S'#39') and (round(coalesce(L.QTD_' +
+      'PAGO, 0) - coalesce(L.QTD_RETORNO, 0) - L.QTD_CONSUMO, 4) <> 0) ' +
+      'then ((L.QTD_PAGO - L.QTD_RETORNO - L.QTD_CONSUMO) * 100) / L.QT' +
+      'D_CONSUMO'#13#10'         else 0'#13#10'       end PERC_DIFERENCA,'#13#10'       c' +
+      'ase'#13#10'         when (L.FINALIZADO = '#39'S'#39') and (round(coalesce(L.QT' +
+      'D_PAGO, 0) - coalesce(L.QTD_RETORNO, 0), 4) <> 0) then round((co' +
+      'alesce(L.QTD_PAGO, 0) - coalesce(L.QTD_RETORNO, 0)), 4)'#13#10'       ' +
+      '  else 0'#13#10'       end QTD_REAL'#13#10'from LOTE_MAT_PROD L'#13#10'inner join ' +
+      'PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'left join COMBINACAO CMAT on ' +
+      'L.ID_COR_MATERIAL = CMAT.ID'#13#10'left join COMBINACAO CPROD on L.ID_' +
+      'COR_PRODUTO = CPROD.ID '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 343
+    Left = 342
     Top = 16
   end
   object dspConsLoteMat_Prod: TDataSetProvider
@@ -287,6 +296,14 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     end
     object cdsConsLoteMat_ProdDTGERACAO: TDateField
       FieldName = 'DTGERACAO'
+    end
+    object cdsConsLoteMat_ProdPERC_DIFERENCA: TFloatField
+      FieldName = 'PERC_DIFERENCA'
+      DisplayFormat = '0.00'
+    end
+    object cdsConsLoteMat_ProdQTD_REAL: TFloatField
+      FieldName = 'QTD_REAL'
+      DisplayFormat = '0.000#'
     end
   end
   object dsConsLoteMat_Prod: TDataSource
@@ -725,17 +742,27 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select L.REFERENCIA, L.ID_MATERIAL, L.ID_COR_PRODUTO, L.ID_COR_M' +
-      'ATERIAL, sum(L.QTD_CONSUMO) QTD_CONSUMO,'#13#10'       M.NOME NOME_MAT' +
-      'ERIAL, CMAT.NOME NOME_COR_MAT, CPROD.NOME NOME_COR_PROD, M.UNIDA' +
-      'DE UNIDADE_MATERIAL,'#13#10'       sum(coalesce(L.QTD_PAGO, 0)) QTD_PA' +
-      'GO, sum(coalesce(L.QTD_RETORNO, 0)) QTD_RETORNO,'#13#10'       sum(coa' +
-      'lesce(L.QTD_DIFERENCA, 0)) QTD_DIFERENCA'#13#10'from LOTE_MAT_PROD L'#13#10 +
-      'inner join PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'left join COMBINAC' +
-      'AO CMAT on L.ID_COR_MATERIAL = CMAT.ID'#13#10'left join COMBINACAO CPR' +
-      'OD on L.ID_COR_PRODUTO = CPROD.ID'#13#10'group by L.REFERENCIA, L.ID_M' +
-      'ATERIAL, L.ID_COR_PRODUTO, L.ID_COR_MATERIAL, M.NOME, CMAT.NOME,' +
-      ' CPROD.NOME, M.UNIDADE  '#13#10
+      'SELECT AUX.*,'#13#10'   case'#13#10'     when (aux.FINALIZADO = '#39'S'#39') and coa' +
+      'lesce(aux.QTD_CONSUMO, 0) <= 0 then 100'#13#10'     when (aux.FINALIZA' +
+      'DO = '#39'S'#39') and (round(coalesce(aux.QTD_PAGO, 0) - coalesce(aux.QT' +
+      'D_RETORNO, 0) - aux.QTD_CONSUMO, 4) <> 0) then ((aux.QTD_PAGO - ' +
+      'aux.QTD_RETORNO - aux.QTD_CONSUMO) * 100) / aux.QTD_CONSUMO'#13#10'   ' +
+      '  else 0'#13#10'   end PERC_DIFERENCA,'#13#10'   case'#13#10'     when (aux.FINALI' +
+      'ZADO = '#39'S'#39') and (round(coalesce(aux.QTD_PAGO, 0) - coalesce(aux.' +
+      'QTD_RETORNO, 0), 4) <> 0) then round((coalesce(aux.QTD_PAGO, 0) ' +
+      '- coalesce(aux.QTD_RETORNO, 0)), 4)'#13#10'     else 0'#13#10'   end QTD_REA' +
+      'L'#13#10#13#10'FROM ('#13#10'select L.REFERENCIA, L.ID_MATERIAL, L.ID_COR_PRODUT' +
+      'O, L.ID_COR_MATERIAL, sum(L.QTD_CONSUMO) QTD_CONSUMO,'#13#10'       M.' +
+      'NOME NOME_MATERIAL, CMAT.NOME NOME_COR_MAT, CPROD.NOME NOME_COR_' +
+      'PROD, M.UNIDADE UNIDADE_MATERIAL,'#13#10'       sum(coalesce(L.QTD_PAG' +
+      'O, 0)) QTD_PAGO, sum(coalesce(L.QTD_RETORNO, 0)) QTD_RETORNO,'#13#10' ' +
+      '      sum(coalesce(L.QTD_DIFERENCA, 0)) QTD_DIFERENCA, L.finaliz' +
+      'ado'#13#10'from LOTE_MAT_PROD L'#13#10'inner join PRODUTO M on L.ID_MATERIAL' +
+      ' = M.ID'#13#10'left join COMBINACAO CMAT on L.ID_COR_MATERIAL = CMAT.I' +
+      'D'#13#10'left join COMBINACAO CPROD on L.ID_COR_PRODUTO = CPROD.ID'#13#10'gr' +
+      'oup by L.REFERENCIA, L.ID_MATERIAL, L.ID_COR_PRODUTO, L.ID_COR_M' +
+      'ATERIAL, M.NOME, CMAT.NOME, CPROD.NOME, M.UNIDADE, L.finalizado)' +
+      ' AUX'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -753,7 +780,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     Params = <>
     ProviderName = 'dspConsPagRet_Ref_Geracao'
     Left = 446
-    Top = 191
+    Top = 192
     object cdsConsPagRet_Ref_GeracaoREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
     end
@@ -798,6 +825,19 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
       FieldName = 'QTD_DIFERENCA'
       DisplayFormat = '###,###,##0.000#'
     end
+    object cdsConsPagRet_Ref_GeracaoFINALIZADO: TStringField
+      FieldName = 'FINALIZADO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsConsPagRet_Ref_GeracaoPERC_DIFERENCA: TFloatField
+      FieldName = 'PERC_DIFERENCA'
+      DisplayFormat = '0.00'
+    end
+    object cdsConsPagRet_Ref_GeracaoQTD_REAL: TFloatField
+      FieldName = 'QTD_REAL'
+      DisplayFormat = '###,###,##0.000#'
+    end
   end
   object dsConsPagRet_Ref_Geracao: TDataSource
     DataSet = cdsConsPagRet_Ref_Geracao
@@ -813,8 +853,8 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43698.372048356480000000
+    ReportOptions.CreateDate = 43858.388081354200000000
+    ReportOptions.LastChange = 43858.974793298610000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -883,7 +923,10 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
       'UNIDADE_MATERIAL=UNIDADE_MATERIAL'
       'QTD_PAGO=QTD_PAGO'
       'QTD_RETORNO=QTD_RETORNO'
-      'QTD_DIFERENCA=QTD_DIFERENCA')
+      'QTD_DIFERENCA=QTD_DIFERENCA'
+      'FINALIZADO=FINALIZADO'
+      'PERC_DIFERENCA=PERC_DIFERENCA'
+      'QTD_REAL=QTD_REAL')
     DataSource = dsConsPagRet_Ref_Geracao
     BCDToCurrency = False
     Left = 636

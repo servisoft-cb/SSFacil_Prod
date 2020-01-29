@@ -181,6 +181,11 @@ type
     frxRichObject1: TfrxRichObject;
     frxBarCodeObject1: TfrxBarCodeObject;
     frxConsPagRet_Ref_Geracao: TfrxDBDataset;
+    cdsConsLoteMat_ProdPERC_DIFERENCA: TFloatField;
+    cdsConsLoteMat_ProdQTD_REAL: TFloatField;
+    cdsConsPagRet_Ref_GeracaoFINALIZADO: TStringField;
+    cdsConsPagRet_Ref_GeracaoPERC_DIFERENCA: TFloatField;
+    cdsConsPagRet_Ref_GeracaoQTD_REAL: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
