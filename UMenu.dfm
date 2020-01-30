@@ -1,6 +1,6 @@
 object fMenu: TfMenu
-  Left = 318
-  Top = 32
+  Left = 284
+  Top = 12
   Width = 837
   Height = 685
   Caption = 'Menu'
@@ -311,7 +311,7 @@ object fMenu: TfMenu
     end
   end
   object mmMenu: TMainMenu
-    Left = 646
+    Left = 647
     Top = 406
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -446,6 +446,10 @@ object fMenu: TfMenu
       object ConsultaPagamentoRetornoMateriaisAlmoxarifado1: TMenuItem
         Caption = 'Consulta Pagamento/Retorno Materiais (Almoxarifado)'
         OnClick = ConsultaPagamentoRetornoMateriaisAlmoxarifado1Click
+      end
+      object ConsultaMateriaisAcumuladosPorOrdemdeProduo1: TMenuItem
+        Caption = 'Consulta Materiais Acumulados Por Ordem de Produ'#231#227'o'
+        OnClick = ConsultaMateriaisAcumuladosPorOrdemdeProduo1Click
       end
     end
     object N19: TMenuItem

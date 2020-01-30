@@ -114,7 +114,8 @@ uses
   UDMBaixaMaterial_Prod in 'UDMBaixaMaterial_Prod.pas' {DMBaixaMaterial_Prod: TDataModule},
   UBaixaMaterial_Prod in 'UBaixaMaterial_Prod.pas' {frmBaixaMaterial_Prod},
   UBaixaMaterial_Prod_Dig in 'UBaixaMaterial_Prod_Dig.pas' {frmBaixaMaterial_Prod_Dig},
-  UConsBaixaMaterial_Prod in 'UConsBaixaMaterial_Prod.pas' {frmConsBaixaMaterial_Prod};
+  UConsBaixaMaterial_Prod in 'UConsBaixaMaterial_Prod.pas' {frmConsBaixaMaterial_Prod},
+  UConsLote_Mat_Acum in 'UConsLote_Mat_Acum.pas' {frmConsLote_Mat_Acum};
 
 {$R *.res}
 

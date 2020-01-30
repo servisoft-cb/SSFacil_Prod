@@ -108,6 +108,15 @@ type
     cdsModelo_Matcl_Vlr_Total: TFloatField;
     cdsModelo_MatNOME_SETOR: TStringField;
     cdsModelo_MatORDEM_ORC: TIntegerField;
+    sdsConsLote_Mat_Acum: TSQLDataSet;
+    dspConsLote_Mat_Acum: TDataSetProvider;
+    cdsConsLote_Mat_Acum: TClientDataSet;
+    dsConsLote_Mat_Acum: TDataSource;
+    cdsConsLote_Mat_AcumID_MATERIAL: TIntegerField;
+    cdsConsLote_Mat_AcumNOME: TStringField;
+    cdsConsLote_Mat_AcumUNIDADE: TStringField;
+    cdsConsLote_Mat_AcumQTD_CONSUMO: TFloatField;
+    frxConsLote_Mat_Acum: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);
@@ -126,6 +135,7 @@ type
     ctMatLote: String;
     ctLoteProduto: String;
     ctModelo_Setor : String;
+    ctConsLote_Mat_Acum : String;
   end;
 
 var
@@ -142,6 +152,7 @@ begin
   ctMatLote      := sdsMatLote.CommandText;
   ctLoteProduto  := sdsLoteProduto.CommandText;
   ctModelo_Setor := sdsModelo_Setor.CommandText;
+  ctConsLote_Mat_Acum := sdsConsLote_Mat_Acum.CommandText;
   qParametros.Open;
   qParametros_Lote.Open;
   qParametros_Prod.Open;

@@ -1,10 +1,10 @@
 object DMConsLote: TDMConsLote
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 379
-  Top = 144
-  Height = 475
-  Width = 707
+  Left = 266
+  Top = 63
+  Height = 541
+  Width = 875
   object qParametros: TSQLQuery
     MaxBlobSize = -1
     Params = <>
@@ -263,8 +263,8 @@ object DMConsLote: TDMConsLote
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43794.436030115740000000
+    ReportOptions.CreateDate = 43860.600792673600000000
+    ReportOptions.LastChange = 43860.608926145830000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -528,8 +528,8 @@ object DMConsLote: TDMConsLote
     Aggregates = <>
     Params = <>
     ProviderName = 'dspSetor'
-    Left = 478
-    Top = 282
+    Left = 479
+    Top = 281
     object cdsSetorID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -645,8 +645,8 @@ object DMConsLote: TDMConsLote
   end
   object dsModelo_Mat: TDataSource
     DataSet = cdsModelo_Mat
-    Left = 271
-    Top = 309
+    Left = 269
+    Top = 310
   end
   object frxModeloSetor: TfrxDBDataset
     UserName = 'frxModeloSetor'
@@ -693,5 +693,65 @@ object DMConsLote: TDMConsLote
     BCDToCurrency = False
     Left = 624
     Top = 255
+  end
+  object sdsConsLote_Mat_Acum: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT LM.id_material, P.NOME,  P.unidade, SUM(LM.qtd_consumo) Q' +
+      'TD_CONSUMO'#13#10'FROM LOTE L'#13#10'INNER JOIN LOTE_MAT LM'#13#10'ON L.num_ordem ' +
+      '= LM.num_ordem'#13#10'INNER JOIN PRODUTO P'#13#10'ON LM.id_material = P.ID'#13#10 +
+      'GROUP BY LM.id_material, P.NOME, P.unidade'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 453
+    Top = 372
+  end
+  object dspConsLote_Mat_Acum: TDataSetProvider
+    DataSet = sdsConsLote_Mat_Acum
+    Left = 503
+    Top = 371
+  end
+  object cdsConsLote_Mat_Acum: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsLote_Mat_Acum'
+    OnCalcFields = cdsModelo_MatCalcFields
+    Left = 542
+    Top = 374
+    object cdsConsLote_Mat_AcumID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsConsLote_Mat_AcumNOME: TStringField
+      FieldName = 'NOME'
+      Size = 100
+    end
+    object cdsConsLote_Mat_AcumUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsConsLote_Mat_AcumQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+      DisplayFormat = '###,###,##0.000#'
+    end
+  end
+  object dsConsLote_Mat_Acum: TDataSource
+    DataSet = cdsConsLote_Mat_Acum
+    Left = 583
+    Top = 375
+  end
+  object frxConsLote_Mat_Acum: TfrxDBDataset
+    UserName = 'frxConsLote_Mat_Acum'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME=NOME'
+      'UNIDADE=UNIDADE'
+      'QTD_CONSUMO=QTD_CONSUMO')
+    DataSource = dsConsLote_Mat_Acum
+    BCDToCurrency = False
+    Left = 684
+    Top = 252
   end
 end

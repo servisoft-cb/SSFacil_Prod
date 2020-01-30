@@ -737,10 +737,10 @@ object frmConsLote2: TfrmConsLote2
     Top = 140
     Width = 920
     Height = 393
-    ActivePage = TS_Pedido
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     FixedDimension = 19
     object TS_Talao: TRzTabSheet
