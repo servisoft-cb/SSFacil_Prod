@@ -321,12 +321,12 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'ITEM'
         ParamType = ptInput
       end>
@@ -377,6 +377,9 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
       FieldName = 'USUARIO'
       Size = 15
     end
+    object sdsLote_Mat_Prod_EstID_FUNCIONARIO: TIntegerField
+      FieldName = 'ID_FUNCIONARIO'
+    end
   end
   object dspLote_Mat_Prod_Est: TDataSetProvider
     DataSet = sdsLote_Mat_Prod_Est
@@ -390,7 +393,8 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     IndexFieldNames = 'ID;ITEM;ITEM_EST'
     Params = <>
     ProviderName = 'dspLote_Mat_Prod_Est'
-    Left = 146
+    OnCalcFields = cdsLote_Mat_Prod_EstCalcFields
+    Left = 145
     Top = 88
     object cdsLote_Mat_Prod_EstID: TIntegerField
       FieldName = 'ID'
@@ -435,6 +439,16 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     object cdsLote_Mat_Prod_EstUSUARIO: TStringField
       FieldName = 'USUARIO'
       Size = 15
+    end
+    object cdsLote_Mat_Prod_EstID_FUNCIONARIO: TIntegerField
+      FieldName = 'ID_FUNCIONARIO'
+    end
+    object cdsLote_Mat_Prod_EstclFuncionario: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'clFuncionario'
+      ProviderFlags = []
+      Size = 40
+      Calculated = True
     end
   end
   object dsLote_Mat_Prod_Est: TDataSource
@@ -931,5 +945,76 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     BCDToCurrency = False
     Left = 636
     Top = 399
+  end
+  object qFuncionario: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'NUM_CARTAO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'SELECT F.CODIGO, F.NOME, F.NUM_CARTAO, F.LIBERA_PED, F.baixa_eti' +
+        'q_prefat, F.SENHA'
+      'FROM FUNCIONARIO F'
+      'WHERE INATIVO = '#39'N'#39
+      '  AND NUM_CARTAO = :NUM_CARTAO ')
+    SQLConnection = dmDatabase.scoDados
+    Left = 682
+    Top = 151
+    object qFuncionarioCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qFuncionarioNOME: TStringField
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object qFuncionarioNUM_CARTAO: TIntegerField
+      FieldName = 'NUM_CARTAO'
+    end
+    object qFuncionarioLIBERA_PED: TStringField
+      FieldName = 'LIBERA_PED'
+      FixedChar = True
+      Size = 1
+    end
+    object qFuncionarioBAIXA_ETIQ_PREFAT: TStringField
+      FieldName = 'BAIXA_ETIQ_PREFAT'
+      FixedChar = True
+      Size = 1
+    end
+    object qFuncionarioSENHA: TStringField
+      FieldName = 'SENHA'
+      Size = 15
+    end
+  end
+  object qVerFunc: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT F.CODIGO, F.NOME, F.NUM_CARTAO'
+      'FROM FUNCIONARIO F'
+      'WHERE CODIGO = :CODIGO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 714
+    Top = 236
+    object qVerFuncCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qVerFuncNOME: TStringField
+      FieldName = 'NOME'
+      Size = 50
+    end
+    object qVerFuncNUM_CARTAO: TIntegerField
+      FieldName = 'NUM_CARTAO'
+    end
   end
 end

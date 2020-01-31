@@ -186,9 +186,24 @@ type
     cdsConsPagRet_Ref_GeracaoFINALIZADO: TStringField;
     cdsConsPagRet_Ref_GeracaoPERC_DIFERENCA: TFloatField;
     cdsConsPagRet_Ref_GeracaoQTD_REAL: TFloatField;
+    qFuncionario: TSQLQuery;
+    qFuncionarioCODIGO: TIntegerField;
+    qFuncionarioNOME: TStringField;
+    qFuncionarioNUM_CARTAO: TIntegerField;
+    qFuncionarioLIBERA_PED: TStringField;
+    qFuncionarioBAIXA_ETIQ_PREFAT: TStringField;
+    qFuncionarioSENHA: TStringField;
+    sdsLote_Mat_Prod_EstID_FUNCIONARIO: TIntegerField;
+    cdsLote_Mat_Prod_EstID_FUNCIONARIO: TIntegerField;
+    cdsLote_Mat_Prod_EstclFuncionario: TStringField;
+    qVerFunc: TSQLQuery;
+    qVerFuncCODIGO: TIntegerField;
+    qVerFuncNOME: TStringField;
+    qVerFuncNUM_CARTAO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
+    procedure cdsLote_Mat_Prod_EstCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -264,6 +279,15 @@ begin
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstCalcFields(
+  DataSet: TDataSet);
+begin
+  qVerFunc.Close;
+  qVerFunc.ParamByName('CODIGO').AsInteger     := cdsLote_Mat_Prod_EstID_FUNCIONARIO.AsInteger;
+  qVerFunc.Open;
+  cdsLote_Mat_Prod_EstclFuncionario.AsString := qVerFuncNOME.AsString;
 end;
 
 end.

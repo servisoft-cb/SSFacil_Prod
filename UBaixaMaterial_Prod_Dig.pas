@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMBaixaMaterial_Prod, StdCtrls, Mask, DBCtrls, ExtCtrls, Grids,
-  DBGrids, SMDBGrid, NxEdit, ToolEdit, CurrEdit, NxCollection;
+  DBGrids, SMDBGrid, NxEdit, ToolEdit, CurrEdit, NxCollection, Buttons;
 
 type
   TfrmBaixaMaterial_Prod_Dig = class(TForm)
@@ -37,13 +37,24 @@ type
     SMDBGrid1: TSMDBGrid;
     NxPanel2: TNxPanel;
     btnExcluir: TNxButton;
+    Label11: TLabel;
+    CurrencyEdit2: TCurrencyEdit;
+    lblFuncionario: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure CurrencyEdit2Enter(Sender: TObject);
+    procedure CurrencyEdit2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure CurrencyEdit2Change(Sender: TObject);
+    procedure CurrencyEdit1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
+    procedure prc_Campos(Flag : Boolean);
+
   public
     { Public declarations }
     fDMBaixaMaterial_Prod : TDMBaixaMaterial_Prod;
@@ -109,6 +120,12 @@ var
   vES : String;
   vGeraCusto : String;
 begin
+  if CurrencyEdit2.AsInteger <= 0 then
+  begin
+    MessageDlg('*** Funcionário não informado!', mtWarning, [mbok], 0);
+    CurrencyEdit1.SetFocus;
+    exit;
+  end;
   //fDMBaixaMaterial_Prod.prc_Abrir_Lote_Mat_Prod(fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdNUM_ORDEM.AsInteger,fDMBaixaMaterial_Prod.cdsConsLoteMat_ProdITEM.AsInteger);
   vQtdAux := StrToFloat(FormatFloat('0.0000',fDMBaixaMaterial_Prod.cdsLote_Mat_ProdQTD_PAGO.AsFloat - fDMBaixaMaterial_Prod.cdsLote_Mat_ProdQTD_RETORNO.AsFloat));
   if (NxComboBox1.ItemIndex = 2) and (CurrencyEdit1.Value > vQtdAux) then
@@ -148,6 +165,7 @@ begin
     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstQTD.AsFloat        := CurrencyEdit1.Value;
     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstFILIAL.AsInteger   := vFilial;
     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstUSUARIO.AsString   := uUtilPadrao.vUsuario;
+    fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstID_FUNCIONARIO.AsInteger := fDMBaixaMaterial_Prod.qFuncionarioCODIGO.AsInteger;
     case NxComboBox1.ItemIndex of
       1 : fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstTIPO_ES.AsString := 'S';
       2 : fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstTIPO_ES.AsString := 'E';
@@ -219,6 +237,58 @@ end;
 procedure TfrmBaixaMaterial_Prod_Dig.btnCancelarClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmBaixaMaterial_Prod_Dig.CurrencyEdit2Enter(Sender: TObject);
+begin
+  fDMBaixaMaterial_Prod.qFuncionario.Close;
+end;
+
+procedure TfrmBaixaMaterial_Prod_Dig.CurrencyEdit2KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_Return) then
+  begin
+    if CurrencyEdit2.AsInteger > 0 then
+    begin
+      fDMBaixaMaterial_Prod.qFuncionario.Close;
+      fDMBaixaMaterial_Prod.qFuncionario.ParamByName('NUM_CARTAO').AsInteger := CurrencyEdit2.AsInteger;
+      fDMBaixaMaterial_Prod.qFuncionario.Open;
+      if fDMBaixaMaterial_Prod.qFuncionario.IsEmpty then
+      begin
+        lblFuncionario.Caption := '*** Funcionário não encontrado';
+        CurrencyEdit2.SetFocus;
+        CurrencyEdit2.SelectAll;
+      end
+      else
+      begin
+        lblFuncionario.Caption := fDMBaixaMaterial_Prod.qFuncionarioNOME.AsString;
+        prc_Campos(True);
+        NxComboBox1.SetFocus;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmBaixaMaterial_Prod_Dig.CurrencyEdit2Change(Sender: TObject);
+begin
+  prc_Campos(False);
+end;
+
+procedure TfrmBaixaMaterial_Prod_Dig.prc_Campos(Flag : Boolean);
+begin
+  Label9.Visible        := Flag;
+  Label10.Visible       := Flag;
+  NxComboBox1.Visible   := Flag;
+  CurrencyEdit1.Visible := Flag;
+  btnConfirmar.Visible  := Flag;
+end;
+
+procedure TfrmBaixaMaterial_Prod_Dig.CurrencyEdit1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_Return) then
+    btnConfirmar.SetFocus;
 end;
 
 end.

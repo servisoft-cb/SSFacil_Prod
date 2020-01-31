@@ -213,7 +213,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
   object DBEdit5: TDBEdit
     Left = 351
     Top = 8
-    Width = 120
+    Width = 100
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -253,7 +253,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
   object DBEdit7: TDBEdit
     Left = 220
     Top = 29
-    Width = 251
+    Width = 231
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -273,7 +273,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
   object DBEdit8: TDBEdit
     Left = 157
     Top = 50
-    Width = 314
+    Width = 294
     Height = 22
     TabStop = False
     Color = clBtnFace
@@ -291,16 +291,16 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabOrder = 8
   end
   object Panel1: TPanel
-    Left = 3
+    Left = 2
     Top = 181
-    Width = 477
+    Width = 453
     Height = 262
     Align = alCustom
     Color = 16763541
     TabOrder = 0
     object Label9: TLabel
-      Left = 20
-      Top = 62
+      Left = 28
+      Top = 86
       Width = 95
       Height = 16
       Alignment = taRightJustify
@@ -311,10 +311,11 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
+      Visible = False
     end
     object Label10: TLabel
-      Left = 85
-      Top = 93
+      Left = 93
+      Top = 117
       Width = 30
       Height = 16
       Alignment = taRightJustify
@@ -325,10 +326,39 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
+      Visible = False
+    end
+    object Label11: TLabel
+      Left = 23
+      Top = 14
+      Width = 100
+      Height = 18
+      Alignment = taRightJustify
+      Caption = 'Funcion'#225'rio:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblFuncionario: TLabel
+      Left = 126
+      Top = 36
+      Width = 318
+      Height = 18
+      AutoSize = False
+      Caption = '.'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
     end
     object NxComboBox1: TNxComboBox
-      Left = 117
-      Top = 53
+      Left = 125
+      Top = 77
       Width = 121
       Height = 24
       Cursor = crArrow
@@ -339,8 +369,9 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 1
       ReadOnly = True
+      Visible = False
       HideFocus = False
       Style = dsDropDownList
       AutoComplete = True
@@ -352,8 +383,8 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
         'Retorno')
     end
     object CurrencyEdit1: TCurrencyEdit
-      Left = 118
-      Top = 88
+      Left = 126
+      Top = 112
       Width = 121
       Height = 21
       AutoSize = False
@@ -367,11 +398,13 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Style = []
       ParentCtl3D = False
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 2
+      Visible = False
+      OnKeyDown = CurrencyEdit1KeyDown
     end
     object btnConfirmar: TNxButton
-      Left = 117
-      Top = 128
+      Left = 124
+      Top = 152
       Width = 122
       Height = 32
       Caption = 'Confirmar'
@@ -381,12 +414,13 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 3
+      Visible = False
       OnClick = btnConfirmarClick
     end
     object btnCancelar: TNxButton
-      Left = 238
-      Top = 128
+      Left = 246
+      Top = 152
       Width = 122
       Height = 32
       Caption = 'Cancelar'
@@ -396,8 +430,29 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 4
       OnClick = btnCancelarClick
+    end
+    object CurrencyEdit2: TCurrencyEdit
+      Left = 124
+      Top = 9
+      Width = 202
+      Height = 23
+      AutoSize = False
+      Ctl3D = False
+      DecimalPlaces = 0
+      DisplayFormat = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 0
+      OnChange = CurrencyEdit2Change
+      OnEnter = CurrencyEdit2Enter
+      OnKeyDown = CurrencyEdit2KeyDown
     end
   end
   object DBEdit9: TDBEdit
@@ -421,9 +476,9 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     TabOrder = 9
   end
   object NxPanel1: TNxPanel
-    Left = 480
+    Left = 456
     Top = 0
-    Width = 440
+    Width = 464
     Height = 443
     Align = alRight
     Caption = 'NxPanel1'
@@ -433,7 +488,7 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
     object SMDBGrid1: TSMDBGrid
       Left = 0
       Top = 32
-      Width = 440
+      Width = 464
       Height = 411
       Align = alClient
       Ctl3D = False
@@ -520,17 +575,18 @@ object frmBaixaMaterial_Prod_Dig: TfrmBaixaMaterial_Prod_Dig
         end
         item
           Expanded = False
-          FieldName = 'USUARIO'
+          FieldName = 'clFuncionario'
           Title.Alignment = taCenter
-          Title.Caption = 'Usu'#225'rio'
+          Title.Caption = 'Funcion'#225'rio'
           Title.Color = 8454016
+          Width = 123
           Visible = True
         end>
     end
     object NxPanel2: TNxPanel
       Left = 0
       Top = 0
-      Width = 440
+      Width = 464
       Height = 32
       Align = alTop
       Color = clSilver
