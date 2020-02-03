@@ -73,14 +73,15 @@ begin
   vComandoAux  := copy(fDMConsLote.ctConsLote_Mat_Acum,i,Length(fDMConsLote.ctConsLote_Mat_Acum) - i + 1);
   vComandoAux2 := copy(fDMConsLote.ctConsLote_Mat_Acum,1,i-1);
 
+  vComandoAux2 := vComandoAux2 + ' WHERE 0 = 0';
   if DateEdit1.Date > 10 then
-    vComandoAux2 := vComandoAux2 + ' AND L.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
+    vComandoAux2 := vComandoAux2 + ' AND LM.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
   if DateEdit2.Date > 10 then
-    vComandoAux2 := vComandoAux2 + ' AND L.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+    vComandoAux2 := vComandoAux2 + ' AND LM.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   if CurrencyEdit1.AsInteger > 0 then
-    vComandoAux2 := vComandoAux2 + ' AND L.NUM_ORDEM >= ' + IntToStr(CurrencyEdit1.AsInteger);
+    vComandoAux2 := vComandoAux2 + ' AND LM.NUM_ORDEM >= ' + IntToStr(CurrencyEdit1.AsInteger);
   if CurrencyEdit2.AsInteger > 0 then
-    vComandoAux2 := vComandoAux2 + ' AND L.NUM_ORDEM <= ' + IntToStr(CurrencyEdit2.AsInteger);
+    vComandoAux2 := vComandoAux2 + ' AND LM.NUM_ORDEM <= ' + IntToStr(CurrencyEdit2.AsInteger);
 
   fDMConsLote.cdsConsLote_Mat_Acum.Close;
   fDMConsLote.sdsConsLote_Mat_Acum.CommandText := vComandoAux2 + ' ' + vComandoAux;

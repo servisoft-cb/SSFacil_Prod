@@ -699,14 +699,13 @@ object DMConsLote: TDMConsLote
     GetMetadata = False
     CommandText = 
       'SELECT LM.id_material, P.NOME,  P.unidade, SUM(LM.qtd_consumo) Q' +
-      'TD_CONSUMO'#13#10'FROM LOTE L'#13#10'INNER JOIN LOTE_MAT LM'#13#10'ON L.num_ordem ' +
-      '= LM.num_ordem'#13#10'INNER JOIN PRODUTO P'#13#10'ON LM.id_material = P.ID'#13#10 +
-      'GROUP BY LM.id_material, P.NOME, P.unidade'#13#10#13#10
+      'TD_CONSUMO'#13#10'from LOTE_MAT LM'#13#10'INNER JOIN PRODUTO P'#13#10'ON LM.id_mat' +
+      'erial = P.ID'#13#10'GROUP BY LM.id_material, P.NOME, P.unidade'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 453
-    Top = 372
+    Left = 452
+    Top = 371
   end
   object dspConsLote_Mat_Acum: TDataSetProvider
     DataSet = sdsConsLote_Mat_Acum
@@ -718,8 +717,8 @@ object DMConsLote: TDMConsLote
     Params = <>
     ProviderName = 'dspConsLote_Mat_Acum'
     OnCalcFields = cdsModelo_MatCalcFields
-    Left = 542
-    Top = 374
+    Left = 537
+    Top = 368
     object cdsConsLote_Mat_AcumID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
     end

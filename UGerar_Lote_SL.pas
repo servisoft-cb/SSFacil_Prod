@@ -829,6 +829,7 @@ var
   fDMLoteImp: TDMLoteImp;
   vArq : String;
   sds : TSQLDataSet;
+  vCondLoteMat_Prod : String;
 begin
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Talao_SLTextil_Lote.fr3';
   if not (FileExists(vArq)) then
@@ -845,10 +846,9 @@ begin
   sds.NoMetadata    := True;
   sds.GetMetadata   := False;
 
+  vCondLoteMat_Prod := '';
   fDMLoteImp := TDMLoteImp.Create(Self);
   fDMLoteImp.mImpLote_SL.EmptyDataSet;
-  fDMLoteImp.cdsConsLote_Mat_Prod.Close;
-  fDMLoteImp.mImp_Lote_Mat_Prod.EmptyDataSet;
 
   fDMCadLote.cdsConsulta_Lote_SL.First;
   while not fDMCadLote.cdsConsulta_Lote_SL.Eof do
@@ -865,16 +865,10 @@ begin
 
       if ckImpMaterial.Checked then
       begin
-        if not fDMLoteImp.mImp_Lote_Mat_Prod.Locate('NUM_ORDEM;REFERENCIA;ID_COR_PRODUTO',VarArrayOf([fDMCadLote.cdsConsulta_Lote_SLNUM_ORDEM.AsInteger
-                                              ,fDMCadLote.cdsConsulta_Lote_SLREFERENCIA.AsString
-                                              ,fDMCadLote.cdsConsulta_Lote_SLID_COMBINACAO.AsInteger]),[locaseinsensitive]) then
-        begin
-          fDMLoteImp.mImp_Lote_Mat_Prod.Insert;
-          fDMLoteImp.mImp_Lote_Mat_ProdNum_Ordem.AsInteger      := fDMCadLote.cdsConsulta_Lote_SLNUM_ORDEM.AsInteger;
-          fDMLoteImp.mImp_Lote_Mat_ProdReferencia.AsString      := fDMCadLote.cdsConsulta_Lote_SLREFERENCIA.AsString;
-          fDMLoteImp.mImp_Lote_Mat_ProdID_Cor_Produto.AsInteger := fDMCadLote.cdsConsulta_Lote_SLID_COMBINACAO.AsInteger;
-          fDMLoteImp.mImp_Lote_Mat_Prod.Post;
-        end;
+        if vCondLoteMat_Prod = '' then
+          vCondLoteMat_Prod := fDMCadLote.cdsConsulta_Lote_SLNUM_LOTE.AsString
+        else
+          vCondLoteMat_Prod := vCondLoteMat_Prod + ',' + fDMCadLote.cdsConsulta_Lote_SLNUM_LOTE.AsString;
       end;
 
       if trim(fDMCadLote.cdsConsulta_Lote_SLIMPRESSO.AsString) <> 'S' then
@@ -891,27 +885,26 @@ begin
   end;
   //***********************
   SMDBGrid2.EnableScroll;
-
   FreeAndNil(sds);
 
-  fDMLoteImp.mImpLote_SL.First;
-  fDMLoteImp.mImp_Lote_Mat_Prod.First;
-
-  //29/01/2020 Foi incluido no DMLOTEIMP para ler por referência
-  {if (CurrencyEdit3.AsInteger > 0) and (ckImpMaterial.Checked) and (fDMLoteImp.mImpLote_SL.RecordCount > 0) then
+  fDMLoteImp.cdsConsLote_Mat_Prod2.Close;
+  //Material Lote Produto
+  if (ckImpMaterial.Checked) and (trim(vCondLoteMat_Prod) <> '') then
   begin
-    fDMLoteImp.sdsConsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger := CurrencyEdit3.AsInteger;
-    fDMLoteImp.cdsConsLote_Mat_Prod.Open;
-    fDMLoteImp.cdsConsLote_Mat_Prod.First;
-  end;}
+    fDMLoteImp.sdsConsLote_Mat_Prod2.CommandText := fDMLoteImp.ctConsLote_Mat_Prod + ' WHERE NUM_LOTE IN (' + vCondLoteMat_Prod + ')';
+    fDMLoteImp.cdsConsLote_Mat_Prod2.Open;
+    fDMLoteImp.cdsConsLote_Mat_Prod2.First;
+  end
+  else
+  begin
+    fDMLoteImp.sdsConsLote_Mat_Prod2.CommandText := fDMLoteImp.ctConsLote_Mat_Prod + ' WHERE NUM_LOTE = -1 ';
+    fDMLoteImp.cdsConsLote_Mat_Prod2.Open;
+    fDMLoteImp.cdsConsLote_Mat_Prod2.First;
+  end;
+  //*************
 
-  {fDMLoteImp.cdsTalao_SL.Close;
-  fDMLoteImp.sdsTalao_SL.ParamByName('NUM_ORDEM').AsInteger := StrToInt(vNumOrdemAux) ;
-  fDMLoteImp.cdsTalao_SL.Open;
-  fDMLoteImp.cdsTalao_SL.First;
-  fDMLoteImp.cdsLote_Processo.Close;
-  fDMLoteImp.sdsLote_Processo.ParamByName('ID_LOTE').AsInteger := fDMLoteImp.cdsTalao_SLID.AsInteger;
-  fDMLoteImp.cdsLote_Processo.Open;}
+  fDMLoteImp.mImpLote_SL.First;
+
   fDMLoteImp.frxReport1.Report.LoadFromFile(vArq);
   fDMLoteImp.frxReport1.ShowReport;
 

@@ -4,7 +4,7 @@ object DMLoteImp: TDMLoteImp
   Left = 213
   Top = 62
   Height = 609
-  Width = 1058
+  Width = 1097
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
@@ -15,11 +15,11 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 43848.682428645800000000
+    ReportOptions.LastChange = 43864.387886215300000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 799
+    Left = 797
     Top = 366
   end
   object frxPDFExport1: TfrxPDFExport
@@ -861,7 +861,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspProcesso'
     OnCalcFields = cdsTalao_SLCalcFields
     Left = 519
-    Top = 224
+    Top = 225
     object cdsProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1318,7 +1318,7 @@ object DMLoteImp: TDMLoteImp
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 536
+    Left = 535
     Top = 362
     Data = {
       5C0000009619E0BD0100000018000000030000000000030000005C00094E756D
@@ -1783,7 +1783,7 @@ object DMLoteImp: TDMLoteImp
       'ID=ID')
     DataSource = dsmImpAux
     BCDToCurrency = False
-    Left = 992
+    Left = 995
     Top = 471
   end
   object qParametros_Lote: TSQLQuery
@@ -2088,7 +2088,7 @@ object DMLoteImp: TDMLoteImp
       FieldName = 'QTD_CONSUMO'
     end
   end
-  object sdsConsLote_Mat_Prod: TSQLDataSet
+  object sdsConsLote_Mat_Prod2: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
     CommandText = 
@@ -2097,113 +2097,99 @@ object DMLoteImp: TDMLoteImp
       'ID_MATERIAL, L.ID_COR_PRODUTO, L.ID_COR_MATERIAL, COMB2.NOME NOM' +
       'E_COMBINACAO,'#13#10'       '#39'3'#39' || lpad(L.NUM_ORDEM, 8, 0) || lpad(L.I' +
       'TEM, 3, 0) CODBARRAS, L.DTRETORNO, L.DTPAGO, L.QTD_PAGO, L.QTD_R' +
-      'ETORNO,'#13#10'       L.QTD_DIFERENCA, L.QTD_CONES, L.IMPRESSO'#13#10'from L' +
-      'OTE_MAT_PROD L'#13#10'inner join PRODUTO M on L.ID_MATERIAL = M.ID'#13#10'le' +
-      'ft join COMBINACAO COMB on L.ID_COR_MATERIAL = COMB.ID'#13#10'left joi' +
-      'n COMBINACAO COMB2 on L.ID_COR_PRODUTO = COMB2.ID'#13#10'where L.NUM_O' +
-      'RDEM = :NUM_ORDEM and'#13#10'      L.REFERENCIA = :REFERENCIA and'#13#10'   ' +
-      '   L.ID_COR_PRODUTO = :ID_COR_PRODUTO'#13#10#13#10
+      'ETORNO,'#13#10'       L.QTD_DIFERENCA, L.QTD_CONES, L.IMPRESSO, l.num_' +
+      'lote'#13#10'from LOTE_MAT_PROD L'#13#10'inner join PRODUTO M on L.ID_MATERIA' +
+      'L = M.ID'#13#10'left join COMBINACAO COMB on L.ID_COR_MATERIAL = COMB.' +
+      'ID'#13#10'left join COMBINACAO COMB2 on L.ID_COR_PRODUTO = COMB2.ID'
     MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftInteger
-        Name = 'NUM_ORDEM'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'REFERENCIA'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'ID_COR_PRODUTO'
-        ParamType = ptInput
-      end>
+    Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 470
     Top = 170
   end
-  object dspConsLote_Mat_Prod: TDataSetProvider
-    DataSet = sdsConsLote_Mat_Prod
+  object dspConsLote_Mat_Prod2: TDataSetProvider
+    DataSet = sdsConsLote_Mat_Prod2
     Left = 527
     Top = 170
   end
-  object cdsConsLote_Mat_Prod: TClientDataSet
+  object cdsConsLote_Mat_Prod2: TClientDataSet
     Aggregates = <>
     Params = <>
-    ProviderName = 'dspConsLote_Mat_Prod'
-    Left = 597
-    Top = 170
-    object cdsConsLote_Mat_ProdREFERENCIA: TStringField
+    ProviderName = 'dspConsLote_Mat_Prod2'
+    Left = 596
+    Top = 169
+    object cdsConsLote_Mat_Prod2REFERENCIA: TStringField
       FieldName = 'REFERENCIA'
     end
-    object cdsConsLote_Mat_ProdNOME_MATERIAL: TStringField
+    object cdsConsLote_Mat_Prod2NOME_MATERIAL: TStringField
       FieldName = 'NOME_MATERIAL'
       Size = 100
     end
-    object cdsConsLote_Mat_ProdNOME_COR_MAT: TStringField
+    object cdsConsLote_Mat_Prod2NOME_COR_MAT: TStringField
       FieldName = 'NOME_COR_MAT'
       Size = 60
     end
-    object cdsConsLote_Mat_ProdQTD_CONSUMO: TFloatField
+    object cdsConsLote_Mat_Prod2QTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
     end
-    object cdsConsLote_Mat_ProdQTD_PRODUTO: TFloatField
+    object cdsConsLote_Mat_Prod2QTD_PRODUTO: TFloatField
       FieldName = 'QTD_PRODUTO'
     end
-    object cdsConsLote_Mat_ProdNUM_ORDEM: TIntegerField
+    object cdsConsLote_Mat_Prod2NUM_ORDEM: TIntegerField
       FieldName = 'NUM_ORDEM'
     end
-    object cdsConsLote_Mat_ProdITEM: TIntegerField
+    object cdsConsLote_Mat_Prod2ITEM: TIntegerField
       FieldName = 'ITEM'
       Required = True
     end
-    object cdsConsLote_Mat_ProdID_MATERIAL: TIntegerField
+    object cdsConsLote_Mat_Prod2ID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
     end
-    object cdsConsLote_Mat_ProdID_COR_PRODUTO: TIntegerField
+    object cdsConsLote_Mat_Prod2ID_COR_PRODUTO: TIntegerField
       FieldName = 'ID_COR_PRODUTO'
     end
-    object cdsConsLote_Mat_ProdID_COR_MATERIAL: TIntegerField
+    object cdsConsLote_Mat_Prod2ID_COR_MATERIAL: TIntegerField
       FieldName = 'ID_COR_MATERIAL'
     end
-    object cdsConsLote_Mat_ProdNOME_COMBINACAO: TStringField
+    object cdsConsLote_Mat_Prod2NOME_COMBINACAO: TStringField
       FieldName = 'NOME_COMBINACAO'
       Size = 60
     end
-    object cdsConsLote_Mat_ProdCODBARRAS: TStringField
+    object cdsConsLote_Mat_Prod2CODBARRAS: TStringField
       FieldName = 'CODBARRAS'
       Size = 12
     end
-    object cdsConsLote_Mat_ProdDTRETORNO: TDateField
+    object cdsConsLote_Mat_Prod2DTRETORNO: TDateField
       FieldName = 'DTRETORNO'
     end
-    object cdsConsLote_Mat_ProdDTPAGO: TDateField
+    object cdsConsLote_Mat_Prod2DTPAGO: TDateField
       FieldName = 'DTPAGO'
     end
-    object cdsConsLote_Mat_ProdQTD_PAGO: TFloatField
+    object cdsConsLote_Mat_Prod2QTD_PAGO: TFloatField
       FieldName = 'QTD_PAGO'
     end
-    object cdsConsLote_Mat_ProdQTD_RETORNO: TFloatField
+    object cdsConsLote_Mat_Prod2QTD_RETORNO: TFloatField
       FieldName = 'QTD_RETORNO'
     end
-    object cdsConsLote_Mat_ProdQTD_DIFERENCA: TFloatField
+    object cdsConsLote_Mat_Prod2QTD_DIFERENCA: TFloatField
       FieldName = 'QTD_DIFERENCA'
     end
-    object cdsConsLote_Mat_ProdQTD_CONES: TIntegerField
+    object cdsConsLote_Mat_Prod2QTD_CONES: TIntegerField
       FieldName = 'QTD_CONES'
     end
-    object cdsConsLote_Mat_ProdIMPRESSO: TStringField
+    object cdsConsLote_Mat_Prod2IMPRESSO: TStringField
       FieldName = 'IMPRESSO'
       FixedChar = True
       Size = 1
     end
+    object cdsConsLote_Mat_Prod2NUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
   end
-  object dsConsLote_Mat_Prod: TDataSource
-    DataSet = cdsConsLote_Mat_Prod
-    Left = 640
-    Top = 170
+  object dsConsLote_Mat_Prod2: TDataSource
+    DataSet = cdsConsLote_Mat_Prod2
+    Left = 641
+    Top = 169
   end
   object frxConsLote_Mat_SL: TfrxDBDataset
     UserName = 'frxConsLote_Mat_SL'
@@ -2227,50 +2213,11 @@ object DMLoteImp: TDMLoteImp
       'QTD_RETORNO=QTD_RETORNO'
       'QTD_DIFERENCA=QTD_DIFERENCA'
       'QTD_CONES=QTD_CONES'
-      'IMPRESSO=IMPRESSO')
-    DataSource = dsConsLote_Mat_Prod
+      'IMPRESSO=IMPRESSO'
+      'NUM_LOTE=NUM_LOTE')
+    DataSource = dsConsLote_Mat_Prod2
     BCDToCurrency = False
-    Left = 914
-    Top = 523
-  end
-  object mImp_Lote_Mat_Prod: TClientDataSet
-    Active = True
-    Aggregates = <>
-    Params = <>
-    Left = 500
-    Top = 295
-    Data = {
-      620000009619E0BD0100000018000000030000000000030000006200094E756D
-      5F4F7264656D04000100000000000A5265666572656E63696101004900000001
-      000557494454480200020014000E49445F436F725F50726F6475746F04000100
-      000000000000}
-    object mImp_Lote_Mat_ProdNum_Ordem: TIntegerField
-      FieldName = 'Num_Ordem'
-    end
-    object mImp_Lote_Mat_ProdReferencia: TStringField
-      FieldName = 'Referencia'
-    end
-    object mImp_Lote_Mat_ProdID_Cor_Produto: TIntegerField
-      FieldName = 'ID_Cor_Produto'
-    end
-  end
-  object dsmImp_Lote_Mat_Lote: TDataSource
-    DataSet = mImp_Lote_Mat_Prod
-    Left = 535
-    Top = 297
-  end
-  object frxmImp_Lote_Mat_Lote: TfrxDBDataset
-    UserName = 'frxmImp_Lote_Mat_Lote'
-    OnFirst = frxmImp_Lote_Mat_LoteFirst
-    OnNext = frxmImp_Lote_Mat_LoteFirst
-    CloseDataSource = False
-    FieldAliases.Strings = (
-      'Num_Ordem=Num_Ordem'
-      'Referencia=Referencia'
-      'ID_Cor_Produto=ID_Cor_Produto')
-    DataSource = dsmImp_Lote_Mat_Lote
-    BCDToCurrency = False
-    Left = 969
+    Left = 925
     Top = 519
   end
 end

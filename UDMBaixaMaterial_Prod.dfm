@@ -205,7 +205,7 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsLoteMat_Prod'
-    Left = 442
+    Left = 436
     Top = 16
     object cdsConsLoteMat_ProdID: TIntegerField
       FieldName = 'ID'
@@ -304,6 +304,9 @@ object DMBaixaMaterial_Prod: TDMBaixaMaterial_Prod
     object cdsConsLoteMat_ProdQTD_REAL: TFloatField
       FieldName = 'QTD_REAL'
       DisplayFormat = '0.000#'
+    end
+    object cdsConsLoteMat_ProdNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
     end
   end
   object dsConsLoteMat_Prod: TDataSource

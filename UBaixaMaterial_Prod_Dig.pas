@@ -183,7 +183,10 @@ begin
       2 : vGeraCusto := 'S';
     end;
 
-    fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstID_MOVESTOQUE.AsInteger := fDMEstoque.fnc_Gravar_Estoque(0,
+    fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstID_MOVESTOQUE.AsInteger := 0;
+
+    //Tirado por no dia 31/01/2020, ....Marcelo vai avisar quando liberar novamente
+    {fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstID_MOVESTOQUE.AsInteger := fDMEstoque.fnc_Gravar_Estoque(0,
                                                     fDMBaixaMaterial_Prod.cdsLote_Mat_Prod_EstFILIAL.AsInteger,
                                                     1,
                                                     fDMBaixaMaterial_Prod.cdsLote_Mat_ProdID_MATERIAL.AsInteger,
@@ -218,7 +221,7 @@ begin
                                                     0,
                                                     0,
                                                     0,
-                                                    0);
+                                                    0);}
   finally
     FreeAndNil(fDMEstoque);
   end;

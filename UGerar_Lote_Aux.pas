@@ -810,10 +810,11 @@ begin
   fDMCadLote.cdsConsumo.First;
   while not fDMCadLote.cdsConsumo.Eof do
   begin
-    if fDMCadLote.cdsLote_Mat_Prod.Locate('REFERENCIA;ID_COR_PRODUTO;ID_MATERIAL;ID_COR_MATERIAL',VarArrayOf([fDMCadLote.cdsLoteREFERENCIA.AsString
+    if fDMCadLote.cdsLote_Mat_Prod.Locate('REFERENCIA;ID_COR_PRODUTO;ID_MATERIAL;ID_COR_MATERIAL;NUM_LOTE',VarArrayOf([fDMCadLote.cdsLoteREFERENCIA.AsString
                                           ,fDMCadLote.cdsLoteID_COMBINACAO.AsInteger
                                           ,fDMCadLote.cdsConsumoID_MATERIAL.AsInteger
-                                          ,fDMCadLote.cdsConsumoID_COR.AsInteger]),[locaseinsensitive]) then
+                                          ,fDMCadLote.cdsConsumoID_COR.AsInteger
+                                          ,fDMCadLote.cdsLoteNUM_LOTE.AsInteger]),[locaseinsensitive]) then
       fDMCadLote.cdsLote_Mat_Prod.Edit
     else
     begin
@@ -828,6 +829,7 @@ begin
       fDMCadLote.cdsLote_Mat_ProdID_COR_PRODUTO.AsInteger  := fDMCadLote.cdsLoteID_COMBINACAO.AsInteger;
       fDMCadLote.cdsLote_Mat_ProdID_MATERIAL.AsInteger     := fDMCadLote.cdsConsumoID_MATERIAL.AsInteger;
       fDMCadLote.cdsLote_Mat_ProdID_COR_MATERIAL.AsInteger := fDMCadLote.cdsConsumoID_COR.AsInteger;
+      fDMCadLote.cdsLote_Mat_ProdNUM_LOTE.AsInteger        := fDMCadLote.cdsLoteNUM_LOTE.AsInteger;
       fDMCadLote.cdsLote_Mat_ProdQTD_CONSUMO.AsFloat       := 0;
     end;
     if fDMCadLote.cdsLote_Mat_ProdNUM_LOTE_AUX.AsInteger <> fDMCadLote.cdsLoteNUM_LOTE.AsInteger then

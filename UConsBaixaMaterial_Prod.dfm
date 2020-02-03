@@ -449,8 +449,8 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
     Top = 93
     Width = 920
     Height = 356
-    ActivePage = TS_Ref_Geracao
-    ActivePageIndex = 1
+    ActivePage = TS_Consulta
+    ActivePageIndex = 0
     Align = alClient
     TabOrder = 1
     OnChange = NxPageControl1Change
@@ -503,7 +503,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 16
+        ColCount = 17
         RowCount = 2
         Columns = <
           item
@@ -635,6 +635,13 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Retorno'
             Title.Color = 13750737
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NUM_LOTE'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Lote'
             Visible = True
           end>
       end
@@ -1111,6 +1118,7 @@ object frmConsBaixaMaterial_Prod: TfrmConsBaixaMaterial_Prod
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 13750737
+            Width = 64
             Visible = True
           end
           item

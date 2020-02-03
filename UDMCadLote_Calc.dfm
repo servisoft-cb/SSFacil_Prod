@@ -1784,6 +1784,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object sdsLote_MatID_SETOR: TIntegerField
       FieldName = 'ID_SETOR'
     end
+    object sdsLote_MatDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
   end
   object dspLote_Mat: TDataSetProvider
     DataSet = sdsLote_Mat
@@ -1866,6 +1869,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     end
     object cdsLote_MatID_SETOR: TIntegerField
       FieldName = 'ID_SETOR'
+    end
+    object cdsLote_MatDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
     end
   end
   object dsLote_Mat: TDataSource

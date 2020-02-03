@@ -2309,6 +2309,9 @@ object DMCadLote: TDMCadLote
     object sdsLote_MatID_LOTE: TIntegerField
       FieldName = 'ID_LOTE'
     end
+    object sdsLote_MatDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
   end
   object dspLote_Mat: TDataSetProvider
     DataSet = sdsLote_Mat
@@ -2399,6 +2402,9 @@ object DMCadLote: TDMCadLote
     end
     object cdsLote_MatID_LOTE: TIntegerField
       FieldName = 'ID_LOTE'
+    end
+    object cdsLote_MatDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
     end
   end
   object dsLote_Mat: TDataSource
@@ -5891,10 +5897,10 @@ object DMCadLote: TDMCadLote
       'ERIAL, L.id_cor_produto, L.id_cor_material,'#13#10'COMB2.NOME NOME_COM' +
       'BINACAO, '#39'3'#39' || lpad(L.num_ordem,8,0) || lpad(L.Item,3,0) CODBAR' +
       'RAS,'#13#10'L.dtretorno, L.dtpago, L.qtd_pago, L.qtd_retorno, L.qtd_di' +
-      'ferenca, L.qtd_cones, L.IMPRESSO'#13#10'FROM lote_mat_prod L'#13#10'INNER JO' +
-      'IN PRODUTO M'#13#10'ON L.id_material = M.id'#13#10'LEFT JOIN COMBINACAO COMB' +
-      #13#10'ON L.id_cor_material = COMB.ID'#13#10'LEFT JOIN COMBINACAO COMB2'#13#10'ON' +
-      ' L.id_cor_produto = COMB2.id'#13#10
+      'ferenca, L.qtd_cones, L.IMPRESSO, L.NUM_LOTE,'#13#10'l.dtgeracao'#13#10'FROM' +
+      ' lote_mat_prod L'#13#10'INNER JOIN PRODUTO M'#13#10'ON L.id_material = M.id'#13 +
+      #10'LEFT JOIN COMBINACAO COMB'#13#10'ON L.id_cor_material = COMB.ID'#13#10'LEFT' +
+      ' JOIN COMBINACAO COMB2'#13#10'ON L.id_cor_produto = COMB2.id'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5976,6 +5982,12 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object cdsConsLote_Mat_ProdNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object cdsConsLote_Mat_ProdDTGERACAO: TDateField
+      FieldName = 'DTGERACAO'
+    end
   end
   object dsConsLote_Mat_Prod: TDataSource
     DataSet = cdsConsLote_Mat_Prod
@@ -5986,9 +5998,9 @@ object DMCadLote: TDMCadLote
     UserName = 'frxConsLote_Mat_SL'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'NOME_PRODUTO=NOME_PRODUTO'
       'REFERENCIA=REFERENCIA'
       'NOME_MATERIAL=NOME_MATERIAL'
+      'NOME_COR_MAT=NOME_COR_MAT'
       'QTD_CONSUMO=QTD_CONSUMO'
       'QTD_PRODUTO=QTD_PRODUTO'
       'NUM_ORDEM=NUM_ORDEM'
@@ -6004,7 +6016,9 @@ object DMCadLote: TDMCadLote
       'QTD_RETORNO=QTD_RETORNO'
       'QTD_DIFERENCA=QTD_DIFERENCA'
       'QTD_CONES=QTD_CONES'
-      'NOME_COR_MAT=NOME_COR_MAT')
+      'IMPRESSO=IMPRESSO'
+      'NUM_LOTE=NUM_LOTE'
+      'DTGERACAO=DTGERACAO')
     DataSource = dsConsLote_Mat_Prod
     BCDToCurrency = False
     Left = 1094
@@ -6087,6 +6101,9 @@ object DMCadLote: TDMCadLote
     object sdsLote_Mat_ProdDTGERACAO: TDateField
       FieldName = 'DTGERACAO'
     end
+    object sdsLote_Mat_ProdNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
   end
   object dspLote_Mat_Prod: TDataSetProvider
     DataSet = sdsLote_Mat_Prod
@@ -6165,6 +6182,9 @@ object DMCadLote: TDMCadLote
     end
     object cdsLote_Mat_ProdDTGERACAO: TDateField
       FieldName = 'DTGERACAO'
+    end
+    object cdsLote_Mat_ProdNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
     end
   end
   object dsLote_Mat_Prod: TDataSource

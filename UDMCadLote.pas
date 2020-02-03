@@ -1187,6 +1187,12 @@ type
     cdsLote_Mat_ProdIMPRESSO: TStringField;
     cdsLote_Mat_ProdFINALIZADO: TStringField;
     cdsLote_Mat_ProdDTGERACAO: TDateField;
+    sdsLote_Mat_ProdNUM_LOTE: TIntegerField;
+    cdsLote_Mat_ProdNUM_LOTE: TIntegerField;
+    cdsConsLote_Mat_ProdNUM_LOTE: TIntegerField;
+    cdsConsLote_Mat_ProdDTGERACAO: TDateField;
+    sdsLote_MatDTEMISSAO: TDateField;
+    cdsLote_MatDTEMISSAO: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1696,6 +1702,7 @@ begin
     cdsLote_MatGerado.AsString         := 'N';
     cdsLote_MatTINGIMENTO.AsString     := mMaterialTingimento.AsString;
     cdsLote_MatQTD_CONSUMO.AsFloat     := 0;
+    cdsLote_MatDTEMISSAO.AsDateTime    := cdsLoteDTEMISSAO.AsDateTime;
 
   end;
   cdsLote_MatQTD_CONSUMO.AsFloat := cdsLote_MatQTD_CONSUMO.AsFloat +  mMaterialQtd_Consumo.AsFloat;
@@ -1730,6 +1737,7 @@ begin
       cdsLote_MatGerado.AsString         := 'N';
       cdsLote_MatTINGIMENTO.AsString     := 'N';
       cdsLote_MatQTD_CONSUMO.AsFloat     := 0;
+      cdsLote_MatDTEMISSAO.AsDateTime    := cdsLoteDTEMISSAO.AsDateTime;
     end;
     cdsLote_MatQTD_CONSUMO.AsFloat := cdsLote_MatQTD_CONSUMO.AsFloat +  mMaterialQtd_Consumo.AsFloat;
     cdsLote_Mat.Post;

@@ -200,6 +200,7 @@ type
     qVerFuncCODIGO: TIntegerField;
     qVerFuncNOME: TStringField;
     qVerFuncNUM_CARTAO: TIntegerField;
+    cdsConsLoteMat_ProdNUM_LOTE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLote_Mat_Prod_EstGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);

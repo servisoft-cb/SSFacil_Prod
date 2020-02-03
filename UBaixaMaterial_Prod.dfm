@@ -237,7 +237,7 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 15
+    ColCount = 16
     RowCount = 2
     Columns = <
       item
@@ -353,6 +353,14 @@ object frmBaixaMaterial_Prod: TfrmBaixaMaterial_Prod
         FieldName = 'NOME_COR_PROD'
         Title.Alignment = taCenter
         Title.Caption = 'Cor da Refer'#234'ncia'
+        Title.Color = 8454143
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NUM_LOTE'
+        Title.Alignment = taCenter
+        Title.Caption = 'N'#186' Lote'
         Title.Color = 8454143
         Visible = True
       end>

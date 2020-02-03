@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Variants,
-  frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF, frxBarcode;
+  frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF, frxBarcode, Dialogs;
 
 type
   TDMLoteImp = class(TDataModule)
@@ -335,37 +335,32 @@ type
     cdsConsulta_LoteNOME_FUNCIONARIO_ENTRADA: TStringField;
     cdsConsulta_LoteNOME_FUNCIONARIO_BAIXA: TStringField;
     cdsLote_PedNOME_VENDEDOR_INT: TStringField;
-    sdsConsLote_Mat_Prod: TSQLDataSet;
-    dspConsLote_Mat_Prod: TDataSetProvider;
-    cdsConsLote_Mat_Prod: TClientDataSet;
-    cdsConsLote_Mat_ProdREFERENCIA: TStringField;
-    cdsConsLote_Mat_ProdNOME_MATERIAL: TStringField;
-    cdsConsLote_Mat_ProdNOME_COR_MAT: TStringField;
-    cdsConsLote_Mat_ProdQTD_CONSUMO: TFloatField;
-    cdsConsLote_Mat_ProdQTD_PRODUTO: TFloatField;
-    cdsConsLote_Mat_ProdNUM_ORDEM: TIntegerField;
-    cdsConsLote_Mat_ProdITEM: TIntegerField;
-    cdsConsLote_Mat_ProdID_MATERIAL: TIntegerField;
-    cdsConsLote_Mat_ProdID_COR_PRODUTO: TIntegerField;
-    cdsConsLote_Mat_ProdID_COR_MATERIAL: TIntegerField;
-    cdsConsLote_Mat_ProdNOME_COMBINACAO: TStringField;
-    cdsConsLote_Mat_ProdCODBARRAS: TStringField;
-    cdsConsLote_Mat_ProdDTRETORNO: TDateField;
-    cdsConsLote_Mat_ProdDTPAGO: TDateField;
-    cdsConsLote_Mat_ProdQTD_PAGO: TFloatField;
-    cdsConsLote_Mat_ProdQTD_RETORNO: TFloatField;
-    cdsConsLote_Mat_ProdQTD_DIFERENCA: TFloatField;
-    cdsConsLote_Mat_ProdQTD_CONES: TIntegerField;
-    cdsConsLote_Mat_ProdIMPRESSO: TStringField;
-    dsConsLote_Mat_Prod: TDataSource;
-    frxConsLote_Mat_SL: TfrxDBDataset;
+    sdsConsLote_Mat_Prod2: TSQLDataSet;
+    dspConsLote_Mat_Prod2: TDataSetProvider;
+    cdsConsLote_Mat_Prod2: TClientDataSet;
+    cdsConsLote_Mat_Prod2REFERENCIA: TStringField;
+    cdsConsLote_Mat_Prod2NOME_MATERIAL: TStringField;
+    cdsConsLote_Mat_Prod2NOME_COR_MAT: TStringField;
+    cdsConsLote_Mat_Prod2QTD_CONSUMO: TFloatField;
+    cdsConsLote_Mat_Prod2QTD_PRODUTO: TFloatField;
+    cdsConsLote_Mat_Prod2NUM_ORDEM: TIntegerField;
+    cdsConsLote_Mat_Prod2ITEM: TIntegerField;
+    cdsConsLote_Mat_Prod2ID_MATERIAL: TIntegerField;
+    cdsConsLote_Mat_Prod2ID_COR_PRODUTO: TIntegerField;
+    cdsConsLote_Mat_Prod2ID_COR_MATERIAL: TIntegerField;
+    cdsConsLote_Mat_Prod2NOME_COMBINACAO: TStringField;
+    cdsConsLote_Mat_Prod2CODBARRAS: TStringField;
+    cdsConsLote_Mat_Prod2DTRETORNO: TDateField;
+    cdsConsLote_Mat_Prod2DTPAGO: TDateField;
+    cdsConsLote_Mat_Prod2QTD_PAGO: TFloatField;
+    cdsConsLote_Mat_Prod2QTD_RETORNO: TFloatField;
+    cdsConsLote_Mat_Prod2QTD_DIFERENCA: TFloatField;
+    cdsConsLote_Mat_Prod2QTD_CONES: TIntegerField;
+    cdsConsLote_Mat_Prod2IMPRESSO: TStringField;
+    dsConsLote_Mat_Prod2: TDataSource;
     cdsTalao_SLID_COMBINACAO: TIntegerField;
-    mImp_Lote_Mat_Prod: TClientDataSet;
-    mImp_Lote_Mat_ProdNum_Ordem: TIntegerField;
-    mImp_Lote_Mat_ProdReferencia: TStringField;
-    mImp_Lote_Mat_ProdID_Cor_Produto: TIntegerField;
-    dsmImp_Lote_Mat_Lote: TDataSource;
-    frxmImp_Lote_Mat_Lote: TfrxDBDataset;
+    frxConsLote_Mat_SL: TfrxDBDataset;
+    cdsConsLote_Mat_Prod2NUM_LOTE: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -383,7 +378,6 @@ type
     procedure frxConsulta_LoteFirst(Sender: TObject);
     procedure frxConsulta_LoteNext(Sender: TObject);
     procedure frxConsulta_LoteOpen(Sender: TObject);
-    procedure frxmImp_Lote_Mat_LoteFirst(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Imprimir_Processos;
@@ -397,6 +391,8 @@ type
     ctLote_Ped      : String;
     ctConsMatKG     : String;
     ctConsMatKG_Ref : String;
+    ctConsLote_Mat_Prod : String;
+
     vObsPedido : String;
     vDtProducaoIni, vDtProducaoFin : TDateTime;
     vUsaKG : Boolean;
@@ -464,6 +460,7 @@ begin
   ctLote_Ped      := sdsLote_Ped.CommandText;
   ctConsMatKG     := sdsConsMatKG.CommandText;
   ctConsMatKG_Ref := sdsConsMatKG_Ref.CommandText;
+  ctConsLote_Mat_Prod := sdsConsLote_Mat_Prod2.CommandText;
 
   qParametros_Lote.Open;
 end;
@@ -551,15 +548,6 @@ end;
 procedure TDMLoteImp.frxConsulta_LoteOpen(Sender: TObject);
 begin
   prc_Soma_KG;
-end;
-
-procedure TDMLoteImp.frxmImp_Lote_Mat_LoteFirst(Sender: TObject);
-begin
-  cdsConsLote_Mat_Prod.Close;
-  sdsConsLote_Mat_Prod.ParamByName('NUM_ORDEM').AsInteger      := mImp_Lote_Mat_ProdNum_Ordem.AsInteger;
-  sdsConsLote_Mat_Prod.ParamByName('REFERENCIA').AsString      := mImp_Lote_Mat_ProdReferencia.AsString;
-  sdsConsLote_Mat_Prod.ParamByName('ID_COR_PRODUTO').AsInteger := mImp_Lote_Mat_ProdID_Cor_Produto.AsInteger;
-  cdsConsLote_Mat_Prod.Open;
 end;
 
 end.

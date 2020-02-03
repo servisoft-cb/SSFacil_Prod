@@ -183,7 +183,7 @@ type
 
     procedure prc_Gerar_Materiais(Tipo: String); //L=Lote  T=Talão
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
-    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho: String; Qtd_Consumo, Qtd_Produto: Real; ID_Setor: Integer);
+    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho: String; Qtd_Consumo, Qtd_Produto: Real; ID_Setor: Integer ; DtEmissao : TDate);
     procedure prc_Consultar_Pedido_Ord;
     function fnc_Ordem_Producao_OC: Boolean;
     procedure prc_Atualizar_Material;
@@ -835,13 +835,13 @@ begin
           vQtd_Produto := fDMCadLote_Calc.cdsTalaoQTD.AsFloat;
 
         prc_Gravar_Lote_Mat(fDMCadLote_Calc.cdsLoteNUM_ORDEM.AsInteger,fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger,vID_Cor,fDMCadLote_Calc.cdsConsumoCalcID_FORNECEDOR.AsInteger,vCarimbo,vTamanho,
-                            vQtdAux,fDMCadLote_Calc.cdsTalaoQTD.AsFloat,fDMCadLote_Calc.cdsConsumoCalcID_SETOR.AsInteger);
+                            vQtdAux,fDMCadLote_Calc.cdsTalaoQTD.AsFloat,fDMCadLote_Calc.cdsConsumoCalcID_SETOR.AsInteger,Date);
         fDMCadLote_Calc.cdsTalao.Next;
       end;
     end
     else
       prc_Gravar_Lote_Mat(fDMCadLote_Calc.cdsLoteNUM_ORDEM.AsInteger,fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger,vID_Cor,fDMCadLote_Calc.cdsConsumoCalcID_FORNECEDOR.AsInteger,vCarimbo,vTamanho,
-                          vQtdAux,fDMCadLote_Calc.cdsLoteQTD.AsFloat,fDMCadLote_Calc.cdsConsumoCalcID_SETOR.AsInteger);
+                          vQtdAux,fDMCadLote_Calc.cdsLoteQTD.AsFloat,fDMCadLote_Calc.cdsConsumoCalcID_SETOR.AsInteger,Date);
 
     vID_CorAnt      := fDMCadLote_Calc.cdsConsumoCalcID_COR_MAT.AsInteger;
     vID_MaterialAnt := fDMCadLote_Calc.cdsConsumoCalcID_MATERIAL.AsInteger;
@@ -859,7 +859,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Gravar_Lote_Mat(Num_Ordem, ID_Material,
   ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho: String; Qtd_Consumo,
-  Qtd_Produto: Real; ID_Setor: Integer);
+  Qtd_Produto: Real; ID_Setor: Integer ; DtEmissao : TDate);
 var
   vCarimboAux: String;  
 begin
@@ -888,6 +888,7 @@ begin
     fDMCadLote_Calc.cdsLote_MatID_FORNECEDOR.AsInteger := ID_Fornecedor;
     fDMCadLote_Calc.cdsLote_MatQtd_OC_Fat.AsFloat      := 0;
     fDMCadLote_Calc.cdsLote_MatGerado.AsString         := 'N';
+    fDMCadLote_Calc.cdsLote_MatDTEMISSAO.AsDateTime    := Date;
   end;
   Qtd_Consumo := StrToFloat(FormatFloat('0.0000',Qtd_Consumo * Qtd_Produto));
   fDMCadLote_Calc.cdsLote_MatQTD_CONSUMO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadLote_Calc.cdsLote_MatQTD_CONSUMO.AsFloat + Qtd_Consumo));
