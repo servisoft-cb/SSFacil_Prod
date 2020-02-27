@@ -727,7 +727,7 @@ object DMCadLote: TDMCadLote
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 455
+    Left = 454
     Top = 7
   end
   object dspPendente: TDataSetProvider
@@ -3860,6 +3860,11 @@ object DMCadLote: TDMCadLote
       item
         Name = 'Carga'
         DataType = ftFloat
+      end
+      item
+        Name = 'Tipo_Algodao'
+        DataType = ftString
+        Size = 1
       end>
     IndexDefs = <
       item
@@ -3875,7 +3880,7 @@ object DMCadLote: TDMCadLote
     Left = 752
     Top = 565
     Data = {
-      350300009619E0BD01000000180000001F00000000000300000035030A49445F
+      560300009619E0BD01000000180000002000000000000300000056030A49445F
       50726F6475746F04000100000000000A5265666572656E636961010049000000
       0100055749445448020002001400094474456E74726567610400060000000000
       0351746408000400000000000D49445F436F6D62696E6163616F040001000000
@@ -3900,7 +3905,8 @@ object DMCadLote: TDMCadLote
       140014506F737375695F4C6F74655F436F6E74726F6C65010049000000010005
       57494454480200020001000A5174645F4D696E696D6F08000400000000000C4D
       6574726F735F4361726761080004000000000005436172676108000400000000
-      0001000D44454641554C545F4F524445520200820000000000}
+      000C5469706F5F416C676F64616F010049000000010005574944544802000200
+      010001000D44454641554C545F4F524445520200820000000000}
     object mAuxLoteID_Produto: TIntegerField
       FieldName = 'ID_Produto'
     end
@@ -4004,6 +4010,10 @@ object DMCadLote: TDMCadLote
     end
     object mAuxLoteCarga: TFloatField
       FieldName = 'Carga'
+    end
+    object mAuxLoteTipo_Algodao: TStringField
+      FieldName = 'Tipo_Algodao'
+      Size = 1
     end
   end
   object dsmAuxLote: TDataSource

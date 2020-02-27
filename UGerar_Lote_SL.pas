@@ -1493,7 +1493,7 @@ var
   vQtdAux : Real;
 
   vEncAux : String;
-
+  vTipo_Algodao : String;
   vAux : Real;
 begin
   if ckDtEntrega.Checked then
@@ -1521,11 +1521,14 @@ begin
   end;
 
   //29/05/2019 quando é algodão com o fio na cor
+  vTipo_Algodao := ''; //27/02/2020
   if (Tipo = 'S') and (fDMCadLote.cdsPendenteTIPO_MAT.AsString = 'A') and ((fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString = 'N') or
     ((trim(fDMCadLote.cdsPendenteTIPO_ALGODAO.AsString) = '') and (fDMCadLote.cdsPendenteTIPO_ALGODAO_PROD.AsString = 'N')))
-  and
-     (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
+  and (vID_CombinacaoAux <= 0) and (fDMCadLote.cdsPendenteID_COR.AsInteger > 0) then
+  begin
+    vTipo_Algodao     := 'N';
     vID_CombinacaoAux := fDMCadLote.cdsPendenteID_COR.AsInteger;
+  end;
   //************
 
   if not ckAgrupar_Pedido.Checked then
@@ -1586,6 +1589,9 @@ begin
     fDMCadLote.mAuxLoteQtd.AsFloat              := 0;
     fDMCadLote.mAuxLoteQtd_Original.AsFloat     := 0;
     fDMCadLote.mAuxLoteQtd_Pares.AsFloat        := 0;
+    //27/02/2020
+    fDMCadLote.mAuxLoteTipo_Algodao.AsString    := vTipo_Algodao;
+    //********************
     //fDMCadLote.mAuxLoteID_Processo_Grupo.AsInteger := fDMCadLote.cdsPendenteID_PROCESSO_GRUPO.AsInteger;
     fDMCadLote.mAuxLoteID_Processo_Grupo.AsInteger := VID_Processo;
     fDMCadLote.mAuxLoteNome_Cliente.AsString       := fDMCadLote.cdsPendenteNOME_CLIENTE.AsString;

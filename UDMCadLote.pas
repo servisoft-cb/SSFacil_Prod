@@ -1193,6 +1193,7 @@ type
     cdsConsLote_Mat_ProdDTGERACAO: TDateField;
     sdsLote_MatDTEMISSAO: TDateField;
     cdsLote_MatDTEMISSAO: TDateField;
+    mAuxLoteTipo_Algodao: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

@@ -188,6 +188,9 @@ var
   vQtdAux : Real;
   vTipoAux :String;
 begin
+  vID_Material_Pri  := 0;
+  vID_Material_Pri2 := 0;
+
   fDMCadLote.prc_Inserir;
 
   fDMCadLote.cdsLoteQTD_TALOES.AsInteger     := 1;
@@ -253,7 +256,8 @@ begin
     //20/11/2018
     vTipoAux := 'A';
     if (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'P') or (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'R') or
-       (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'O') or (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'C') then
+       (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'O') or (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'C')
+       or ((fDMCadLote.mAuxLoteTipo_Mat.AsString = 'A') and (fDMCadLote.mAuxLoteTipo_Algodao.AsString = 'N')) then  //Tipo Algodão 27/02/2020
       vTipoAux := 'P';
     //if ((fDMCadLote.mAuxLoteTipo_Mat.AsString = 'A') and (fDMCadLote.mAuxLoteID_Combinacao.AsInteger <= 0))
     //  or (fDMCadLote.mAuxLoteTipo_Mat.AsString = 'P') then
