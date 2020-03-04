@@ -361,6 +361,8 @@ type
     cdsTalao_SLID_COMBINACAO: TIntegerField;
     frxConsLote_Mat_SL: TfrxDBDataset;
     cdsConsLote_Mat_Prod2NUM_LOTE: TIntegerField;
+    cdsConsulta_LoteDESC_TIPO_PRODUTO: TStringField;
+    cdsConsulta_LoteFUSO: TFloatField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

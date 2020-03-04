@@ -456,9 +456,10 @@ object frmConsLoteProc: TfrmConsLoteProc
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
+      PopupMenu = PopupMenu1
+      ShowArrow = True
       TabOrder = 12
       Transparent = True
-      OnClick = btnImprimirClick
     end
     object DateEdit5: TDateEdit
       Left = 108
@@ -550,7 +551,7 @@ object frmConsLoteProc: TfrmConsLoteProc
         WidthOfIndicator = 11
         DefaultRowHeight = 18
         ScrollBars = ssHorizontal
-        ColCount = 19
+        ColCount = 21
         RowCount = 2
         Columns = <
           item
@@ -570,7 +571,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Lote'
             Title.Color = 12058551
-            Width = 66
+            Width = 62
             Visible = True
           end
           item
@@ -579,7 +580,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Nome Processo'
             Title.Color = 12058551
-            Width = 190
+            Width = 166
             Visible = True
           end
           item
@@ -610,6 +611,23 @@ object frmConsLoteProc: TfrmConsLoteProc
           end
           item
             Expanded = False
+            FieldName = 'DESC_TIPO_PRODUTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo Produto'
+            Title.Color = 12058551
+            Width = 83
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'FUSO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Fuso'
+            Title.Color = 12058551
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'DTENTREGA'
             Title.Caption = 'Dt. Entrega'
             Title.Color = 12058551
@@ -623,6 +641,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -670,6 +689,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -678,6 +698,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -686,6 +707,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -694,6 +716,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Baixa'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -702,6 +725,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Hora'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -709,6 +733,8 @@ object frmConsLoteProc: TfrmConsLoteProc
             FieldName = 'CARGA'
             Title.Alignment = taCenter
             Title.Caption = 'Carga'
+            Title.Color = 12058551
+            Width = 64
             Visible = True
           end>
       end
@@ -865,9 +891,26 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Processo'
             Title.Color = 16777147
+            Width = 64
             Visible = True
           end>
       end
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 872
+    Top = 82
+    object Imprimir1: TMenuItem
+      Caption = 'Sem Classifica'#231#227'o'
+      OnClick = Imprimir1Click
+    end
+    object PorFuso1: TMenuItem
+      Caption = 'Por Fuso'
+      OnClick = PorFuso1Click
+    end
+    object PorTipodeProduto1: TMenuItem
+      Caption = 'Por Tipo de Produto'
+      OnClick = PorTipodeProduto1Click
     end
   end
 end
