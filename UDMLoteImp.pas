@@ -363,6 +363,7 @@ type
     cdsConsLote_Mat_Prod2NUM_LOTE: TIntegerField;
     cdsConsulta_LoteDESC_TIPO_PRODUTO: TStringField;
     cdsConsulta_LoteFUSO: TFloatField;
+    cdsLote_PedQTD_ESTOQUE_RES: TFloatField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);

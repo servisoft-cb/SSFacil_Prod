@@ -701,29 +701,31 @@ object DMCadLote: TDMCadLote
       'ME_COR_PROD, PROD.TIPO_MAT, PROD.id_processo_grupo,'#13#10'PROD.tipo_r' +
       'eg TIPO_REG_PROD, SEMI.id_material1 ID_MATERIAL, SEMI.qtd_consum' +
       'o1 QTD_CONSUMO_MAT,'#13#10'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, P' +
-      'I.ENCERADO, PSEMI.TIPO_ALGODAO,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod I' +
-      'S not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD * CO' +
-      'ALESCE(PI.CONV_UNIDADE,1)'#13#10'  ELSE PI.QTD'#13#10'  END QTD_RESTANTE,'#13#10'C' +
-      'ASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <' +
-      '> PI.unidade) THEN PI.UNIDADE_PROD'#13#10'  ELSE PI.UNIDADE'#13#10'  END UNI' +
-      'DADE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidad' +
-      'e_prod <> PI.unidade) THEN ((PI.QTD * COALESCE(PI.CONV_UNIDADE,1' +
-      ')) *  COALESCE(SEMI.qtd_consumo1,1))'#13#10'  ELSE coalesce(semi.qtd_c' +
-      'onsumo1,1) * pi.qtd'#13#10'  END consumo_calc, PSEMI.id_processo_grupo' +
-      ' id_processo_SEMI,'#13#10'case'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PA' +
-      'RAMETROS_LOTE WHERE ID = 1) = '#39'I'#39' THEN PI.OBS'#13#10'  WHEN (SELECT GR' +
-      'AVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'P'#39' THEN PROD' +
-      '.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ' +
-      'ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39') || '#39' '#39' || coalesce(prod.o' +
-      'bs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE, cast (0 as Double precision) ' +
-      'qtd_estoque'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10'ON PE' +
-      'D.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.cod' +
-      'igo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.ID'#13#10'LEFT JOI' +
-      'N PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID'#13#10'LEFT JOIN COR'#13#10'ON PR' +
-      'OD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI SEMI'#13#10'ON PROD.ID = SE' +
-      'MI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.ID = SEMI.ID_MATERIAL1'#13 +
-      #10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13#10#13#10 +
-      #13#10#13#10
+      'I.ENCERADO, PSEMI.TIPO_ALGODAO,  PI.qtd_estoque_res,'#13#10'CASE'#13#10'  WH' +
+      'EN (SELECT PP.usa_reserva_est FROM PARAMETROS_PED PP) = '#39'S'#39' THEN' +
+      ' PI.QTD - coalesce(PI.qtd_estoque_res,0)'#13#10'  WHEN (PI.unidade_pro' +
+      'd IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD *' +
+      ' COALESCE(PI.CONV_UNIDADE,1)'#13#10'  ELSE PI.QTD'#13#10'  END QTD_RESTANTE,' +
+      #13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_pro' +
+      'd <> PI.unidade) THEN PI.UNIDADE_PROD'#13#10'  ELSE PI.UNIDADE'#13#10'  END ' +
+      'UNIDADE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.uni' +
+      'dade_prod <> PI.unidade) THEN ((PI.QTD * COALESCE(PI.CONV_UNIDAD' +
+      'E,1)) *  COALESCE(SEMI.qtd_consumo1,1))'#13#10'  ELSE coalesce(semi.qt' +
+      'd_consumo1,1) * pi.qtd'#13#10'  END consumo_calc, PSEMI.id_processo_gr' +
+      'upo id_processo_SEMI,'#13#10'case'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM' +
+      ' PARAMETROS_LOTE WHERE ID = 1) = '#39'I'#39' THEN PI.OBS'#13#10'  WHEN (SELECT' +
+      ' GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'P'#39' THEN P' +
+      'ROD.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHE' +
+      'RE ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39') || '#39' '#39' || coalesce(pro' +
+      'd.obs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE, cast (0 as Double precisio' +
+      'n) qtd_estoque'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10'ON' +
+      ' PED.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.' +
+      'codigo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.ID'#13#10'LEFT ' +
+      'JOIN PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID'#13#10'LEFT JOIN COR'#13#10'ON' +
+      ' PROD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI SEMI'#13#10'ON PROD.ID =' +
+      ' SEMI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.ID = SEMI.ID_MATERIA' +
+      'L1'#13#10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13 +
+      #10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -900,6 +902,9 @@ object DMCadLote: TDMCadLote
       FieldName = 'QTD_ESTOQUE'
       Required = True
       DisplayFormat = '0.000##'
+    end
+    object cdsPendenteQTD_ESTOQUE_RES: TFloatField
+      FieldName = 'QTD_ESTOQUE_RES'
     end
   end
   object dsPendente: TDataSource
@@ -4374,6 +4379,11 @@ object DMCadLote: TDMCadLote
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedUSA_RESERVA_EST: TStringField
+      FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsTingimento: TSQLDataSet
     NoMetadata = True
@@ -4465,7 +4475,7 @@ object DMCadLote: TDMCadLote
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 1004
+    Left = 1005
     Top = 518
   end
   object frxBarCodeObject1: TfrxBarCodeObject
@@ -4530,7 +4540,7 @@ object DMCadLote: TDMCadLote
       'QTD_ESTOQUE=QTD_ESTOQUE')
     DataSource = dsTingimento
     BCDToCurrency = False
-    Left = 1027
+    Left = 1028
     Top = 567
   end
   object qParametros_Geral: TSQLQuery
@@ -5715,11 +5725,12 @@ object DMCadLote: TDMCadLote
       'e NOME_COMBINACAO, L.obs_ped, L.obs,'#13#10'CLI.nome NOME_CLIENTE, L.u' +
       'nidade UNIDADE_TALAO,'#13#10'CLI.fantasia FANTASIA_CLIENTE,'#13#10'IT.qtd_re' +
       'stante QTD_NAOFATURADO, L.qtd, L.dtentrada, L.dtbaixa,'#13#10'L.hrentr' +
-      'ada, L.hrbaixa, PED.num_pedido'#13#10'FROM LOTE L'#13#10'LEFT JOIN PEDIDO_IT' +
-      'EM IT'#13#10'ON L.ID_PEDIDO = IT.ID'#13#10'AND L.ITEM_PEDIDO = IT.ITEM'#13#10'INNE' +
-      'R JOIN PEDIDO PED'#13#10'ON IT.ID = PED.ID'#13#10'INNER JOIN FILIAL FIL'#13#10'ON ' +
-      'L.FILIAL = FIL.ID'#13#10'LEFT JOIN combinacao COMB'#13#10'ON L.id_combinacao' +
-      ' = COMB.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.id_cliente = CLI.codigo'#13#10
+      'ada, L.hrbaixa, PED.num_pedido, IT.qtd_estoque_res'#13#10'FROM LOTE L'#13 +
+      #10'LEFT JOIN PEDIDO_ITEM IT'#13#10'ON L.ID_PEDIDO = IT.ID'#13#10'AND L.ITEM_PE' +
+      'DIDO = IT.ITEM'#13#10'INNER JOIN PEDIDO PED'#13#10'ON IT.ID = PED.ID'#13#10'INNER ' +
+      'JOIN FILIAL FIL'#13#10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN combinacao COMB' +
+      #13#10'ON L.id_combinacao = COMB.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.id_cl' +
+      'iente = CLI.codigo'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5735,8 +5746,8 @@ object DMCadLote: TDMCadLote
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsulta_Lote_Ped'
-    Left = 624
-    Top = 392
+    Left = 623
+    Top = 393
     object cdsConsulta_Lote_PedDTEMISSAO: TDateField
       FieldName = 'DTEMISSAO'
     end
@@ -5825,6 +5836,9 @@ object DMCadLote: TDMCadLote
     end
     object cdsConsulta_Lote_PedNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
+    end
+    object cdsConsulta_Lote_PedQTD_ESTOQUE_RES: TFloatField
+      FieldName = 'QTD_ESTOQUE_RES'
     end
   end
   object dsConsulta_Lote_Ped: TDataSource

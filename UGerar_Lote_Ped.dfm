@@ -21,7 +21,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Gerar
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -844,7 +844,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 17
+            ColCount = 18
             RowCount = 2
             Columns = <
               item
@@ -1003,6 +1003,15 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
                 Title.Caption = 'N'#186' Pedido Cliente'
                 Title.Color = 13041606
                 Width = 109
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_ESTOQUE_RES'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Usada do Estoque'
+                Title.Color = 13041606
+                Width = 96
                 Visible = True
               end>
           end
@@ -1181,15 +1190,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           end
           item
             Expanded = False
-            FieldName = 'QTD_ESTOQUE'
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Estoque'
-            Title.Color = 16777158
-            Width = 78
-            Visible = True
-          end
-          item
-            Expanded = False
             FieldName = 'NOME_COMBINACAO'
             Title.Color = 16777158
             Width = 208
@@ -1224,6 +1224,14 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             FieldName = 'ID_PRODUTO'
             Title.Color = 16777158
             Width = 44
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD_ESTOQUE_RES'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtd. Est. Reserva'
+            Title.Color = 16777158
             Visible = True
           end>
       end

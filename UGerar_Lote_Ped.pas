@@ -193,8 +193,9 @@ begin
             + 'COMB.NOME NOME_COMBINACAO, PI.item_original, PI.selecionado, PROD.id_cor ID_COR_PROD, '
             + 'COR.NOME NOME_COR_PROD, PROD.TIPO_MAT, PROD.id_processo_grupo, '
             + 'PROD.tipo_reg TIPO_REG_PROD, SEMI.id_material1 ID_MATERIAL, SEMI.qtd_consumo1 QTD_CONSUMO_MAT, '
-            + 'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, PI.ENCERADO, PSEMI.TIPO_ALGODAO, '
+            + 'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, PI.ENCERADO, PSEMI.TIPO_ALGODAO,  PI.qtd_estoque_res, '
             + 'CASE '
+            + '  WHEN (SELECT PP.usa_reserva_est FROM PARAMETROS_PED PP) = ' + QuotedStr('S') + ' THEN PI.QTD - coalesce(PI.qtd_estoque_res,0) '
             + '  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD * COALESCE(PI.CONV_UNIDADE,1) '
             + '  ELSE PI.QTD '
             + '  END QTD_RESTANTE, '
@@ -240,6 +241,9 @@ begin
   vQtd_Selecionada := 0;
   fDMCadLote.cdsPendente.Close;
   vComando := vComando + ' AND PI.QTD_RESTANTE > 0';
+  if fDMCadLote.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
+    vComando := vComando + ' AND (PI.QTD_RESTANTE - Coalesce(PI.QTD_ESTOQUE_RES,0) > 0) ';
+
   if DateEdit6.Date > 10 then
     vComando := vComando + ' AND PED.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit6.date));
   if DateEdit7.Date > 10 then

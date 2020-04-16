@@ -382,6 +382,8 @@ type
     sdsLoteID_MOVESTOQUE: TIntegerField;
     cdsLoteID_MOVESTOQUE: TIntegerField;
     qProdPRECO_VENDA: TFloatField;
+    qParametros_Ped: TSQLQuery;
+    qParametros_PedUSA_RESERVA_EST: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private
@@ -427,6 +429,7 @@ begin
   qParametros_Usuario.Close;
   qParametros_Usuario.ParamByName('USUARIO').AsString := vUsuario;
   qParametros_Usuario.Open;
+  qParametros_Ped.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

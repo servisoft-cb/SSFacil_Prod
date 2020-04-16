@@ -219,7 +219,7 @@ end;
 
 procedure TfMenu.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  if MessageDlg('Encerrar o programa SSFácil?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+  if MessageDlg('Encerrar o programa SSFácil Produção?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     CanClose := False
   else
     CanClose := True;

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UDMBaixaProd, StdCtrls, RzEdit, Mask, ToolEdit, UDMEstoque, dbXPress;
+  Dialogs, UDMBaixaProd, StdCtrls, RzEdit, Mask, ToolEdit, UDMEstoque, dbXPress, UDMPedido_Reserva;
 
 type
   TfrmBaixaLote_Ped = class(TForm)
@@ -24,6 +24,7 @@ type
   private
     { Private declarations }
     fDMBaixaProd : TDMBaixaProd;
+    fDMPedido_Reserva : TDMPedido_Reserva;
 
     procedure prc_Baixa_Lote;
     
@@ -65,9 +66,7 @@ begin
   if Key = Vk_Return then
   begin
     if fnc_Lote_OK then
-    begin
       prc_Baixa_Lote;
-    end;
     Edit1.SelectAll;
   end;
 end;
@@ -122,6 +121,7 @@ var
   ID: TTransactionDesc;
   vNumLote : Integer;
 begin
+
   Memo1.Lines.Clear;
   vMSGAux := '';
   if DateEdit1.Date > 10 then
@@ -132,6 +132,8 @@ begin
     vHora := RzDateTimeEdit1.Time
   else
     vHora := Now;
+
+  fDMPedido_Reserva:= TDMPedido_Reserva.Create(Self);
 
   ID.TransactionID  := 2;
   ID.IsolationLevel := xilREADCOMMITTED;
@@ -157,6 +159,12 @@ begin
     end;
     vNumLote := fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger;
     fDMBaixaProd.cdsLote.Post;
+
+    if 
+    prc_Re
+
+
+
     fDMBaixaProd.cdsLote.ApplyUpdates(0);
     dmDatabase.scoDados.Commit(ID);
 
@@ -170,13 +178,17 @@ begin
     Memo1.Lines.Add('');
     Memo1.Lines.Add(vMSGAux);
 
+    FreeAndNil(fDMPedido_Reserva);
+    
   except
       on e: Exception do
       begin
+        FreeAndNil(fDMPedido_Reserva);
         dmDatabase.scoDados.Rollback(ID);
         raise Exception.Create('Erro ao gravar Baixa Processo: ' + #13+#13 + e.Message);
       end;
   end;
+
 
 end;
 

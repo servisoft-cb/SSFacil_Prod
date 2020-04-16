@@ -737,10 +737,10 @@ object frmConsLote2: TfrmConsLote2
     Top = 140
     Width = 920
     Height = 393
-    ActivePage = TS_Talao
+    ActivePage = TS_Pedido
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     FixedDimension = 19
     object TS_Talao: TRzTabSheet
@@ -878,7 +878,6 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -966,7 +965,6 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Data Final Processo'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -994,7 +992,6 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item

@@ -1797,4 +1797,19 @@ object DMBaixaProd: TDMBaixaProd
       FieldName = 'NUM_CARTAO'
     end
   end
+  object qParametros_Ped: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT P.usa_reserva_est'
+      'FROM parametros_ped P')
+    SQLConnection = dmDatabase.scoDados
+    Left = 532
+    Top = 68
+    object qParametros_PedUSA_RESERVA_EST: TStringField
+      FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
+  end
 end

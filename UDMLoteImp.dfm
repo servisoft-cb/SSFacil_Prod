@@ -14,8 +14,8 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 43335.331382488400000000
+    ReportOptions.CreateDate = 43411.400438541700000000
+    ReportOptions.LastChange = 43724.930788449100000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1592,13 +1592,13 @@ object DMLoteImp: TDMLoteImp
       'nidade UNIDADE_TALAO,'#13#10'CLI.fantasia FANTASIA_CLIENTE,'#13#10'IT.qtd_re' +
       'stante QTD_NAOFATURADO, L.qtd, L.dtentrada, L.dtbaixa,'#13#10'L.hrentr' +
       'ada, L.hrbaixa, CLI.CIDADE CIDADE_CLI, CLI.uf UF_CLI, P.num_pedi' +
-      'do,'#13#10'P.usuario, VINT.NOME NOME_VENDEDOR_INT'#13#10'FROM LOTE L'#13#10'LEFT J' +
-      'OIN PEDIDO P'#13#10'ON L.id_pedido = P.ID'#13#10'LEFT JOIN PEDIDO_ITEM IT'#13#10'O' +
-      'N L.ID_PEDIDO = IT.ID'#13#10'AND L.ITEM_PEDIDO = IT.ITEM'#13#10'INNER JOIN F' +
-      'ILIAL FIL'#13#10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN combinacao COMB'#13#10'ON L' +
-      '.id_combinacao = COMB.id'#13#10'LEFT JOIN PESSOA CLI'#13#10'ON L.id_cliente ' +
-      '= CLI.codigo'#13#10'LEFT join pessoa vint'#13#10'on p.id_vendedor_int = vint' +
-      '.Codigo'#13#10#13#10
+      'do,'#13#10'P.usuario, VINT.NOME NOME_VENDEDOR_INT, IT.qtd_estoque_res'#13 +
+      #10'FROM LOTE L'#13#10'LEFT JOIN PEDIDO P'#13#10'ON L.id_pedido = P.ID'#13#10'LEFT JO' +
+      'IN PEDIDO_ITEM IT'#13#10'ON L.ID_PEDIDO = IT.ID'#13#10'AND L.ITEM_PEDIDO = I' +
+      'T.ITEM'#13#10'INNER JOIN FILIAL FIL'#13#10'ON L.FILIAL = FIL.ID'#13#10'LEFT JOIN c' +
+      'ombinacao COMB'#13#10'ON L.id_combinacao = COMB.id'#13#10'LEFT JOIN PESSOA C' +
+      'LI'#13#10'ON L.id_cliente = CLI.codigo'#13#10'LEFT join pessoa vint'#13#10'on p.id' +
+      '_vendedor_int = vint.Codigo'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1616,7 +1616,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspLote_Ped'
     OnCalcFields = cdsLote_PedCalcFields
     Left = 592
-    Top = 112
+    Top = 113
     object cdsLote_PedDTEMISSAO: TDateField
       FieldName = 'DTEMISSAO'
     end
@@ -1729,6 +1729,9 @@ object DMLoteImp: TDMLoteImp
       FieldName = 'NOME_VENDEDOR_INT'
       Size = 60
     end
+    object cdsLote_PedQTD_ESTOQUE_RES: TFloatField
+      FieldName = 'QTD_ESTOQUE_RES'
+    end
   end
   object dsLote_Ped: TDataSource
     DataSet = cdsLote_Ped
@@ -1769,7 +1772,8 @@ object DMLoteImp: TDMLoteImp
       'UF_CLI=UF_CLI'
       'NUM_PEDIDO=NUM_PEDIDO'
       'USUARIO=USUARIO'
-      'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT')
+      'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT'
+      'QTD_ESTOQUE_RES=QTD_ESTOQUE_RES')
     DataSource = dsLote_Ped
     BCDToCurrency = False
     Left = 949

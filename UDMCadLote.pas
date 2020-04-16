@@ -1194,6 +1194,9 @@ type
     sdsLote_MatDTEMISSAO: TDateField;
     cdsLote_MatDTEMISSAO: TDateField;
     mAuxLoteTipo_Algodao: TStringField;
+    qParametros_PedUSA_RESERVA_EST: TStringField;
+    cdsPendenteQTD_ESTOQUE_RES: TFloatField;
+    cdsConsulta_Lote_PedQTD_ESTOQUE_RES: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
