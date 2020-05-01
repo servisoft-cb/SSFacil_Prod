@@ -384,6 +384,8 @@ type
     qProdPRECO_VENDA: TFloatField;
     qParametros_Ped: TSQLQuery;
     qParametros_PedUSA_RESERVA_EST: TStringField;
+    sdsLoteID_PEDIDO_RESERVA: TIntegerField;
+    cdsLoteID_PEDIDO_RESERVA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

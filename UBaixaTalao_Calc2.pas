@@ -715,7 +715,7 @@ begin
                                           0,0,0,
                                           fDMBaixaProd_Calc.cdsLoteUNIDADE.AsString,
                                           fDMBaixaProd_Calc.cdsLoteID_COMBINACAO.AsInteger,
-                                          '','N',0,0,0,0,0);
+                                          '','N',0,0,0,0,0,0,0);
   fDMBaixaProd_Calc.cdsTalao_Estoque.Post;
   fDMBaixaProd_Calc.cdsTalao_Estoque.ApplyUpdates(0);
 

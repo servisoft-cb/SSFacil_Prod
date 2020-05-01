@@ -166,6 +166,9 @@ object DMBaixaProd: TDMBaixaProd
     object sdsLoteID_MOVESTOQUE: TIntegerField
       FieldName = 'ID_MOVESTOQUE'
     end
+    object sdsLoteID_PEDIDO_RESERVA: TIntegerField
+      FieldName = 'ID_PEDIDO_RESERVA'
+    end
   end
   object dspLote: TDataSetProvider
     DataSet = sdsLote
@@ -178,7 +181,7 @@ object DMBaixaProd: TDMBaixaProd
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspLote'
-    Left = 232
+    Left = 235
     Top = 48
     object cdsLoteID: TIntegerField
       FieldName = 'ID'
@@ -323,6 +326,9 @@ object DMBaixaProd: TDMBaixaProd
     end
     object cdsLoteID_MOVESTOQUE: TIntegerField
       FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsLoteID_PEDIDO_RESERVA: TIntegerField
+      FieldName = 'ID_PEDIDO_RESERVA'
     end
   end
   object sdsPedido_Item: TSQLDataSet

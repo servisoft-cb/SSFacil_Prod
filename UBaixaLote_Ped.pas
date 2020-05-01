@@ -31,7 +31,9 @@ type
     function fnc_Lote_OK : Boolean;
 
     function fnc_Gravar_Estoque : Integer;
-    
+
+    procedure prc_Reserva;
+
   public
     { Public declarations }
   end;
@@ -67,7 +69,7 @@ begin
   begin
     if fnc_Lote_OK then
       prc_Baixa_Lote;
-    Edit1.SelectAll;
+    Edit1.Clear;
   end;
 end;
 
@@ -158,12 +160,13 @@ begin
       fDMBaixaProd.cdsLoteID_MOVESTOQUE.AsInteger := fnc_Gravar_Estoque;
     end;
     vNumLote := fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger;
+
+    //24/04/2020
+    if fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime > 10 then
+      prc_Reserva;
+    //*****************
+    
     fDMBaixaProd.cdsLote.Post;
-
-    if 
-    prc_Re
-
-
 
     fDMBaixaProd.cdsLote.ApplyUpdates(0);
     dmDatabase.scoDados.Commit(ID);
@@ -194,7 +197,8 @@ end;
 
 procedure TfrmBaixaLote_Ped.Edit1Change(Sender: TObject);
 begin
-  Memo1.Lines.Clear;
+  if trim(Edit1.Text) <> '' then
+    Memo1.Lines.Clear;
 end;
 
 function TfrmBaixaLote_Ped.fnc_Gravar_Estoque: Integer;
@@ -248,10 +252,33 @@ begin
                                             0,
                                             0,
                                             0,
-                                            0);
+                                            0,0,0);
 
   finally
     FreeAndNil(fDMEstoque);
+  end;
+end;
+
+procedure TfrmBaixaLote_Ped.prc_Reserva;
+begin
+  if uUtilPadrao.fnc_Cliente_Estoque(fDMBaixaProd.cdsLoteID_PEDIDO_RESERVA.AsInteger) = 'S' then
+    exit;
+
+  fDMPedido_Reserva := TDMPedido_Reserva.Create(Self);
+  try
+    fDMBaixaProd.cdsLoteID_PEDIDO_RESERVA.AsInteger := fDMPedido_Reserva.fnc_Gravar_Pedido_Reserva(
+                                                            fDMBaixaProd.cdsLoteID_PEDIDO_RESERVA.AsInteger,
+                                                            fDMBaixaProd.cdsLoteID_PEDIDO.AsInteger,
+                                                            fDMBaixaProd.cdsLoteITEM_PEDIDO.AsInteger,
+                                                            fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger,
+                                                            fDMBaixaProd.cdsLoteID_COMBINACAO.AsInteger,
+                                                            fDMBaixaProd.cdsLoteID.AsInteger,
+                                                            fDMBaixaProd.cdsLoteFILIAL.AsInteger,
+                                                            fDMBaixaProd.cdsLoteQTD_PRODUZIDO.AsFloat,
+                                                            'E',
+                                                            fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime);
+  finally
+    FreeAndNil(fDMPedido_Reserva);
   end;
 end;
 

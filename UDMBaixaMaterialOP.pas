@@ -200,7 +200,7 @@ begin
       0, //Valor Frete
       cdsLoteMatEstQTD.AsFloat, cdsLoteMatPRECO_VENDA.AsFloat, 0, //Desconto
       0, '', 0, // Cor
-      '', 'N',0,0,0,0,0); //ver aqui sobre Lote Controle  04/11/2015
+      '', 'N',0,0,0,0,0,0,0); //ver aqui sobre Lote Controle  04/11/2015
   cdsLoteMatEstID_MOVESTOQUE.AsInteger := vID_Estoque; 
   cdsLoteMatEst.Post;
   cdsLoteMatEst.ApplyUpdates(0);

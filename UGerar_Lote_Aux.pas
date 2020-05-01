@@ -797,8 +797,8 @@ begin
                                                   fDMCadLote.cdsLoteNUM_LOTE_CONTROLE.AsString,
                                                   'N',
                                                   0,
-                                                  0,0,0,0);
-                                                   
+                                                  0,0,0,0,0,0);
+
   fDMCadLote.cdsLote.Edit;
   fDMCadLote.cdsLoteID_MOVESTOQUE.AsInteger := vID_MovEstoque;
   fDMCadLote.cdsLote.Post;
