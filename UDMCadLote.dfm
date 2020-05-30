@@ -729,7 +729,7 @@ object DMCadLote: TDMCadLote
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 454
+    Left = 452
     Top = 7
   end
   object dspPendente: TDataSetProvider

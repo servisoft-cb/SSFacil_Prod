@@ -878,6 +878,16 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
               item
                 Alignment = taCenter
                 Expanded = False
+                FieldName = 'QTD_ESTOQUE_RES'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Usada do Estoque'
+                Title.Color = 13041606
+                Width = 96
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
                 FieldName = 'REFERENCIA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Refer'#234'ncia'
@@ -1003,15 +1013,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
                 Title.Caption = 'N'#186' Pedido Cliente'
                 Title.Color = 13041606
                 Width = 109
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'QTD_ESTOQUE_RES'
-                Title.Alignment = taCenter
-                Title.Caption = 'Qtd. Usada do Estoque'
-                Title.Color = 13041606
-                Width = 96
                 Visible = True
               end>
           end
@@ -1232,6 +1233,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Est. Reserva'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end>
       end

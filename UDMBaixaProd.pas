@@ -386,6 +386,9 @@ type
     qParametros_PedUSA_RESERVA_EST: TStringField;
     sdsLoteID_PEDIDO_RESERVA: TIntegerField;
     cdsLoteID_PEDIDO_RESERVA: TIntegerField;
+    sdsPrc_Pedido_Conferido: TSQLDataSet;
+    sdsPedido_ItemDTCONFERENCIA: TDateField;
+    cdsPedido_ItemDTCONFERENCIA: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private

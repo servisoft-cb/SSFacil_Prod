@@ -122,6 +122,7 @@ var
   vMSGAux : String;
   ID: TTransactionDesc;
   vNumLote : Integer;
+  vID_Pedido_Aux : Integer;
 begin
 
   Memo1.Lines.Clear;
@@ -135,7 +136,8 @@ begin
   else
     vHora := Now;
 
-  fDMPedido_Reserva:= TDMPedido_Reserva.Create(Self);
+  fDMPedido_Reserva := TDMPedido_Reserva.Create(Self);
+  vID_Pedido_Aux    := 0;
 
   ID.TransactionID  := 2;
   ID.IsolationLevel := xilREADCOMMITTED;
@@ -147,9 +149,10 @@ begin
       fDMBaixaProd.cdsLoteDTENTRADA.AsDateTime := vData;
       fDMBaixaProd.cdsLoteHRENTRADA.AsDateTime := vHora;
       vMSGAux                                  := 'Entrada em Produção';
-    end
-    else
-    if fDMBaixaProd.cdsLoteDTBAIXA.IsNull then
+      if StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsLoteQTD.AsFloat)) <= 0 then
+        vMSGAux := '';
+    end;
+    if ((fDMBaixaProd.cdsLoteDTBAIXA.IsNull) and (trim(vMSGAux) = '')) then
     begin
       fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime    := vData;
       fDMBaixaProd.cdsLoteHRBAIXA.AsDateTime    := vHora;
@@ -158,6 +161,9 @@ begin
       vMSGAux                                   := 'Encerrada a Produção';
 
       fDMBaixaProd.cdsLoteID_MOVESTOQUE.AsInteger := fnc_Gravar_Estoque;
+
+      vID_Pedido_Aux := fDMBaixaProd.cdsLoteID_PEDIDO.AsInteger;
+
     end;
     vNumLote := fDMBaixaProd.cdsLoteNUM_LOTE.AsInteger;
 
@@ -182,7 +188,7 @@ begin
     Memo1.Lines.Add(vMSGAux);
 
     FreeAndNil(fDMPedido_Reserva);
-    
+
   except
       on e: Exception do
       begin
@@ -192,7 +198,12 @@ begin
       end;
   end;
 
-
+  if vID_Pedido_Aux > 0 then
+  begin
+    fDMBaixaProd.sdsPrc_Pedido_Conferido.Close;
+    fDMBaixaProd.sdsPrc_Pedido_Conferido.ParamByName('P_ID').AsInteger := vID_Pedido_Aux;
+    fDMBaixaProd.sdsPrc_Pedido_Conferido.ExecSQL();
+  end;
 end;
 
 procedure TfrmBaixaLote_Ped.Edit1Change(Sender: TObject);

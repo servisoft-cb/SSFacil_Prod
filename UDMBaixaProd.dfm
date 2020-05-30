@@ -338,9 +338,9 @@ object DMBaixaProd: TDMBaixaProd
       'SELECT I.ID, I.ITEM, I.id_produto, I.id_cor, I.qtd, I.qtd_fatura' +
       'do,I.qtd_restante,'#13#10'I.qtd_cancelado,I.qtd_produzida, I.cancelado' +
       ', I.referencia,I.nomeproduto,'#13#10'COMB.NOME NOME_COMBINACAO, i.qtd_' +
-      'liberada, i.qtd_conferido'#13#10'FROM PEDIDO_ITEM I'#13#10'LEFT JOIN COMBINA' +
-      'CAO COMB'#13#10'ON I.ID_COR = COMB.ID'#13#10'WHERE I.ID = :ID'#13#10'  AND I.ITEM ' +
-      '= :ITEM'#13#10
+      'liberada, i.qtd_conferido, I.dtconferencia'#13#10'FROM PEDIDO_ITEM I'#13#10 +
+      'LEFT JOIN COMBINACAO COMB'#13#10'ON I.ID_COR = COMB.ID'#13#10'WHERE I.ID = :' +
+      'ID'#13#10'  AND I.ITEM = :ITEM'
     MaxBlobSize = -1
     Params = <
       item
@@ -355,7 +355,7 @@ object DMBaixaProd: TDMBaixaProd
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 144
-    Top = 104
+    Top = 105
     object sdsPedido_ItemID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -412,6 +412,9 @@ object DMBaixaProd: TDMBaixaProd
     object sdsPedido_ItemQTD_CONFERIDO: TFloatField
       FieldName = 'QTD_CONFERIDO'
     end
+    object sdsPedido_ItemDTCONFERENCIA: TDateField
+      FieldName = 'DTCONFERENCIA'
+    end
   end
   object dspPedido_Item: TDataSetProvider
     DataSet = sdsPedido_Item
@@ -424,8 +427,8 @@ object DMBaixaProd: TDMBaixaProd
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     ProviderName = 'dspPedido_Item'
-    Left = 232
-    Top = 104
+    Left = 236
+    Top = 105
     object cdsPedido_ItemID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -481,6 +484,9 @@ object DMBaixaProd: TDMBaixaProd
     end
     object cdsPedido_ItemQTD_CONFERIDO: TFloatField
       FieldName = 'QTD_CONFERIDO'
+    end
+    object cdsPedido_ItemDTCONFERENCIA: TDateField
+      FieldName = 'DTCONFERENCIA'
     end
   end
   object qPed: TSQLQuery
@@ -1817,5 +1823,19 @@ object DMBaixaProd: TDMBaixaProd
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsPrc_Pedido_Conferido: TSQLDataSet
+    CommandText = 'PRC_PEDIDO_CONFERIDO'
+    CommandType = ctStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'P_ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 779
+    Top = 144
   end
 end

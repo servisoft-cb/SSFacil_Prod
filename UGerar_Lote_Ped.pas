@@ -241,8 +241,9 @@ begin
   vQtd_Selecionada := 0;
   fDMCadLote.cdsPendente.Close;
   vComando := vComando + ' AND PI.QTD_RESTANTE > 0';
-  if fDMCadLote.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
-    vComando := vComando + ' AND (PI.QTD_RESTANTE - Coalesce(PI.QTD_ESTOQUE_RES,0) > 0) ';
+  //Gerar zerada a produção
+  //if fDMCadLote.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
+  //  vComando := vComando + ' AND (PI.QTD_RESTANTE - Coalesce(PI.QTD_ESTOQUE_RES,0) > 0) ';
 
   if DateEdit6.Date > 10 then
     vComando := vComando + ' AND PED.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit6.date));
