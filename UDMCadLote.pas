@@ -1197,6 +1197,24 @@ type
     qParametros_PedUSA_RESERVA_EST: TStringField;
     cdsPendenteQTD_ESTOQUE_RES: TFloatField;
     cdsConsulta_Lote_PedQTD_ESTOQUE_RES: TFloatField;
+    sdsLote_Canc: TSQLDataSet;
+    dspLote_Canc: TDataSetProvider;
+    cdsLote_Canc: TClientDataSet;
+    dsLote_Canc: TDataSource;
+    sdsLote_CancID: TIntegerField;
+    sdsLote_CancITEM: TIntegerField;
+    sdsLote_CancQTD: TFloatField;
+    sdsLote_CancDATA: TDateField;
+    sdsLote_CancHORA: TTimeField;
+    sdsLote_CancUSUARIO: TStringField;
+    cdsLote_CancID: TIntegerField;
+    cdsLote_CancITEM: TIntegerField;
+    cdsLote_CancQTD: TFloatField;
+    cdsLote_CancDATA: TDateField;
+    cdsLote_CancHORA: TTimeField;
+    cdsLote_CancUSUARIO: TStringField;
+    sdsLote_CancMOTIVO: TStringField;
+    cdsLote_CancMOTIVO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -1210,6 +1228,7 @@ type
     procedure mAuxLoteNewRecord(DataSet: TDataSet);
     procedure mAuxEstNewRecord(DataSet: TDataSet);
     procedure cdsLote_Mat_ProdNewRecord(DataSet: TDataSet);
+    procedure cdsLote_CancNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -1266,6 +1285,10 @@ type
     procedure prc_SaldoEst(Filial, ID_Produto, ID_Cor : Integer ; Num_Lote_Controle, Tipo : String);
 
     procedure prc_Calcula_Carga;
+
+    procedure prc_Inserir_Lote_Canc(ID : Integer);
+
+    function fnc_Pedido_Qtd_Restante(ID, Item : Integer) : Real;
 
   end;
 
@@ -1941,6 +1964,43 @@ procedure TDMCadLote.cdsLote_Mat_ProdNewRecord(DataSet: TDataSet);
 begin
   cdsLote_Mat_ProdIMPRESSO.AsString   := 'N';
   cdsLote_Mat_ProdFINALIZADO.AsString := 'N';
+end;
+
+procedure TDMCadLote.cdsLote_CancNewRecord(DataSet: TDataSet);
+begin
+  cdsLote_CancUSUARIO.AsString := vUsuario;
+  cdsLote_CancDATA.AsDateTime  := Date;
+  cdsLote_CancHORA.AsDateTime  := Now;
+end;
+
+procedure TDMCadLote.prc_Inserir_Lote_Canc(ID: Integer);
+var
+  vAux: Integer;
+begin
+  cdsLote_Canc.Last;
+  vAux := cdsLote_CancITEM.AsInteger + 1;
+  cdsLote_Canc.Insert;
+  cdsLote_CancID.AsInteger   := ID;
+  cdsLote_CancITEM.AsInteger := vAux;
+end;
+
+function TDMCadLote.fnc_Pedido_Qtd_Restante(ID, Item: Integer): Real;
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  sds.SQLConnection := dmDatabase.scoDados;
+  sds.NoMetadata    := True;
+  sds.GetMetadata   := False;
+  try
+    sds.CommandText := 'SELECT QTD_RESTANTE FROM PEDIDO_ITEM '
+                     + 'WHERE ID = ' + IntToStr(ID)
+                     + '  AND ITEM = ' + IntToStr(Item);
+    sds.Open;
+    Result := sds.FieldByName('QTD_RESTANTE').AsFloat;
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

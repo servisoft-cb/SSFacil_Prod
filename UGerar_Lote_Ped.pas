@@ -74,6 +74,7 @@ type
     DBMemo1: TDBMemo;
     NxLabel11: TNxLabel;
     CurrencyEdit4: TCurrencyEdit;
+    btnCancelarOP: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -95,6 +96,7 @@ type
     procedure btnGerarAuxiliarClick(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
     procedure SMDBGrid3TitleClick(Column: TColumn);
+    procedure btnCancelarOPClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadLote: TDMCadLote;
@@ -132,7 +134,7 @@ var
 implementation
 
 uses rsDBUtils, DmdDatabase, uUtilPadrao, UMenu, UDMLoteImp, UAltQtdLote,
-  UGerar_Lote_Aux2;
+  UGerar_Lote_Aux2, ULote_Cancela;
 
 {$R *.dfm}
 
@@ -182,11 +184,11 @@ var
 begin
   vTipoAux := fnc_Verifica_Tipo_Lote;
   if (vTipoAux = 'PED') or (vTipoAux = 'PED2') then
-    vTextoEstoque := ' cast ((select sum(ea.qtd) qtd_estoque from estoque_atual ea '
+    vTextoEstoque := ' COALESCE(cast ((select sum(ea.qtd) qtd_estoque from estoque_atual ea '
                    + 'where ea.id_produto = pi.id_produto and ea.id_cor = pi.id_cor '
-                   + 'and ea.filial  = ped.filial and ea.tamanho = pi.tamanho) as double precision )qtd_estoque '
+                   + 'and ea.filial  = ped.filial and ea.tamanho = pi.tamanho) as double precision ),0)  qtd_estoque '
   else
-    vTextoEstoque := ' cast (0 as Double precision) qtd_estoque ';
+    vTextoEstoque := ' COALESCE(cast (0 as Double precision),0) qtd_estoque ';
   vComando := 'SELECT prod.tipo_algodao tipo_algodao_prod, PED.NUM_PEDIDO, PED.PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.DTEMISSAO, PED.ID, PED.FILIAL, '
             + 'PI.item, PI.id_produto, PI.id_cor,  PI.tamanho, PI.dtentrega, PI.numos, '
             + 'PI.nomeproduto, PI.referencia, CLI.nome NOME_CLIENTE, CLI.fantasia, PI.CARIMBO, '
@@ -232,8 +234,8 @@ begin
             + 'ON PSEMI.ID = SEMI.ID_MATERIAL1 '
             + 'WHERE PED.TIPO_REG = ' + QuotedStr('P')
             + '  AND PI.GERAR_LOTE = ' + QuotedStr('S')
-            + '  and pi.qtd_restante > 0 ';
-
+            + '  and pi.qtd_restante > 0 '
+            + '  and coalesce(pi.gerou_lote_prod,'+QuotedStr('N') +') = ' + QuotedStr('N');
   if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
     vTextoData := 'PED.DTENTREGA'
   else
@@ -1009,6 +1011,33 @@ begin
   for i := 0 to SMDBGrid3.Columns.Count - 1 do
     if not (SMDBGrid3.Columns.Items[I] = Column) then
       SMDBGrid3.Columns.Items[I].Title.Color := $00C6FFC6;
+end;
+
+procedure TfrmGerar_Lote_Ped.btnCancelarOPClick(Sender: TObject);
+var
+  vIDAux : Integer;
+begin
+  if not(fDMCadLote.cdsConsulta_Lote_Ped.Active) or (fDMCadLote.cdsConsulta_Lote_Ped.IsEmpty) then
+  begin
+    MessageDlg('*** Não existe OP selecionada!', mtError, [mbOk], 0);
+    exit;
+  end;
+
+  if MessageDlg('Deseja cancelar qtde referente a OP: ' + fDMCadLote.cdsConsulta_Lote_PedNUM_LOTE.AsString + ' ?' ,mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+    exit;
+
+  fDMCadLote.prc_Localizar(fDMCadLote.cdsConsulta_Lote_PedID.AsInteger);  
+
+  vIDAux := fDMCadLote.cdsConsulta_Lote_PedID.AsInteger;
+
+  frmLote_Cancela := TfrmLote_Cancela.Create(self);
+  frmLote_Cancela.fDMCadLote := fDMCadLote;
+  frmLote_Cancela.ShowModal;
+  FreeAndNil(frmLote_Cancela);
+
+  btnConsultarClick(Sender);
+
+  fDMCadLote.cdsConsulta_Lote_Ped.Locate('ID',vIDAux,[loCaseInsensitive]);
 end;
 
 end.

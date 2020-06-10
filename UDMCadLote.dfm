@@ -1398,7 +1398,7 @@ object DMCadLote: TDMCadLote
     Params = <>
     StoreDefs = True
     Left = 568
-    Top = 456
+    Top = 438
     Data = {
       110400009619E0BD0100000018000000260000000000030000001104084E756D
       5F4C6F74650400010000000000094E756D5F54616C616F04000100000000000A
@@ -1578,7 +1578,7 @@ object DMCadLote: TDMCadLote
     PacketRecords = 0
     Params = <>
     Left = 640
-    Top = 456
+    Top = 438
     Data = {
       650000009619E0BD0100000018000000040000000000030000006500084E756D
       5F4C6F74650400010000000000094E756D5F54616C616F040001000000000007
@@ -1601,12 +1601,12 @@ object DMCadLote: TDMCadLote
   object dsmLote: TDataSource
     DataSet = mLote
     Left = 600
-    Top = 456
+    Top = 438
   end
   object dsmTalao: TDataSource
     DataSet = mTalao
     Left = 680
-    Top = 456
+    Top = 438
   end
   object qProxima_Ordem: TSQLQuery
     MaxBlobSize = -1
@@ -1673,19 +1673,19 @@ object DMCadLote: TDMCadLote
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 544
-    Top = 504
+    Top = 486
   end
   object dspProduto_Consumo: TDataSetProvider
     DataSet = sdsProduto_Consumo
     Left = 600
-    Top = 504
+    Top = 486
   end
   object cdsProduto_Consumo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspProduto_Consumo'
     Left = 664
-    Top = 504
+    Top = 486
     object cdsProduto_ConsumoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1765,7 +1765,7 @@ object DMCadLote: TDMCadLote
   object dsProduto_Consumo: TDataSource
     DataSet = cdsProduto_Consumo
     Left = 712
-    Top = 504
+    Top = 486
   end
   object qParametros: TSQLQuery
     MaxBlobSize = -1
@@ -1851,7 +1851,7 @@ object DMCadLote: TDMCadLote
     IndexFieldNames = 'Tamanho'
     Params = <>
     Left = 488
-    Top = 456
+    Top = 438
     Data = {
       420000009619E0BD01000000180000000200000000000300000042000754616D
       616E686F0100490000000100055749445448020002000A000351746408000400
@@ -1867,7 +1867,7 @@ object DMCadLote: TDMCadLote
   object dsmTamanho: TDataSource
     DataSet = mTamanho
     Left = 520
-    Top = 456
+    Top = 438
   end
   object qProduto_Consumo: TSQLQuery
     MaxBlobSize = -1
@@ -2710,7 +2710,7 @@ object DMCadLote: TDMCadLote
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 456
+    Left = 457
     Top = 53
     object sdsPendente_PedNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
@@ -2852,7 +2852,7 @@ object DMCadLote: TDMCadLote
     StoreDefs = True
     BeforePost = mMaterialBeforePost
     Left = 368
-    Top = 440
+    Top = 422
     Data = {
       350100009619E0BD01000000180000000B00000000000300000035010B49445F
       4D6174657269616C04000100000000000D4E6F6D655F4D6174657269616C0100
@@ -2905,7 +2905,7 @@ object DMCadLote: TDMCadLote
   object dsmMaterial: TDataSource
     DataSet = mMaterial
     Left = 408
-    Top = 440
+    Top = 422
   end
   object mMaterial_Tam: TClientDataSet
     Active = True
@@ -2916,7 +2916,7 @@ object DMCadLote: TDMCadLote
     PacketRecords = 0
     Params = <>
     Left = 368
-    Top = 488
+    Top = 470
     Data = {
       560000009619E0BD01000000180000000300000000000300000056000B49445F
       4D6174657269616C04000100000000000754616D616E686F0100490000000100
@@ -2935,7 +2935,7 @@ object DMCadLote: TDMCadLote
   object dsmMaterial_Tam: TDataSource
     DataSet = mMaterial_Tam
     Left = 408
-    Top = 488
+    Top = 470
   end
   object qProcesso_Ope: TSQLQuery
     MaxBlobSize = -1
@@ -4550,8 +4550,8 @@ object DMCadLote: TDMCadLote
       'SELECT *'
       'FROM PARAMETROS_GERAL')
     SQLConnection = dmDatabase.scoDados
-    Left = 416
-    Top = 384
+    Left = 455
+    Top = 349
     object qParametros_GeralEMPRESA_CALCADOS: TStringField
       FieldName = 'EMPRESA_CALCADOS'
       FixedChar = True
@@ -4876,19 +4876,19 @@ object DMCadLote: TDMCadLote
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 392
-    Top = 576
+    Top = 529
   end
   object dspPedido_Calc: TDataSetProvider
     DataSet = sdsPedido_Calc
     Left = 448
-    Top = 576
+    Top = 529
   end
   object cdsPedido_Calc: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPedido_Calc'
     Left = 512
-    Top = 576
+    Top = 529
     object cdsPedido_CalcNUM_ORDEM: TIntegerField
       FieldName = 'NUM_ORDEM'
     end
@@ -4910,7 +4910,7 @@ object DMCadLote: TDMCadLote
   object dsPedido_Calc: TDataSource
     DataSet = cdsPedido_Calc
     Left = 560
-    Top = 576
+    Top = 529
   end
   object qProduto_Comb: TSQLQuery
     MaxBlobSize = -1
@@ -5202,7 +5202,7 @@ object DMCadLote: TDMCadLote
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 391
-    Top = 623
+    Top = 576
     object sdsExc_Baixa_ProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5252,14 +5252,14 @@ object DMCadLote: TDMCadLote
   object dspExc_Baixa_Processo: TDataSetProvider
     DataSet = sdsExc_Baixa_Processo
     Left = 451
-    Top = 624
+    Top = 577
   end
   object cdsExc_Baixa_Processo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspExc_Baixa_Processo'
     Left = 515
-    Top = 622
+    Top = 575
     object cdsExc_Baixa_ProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5309,7 +5309,7 @@ object DMCadLote: TDMCadLote
   object dsExc_Baixa_Processo: TDataSource
     DataSet = cdsExc_Baixa_Processo
     Left = 560
-    Top = 618
+    Top = 571
   end
   object qBaixaProcesso: TSQLQuery
     MaxBlobSize = -1
@@ -6240,5 +6240,94 @@ object DMCadLote: TDMCadLote
     object mAuxEstQtd: TFloatField
       FieldName = 'Qtd'
     end
+  end
+  object sdsLote_Canc: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM LOTE_CANC'#13#10'WHERE ID = :ID'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 389
+    Top = 629
+    object sdsLote_CancID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsLote_CancITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsLote_CancQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsLote_CancDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object sdsLote_CancHORA: TTimeField
+      FieldName = 'HORA'
+    end
+    object sdsLote_CancUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object sdsLote_CancMOTIVO: TStringField
+      FieldName = 'MOTIVO'
+      Size = 200
+    end
+  end
+  object dspLote_Canc: TDataSetProvider
+    DataSet = sdsLote_Canc
+    UpdateMode = upWhereKeyOnly
+    Left = 449
+    Top = 630
+  end
+  object cdsLote_Canc: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID;ITEM'
+    Params = <>
+    ProviderName = 'dspLote_Canc'
+    OnNewRecord = cdsLote_CancNewRecord
+    Left = 513
+    Top = 628
+    object cdsLote_CancID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsLote_CancITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsLote_CancQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsLote_CancDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object cdsLote_CancHORA: TTimeField
+      FieldName = 'HORA'
+    end
+    object cdsLote_CancUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsLote_CancMOTIVO: TStringField
+      FieldName = 'MOTIVO'
+      Size = 200
+    end
+  end
+  object dsLote_Canc: TDataSource
+    DataSet = cdsLote_Canc
+    Left = 558
+    Top = 624
   end
 end
