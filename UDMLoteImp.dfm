@@ -15,11 +15,11 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43411.400438541700000000
-    ReportOptions.LastChange = 43724.930788449100000000
+    ReportOptions.LastChange = 43998.450835138890000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 797
+    Left = 796
     Top = 366
   end
   object frxPDFExport1: TfrxPDFExport
@@ -1615,7 +1615,7 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspLote_Ped'
     OnCalcFields = cdsLote_PedCalcFields
-    Left = 592
+    Left = 593
     Top = 113
     object cdsLote_PedDTEMISSAO: TDateField
       FieldName = 'DTEMISSAO'

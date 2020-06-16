@@ -1240,7 +1240,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -1282,7 +1281,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -1290,7 +1288,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end
           item
@@ -1307,7 +1304,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Est. Reserva'
             Title.Color = 16777158
-            Width = 64
             Visible = True
           end>
       end
@@ -1672,7 +1668,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 825
+    Left = 826
     Top = 31
     object ImprimirOrdemProduo1: TMenuItem
       Caption = 'Ordem Produ'#231#227'o'

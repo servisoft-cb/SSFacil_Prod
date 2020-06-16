@@ -1397,7 +1397,7 @@ object DMCadLote: TDMCadLote
     IndexFieldNames = 'Num_Lote'
     Params = <>
     StoreDefs = True
-    Left = 568
+    Left = 567
     Top = 438
     Data = {
       110400009619E0BD0100000018000000260000000000030000001104084E756D
@@ -4470,8 +4470,8 @@ object DMCadLote: TDMCadLote
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42751.456864641200000000
-    ReportOptions.LastChange = 43790.671092893500000000
+    ReportOptions.CreateDate = 43411.400438541700000000
+    ReportOptions.LastChange = 43937.418530428200000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
