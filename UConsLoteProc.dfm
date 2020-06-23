@@ -212,7 +212,7 @@ object frmConsLoteProc: TfrmConsLoteProc
       VerticalPosition = vpTop
     end
     object btnConsTalao: TNxButton
-      Left = 507
+      Left = 509
       Top = 76
       Width = 153
       Height = 30
@@ -935,7 +935,6 @@ object frmConsLoteProc: TfrmConsLoteProc
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -1049,6 +1048,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             FieldName = 'Fuso'
             Title.Alignment = taCenter
             Title.Color = 10354687
+            Width = 64
             Visible = True
           end
           item
@@ -1057,6 +1057,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Produto'
             Title.Color = 10354687
+            Width = 64
             Visible = True
           end>
       end

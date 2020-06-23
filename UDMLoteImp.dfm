@@ -1,8 +1,8 @@
 object DMLoteImp: TDMLoteImp
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 212
-  Top = 62
+  Left = 153
+  Top = 57
   Height = 609
   Width = 1098
   object frxReport1: TfrxReport
@@ -14,12 +14,12 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43411.400438541700000000
-    ReportOptions.LastChange = 43998.450835138890000000
+    ReportOptions.CreateDate = 42841.867818298600000000
+    ReportOptions.LastChange = 44005.731710347220000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 796
+    Left = 794
     Top = 366
   end
   object frxPDFExport1: TfrxPDFExport
@@ -655,7 +655,7 @@ object DMLoteImp: TDMLoteImp
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 161
+    Left = 160
     Top = 280
   end
   object dspConsulta_Lote: TDataSetProvider
@@ -671,7 +671,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspConsulta_Lote'
     OnCalcFields = cdsConsulta_LoteCalcFields
     Left = 256
-    Top = 280
+    Top = 281
     object cdsConsulta_LoteID_BAIXA: TIntegerField
       FieldName = 'ID_BAIXA'
       Required = True
@@ -836,14 +836,14 @@ object DMLoteImp: TDMLoteImp
       FieldName = 'NOME_FUNCIONARIO_BAIXA'
       Size = 50
     end
+    object cdsConsulta_LoteFUSO: TFloatField
+      FieldName = 'FUSO'
+    end
     object cdsConsulta_LoteDESC_TIPO_PRODUTO: TStringField
       FieldName = 'DESC_TIPO_PRODUTO'
       Required = True
       FixedChar = True
       Size = 8
-    end
-    object cdsConsulta_LoteFUSO: TFloatField
-      FieldName = 'FUSO'
     end
   end
   object dsConsulta_Lote: TDataSource
@@ -2240,14 +2240,109 @@ object DMLoteImp: TDMLoteImp
       'NUM_LOTE=NUM_LOTE')
     DataSource = dsConsLote_Mat_Prod2
     BCDToCurrency = False
-    Left = 925
+    Left = 924
     Top = 519
   end
   object mAuxProcesso_Ped: TClientDataSet
+    Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Referencia'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Nome_Produto'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Nome_Cor'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Unidade'
+        DataType = ftString
+        Size = 6
+      end
+      item
+        Name = 'Num_Ordem'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Num_Lote'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Num_Pedido'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Item_Pedido'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Pedido_Cliente'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Nome_Cliente'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'ID_Processo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Processo'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'DtEntrega'
+        DataType = ftDate
+      end
+      item
+        Name = 'Fuso'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Desc_Tipo_Produto'
+        DataType = ftString
+        Size = 8
+      end
+      item
+        Name = 'Carga'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
     Params = <>
-    Left = 861
-    Top = 229
+    StoreDefs = True
+    Left = 869
+    Top = 210
+    Data = {
+      B60100009619E0BD010000001800000011000000000003000000B6010A526566
+      6572656E63696101004900000001000557494454480200020014000C4E6F6D65
+      5F50726F6475746F0100490000000100055749445448020002006400084E6F6D
+      655F436F72010049000000010005574944544802000200320003517464080004
+      000000000007556E696461646501004900000001000557494454480200020006
+      00094E756D5F4F7264656D0400010000000000084E756D5F4C6F746504000100
+      000000000A4E756D5F50656469646F04000100000000000B4974656D5F506564
+      69646F04000100000000000E50656469646F5F436C69656E7465010049000000
+      01000557494454480200020014000C4E6F6D655F436C69656E74650100490000
+      0001000557494454480200020032000B49445F50726F636573736F0400010000
+      0000000D4E6F6D655F50726F636573736F010049000000010005574944544802
+      0002002800094474456E74726567610400060000000000044675736F08000400
+      0000000011446573635F5469706F5F50726F6475746F01004900000001000557
+      4944544802000200080005436172676108000400000000000000}
     object mAuxProcesso_PedReferencia: TStringField
       FieldName = 'Referencia'
     end
@@ -2301,6 +2396,9 @@ object DMLoteImp: TDMLoteImp
     object mAuxProcesso_PedDesc_Tipo_Produto: TStringField
       FieldName = 'Desc_Tipo_Produto'
       Size = 8
+    end
+    object mAuxProcesso_PedCarga: TFloatField
+      FieldName = 'Carga'
     end
   end
   object sdsProcesso_Ped: TSQLDataSet
@@ -2363,7 +2461,33 @@ object DMLoteImp: TDMLoteImp
   end
   object dsmAuxProcesso_Ped: TDataSource
     DataSet = mAuxProcesso_Ped
-    Left = 956
-    Top = 219
+    Left = 931
+    Top = 210
+  end
+  object frxmAuxProcesso_Ped: TfrxDBDataset
+    UserName = 'mAuxProcesso_Ped'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'Referencia=Referencia'
+      'Nome_Produto=Nome_Produto'
+      'Nome_Cor=Nome_Cor'
+      'Qtd=Qtd'
+      'Unidade=Unidade'
+      'Num_Ordem=Num_Ordem'
+      'Num_Lote=Num_Lote'
+      'Num_Pedido=Num_Pedido'
+      'Item_Pedido=Item_Pedido'
+      'Pedido_Cliente=Pedido_Cliente'
+      'Nome_Cliente=Nome_Cliente'
+      'ID_Processo=ID_Processo'
+      'Nome_Processo=Nome_Processo'
+      'DtEntrega=DtEntrega'
+      'Fuso=Fuso'
+      'Desc_Tipo_Produto=Desc_Tipo_Produto'
+      'Carga=Carga')
+    DataSource = dsmAuxProcesso_Ped
+    BCDToCurrency = False
+    Left = 1015
+    Top = 217
   end
 end

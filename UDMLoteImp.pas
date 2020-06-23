@@ -390,6 +390,8 @@ type
     mAuxProcesso_PedDtEntrega: TDateField;
     mAuxProcesso_PedFuso: TFloatField;
     mAuxProcesso_PedDesc_Tipo_Produto: TStringField;
+    frxmAuxProcesso_Ped: TfrxDBDataset;
+    mAuxProcesso_PedCarga: TFloatField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
