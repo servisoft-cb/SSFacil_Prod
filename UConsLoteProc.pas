@@ -50,6 +50,8 @@ type
     Imprimir1: TMenuItem;
     PorFuso1: TMenuItem;
     PorTipodeProduto1: TMenuItem;
+    TS_Pedido: TRzTabSheet;
+    SMDBGrid3: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -82,6 +84,8 @@ type
     procedure prc_InformarDtProducao;
     procedure prc_Consulta_Talao;
     procedure prc_Consulta_Ref;
+    procedure prc_Monta_mAuxProcesso_Ped;
+
     function  fnc_Condicao : WideString;
 
     procedure prc_Imprimir(Tipo : String); //S- Sem Classificação    F= Por Fuso    T= Tipo de Produto
@@ -114,8 +118,12 @@ end;
 
 procedure TfrmConsLoteProc.btnConsTalaoClick(Sender: TObject);
 begin
-  if RzPageControl1.ActivePage = TS_Talao then
-    prc_Consulta_Talao
+  if (RzPageControl1.ActivePage = TS_Talao) or (RzPageControl1.ActivePage = TS_Pedido) then
+  begin
+    prc_Consulta_Talao;
+    if RzPageControl1.ActivePage = TS_Pedido then
+      prc_Monta_mAuxProcesso_Ped;
+  end
   else
   if RzPageControl1.ActivePage = TS_Ref then
     prc_Consulta_Ref;
@@ -442,6 +450,55 @@ end;
 procedure TfrmConsLoteProc.PorTipodeProduto1Click(Sender: TObject);
 begin
   prc_Imprimir('T');
+end;
+
+procedure TfrmConsLoteProc.prc_Monta_mAuxProcesso_Ped;
+var
+  vCont: Integer;
+  vQtdAux: Real;
+begin
+  vCont   := 0;
+  vQtdAux := fDMLoteImp.cdsConsulta_LoteQTD_PENDENTE.AsFloat;
+  fDMLoteImp.cdsProcesso_Ped.Close;
+  fDMLoteImp.sdsProcesso_Ped.ParamByName('ID').AsInteger := fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger;
+  fDMLoteImp.cdsProcesso_Ped.Open;
+  fDMLoteImp.cdsProcesso_Ped.IndexFieldNames := 'DTENTREGA;NUM_PEDIDO';
+  fDMLoteImp.cdsProcesso_Ped.First;
+  while not fDMLoteImp.cdsProcesso_Ped.Eof do
+  begin
+    vCont := vCont + 1;
+    if StrToFloat(FormatFloat('0.0000',vQtdAux)) > 0 then
+    begin
+      fDMLoteImp.mAuxProcesso_Ped.Insert;
+      fDMLoteImp.mAuxProcesso_PedReferencia.AsString   := fDMLoteImp.cdsConsulta_LoteREFERENCIA.AsString;
+      fDMLoteImp.mAuxProcesso_PedNome_Produto.AsString := fDMLoteImp.cdsConsulta_LoteNOME_PRODUTO.AsString;
+      fDMLoteImp.mAuxProcesso_PedNome_Cor.AsString     := fDMLoteImp.cdsConsulta_LoteNOME_COMBINACAO.AsString;
+      fDMLoteImp.mAuxProcesso_PedDtEntrega.AsDateTime  := fDMLoteImp.cdsProcesso_PedDTENTREGA.AsDateTime;
+      if vCont = fDMLoteImp.cdsConsulta_Lote.RecordCount then
+        fDMLoteImp.mAuxProcesso_PedQtd.AsFloat := StrToFloat(FormatFloat('0.0000',vQtdAux))
+      else
+      if StrToFloat(FormatFloat('0.0000',vQtdAux)) > StrToFloat(FormatFloat('0.0000',fDMLoteImp.cdsProcesso_PedQTD_PRODUCAO_PEDIDO.AsFloat)) then
+        fDMLoteImp.mAuxProcesso_PedQtd.AsFloat := StrToFloat(FormatFloat('0.0000',fDMLoteImp.cdsProcesso_PedQTD_PRODUCAO_PEDIDO.AsFloat))
+      else
+        fDMLoteImp.mAuxProcesso_PedQtd.AsFloat := StrToFloat(FormatFloat('0.0000',vQtdAux));
+      vQtdAux := StrToFloat(FormatFloat('0.0000',vQtdAux - fDMLoteImp.mAuxProcesso_PedQtd.AsFloat));
+      fDMLoteImp.mAuxProcesso_PedUnidade.AsString := fDMLoteImp.cdsConsulta_LoteUNIDADE.AsString;
+      fDMLoteImp.mAuxProcesso_PedNum_Ordem.AsInteger := fDMLoteImp.cdsConsulta_LoteNUM_ORDEM.AsInteger;
+      fDMLoteImp.mAuxProcesso_PedNum_Lote.AsInteger  := fDMLoteImp.cdsConsulta_LoteNUM_LOTE.AsInteger;
+      fDMLoteImp.mAuxProcesso_PedNum_Pedido.AsInteger := fDMLoteImp.cdsProcesso_PedNUM_PEDIDO.AsInteger;
+      fDMLoteImp.mAuxProcesso_PedPedido_Cliente.AsString := fDMLoteImp.cdsProcesso_PedPEDIDO_CLIENTE.AsString;
+      fDMLoteImp.mAuxProcesso_PedNome_Cliente.AsString := fDMLoteImp.cdsConsulta_LoteNOME_CLIENTE.AsString;
+      fDMLoteImp.mAuxProcesso_PedID_Processo.AsInteger := fDMLoteImp.cdsConsulta_LoteID_PROCESSO.AsInteger;
+      fDMLoteImp.mAuxProcesso_PedNome_Processo.AsString :=fDMLoteImp.cdsConsulta_LoteNOME_PROCESSO.AsString;
+      fDMLoteImp.mAuxProcesso_PedFuso.AsFloat           := fDMLoteImp.cdsConsulta_LoteFUSO.AsFloat;
+      fDMLoteImp.mAuxProcesso_PedDesc_Tipo_Produto.AsString := fDMLoteImp.cdsConsulta_LoteDESC_TIPO_PRODUTO.AsString;
+      fDMLoteImp.mAuxProcesso_Ped.Post;
+    end;
+    if StrToFloat(FormatFloat('0.0000',vQtdAux)) <= 0 then
+      fDMLoteImp.cdsConsulta_Lote.Last;
+    fDMLoteImp.cdsProcesso_Ped.Next;
+  end;
+
 end;
 
 end.

@@ -2243,4 +2243,127 @@ object DMLoteImp: TDMLoteImp
     Left = 925
     Top = 519
   end
+  object mAuxProcesso_Ped: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 861
+    Top = 229
+    object mAuxProcesso_PedReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+    object mAuxProcesso_PedNome_Produto: TStringField
+      FieldName = 'Nome_Produto'
+      Size = 100
+    end
+    object mAuxProcesso_PedNome_Cor: TStringField
+      FieldName = 'Nome_Cor'
+      Size = 50
+    end
+    object mAuxProcesso_PedQtd: TFloatField
+      FieldName = 'Qtd'
+    end
+    object mAuxProcesso_PedUnidade: TStringField
+      FieldName = 'Unidade'
+      Size = 6
+    end
+    object mAuxProcesso_PedNum_Ordem: TIntegerField
+      FieldName = 'Num_Ordem'
+    end
+    object mAuxProcesso_PedNum_Lote: TIntegerField
+      FieldName = 'Num_Lote'
+    end
+    object mAuxProcesso_PedNum_Pedido: TIntegerField
+      FieldName = 'Num_Pedido'
+    end
+    object mAuxProcesso_PedItem_Pedido: TIntegerField
+      FieldName = 'Item_Pedido'
+    end
+    object mAuxProcesso_PedPedido_Cliente: TStringField
+      FieldName = 'Pedido_Cliente'
+    end
+    object mAuxProcesso_PedNome_Cliente: TStringField
+      FieldName = 'Nome_Cliente'
+      Size = 50
+    end
+    object mAuxProcesso_PedID_Processo: TIntegerField
+      FieldName = 'ID_Processo'
+    end
+    object mAuxProcesso_PedNome_Processo: TStringField
+      FieldName = 'Nome_Processo'
+      Size = 40
+    end
+    object mAuxProcesso_PedDtEntrega: TDateField
+      FieldName = 'DtEntrega'
+    end
+    object mAuxProcesso_PedFuso: TFloatField
+      FieldName = 'Fuso'
+    end
+    object mAuxProcesso_PedDesc_Tipo_Produto: TStringField
+      FieldName = 'Desc_Tipo_Produto'
+      Size = 8
+    end
+  end
+  object sdsProcesso_Ped: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(AUX.QTD_PRODUCAO_PEDIDO) QTD_PRODUCAO_PEDIDO, AUX.NUM' +
+      '_PEDIDO, AUX.PEDIDO_CLIENTE, AUX.DTENTREGA'#13#10'from (select LP.NUM_' +
+      'PEDIDO, LP.PEDIDO_CLIENTE, IT.DTENTREGA, IT.QTD QTD_PEDIDO,'#13#10'   ' +
+      '          case'#13#10'               when round(PS.QTD_CONSUMO1, 3) > ' +
+      '0 then round(PS.QTD_CONSUMO1 * LP.QTD_PARES, 4)'#13#10'               ' +
+      'else LP.QTD_PARES'#13#10'             end QTD_PRODUCAO_PEDIDO'#13#10'      f' +
+      'rom LOTE_PED LP'#13#10'      inner join PEDIDO_ITEM IT on LP.ID_PEDIDO' +
+      ' = IT.ID and LP.ITEM_PEDIDO = IT.ITEM'#13#10'      left join PRODUTO_S' +
+      'EMI PS on IT.ID_PRODUTO = PS.ID'#13#10'      where LP.ID = :ID) AUX'#13#10'g' +
+      'roup by AUX.NUM_PEDIDO, AUX.PEDIDO_CLIENTE, AUX.DTENTREGA'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 801
+    Top = 22
+  end
+  object dspProcesso_Ped: TDataSetProvider
+    DataSet = sdsProcesso_Ped
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 849
+    Top = 22
+  end
+  object cdsProcesso_Ped: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'NUM_PEDIDO;DTENTREGA'
+    Params = <>
+    ProviderName = 'dspProcesso_Ped'
+    OnCalcFields = cdsTalao_SLCalcFields
+    Left = 897
+    Top = 22
+    object cdsProcesso_PedQTD_PRODUCAO_PEDIDO: TFloatField
+      FieldName = 'QTD_PRODUCAO_PEDIDO'
+    end
+    object cdsProcesso_PedNUM_PEDIDO: TIntegerField
+      FieldName = 'NUM_PEDIDO'
+    end
+    object cdsProcesso_PedPEDIDO_CLIENTE: TStringField
+      FieldName = 'PEDIDO_CLIENTE'
+    end
+    object cdsProcesso_PedDTENTREGA: TDateField
+      FieldName = 'DTENTREGA'
+    end
+  end
+  object dsProcesso_Ped: TDataSource
+    DataSet = cdsProcesso_Ped
+    Left = 944
+    Top = 22
+  end
+  object dsmAuxProcesso_Ped: TDataSource
+    DataSet = mAuxProcesso_Ped
+    Left = 956
+    Top = 219
+  end
 end

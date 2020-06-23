@@ -72,7 +72,7 @@ begin
     exit;
   end;
   vQtdAux := fDMCadLote.fnc_Pedido_Qtd_Restante(fDMCadLote.cdsLoteID_PEDIDO.AsInteger,fDMCadLote.cdsLoteITEM_PEDIDO.AsInteger);
-  if StrToFloat(FormatFloat('0.0000',fDMCadLote.cdsLoteQTD.AsFloat)) > StrToFloat(FormatFloat('0.0000',vQtdAux)) then
+  if StrToFloat(FormatFloat('0.0000',ceQtdCancelar.Value)) > StrToFloat(FormatFloat('0.0000',vQtdAux)) then
   begin
     MessageDlg('*** Qtd. para cancelar maior que a quantidade pendente no Pedido!', mtError, [mbOk], 0);
     exit;

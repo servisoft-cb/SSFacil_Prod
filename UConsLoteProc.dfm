@@ -500,10 +500,10 @@ object frmConsLoteProc: TfrmConsLoteProc
     Top = 106
     Width = 920
     Height = 427
-    ActivePage = TS_Talao
+    ActivePage = TS_Pedido
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     FixedDimension = 19
     object TS_Talao: TRzTabSheet
@@ -896,9 +896,174 @@ object frmConsLoteProc: TfrmConsLoteProc
           end>
       end
     end
+    object TS_Pedido: TRzTabSheet
+      Caption = 'Por Pedido'
+      object SMDBGrid3: TSMDBGrid
+        Left = 0
+        Top = 0
+        Width = 916
+        Height = 404
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMLoteImp.dsmAuxProcesso_Ped
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Verdana'
+        Font.Style = []
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+        ParentCtl3D = False
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        OnTitleClick = SMDBGrid1TitleClick
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid1GetCellParams
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 18
+        ScrollBars = ssHorizontal
+        ColCount = 14
+        RowCount = 2
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Num_Ordem'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Ordem'
+            Title.Color = 10354687
+            Width = 67
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Num_Lote'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Lote'
+            Title.Color = 10354687
+            Width = 62
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Processo'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Processo'
+            Title.Color = 10354687
+            Width = 166
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Referencia'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 10354687
+            Width = 127
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Produto'
+            Title.Caption = 'Nome Produto'
+            Title.Color = 10354687
+            Width = 203
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Cor'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cor'
+            Title.Color = 10354687
+            Width = 137
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DtEntrega'
+            Title.Caption = 'Dt. Entrega'
+            Title.Color = 10354687
+            Width = 94
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Unidade'
+            Title.Alignment = taCenter
+            Title.Caption = 'Unid.'
+            Title.Color = 10354687
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Qtd'
+            Title.Alignment = taCenter
+            Title.Caption = 'Qtde.'
+            Title.Color = 10354687
+            Width = 100
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Pedido_Cliente'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Pedido Cliente'
+            Title.Color = 10354687
+            Width = 191
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Cliente'
+            Title.Alignment = taCenter
+            Title.Caption = 'Cliente'
+            Title.Color = 10354687
+            Width = 225
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Fuso'
+            Title.Alignment = taCenter
+            Title.Color = 10354687
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Desc_Tipo_Produto'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo Produto'
+            Title.Color = 10354687
+            Visible = True
+          end>
+      end
+    end
   end
   object PopupMenu1: TPopupMenu
-    Left = 872
+    Left = 873
     Top = 82
     object Imprimir1: TMenuItem
       Caption = 'Sem Classifica'#231#227'o'
