@@ -878,6 +878,7 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -965,6 +966,7 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Data Final Processo'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -992,6 +994,7 @@ object frmConsLote2: TfrmConsLote2
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -1094,7 +1097,7 @@ object frmConsLote2: TfrmConsLote2
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
-        OnTitleClick = SMDBGrid1TitleClick
+        OnTitleClick = SMDBGrid2TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText

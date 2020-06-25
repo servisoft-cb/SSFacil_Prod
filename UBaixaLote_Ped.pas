@@ -152,7 +152,7 @@ begin
       if StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsLoteQTD.AsFloat)) <= 0 then
         vMSGAux := '';
     end;
-    if ((fDMBaixaProd.cdsLoteDTBAIXA.IsNull) and (trim(vMSGAux) = '')) then
+    if ((fDMBaixaProd.cdsLoteDTBAIXA.IsNull) and (trim(vMSGAux) = '')) or (fDMBaixaProd.qParametros_LoteLEITURA_UNICA_BAIXA.AsString = 'S') then
     begin
       fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime    := vData;
       fDMBaixaProd.cdsLoteHRBAIXA.AsDateTime    := vHora;

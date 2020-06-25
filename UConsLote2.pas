@@ -98,6 +98,7 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure aloRetrabalho1Click(Sender: TObject);
     procedure btnExcluir_BaixaClick(Sender: TObject);
+    procedure SMDBGrid2TitleClick(Column: TColumn);
   private
     { Private declarations }
     fDMLoteImp: TDMLoteImp;
@@ -735,6 +736,19 @@ begin
   fDMBaixaProd.cdsBaixa_Processo.Post;
   fDMBaixaProd.cdsBaixa_Processo.ApplyUpdates(0);
   fDMBaixaProd.cdsBaixa_Parcial.ApplyUpdates(0);
+end;
+
+procedure TfrmConsLote2.SMDBGrid2TitleClick(Column: TColumn);
+var
+  i: Integer;
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  Column.Title.Color := clBtnShadow;
+  fDMLoteImp.cdsLote_Ped.IndexFieldNames := Column.FieldName;
+  for i := 0 to SMDBGrid2.Columns.Count - 1 do
+    if not (SMDBGrid2.Columns.Items[I] = Column) then
+      SMDBGrid2.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
 end.

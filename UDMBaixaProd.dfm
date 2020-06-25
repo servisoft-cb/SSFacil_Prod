@@ -862,13 +862,14 @@ object DMBaixaProd: TDMBaixaProd
         ', USA_LOTE_PEDIDO, '
       
         'ID_PROCESSO_EST, ID_PROCESSO_SEMI_EST, ID_COR_CRU, CONT_LOTE_ANT' +
-        ', RESERVA_EST_LOTE'
+        ', RESERVA_EST_LOTE,'
+      'LEITURA_UNICA_BAIXA'
       'FROM PARAMETROS_LOTE P'
       'LEFT JOIN PROCESSO R'
       'ON P.ID_PROCESSO_CONF = R.ID')
     SQLConnection = dmDatabase.scoDados
     Left = 536
-    Top = 16
+    Top = 17
     object qParametros_LoteLOTE_PROCESSO: TStringField
       FieldName = 'LOTE_PROCESSO'
       FixedChar = True
@@ -903,6 +904,11 @@ object DMBaixaProd: TDMBaixaProd
     end
     object qParametros_LoteRESERVA_EST_LOTE: TStringField
       FieldName = 'RESERVA_EST_LOTE'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_LoteLEITURA_UNICA_BAIXA: TStringField
+      FieldName = 'LEITURA_UNICA_BAIXA'
       FixedChar = True
       Size = 1
     end

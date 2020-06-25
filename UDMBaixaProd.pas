@@ -389,6 +389,7 @@ type
     sdsPrc_Pedido_Conferido: TSQLDataSet;
     sdsPedido_ItemDTCONFERENCIA: TDateField;
     cdsPedido_ItemDTCONFERENCIA: TDateField;
+    qParametros_LoteLEITURA_UNICA_BAIXA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsBaixa_ProcessoCalcFields(DataSet: TDataSet);
   private
