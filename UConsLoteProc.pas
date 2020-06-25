@@ -52,6 +52,9 @@ type
     PorTipodeProduto1: TMenuItem;
     TS_Pedido: TRzTabSheet;
     SMDBGrid3: TSMDBGrid;
+    Panel3: TPanel;
+    Label2: TLabel;
+    ComboBox2: TComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -417,7 +420,7 @@ begin
   else
   if RzPageControl1.ActivePage = TS_Pedido then
   begin                                   
-    if ComboBox1.ItemIndex = 0 then
+    if ComboBox2.ItemIndex = 0 then
     begin                        
       fDMLoteImp.mAuxProcesso_Ped.IndexFieldNames := vOrdemAux + 'REFERENCIA;NOME_COR;DTENTREGA;PEDIDO_CLIENTE';
       vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Ref_Ped.fr3';
@@ -428,7 +431,7 @@ begin
       fDMLoteImp.mAuxProcesso_Ped.IndexFieldNames := vOrdemAux + 'DTENTREGA;REFERENCIA;NOME_COR;PEDIDO_CLIENTE';
       vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_RefDTEntrega_Ped.fr3';
     end;
-    vDetalhada := 'Detalhada';
+    vDetalhada := ' Por Pedido Detalhada';
   end
   else
   begin

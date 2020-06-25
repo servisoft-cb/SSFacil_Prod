@@ -15,11 +15,11 @@ object DMLoteImp: TDMLoteImp
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 44005.731710347220000000
+    ReportOptions.LastChange = 43895.431066956000000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 794
+    Left = 795
     Top = 366
   end
   object frxPDFExport1: TfrxPDFExport

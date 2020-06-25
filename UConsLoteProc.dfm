@@ -641,7 +641,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -689,7 +688,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -698,7 +696,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Cliente'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -707,7 +704,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -716,7 +712,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Baixa'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -725,7 +720,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Hora'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end
           item
@@ -734,7 +728,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Carga'
             Title.Color = 12058551
-            Width = 64
             Visible = True
           end>
       end
@@ -891,7 +884,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Processo'
             Title.Color = 16777147
-            Width = 64
             Visible = True
           end>
       end
@@ -900,9 +892,9 @@ object frmConsLoteProc: TfrmConsLoteProc
       Caption = 'Por Pedido'
       object SMDBGrid3: TSMDBGrid
         Left = 0
-        Top = 0
+        Top = 27
         Width = 916
-        Height = 404
+        Height = 377
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp.dsmAuxProcesso_Ped
@@ -1048,7 +1040,6 @@ object frmConsLoteProc: TfrmConsLoteProc
             FieldName = 'Fuso'
             Title.Alignment = taCenter
             Title.Color = 10354687
-            Width = 64
             Visible = True
           end
           item
@@ -1057,9 +1048,38 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Produto'
             Title.Color = 10354687
-            Width = 64
             Visible = True
           end>
+      end
+      object Panel3: TPanel
+        Left = 0
+        Top = 0
+        Width = 916
+        Height = 27
+        Align = alTop
+        Color = clSilver
+        TabOrder = 1
+        object Label2: TLabel
+          Left = 27
+          Top = 10
+          Width = 120
+          Height = 13
+          Caption = 'Ordenar a Impress'#227'o Por:'
+        end
+        object ComboBox2: TComboBox
+          Left = 148
+          Top = 4
+          Width = 145
+          Height = 21
+          Style = csDropDownList
+          ItemHeight = 13
+          ItemIndex = 0
+          TabOrder = 0
+          Text = 'Refer'#234'ncia'
+          Items.Strings = (
+            'Refer'#234'ncia'
+            'Dt.Entrega')
+        end
       end
     end
   end
