@@ -641,6 +641,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -688,6 +689,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -696,6 +698,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Cliente'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -704,6 +707,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Tipo'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -712,6 +716,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Baixa'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -720,6 +725,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Hora'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end
           item
@@ -728,6 +734,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'Carga'
             Title.Color = 12058551
+            Width = 64
             Visible = True
           end>
       end
@@ -884,6 +891,7 @@ object frmConsLoteProc: TfrmConsLoteProc
             Title.Alignment = taCenter
             Title.Caption = 'ID Processo'
             Title.Color = 16777147
+            Width = 64
             Visible = True
           end>
       end

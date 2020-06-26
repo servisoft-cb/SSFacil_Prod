@@ -481,6 +481,8 @@ begin
   Form := TForm.Create(Application);
   uUtilPadrao.prc_Form_Aguarde(Form);
 
+  fDMLoteImp.mAuxProcesso_Ped.EmptyDataSet;
+
   try
     fDMLoteImp.cdsConsulta_Lote.First;
     while not fDMLoteImp.cdsConsulta_Lote.Eof do
