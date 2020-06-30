@@ -106,7 +106,6 @@ type
     vOpcaoImp: String;
     vItem_Baixa_Loc: Integer;
 
-
     function fnc_Busca_Cliente(ID: Integer): String;
     function fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item: Integer): Boolean;
 
@@ -117,7 +116,12 @@ type
 
     procedure prc_Imprime_Ajuste;
 
+    procedure prc_Excluir_Talao;
+    procedure prc_Excluir_Pedido;
+
     procedure prc_Excluir_Baixa;
+
+
   public
     { Public declarations }
   end;
@@ -594,63 +598,14 @@ begin
 end;
 
 procedure TfrmConsLote2.btnExcluir_BaixaClick(Sender: TObject);
-var
-  vIDAnt, vItemAnt: Integer;
 begin
-  if not(fDMLoteImp.cdsConsulta_Lote.Active) then
+  if MessageDlg('Deseja excluir a baixa?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
     exit;
-  if (fDMLoteImp.cdsConsulta_LoteDTBAIXA.IsNull) and (fDMLoteImp.cdsConsulta_LoteDTENTRADA.IsNull) then
-  begin
-    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
-    exit;
-  end;
 
-  if not fnc_Verficar_Proximo(fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger,fDMLoteImp.cdsConsulta_LoteID_PEDIDO.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger) then
-  begin
-    MessageDlg('*** Existe um Processo posterior já baixado!' , mtInformation, [mbOk], 0);
-    exit;
-  end;
-  vIDAnt          := fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger;
-  vItemAnt        := fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger;
-  vItem_Baixa_Loc := 0;
-
-  fDMBaixaProd:= TDMBaixaProd.Create(Self);
-  fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
-  if (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime <= 10) then
-  begin
-    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
-    FreeAndNil(fDMBaixaProd);
-    exit;
-  end;
-
-  fDMLoteImp.cdsProcesso.Locate('ID',fDMLoteImp.cdsConsulta_LoteID_PROCESSO.AsInteger,[loCaseInsensitive]);
-  //if (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') and (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) then
-  //begin
-  //  MessageDlg('*** Essa entrada é automática, é preciso excluir o lançamento anterior!' , mtInformation, [mbOk], 0);
-  //  FreeAndNil(fDMBaixaProd);
-  //  exit;
-  //end;
-
-  prc_Excluir_Baixa;
-
-  if vItem_Baixa_Loc > 0 then
-  begin
-    fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
-    if fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10 then
-    begin
-      //Verificar o automático
-      fDMBaixaProd.prc_Abrir_Baixa_Processo(0,0,fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger);
-      fDMBaixaProd.cdsBaixa_Processo.Locate('ITEM',vItem_Baixa_Loc,[loCaseInsensitive]);
-      fDMBaixaProd.cdsBaixa_Processo.Next;
-      fDMLoteImp.cdsProcesso.Locate('ID',fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger,[loCaseInsensitive]);
-      if (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) AND (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') then
-        prc_Excluir_Baixa;
-    end;
-  end;
-  
-  FreeAndNil(fDMBaixaProd);
-  prc_Consula_Lote;
-  fDMLoteImp.cdsConsulta_Lote.Locate('ID_BAIXA;ITEM_BAIXA',VarArrayOf([vIDAnt,vItemAnt]),[locaseinsensitive]);
+  if RzPageControl1.ActivePage = TS_Talao then
+    prc_Excluir_Talao
+  else
+    prc_Excluir_Pedido;
 end;
 
 function TfrmConsLote2.fnc_Verficar_Proximo(ID_Lote, ID_Pedido, Item: Integer): Boolean;
@@ -749,6 +704,112 @@ begin
   for i := 0 to SMDBGrid2.Columns.Count - 1 do
     if not (SMDBGrid2.Columns.Items[I] = Column) then
       SMDBGrid2.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+procedure TfrmConsLote2.prc_Excluir_Pedido;
+var
+  vID_Pedido_Aux : Integer;
+  vNum_Lote_Aux : Integer;
+begin
+  if (not(fDMLoteImp.cdsLote_Ped.Active)) or (fDMLoteImp.cdsLote_Ped.IsEmpty) then
+    exit;
+
+  fDMBaixaProd:= TDMBaixaProd.Create(Self);
+
+  try
+    fDMBaixaProd.cdsLote.Close;
+    fDMBaixaProd.sdsLote.ParamByName('NUM_LOTE').AsInteger := fDMLoteImp.cdsLote_PedNUM_LOTE.AsInteger;
+    fDMBaixaProd.cdsLote.Open;
+
+    vNum_Lote_Aux := fDMLoteImp.cdsLote_PedNUM_LOTE.AsInteger; 
+
+    if fDMBaixaProd.cdsLoteDTBAIXA.AsDateTime > 0 then
+    begin
+      vID_Pedido_Aux := fDMBaixaProd.cdsLoteID_PEDIDO.AsInteger;
+      fDMBaixaProd.cdsLote.Edit;
+      fDMBaixaProd.cdsLoteDTENTRADA.Clear;
+      fDMBaixaProd.cdsLoteHRENTRADA.Clear;
+      fDMBaixaProd.cdsLoteDTBAIXA.Clear;
+      fDMBaixaProd.cdsLoteHRBAIXA.Clear;
+
+      fDMBaixaProd.cdsLoteQTD_PRODUZIDO.AsFloat := 0;
+      fDMBaixaProd.cdsLoteQTD_PENDENTE.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMBaixaProd.cdsLoteQTD.AsFloat));
+      fDMBaixaProd.cdsLote.Post;
+      fDMBaixaProd.cdsLote.ApplyUpdates(0);
+
+      if vID_Pedido_Aux > 0 then
+      begin
+        fDMBaixaProd.sdsPrc_Pedido_Conferido.Close;
+        fDMBaixaProd.sdsPrc_Pedido_Conferido.ParamByName('P_ID').AsInteger := vID_Pedido_Aux;
+        fDMBaixaProd.sdsPrc_Pedido_Conferido.ExecSQL();
+      end;
+    end;
+
+  finally
+    FreeAndNil(fDMBaixaProd);
+  end;
+  prc_Consula_Lote_Ped;
+  fDMLoteImp.cdsLote_Ped.Locate('NUM_LOTE',vNum_Lote_Aux,[loCaseInsensitive]);
+end;
+
+procedure TfrmConsLote2.prc_Excluir_Talao;
+var
+  vIDAnt, vItemAnt: Integer;
+begin
+  if not(fDMLoteImp.cdsConsulta_Lote.Active) then
+    exit;
+  if (fDMLoteImp.cdsConsulta_LoteDTBAIXA.IsNull) and (fDMLoteImp.cdsConsulta_LoteDTENTRADA.IsNull) then
+  begin
+    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+
+  if not fnc_Verficar_Proximo(fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger,fDMLoteImp.cdsConsulta_LoteID_PEDIDO.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger) then
+  begin
+    MessageDlg('*** Existe um Processo posterior já baixado!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+  vIDAnt          := fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger;
+  vItemAnt        := fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger;
+  vItem_Baixa_Loc := 0;
+
+  fDMBaixaProd:= TDMBaixaProd.Create(Self);
+  fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
+  if (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime <= 10) then
+  begin
+    MessageDlg('*** Este talão não esta baixado!' , mtInformation, [mbOk], 0);
+    FreeAndNil(fDMBaixaProd);
+    exit;
+  end;
+
+  fDMLoteImp.cdsProcesso.Locate('ID',fDMLoteImp.cdsConsulta_LoteID_PROCESSO.AsInteger,[loCaseInsensitive]);
+  //if (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') and (fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10) and (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) then
+  //begin
+  //  MessageDlg('*** Essa entrada é automática, é preciso excluir o lançamento anterior!' , mtInformation, [mbOk], 0);
+  //  FreeAndNil(fDMBaixaProd);
+  //  exit;
+  //end;
+
+  prc_Excluir_Baixa;
+
+  if vItem_Baixa_Loc > 0 then
+  begin
+    fDMBaixaProd.prc_Abrir_Baixa_Processo(fDMLoteImp.cdsConsulta_LoteID_BAIXA.AsInteger,fDMLoteImp.cdsConsulta_LoteITEM_BAIXA.AsInteger,0);
+    if fDMBaixaProd.cdsBaixa_ProcessoDTBAIXA.AsDateTime <= 10 then
+    begin
+      //Verificar o automático
+      fDMBaixaProd.prc_Abrir_Baixa_Processo(0,0,fDMLoteImp.cdsConsulta_LoteID_LOTE.AsInteger);
+      fDMBaixaProd.cdsBaixa_Processo.Locate('ITEM',vItem_Baixa_Loc,[loCaseInsensitive]);
+      fDMBaixaProd.cdsBaixa_Processo.Next;
+      fDMLoteImp.cdsProcesso.Locate('ID',fDMBaixaProd.cdsBaixa_ProcessoID_PROCESSO.AsInteger,[loCaseInsensitive]);
+      if (fDMBaixaProd.cdsBaixa_ProcessoDTENTRADA.AsDateTime > 10) AND (fDMLoteImp.cdsProcessoENTRADA_AUTO.AsString = 'S') then
+        prc_Excluir_Baixa;
+    end;
+  end;
+  
+  FreeAndNil(fDMBaixaProd);
+  prc_Consula_Lote;
+  fDMLoteImp.cdsConsulta_Lote.Locate('ID_BAIXA;ITEM_BAIXA',VarArrayOf([vIDAnt,vItemAnt]),[locaseinsensitive]);
 end;
 
 end.

@@ -124,7 +124,6 @@ var
   vNumLote : Integer;
   vID_Pedido_Aux : Integer;
 begin
-
   Memo1.Lines.Clear;
   vMSGAux := '';
   if DateEdit1.Date > 10 then
@@ -188,7 +187,6 @@ begin
     Memo1.Lines.Add(vMSGAux);
 
     FreeAndNil(fDMPedido_Reserva);
-
   except
       on e: Exception do
       begin
@@ -228,7 +226,7 @@ begin
 
   fDMEstoque := TDMEstoque.Create(Self);
   try
-    Result := fDMEstoque.fnc_Gravar_Estoque(0,
+    Result := fDMEstoque.fnc_Gravar_Estoque(fDMBaixaProd.cdsLoteID_MOVESTOQUE.AsInteger,
                                             fDMBaixaProd.cdsLoteFILIAL.AsInteger,
                                             1,
                                             fDMBaixaProd.cdsLoteID_PRODUTO.AsInteger,

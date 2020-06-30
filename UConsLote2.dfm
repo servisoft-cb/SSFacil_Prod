@@ -717,7 +717,7 @@ object frmConsLote2: TfrmConsLote2
         '')
     end
     object btnExcluir_Baixa: TNxButton
-      Left = 728
+      Left = 727
       Top = 108
       Width = 115
       Height = 30

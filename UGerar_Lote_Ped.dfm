@@ -44,7 +44,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
         Color = 8404992
         TabOrder = 0
         object btnExcluir: TNxButton
-          Left = 298
+          Left = 299
           Top = 1
           Width = 153
           Height = 30
@@ -1240,6 +1240,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -1281,6 +1282,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             FieldName = 'FANTASIA'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -1288,6 +1290,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end
           item
@@ -1304,6 +1307,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Est. Reserva'
             Title.Color = 16777158
+            Width = 64
             Visible = True
           end>
       end

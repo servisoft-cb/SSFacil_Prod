@@ -108,7 +108,7 @@ object frmBaixaLote_Ped: TfrmBaixaLote_Ped
     Left = 108
     Top = 49
     Width = 202
-    Height = 24
+    Height = 25
     Color = 16777119
     Ctl3D = False
     Font.Charset = DEFAULT_CHARSET
