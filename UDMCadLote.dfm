@@ -692,40 +692,46 @@ object DMCadLote: TDMCadLote
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT prod.tipo_algodao tipo_algodao_prod, PED.NUM_PEDIDO, PED.' +
-      'PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.DTEMISSAO, PED.ID, PED.FILIA' +
-      'L,'#13#10'PI.item, PI.id_produto, PI.id_cor,  PI.tamanho, PI.dtentrega' +
-      ', PI.numos,'#13#10'PI.nomeproduto, PI.referencia, CLI.nome NOME_CLIENT' +
-      'E, CLI.fantasia, PI.CARIMBO,'#13#10'COMB.NOME NOME_COMBINACAO, PI.item' +
-      '_original, PI.selecionado, PROD.id_cor ID_COR_PROD,'#13#10'COR.NOME NO' +
-      'ME_COR_PROD, PROD.TIPO_MAT, PROD.id_processo_grupo,'#13#10'PROD.tipo_r' +
-      'eg TIPO_REG_PROD, SEMI.id_material1 ID_MATERIAL, SEMI.qtd_consum' +
-      'o1 QTD_CONSUMO_MAT,'#13#10'SEMI.unidade1 UNIDADE_MAT, PROD.ID_FORMA, P' +
-      'I.ENCERADO, PSEMI.TIPO_ALGODAO,  PI.qtd_estoque_res,'#13#10'CASE'#13#10'  WH' +
-      'EN (SELECT PP.usa_reserva_est FROM PARAMETROS_PED PP) = '#39'S'#39' THEN' +
-      ' PI.QTD - coalesce(PI.qtd_estoque_res,0)'#13#10'  WHEN (PI.unidade_pro' +
-      'd IS not NULL) AND (PI.unidade_prod <> PI.unidade) THEN PI.QTD *' +
-      ' COALESCE(PI.CONV_UNIDADE,1)'#13#10'  ELSE PI.QTD'#13#10'  END QTD_RESTANTE,' +
-      #13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.unidade_pro' +
-      'd <> PI.unidade) THEN PI.UNIDADE_PROD'#13#10'  ELSE PI.UNIDADE'#13#10'  END ' +
-      'UNIDADE,'#13#10'CASE'#13#10'  WHEN (PI.unidade_prod IS not NULL) AND (PI.uni' +
-      'dade_prod <> PI.unidade) THEN ((PI.QTD * COALESCE(PI.CONV_UNIDAD' +
-      'E,1)) *  COALESCE(SEMI.qtd_consumo1,1))'#13#10'  ELSE coalesce(semi.qt' +
-      'd_consumo1,1) * pi.qtd'#13#10'  END consumo_calc, PSEMI.id_processo_gr' +
-      'upo id_processo_SEMI,'#13#10'case'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM' +
-      ' PARAMETROS_LOTE WHERE ID = 1) = '#39'I'#39' THEN PI.OBS'#13#10'  WHEN (SELECT' +
-      ' GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHERE ID = 1) = '#39'P'#39' THEN P' +
-      'ROD.OBS'#13#10'  WHEN (SELECT GRAVAR_OBS_LOTE FROM PARAMETROS_LOTE WHE' +
-      'RE ID = 1) = '#39'A'#39' THEN coalesce(PI.obs,'#39#39') || '#39' '#39' || coalesce(pro' +
-      'd.obs,'#39#39')'#13#10'  ELSE '#39#39#13#10'  END OBS_LOTE, cast (0 as Double precisio' +
-      'n) qtd_estoque'#13#10#13#10'FROM PEDIDO PED'#13#10'INNER JOIN PEDIDO_ITEM PI'#13#10'ON' +
-      ' PED.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.' +
-      'codigo'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON PI.ID_COR = COMB.ID'#13#10'LEFT ' +
-      'JOIN PRODUTO PROD'#13#10'ON PI.id_produto = PROD.ID'#13#10'LEFT JOIN COR'#13#10'ON' +
-      ' PROD.ID_COR = COR.ID'#13#10'LEFT JOIN PRODUTO_SEMI SEMI'#13#10'ON PROD.ID =' +
-      ' SEMI.ID'#13#10'LEFT JOIN PRODUTO PSEMI'#13#10'ON PSEMI.ID = SEMI.ID_MATERIA' +
-      'L1'#13#10'WHERE PED.TIPO_REG = '#39'P'#39#13#10'  AND PI.GERAR_LOTE = '#39'S'#39#13#10#13#10#13#10#13#10#13 +
-      #10
+      'select PROD.TIPO_ALGODAO TIPO_ALGODAO_PROD, PED.NUM_PEDIDO, PED.' +
+      'PEDIDO_CLIENTE, PED.ID_CLIENTE, PED.DTEMISSAO, PED.ID,'#13#10'       P' +
+      'ED.FILIAL, pi.ITEM, pi.ID_PRODUTO, pi.ID_COR, pi.TAMANHO, pi.DTE' +
+      'NTREGA, pi.NUMOS, pi.NOMEPRODUTO, pi.REFERENCIA,'#13#10'       CLI.NOM' +
+      'E NOME_CLIENTE, CLI.FANTASIA, pi.CARIMBO, COMB.NOME NOME_COMBINA' +
+      'CAO, pi.ITEM_ORIGINAL, pi.SELECIONADO,'#13#10'       PROD.ID_COR ID_CO' +
+      'R_PROD, COR.NOME NOME_COR_PROD, PROD.TIPO_MAT, PROD.ID_PROCESSO_' +
+      'GRUPO,'#13#10'       PROD.TIPO_REG TIPO_REG_PROD, SEMI.ID_MATERIAL1 ID' +
+      '_MATERIAL, SEMI.QTD_CONSUMO1 QTD_CONSUMO_MAT,'#13#10'       SEMI.UNIDA' +
+      'DE1 UNIDADE_MAT, PROD.ID_FORMA, pi.ENCERADO, PSEMI.TIPO_ALGODAO,' +
+      ' pi.QTD_ESTOQUE_RES,'#13#10'       case'#13#10'         when (select PP.USA_' +
+      'RESERVA_EST'#13#10'               from PARAMETROS_PED PP) = '#39'S'#39' then p' +
+      'i.QTD - coalesce(pi.QTD_ESTOQUE_RES, 0)'#13#10'         when (pi.UNIDA' +
+      'DE_PROD is not null) and (pi.UNIDADE_PROD <> pi.UNIDADE) then pi' +
+      '.QTD * coalesce(pi.CONV_UNIDADE, 1)'#13#10'         else pi.QTD'#13#10'     ' +
+      '  end QTD_RESTANTE,'#13#10'       case'#13#10'         when (pi.UNIDADE_PROD' +
+      ' is not null) and (pi.UNIDADE_PROD <> pi.UNIDADE) then pi.UNIDAD' +
+      'E_PROD'#13#10'         else pi.UNIDADE'#13#10'       end UNIDADE,'#13#10'       ca' +
+      'se'#13#10'         when (pi.UNIDADE_PROD is not null) and (pi.UNIDADE_' +
+      'PROD <> pi.UNIDADE) then ((pi.QTD * coalesce(pi.CONV_UNIDADE, 1)' +
+      ') * coalesce(SEMI.QTD_CONSUMO1, 1))'#13#10'         else coalesce(SEMI' +
+      '.QTD_CONSUMO1, 1) * pi.QTD'#13#10'       end CONSUMO_CALC,'#13#10'       PSE' +
+      'MI.ID_PROCESSO_GRUPO ID_PROCESSO_SEMI,'#13#10'       case'#13#10'         wh' +
+      'en (select GRAVAR_OBS_LOTE'#13#10'               from PARAMETROS_LOTE'#13 +
+      #10'               where ID = 1) = '#39'I'#39' then pi.OBS'#13#10'         when (' +
+      'select GRAVAR_OBS_LOTE'#13#10'               from PARAMETROS_LOTE'#13#10'   ' +
+      '            where ID = 1) = '#39'P'#39' then PROD.OBS'#13#10'         when (se' +
+      'lect GRAVAR_OBS_LOTE'#13#10'               from PARAMETROS_LOTE'#13#10'     ' +
+      '          where ID = 1) = '#39'A'#39' then coalesce(pi.OBS, '#39#39') || '#39' '#39' |' +
+      '| coalesce(PROD.OBS, '#39#39')'#13#10'         else '#39#39#13#10'       end OBS_LOTE,' +
+      #13#10'       cast(0 as double precision) QTD_ESTOQUE, PED.ID_VENDEDO' +
+      'R_INT, VINT.NOME NOME_VENDEDOR_INT'#13#10#13#10'from PEDIDO PED'#13#10'inner joi' +
+      'n PEDIDO_ITEM pi on PED.ID = pi.ID'#13#10'inner join PESSOA CLI on PED' +
+      '.ID_CLIENTE = CLI.CODIGO'#13#10'left join COMBINACAO COMB on pi.ID_COR' +
+      ' = COMB.ID'#13#10'left join PRODUTO PROD on pi.ID_PRODUTO = PROD.ID'#13#10'l' +
+      'eft join COR on PROD.ID_COR = COR.ID'#13#10'left join PRODUTO_SEMI SEM' +
+      'I on PROD.ID = SEMI.ID'#13#10'left join PRODUTO PSEMI on PSEMI.ID = SE' +
+      'MI.ID_MATERIAL1'#13#10'left join PESSOA VINT on PED.ID_VENDEDOR_INT = ' +
+      'VINT.CODIGO'#13#10'where PED.TIPO_REG = '#39'P'#39' and'#13#10'      pi.GERAR_LOTE =' +
+      ' '#39'S'#39'   '#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -742,7 +748,7 @@ object DMCadLote: TDMCadLote
     Params = <>
     ProviderName = 'dspPendente'
     Left = 577
-    Top = 6
+    Top = 5
     object cdsPendenteNUM_PEDIDO: TIntegerField
       DisplayLabel = 'N'#186' Ped. Interno'
       FieldName = 'NUM_PEDIDO'
@@ -905,6 +911,13 @@ object DMCadLote: TDMCadLote
     end
     object cdsPendenteQTD_ESTOQUE_RES: TFloatField
       FieldName = 'QTD_ESTOQUE_RES'
+    end
+    object cdsPendenteID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsPendenteNOME_VENDEDOR_INT: TStringField
+      FieldName = 'NOME_VENDEDOR_INT'
+      Size = 60
     end
   end
   object dsPendente: TDataSource

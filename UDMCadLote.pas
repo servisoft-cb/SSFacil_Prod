@@ -1215,6 +1215,8 @@ type
     cdsLote_CancUSUARIO: TStringField;
     sdsLote_CancMOTIVO: TStringField;
     cdsLote_CancMOTIVO: TStringField;
+    cdsPendenteID_VENDEDOR_INT: TIntegerField;
+    cdsPendenteNOME_VENDEDOR_INT: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

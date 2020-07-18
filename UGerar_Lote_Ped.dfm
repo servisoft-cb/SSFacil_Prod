@@ -21,7 +21,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -882,6 +882,21 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
         end
         object TS_Pedido: TRzTabSheet
           Caption = 'Por Pedido'
+          object DBMemo1: TDBMemo
+            Left = 0
+            Top = 290
+            Width = 912
+            Height = 89
+            Align = alBottom
+            Color = 14869218
+            Ctl3D = False
+            DataField = 'OBS'
+            DataSource = DMCadLote.dsConsulta_Lote_Ped
+            ParentCtl3D = False
+            ReadOnly = True
+            ScrollBars = ssVertical
+            TabOrder = 0
+          end
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
@@ -893,7 +908,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
             ParentCtl3D = False
             ReadOnly = True
-            TabOrder = 0
+            TabOrder = 1
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
             TitleFont.Height = -11
@@ -1090,21 +1105,6 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
                 Visible = True
               end>
           end
-          object DBMemo1: TDBMemo
-            Left = 0
-            Top = 290
-            Width = 912
-            Height = 89
-            Align = alBottom
-            Color = 14869218
-            Ctl3D = False
-            DataField = 'OBS'
-            DataSource = DMCadLote.dsConsulta_Lote_Ped
-            ParentCtl3D = False
-            ReadOnly = True
-            ScrollBars = ssVertical
-            TabOrder = 1
-          end
         end
       end
     end
@@ -1171,7 +1171,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
         WidthOfIndicator = 11
         DefaultRowHeight = 16
         ScrollBars = ssHorizontal
-        ColCount = 16
+        ColCount = 17
         RowCount = 2
         Columns = <
           item
@@ -1279,10 +1279,10 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           end
           item
             Expanded = False
-            FieldName = 'FANTASIA'
+            FieldName = 'NOME_CLIENTE'
             Title.Caption = 'Cliente'
             Title.Color = 16777158
-            Width = 64
+            Width = 286
             Visible = True
           end
           item
@@ -1308,6 +1308,15 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
             Title.Caption = 'Qtd. Est. Reserva'
             Title.Color = 16777158
             Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_VENDEDOR_INT'
+            Title.Alignment = taCenter
+            Title.Caption = 'Vendedor Interno'
+            Title.Color = 16777158
+            Width = 250
             Visible = True
           end>
       end

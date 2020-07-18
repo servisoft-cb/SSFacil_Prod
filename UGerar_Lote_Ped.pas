@@ -59,7 +59,6 @@ type
     TS_Processo: TRzTabSheet;
     SMDBGrid2: TSMDBGrid;
     TS_Pedido: TRzTabSheet;
-    SMDBGrid3: TSMDBGrid;
     StaticText3: TStaticText;
     NxLabel4: TNxLabel;
     CurrencyEdit1: TCurrencyEdit;
@@ -75,6 +74,7 @@ type
     NxLabel11: TNxLabel;
     CurrencyEdit4: TCurrencyEdit;
     btnCancelarOP: TNxButton;
+    SMDBGrid3: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -214,7 +214,7 @@ begin
             + '  WHEN pl.GRAVAR_OBS_LOTE = ' + QuotedStr('P') + ' THEN PROD.OBS '
             + '  WHEN pl.GRAVAR_OBS_LOTE = ' + QuotedStr('A') + ' THEN coalesce(PI.obs,'+QuotedStr('')+') || ' + QuotedStr(' ') + ' || coalesce(prod.obs,'+QuotedStr('')+') '
             + '  ELSE ' + QuotedStr('')
-            + '  END OBS_LOTE, ' + vTextoEstoque
+            + '  END OBS_LOTE, ' + vTextoEstoque + ', PED.ID_VENDEDOR_INT, VINT.NOME NOME_VENDEDOR_INT ' 
             + 'FROM PEDIDO PED '
             + 'INNER JOIN PEDIDO_ITEM PI '
             + 'ON PED.ID = PI.ID '
@@ -232,6 +232,7 @@ begin
             + 'ON PROD.ID = SEMI.ID '
             + 'LEFT JOIN PRODUTO PSEMI '
             + 'ON PSEMI.ID = SEMI.ID_MATERIAL1 '
+            + 'left join PESSOA VINT on PED.ID_VENDEDOR_INT = VINT.CODIGO '
             + 'WHERE PED.TIPO_REG = ' + QuotedStr('P')
             + '  AND PI.GERAR_LOTE = ' + QuotedStr('S')
             + '  and pi.qtd_restante > 0 '
