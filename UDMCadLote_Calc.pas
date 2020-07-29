@@ -925,6 +925,32 @@ type
     cdsTalao_EstoqueID_SETOR2: TIntegerField;
     sdsLote_MatDTEMISSAO: TDateField;
     cdsLote_MatDTEMISSAO: TDateField;
+    cdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField;
+    sdsBaixa_Processo_Itens: TSQLDataSet;
+    dspBaixa_Processo_Itens: TDataSetProvider;
+    cdsBaixa_Processo_Itens: TClientDataSet;
+    sdsBaixa_Processo_ItensID: TIntegerField;
+    sdsBaixa_Processo_ItensITEM: TIntegerField;
+    sdsBaixa_Processo_ItensITEM2: TIntegerField;
+    sdsBaixa_Processo_ItensDESCRICAO: TStringField;
+    sdsBaixa_Processo_ItensDTENTRADA: TDateField;
+    sdsBaixa_Processo_ItensHRENTRADA: TTimeField;
+    sdsBaixa_Processo_ItensDTBAIXA: TDateField;
+    sdsBaixa_Processo_ItensHRBAIXA: TTimeField;
+    sdsBaixa_Processo_ItensID_FUNCIONARIO_ENT: TIntegerField;
+    sdsBaixa_Processo_ItensID_FUNCIONARIO_BAI: TIntegerField;
+    cdsBaixa_Processo_ItensID: TIntegerField;
+    cdsBaixa_Processo_ItensITEM: TIntegerField;
+    cdsBaixa_Processo_ItensITEM2: TIntegerField;
+    cdsBaixa_Processo_ItensDESCRICAO: TStringField;
+    cdsBaixa_Processo_ItensDTENTRADA: TDateField;
+    cdsBaixa_Processo_ItensHRENTRADA: TTimeField;
+    cdsBaixa_Processo_ItensDTBAIXA: TDateField;
+    cdsBaixa_Processo_ItensHRBAIXA: TTimeField;
+    cdsBaixa_Processo_ItensID_FUNCIONARIO_ENT: TIntegerField;
+    cdsBaixa_Processo_ItensID_FUNCIONARIO_BAI: TIntegerField;
+    sdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
+    cdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -938,6 +964,7 @@ type
     procedure cdsTalao_SetorNewRecord(DataSet: TDataSet);
     procedure dspTalao_EstoqueGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
+    procedure cdsBaixa_ProcessoBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -967,6 +994,7 @@ type
     vAltura_Etiq_Rot: Integer;
     vGerado: Boolean;
     vTalao_Loc :Integer;
+    ctBaixa_Processo_Itens : String;
 
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
@@ -981,7 +1009,8 @@ type
 
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
     procedure prc_Abrir_Baixa_Processo(ID: Integer);
-    procedure prc_Gravar_Lote_Mat;   
+    procedure prc_Abrir_Baixa_Processo_Itens(ID, Item, Item2: Integer);
+    procedure prc_Gravar_Lote_Mat;
   end;
 
 var
@@ -1053,6 +1082,7 @@ begin
   ctqProximo_Lote      := qProximo_Lote.SQL.Text;
   ctLote_Bol           := sdsLote_Bol.CommandText;
   ctConsProcesso       := sdsConsProcesso.CommandText;
+  ctBaixa_Processo_Itens := sdsBaixa_Processo_Itens.CommandText;
 
   cdsProduto.Close;
   cdsProduto.Open;
@@ -1495,6 +1525,23 @@ procedure TDMCadLote_Calc.dspTalao_EstoqueGetTableName(Sender: TObject;
   DataSet: TDataSet; var TableName: String);
 begin
   TableName := 'TALAO_ESTOQUE';
+end;
+
+procedure TDMCadLote_Calc.cdsBaixa_ProcessoBeforePost(DataSet: TDataSet);
+begin
+  if cdsBaixa_ProcessoQTD_LEITURA.AsInteger <= 0 then
+    cdsBaixa_ProcessoQTD_LEITURA.AsInteger := 1;
+end;
+
+procedure TDMCadLote_Calc.prc_Abrir_Baixa_Processo_Itens(ID, Item, Item2: Integer);
+begin
+  cdsBaixa_Processo_Itens.Close;
+  if Item2 > 0 then
+    sdsBaixa_Processo_Itens.CommandText := ctBaixa_Processo_Itens
+                                         + ' AND ITEM2 = ' + IntToStr(Item2);
+  sdsBaixa_Processo_Itens.ParamByName('ID').AsInteger   := ID;
+  sdsBaixa_Processo_Itens.ParamByName('ITEM').AsInteger := ITEM;
+  cdsBaixa_Processo_Itens.Open;
 end;
 
 end.

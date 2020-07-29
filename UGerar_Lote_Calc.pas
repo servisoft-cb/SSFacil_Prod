@@ -617,7 +617,11 @@ begin
 
       fDMCadLote_Calc.cdsLote.ApplyUpdates(0);
       if (fDMCadLote_Calc.qParametros_LoteTIPO_PROCESSO.AsString = 'L') and (vID_BaixaProcesso > 0) then
+      begin
         fDMCadLote_Calc.cdsBaixa_Processo.ApplyUpdates(0);
+        if fDMCadLote_Calc.cdsBaixa_Processo_Itens.Active then
+          fDMCadLote_Calc.cdsBaixa_Processo_Itens.ApplyUpdates(0);
+      end;
 
       MessageDlg('*** Lotes/Talões Gerados!', mtInformation, [mbok], 0);
       dmDatabase.scoDados.Commit(ID);
@@ -1398,6 +1402,7 @@ procedure TfrmGerar_Lote_Calc.prc_Gravar_Processo(Regravar: Boolean = False);
 var
   vItemAux: Integer;
   vIDCor: Integer;
+  vItem2: Integer;
 begin
   fDMCadLote_Calc.cdsProduto_Consumo_Proc.Close;
   fDMCadLote_Calc.sdsProduto_Consumo_Proc.ParamByName('ID').AsInteger     := fDMCadLote_Calc.cdsLoteID_PRODUTO.AsInteger;
@@ -1434,9 +1439,9 @@ begin
       vItemAux          := 0;
     end;
     if not fDMCadLote_Calc.cdsBaixa_Processo.Active then
-    begin
-      fDMCadLote_Calc.prc_Abrir_Baixa_Processo(-1)
-    end;
+      fDMCadLote_Calc.prc_Abrir_Baixa_Processo(-1);
+    if not fDMCadLote_Calc.cdsBaixa_Processo_Itens.Active then
+      fDMCadLote_Calc.prc_Abrir_Baixa_Processo_Itens(-1,-1,-1);
 
     fDMCadLote_Calc.cdsBaixa_Processo.Last;
     vItemAux := fDMCadLote_Calc.cdsBaixa_ProcessoITEM.AsInteger;
@@ -1462,7 +1467,23 @@ begin
       fDMCadLote_Calc.cdsBaixa_ProcessoID_COR_MAT.AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcID_COR_MAT.AsInteger
     else
       fDMCadLote_Calc.cdsBaixa_ProcessoID_COR_MAT.AsInteger := 0;
+    fDMCadLote_Calc.cdsBaixa_ProcessoQTD_LEITURA.AsInteger := fDMCadLote_Calc.cdsProduto_Consumo_ProcQTD_LEITURA.AsInteger;
     fDMCadLote_Calc.cdsBaixa_Processo.Post;
+
+    //29/07/2020 Gravar Itens da Leitura do Processo
+    if fDMCadLote_Calc.cdsBaixa_ProcessoQTD_LEITURA.AsInteger > 1 then
+    begin
+      for vItem2 := 1 to (fDMCadLote_Calc.cdsBaixa_ProcessoQTD_LEITURA.AsInteger - 1) do
+      begin
+        fDMCadLote_Calc.cdsBaixa_Processo_Itens.Insert;
+        fDMCadLote_Calc.cdsBaixa_Processo_ItensID.AsInteger := fDMCadLote_Calc.cdsBaixa_ProcessoID.AsInteger;
+        fDMCadLote_Calc.cdsBaixa_Processo_ItensITEM.AsInteger := fDMCadLote_Calc.cdsBaixa_ProcessoITEM.AsInteger;
+        fDMCadLote_Calc.cdsBaixa_Processo_ItensITEM2.AsInteger := vItem2;
+        fDMCadLote_Calc.cdsBaixa_Processo_ItensDESCRICAO.AsString := '';
+        fDMCadLote_Calc.cdsBaixa_Processo_Itens.Post;
+      end;
+    end;
+    //***********************
 
     fDMCadLote_Calc.cdsProduto_Consumo_Proc.Next;
   end;

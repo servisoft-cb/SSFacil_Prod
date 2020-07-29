@@ -3712,8 +3712,8 @@ object DMCadLote_Calc: TDMCadLote_Calc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43563.606715879630000000
-    ReportOptions.LastChange = 43563.623888518520000000
+    ReportOptions.CreateDate = 43402.700424687500000000
+    ReportOptions.LastChange = 43515.903146504600000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -4400,6 +4400,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object sdsBaixa_ProcessoID_COR_MAT: TIntegerField
       FieldName = 'ID_COR_MAT'
     end
+    object sdsBaixa_ProcessoQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
+    end
   end
   object dspBaixa_Processo: TDataSetProvider
     DataSet = sdsBaixa_Processo
@@ -4413,6 +4416,7 @@ object DMCadLote_Calc: TDMCadLote_Calc
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     ProviderName = 'dspBaixa_Processo'
+    BeforePost = cdsBaixa_ProcessoBeforePost
     Left = 132
     Top = 404
     object cdsBaixa_ProcessoID: TIntegerField
@@ -4491,6 +4495,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     object cdsBaixa_ProcessoID_COR_MAT: TIntegerField
       FieldName = 'ID_COR_MAT'
     end
+    object cdsBaixa_ProcessoQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
+    end
   end
   object dsBaixa_Processo: TDataSource
     DataSet = cdsBaixa_Processo
@@ -4561,6 +4568,9 @@ object DMCadLote_Calc: TDMCadLote_Calc
     end
     object cdsProduto_Consumo_ProcID_COR_MAT: TIntegerField
       FieldName = 'ID_COR_MAT'
+    end
+    object cdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
     end
   end
   object sdsConsBaixaProc: TSQLDataSet
@@ -4712,8 +4722,8 @@ object DMCadLote_Calc: TDMCadLote_Calc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 435
-    Top = 96
+    Left = 436
+    Top = 97
   end
   object dspConsProcesso: TDataSetProvider
     DataSet = sdsConsProcesso
@@ -5011,6 +5021,115 @@ object DMCadLote_Calc: TDMCadLote_Calc
     end
     object cdsTalao_EstoqueID_SETOR2: TIntegerField
       FieldName = 'ID_SETOR2'
+    end
+  end
+  object sdsBaixa_Processo_Itens: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT *'#13#10'FROM BAIXA_PROCESSO_ITENS'#13#10'WHERE ID = :ID'#13#10'  AND ITEM ' +
+      '= :ITEM'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 477
+    Top = 276
+    object sdsBaixa_Processo_ItensID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsBaixa_Processo_ItensITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsBaixa_Processo_ItensITEM2: TIntegerField
+      FieldName = 'ITEM2'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsBaixa_Processo_ItensDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object sdsBaixa_Processo_ItensDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object sdsBaixa_Processo_ItensHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object sdsBaixa_Processo_ItensDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object sdsBaixa_Processo_ItensHRBAIXA: TTimeField
+      FieldName = 'HRBAIXA'
+    end
+    object sdsBaixa_Processo_ItensID_FUNCIONARIO_ENT: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_ENT'
+    end
+    object sdsBaixa_Processo_ItensID_FUNCIONARIO_BAI: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_BAI'
+    end
+  end
+  object dspBaixa_Processo_Itens: TDataSetProvider
+    DataSet = sdsBaixa_Processo_Itens
+    UpdateMode = upWhereKeyOnly
+    Left = 509
+    Top = 276
+  end
+  object cdsBaixa_Processo_Itens: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspBaixa_Processo_Itens'
+    Left = 544
+    Top = 276
+    object cdsBaixa_Processo_ItensID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsBaixa_Processo_ItensITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsBaixa_Processo_ItensITEM2: TIntegerField
+      FieldName = 'ITEM2'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsBaixa_Processo_ItensDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object cdsBaixa_Processo_ItensDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsBaixa_Processo_ItensHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsBaixa_Processo_ItensDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsBaixa_Processo_ItensHRBAIXA: TTimeField
+      FieldName = 'HRBAIXA'
+    end
+    object cdsBaixa_Processo_ItensID_FUNCIONARIO_ENT: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_ENT'
+    end
+    object cdsBaixa_Processo_ItensID_FUNCIONARIO_BAI: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_BAI'
     end
   end
 end
