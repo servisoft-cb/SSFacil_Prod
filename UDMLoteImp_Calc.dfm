@@ -4,7 +4,7 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
   Left = 313
   Top = 110
   Height = 584
-  Width = 748
+  Width = 840
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
@@ -14,8 +14,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43698.372048356480000000
+    ReportOptions.CreateDate = 43402.700424687500000000
+    ReportOptions.LastChange = 44041.431181018520000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -944,14 +944,15 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ente, PED.num_pedido,'#13#10'PROD.NOME NOME_PRODUTO, COMB.NOME NOME_CO' +
       'MBINACAO, B.dtentrada, B.dtbaixa,'#13#10'b.id_cor_mat, CMAT.NOME NOME_' +
       'COR_MAT, PROD.NOME_MODELO, L.ID_PRODUTO, L.id_combinacao,'#13#10'P.ID_' +
-      'POSICAO_IMP, P.ID_POSICAO_IMP2'#13#10'FROM BAIXA_PROCESSO B'#13#10'INNER JOI' +
-      'N PROCESSO P'#13#10'ON B.ID_PROCESSO = P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.I' +
-      'D_LOTE = L.ID'#13#10'INNER JOIN PRODUTO PROD'#13#10'ON L.ID_PRODUTO = PROD.I' +
-      'D'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.ID_PEDIDO = PED.ID'#13#10'LEFT JOIN SETO' +
-      'R S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT JOIN POSICAO PP'#13#10'ON B.ID_POSICAO' +
-      ' = PP.ID'#13#10'LEFT JOIN PRODUTO MAT'#13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT' +
-      ' JOIN COMBINACAO COMB'#13#10'ON L.id_combinacao = COMB.ID'#13#10'LEFT JOIN C' +
-      'OMBINACAO CMAT'#13#10'ON B.ID_COR_MAT = CMAT.ID'#13#10#13#10
+      'POSICAO_IMP, P.ID_POSICAO_IMP2, B.qtd_leitura, B.STATUS_LEITURA'#13 +
+      #10'FROM BAIXA_PROCESSO B'#13#10'INNER JOIN PROCESSO P'#13#10'ON B.ID_PROCESSO ' +
+      '= P.ID'#13#10'INNER JOIN LOTE L'#13#10'ON B.ID_LOTE = L.ID'#13#10'INNER JOIN PRODU' +
+      'TO PROD'#13#10'ON L.ID_PRODUTO = PROD.ID'#13#10'LEFT JOIN PEDIDO PED'#13#10'ON L.I' +
+      'D_PEDIDO = PED.ID'#13#10'LEFT JOIN SETOR S'#13#10'ON B.ID_SETOR = S.ID'#13#10'LEFT' +
+      ' JOIN POSICAO PP'#13#10'ON B.ID_POSICAO = PP.ID'#13#10'LEFT JOIN PRODUTO MAT' +
+      #13#10'ON B.ID_MATERIAL = MAT.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON L.id_' +
+      'combinacao = COMB.ID'#13#10'LEFT JOIN COMBINACAO CMAT'#13#10'ON B.ID_COR_MAT' +
+      ' = CMAT.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1072,6 +1073,14 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     object cdsConsProcessoID_POSICAO_IMP2: TIntegerField
       FieldName = 'ID_POSICAO_IMP2'
     end
+    object cdsConsProcessoQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
+    end
+    object cdsConsProcessoSTATUS_LEITURA: TStringField
+      FieldName = 'STATUS_LEITURA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsConsProcesso: TDataSource
     DataSet = cdsConsProcesso
@@ -1113,7 +1122,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       'ID_PRODUTO=ID_PRODUTO'
       'ID_COMBINACAO=ID_COMBINACAO'
       'ID_POSICAO_IMP=ID_POSICAO_IMP'
-      'ID_POSICAO_IMP2=ID_POSICAO_IMP2')
+      'ID_POSICAO_IMP2=ID_POSICAO_IMP2'
+      'QTD_LEITURA=QTD_LEITURA')
     OnOpen = frxConsProcessoNext
     DataSource = dsConsProcesso
     BCDToCurrency = False
@@ -2004,5 +2014,78 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     BCDToCurrency = False
     Left = 568
     Top = 248
+  end
+  object sdsConsProcesso_Itens: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select *'#13#10'from BAIXA_PROCESSO_ITENS'#13#10'where ID = :ID and'#13#10'      I' +
+      'TEM = :ITEM   '#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 564
+    Top = 334
+  end
+  object dspConsProcesso_Itens: TDataSetProvider
+    DataSet = sdsConsProcesso_Itens
+    Left = 595
+    Top = 334
+  end
+  object cdsConsProcesso_Itens: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsProcesso_Itens'
+    Left = 628
+    Top = 334
+    object cdsConsProcesso_ItensID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsConsProcesso_ItensITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsConsProcesso_ItensITEM2: TIntegerField
+      FieldName = 'ITEM2'
+      Required = True
+    end
+    object cdsConsProcesso_ItensDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 30
+    end
+    object cdsConsProcesso_ItensDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsConsProcesso_ItensHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsConsProcesso_ItensDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsConsProcesso_ItensHRBAIXA: TTimeField
+      FieldName = 'HRBAIXA'
+    end
+    object cdsConsProcesso_ItensID_FUNCIONARIO_ENT: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_ENT'
+    end
+    object cdsConsProcesso_ItensID_FUNCIONARIO_BAI: TIntegerField
+      FieldName = 'ID_FUNCIONARIO_BAI'
+    end
+  end
+  object dsConsProcesso_Itens: TDataSource
+    DataSet = cdsConsProcesso_Itens
+    Left = 660
+    Top = 334
   end
 end

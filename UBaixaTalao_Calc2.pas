@@ -620,7 +620,9 @@ begin
     exit;
   end;
 
-  if fDMBaixaProd_Calc.qBaixaProcDTBAIXA.AsDateTime > 10 then
+  if ((fDMBaixaProd_Calc.qBaixaProcDTBAIXA.AsDateTime > 10) and (fDMBaixaProd_Calc.qBaixaProcQTD_LEITURA.AsInteger <= 1))
+   or ((fDMBaixaProd_Calc.qBaixaProcDTBAIXA.AsDateTime > 10) and (fDMBaixaProd_Calc.qBaixaProcQTD_LEITURA.AsInteger > 1)
+      and (fDMBaixaProd_Calc.qBaixaProcSTATUS_LEITURA.AsString = 'S')) then
   begin
     vMSGLocal := vMSGLocal + #13 + '*** Processo ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString + ' no Lote: ' + fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString
                + ' esta baixado!';
@@ -631,6 +633,16 @@ begin
     fDMBaixaProd_Calc.sdsBaixa_Processo.ParamByName('ID').AsInteger   := fDMBaixaProd_Calc.qBaixaProcID.AsInteger;
     fDMBaixaProd_Calc.sdsBaixa_Processo.ParamByName('ITEM').AsInteger := fDMBaixaProd_Calc.qBaixaProcITEM.AsInteger;
     fDMBaixaProd_Calc.cdsBaixa_Processo.Open;
+
+    if fDMBaixaProd_Calc.cdsBaixa_ProcessoDTBAIXA.AsDateTime > 10 then
+    begin
+      fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Close;
+      fDMBaixaProd_Calc.sdsBaixa_Processo_Itens.ParamByName('ID').AsInteger   := fDMBaixaProd_Calc.cdsBaixa_ProcessoID.AsInteger;
+      fDMBaixaProd_Calc.sdsBaixa_Processo_Itens.ParamByName('ITEM').AsInteger := fDMBaixaProd_Calc.cdsBaixa_ProcessoITEM.AsInteger;
+      fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Open;
+      if fDMBaixaProd_Calc.cdsBaixa_Processo_ItensDTBAIXA.AsDateTime > 10 then
+        vMSGLocal := vMSGLocal + #13 + '*** Processo ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString + ' no Lote: ' + fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString + ' esta baixado!';
+    end;
   end;
 end;
 
@@ -646,33 +658,75 @@ begin
     vData := DateEdit1.Date
   else
     vData := Date;
-  fDMBaixaProd_Calc.cdsBaixa_Processo.Edit;
-  if fDMBaixaProd_Calc.cdsBaixa_ProcessoDTENTRADA.IsNull then
+  if fDMBaixaProd_Calc.cdsBaixa_ProcessoDTBAIXA.AsDateTime > 10 then
   begin
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoDTENTRADA.AsDateTime := vData;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoHRENTRADA.AsDateTime := vHora;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoID_FUNCIONARIO_ENT.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
-    vMSGLocal := 'Entrada no Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
-    vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+    if (fDMBaixaProd_Calc.cdsBaixa_Processo_ItensID.AsInteger > 0) then
+    begin
+      if fDMBaixaProd_Calc.cdsBaixa_Processo_ItensDTENTRADA.AsDateTime <= 10 then
+      begin
+        fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Edit;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensDTENTRADA.AsDateTime := vData;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensHRENTRADA.AsDateTime := vHora;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensID_FUNCIONARIO_ENT.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Post;
+
+        vMSGLocal := 'Entrada no Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
+        vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+      end
+      else
+      if fDMBaixaProd_Calc.cdsBaixa_Processo_ItensDTBAIXA.AsDateTime <= 10 then
+      begin
+        fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Edit;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensDTBAIXA.AsDateTime := vData;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensHRBAIXA.AsDateTime := vHora;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_ItensID_FUNCIONARIO_BAI.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
+        fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.Post;
+
+        vMSGLocal := 'Finalizado o Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
+        vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+      end;
+      fDMBaixaProd_Calc.cdsBaixa_Processo_Itens.ApplyUpdates(0);
+    end;
   end
   else
   begin
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoDTBAIXA.AsDateTime := vData;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoHRBAIXA.AsDateTime := vHora;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PRODUZIDO.AsInteger := fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PRODUZIDO.AsInteger + fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PENDENTE.AsInteger;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PENDENTE.AsInteger  := 0;
-    fDMBaixaProd_Calc.cdsBaixa_ProcessoID_FUNCIONARIO_BAIXA.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
-    vMSGLocal := 'Finalizado o Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
-    vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+    fDMBaixaProd_Calc.cdsBaixa_Processo.Edit;
+    if fDMBaixaProd_Calc.cdsBaixa_ProcessoDTENTRADA.IsNull then
+    begin
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoDTENTRADA.AsDateTime := vData;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoHRENTRADA.AsDateTime := vHora;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoID_FUNCIONARIO_ENT.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
+      vMSGLocal := 'Entrada no Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
+      vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+    end
+    else
+    begin
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoDTBAIXA.AsDateTime := vData;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoHRBAIXA.AsDateTime := vHora;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PRODUZIDO.AsInteger := fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PRODUZIDO.AsInteger + fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PENDENTE.AsInteger;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoQTD_PENDENTE.AsInteger  := 0;
+      fDMBaixaProd_Calc.cdsBaixa_ProcessoID_FUNCIONARIO_BAIXA.AsInteger := fDMBaixaProd_Calc.qFuncionarioCODIGO.AsInteger;
+      vMSGLocal := 'Finalizado o Processo: ' + fDMBaixaProd_Calc.qBaixaProcNOME_PROCESSO.AsString;
+      vMSGLocal := vMSGLocal + #13 + #13 + 'Nº Lote: ' +  fDMBaixaProd_Calc.qBaixaProcNUM_LOTE.AsString;
+    end;
+    fDMBaixaProd_Calc.cdsBaixa_Processo.Post;
+    fDMBaixaProd_Calc.cdsBaixa_Processo.ApplyUpdates(0);
   end;
-  fDMBaixaProd_Calc.cdsBaixa_Processo.Post;
-  fDMBaixaProd_Calc.cdsBaixa_Processo.ApplyUpdates(0);
 
-  fDMBaixaProd_Calc.qProcLote.Close;
+  //chama procedure prc_status_processo
+  //29/07/2020  Foi alterado para colocar na procedure
+  {fDMBaixaProd_Calc.qProcLote.Close;
   fDMBaixaProd_Calc.qProcLote.ParamByName('ID_LOTE').AsInteger := fDMBaixaProd_Calc.qBaixaProcID_LOTE.AsInteger;
   fDMBaixaProd_Calc.qProcLote.Open;
   if fDMBaixaProd_Calc.qProcLoteCONTADOR.AsInteger <= 0 then
-    fDMBaixaProd_Calc.prc_Gravar_Lote_BaixaProcesso('S',fDMBaixaProd_Calc.qBaixaProcID_LOTE.AsInteger);
+    fDMBaixaProd_Calc.prc_Gravar_Lote_BaixaProcesso('S',fDMBaixaProd_Calc.qBaixaProcID_LOTE.AsInteger);}
+
+  fDMBaixaProd_Calc.sdsPRC_STATUS_PROCESSO.Close;
+  fDMBaixaProd_Calc.sdsPRC_STATUS_PROCESSO.ParamByName('P_ID_LOTE').AsInteger    := fDMBaixaProd_Calc.qBaixaProcID_LOTE.AsInteger;
+  fDMBaixaProd_Calc.sdsPRC_STATUS_PROCESSO.ParamByName('P_ID_BAIXA').AsInteger   := fDMBaixaProd_Calc.qBaixaProcID.AsInteger;
+  fDMBaixaProd_Calc.sdsPRC_STATUS_PROCESSO.ParamByName('P_ITEM_BAIXA').AsInteger := fDMBaixaProd_Calc.qBaixaProcITEM.AsInteger;
+  fDMBaixaProd_Calc.sdsPRC_STATUS_PROCESSO.ExecSQL;
+
   Label5.Caption := vMSGLocal;
   Edit1.SetFocus;
   Edit1.SelectAll;

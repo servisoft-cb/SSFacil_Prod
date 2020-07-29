@@ -22,7 +22,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     Top = 0
     Width = 920
     Height = 538
-    ActivePage = TS_Gerar
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -30,7 +30,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -1054,7 +1054,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 16
+            ColCount = 17
             RowCount = 2
             Columns = <
               item
@@ -1190,6 +1190,16 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                 Title.Caption = 'Modelo'
                 Title.Color = 8454143
                 Width = 285
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'QTD_LEITURA'
+                Title.Alignment = taCenter
+                Title.Caption = 'Leitura'
+                Title.Color = 8454143
+                Width = 51
                 Visible = True
               end>
           end
@@ -2541,7 +2551,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
   end
   object PopupMenu1: TPopupMenu
     Left = 825
-    Top = 31
+    Top = 32
     object Lote1: TMenuItem
       Caption = 'Lote (Selecionados)'
       OnClick = Lote1Click

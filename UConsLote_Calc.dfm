@@ -211,6 +211,20 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       InnerMargins.Vertical = 2
       VerticalPosition = vpTop
     end
+    object Shape1: TShape
+      Left = 960
+      Top = 58
+      Width = 32
+      Height = 17
+      Brush.Color = clYellow
+    end
+    object Label7: TLabel
+      Left = 995
+      Top = 61
+      Width = 158
+      Height = 13
+      Caption = 'Tal'#227'o em Produ'#231#227'o (falta leituras)'
+    end
     object btnConsTalao: TNxButton
       Left = 444
       Top = 75
@@ -513,10 +527,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 1330
     Height = 535
-    ActivePage = TS_Talao
+    ActivePage = TS_Processo
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -770,11 +784,21 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     end
     object TS_Processo: TRzTabSheet
       Caption = 'Processos'
+      object NxSplitter1: TNxSplitter
+        Left = 0
+        Top = 382
+        Width = 1326
+        Height = 10
+        Cursor = crVSplit
+        Align = alBottom
+        AutoSnap = False
+        Visible = False
+      end
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
         Width = 1326
-        Height = 512
+        Height = 382
         Align = alClient
         Ctl3D = False
         DataSource = DMLoteImp_Calc.dsConsProcesso
@@ -806,9 +830,19 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 18
+        ColCount = 19
         RowCount = 2
         Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'QTD_LEITURA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Leitura'
+            Title.Color = 8454143
+            Width = 53
+            Visible = True
+          end
           item
             Alignment = taCenter
             Expanded = False
@@ -975,6 +1009,118 @@ object frmConsLote_Calc: TfrmConsLote_Calc
             Title.Caption = 'Combina'#231#227'o'
             Title.Color = 8454143
             Width = 202
+            Visible = True
+          end>
+      end
+      object smdbgridItens: TSMDBGrid
+        Left = 0
+        Top = 392
+        Width = 1326
+        Height = 120
+        Align = alBottom
+        Ctl3D = False
+        DataSource = DMLoteImp_Calc.dsConsProcesso_Itens
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        Visible = False
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 9
+        RowCount = 2
+        Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ITEM2'
+            Title.Alignment = taCenter
+            Title.Caption = 'Item'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Descri'#231#227'o'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DTENTRADA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Entrada'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'HRENTRADA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Hr. Entrada'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DTBAIXA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Baixa'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'HRBAIXA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Hr. Baixa'
+            Title.Color = 16750026
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_FUNCIONARIO_ENT'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Funcion'#225'rio Entrada'
+            Title.Color = 16750026
+            Width = 130
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_FUNCIONARIO_BAI'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID. Funcion'#225'rio Baixa'
+            Title.Color = 16750026
+            Width = 114
             Visible = True
           end>
       end

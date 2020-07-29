@@ -951,6 +951,7 @@ type
     cdsBaixa_Processo_ItensID_FUNCIONARIO_BAI: TIntegerField;
     sdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
     cdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
+    cdsConsProcessoQTD_LEITURA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

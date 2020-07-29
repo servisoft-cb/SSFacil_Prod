@@ -130,7 +130,7 @@ object frmBaixaTalao_Calc2: TfrmBaixaTalao_Calc2
       ParentFont = False
     end
     object Edit1: TEdit
-      Left = 108
+      Left = 109
       Top = 81
       Width = 202
       Height = 24

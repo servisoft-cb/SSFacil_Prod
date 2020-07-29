@@ -71,6 +71,10 @@ type
     PopupMenu1: TPopupMenu;
     AlterarData1: TMenuItem;
     StaticText1: TStaticText;
+    NxSplitter1: TNxSplitter;
+    smdbgridItens: TSMDBGrid;
+    Shape1: TShape;
+    Label7: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsTalaoClick(Sender: TObject);
@@ -99,6 +103,7 @@ type
     procedure prc_Consulta_Lote;
     procedure prc_ConsProcesso;
     procedure prc_ConsTalao_Setor;
+    procedure prc_scroll(DataSet: TDataSet);
 
   public
     { Public declarations }
@@ -117,6 +122,7 @@ uses rsDBUtils, USel_Pessoa, uUtilPadrao, Math, USel_Produto, StrUtils,
 procedure TfrmConsLote_Calc.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  fDMLoteImp_Calc.cdsConsProcesso.AFTERSCROLL := nil;
   Action := Cafree;
 end;
 
@@ -144,6 +150,8 @@ begin
 
   if fDMLoteImp_Calc.qParametros_LoteID_SETOR_EST.AsInteger > 0 then
     RxDBLookupCombo3.KeyValue := fDMLoteImp_Calc.qParametros_LoteID_SETOR_EST.AsInteger;
+
+  fDMLoteImp_Calc.cdsConsProcesso.AFTERSCROLL := prc_scroll;
 end;
 
 procedure TfrmConsLote_Calc.btnConsTalaoClick(Sender: TObject);
@@ -372,13 +380,19 @@ begin
   fDMLoteImp_Calc.sdsConsProcesso.CommandText := fDMLoteImp_Calc.ctConsProcesso + vComando;
   fDMLoteImp_Calc.cdsConsProcesso.Open;
   fDMLoteImp_Calc.cdsConsProcesso.IndexFieldNames := 'NUM_LOTE;ITEM';
+  prc_scroll(fDMLoteImp_Calc.cdsConsProcesso);
 end;
 
 procedure TfrmConsLote_Calc.SMDBGrid2GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
   if fDMLoteImp_Calc.cdsConsProcessoDTBAIXA.AsDateTime > 10 then
-    Background := $0077FF77
+  begin
+    if (fDMLoteImp_Calc.cdsConsProcessoSTATUS_LEITURA.AsString = 'P') and (fDMLoteImp_Calc.cdsConsProcessoQTD_LEITURA.AsInteger > 1) then
+      Background := clYellow
+    else
+      Background := $0077FF77
+  end
   else
   if fDMLoteImp_Calc.cdsConsProcessoDTENTRADA.AsDateTime > 10 then
     Background := $00FFFFB9;
@@ -699,6 +713,16 @@ procedure TfrmConsLote_Calc.SMDBGrid1KeyDown(Sender: TObject;
 begin
   if (Key = vk_F3) and (AlterarData1.Enabled) then
     AlterarData1Click(Sender);
+end;
+
+procedure TfrmConsLote_Calc.prc_scroll(DataSet: TDataSet);
+begin
+  fDMLoteImp_Calc.cdsConsProcesso_Itens.Close;
+  fDMLoteImp_Calc.sdsConsProcesso_Itens.ParamByName('ID').AsInteger   := fDMLoteImp_Calc.cdsConsProcessoID.AsInteger;
+  fDMLoteImp_Calc.sdsConsProcesso_Itens.ParamByName('ITEM').AsInteger := fDMLoteImp_Calc.cdsConsProcessoITEM.AsInteger;
+  fDMLoteImp_Calc.cdsConsProcesso_Itens.Open;
+  smdbgridItens.Visible := not(fDMLoteImp_Calc.cdsConsProcesso_Itens.IsEmpty);
+  NxSplitter1.Visible   := not(fDMLoteImp_Calc.cdsConsProcesso_Itens.IsEmpty);
 end;
 
 end.
