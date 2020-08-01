@@ -645,7 +645,7 @@ object DMConsLote: TDMConsLote
   end
   object dsModelo_Mat: TDataSource
     DataSet = cdsModelo_Mat
-    Left = 269
+    Left = 265
     Top = 310
   end
   object frxModeloSetor: TfrxDBDataset
@@ -752,5 +752,128 @@ object DMConsLote: TDMConsLote
     BCDToCurrency = False
     Left = 684
     Top = 252
+  end
+  object sdsConsProduto_Mapa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select L.ID, L.NUM_LOTE, L.NUM_ORDEM, TS.ID_SETOR, S.NOME NOME_S' +
+      'ETOR, L.ID_PRODUTO, P.REFERENCIA, P.NOME NOME_PRODUTO,'#13#10'       L' +
+      '.ID_COMBINACAO, COMB.NOME NOME_COMBINACAO, P.NOME_MODELO, sum(TS' +
+      '.QTD) QTD, BP.ID_PROCESSO,'#13#10'       PROC.NOME NOME_PROCESSO, PP.O' +
+      'RDEM, PP.ID_SETOR  ID_SETOR_PROCESSO,'#13#10'       S2.NOME NOME_SETOR' +
+      '_PROCESSO, ts.dtentrada, ts.dtsaida, bp.dtentrada dtentrada_proc' +
+      'esso,'#13#10'       bp.dtbaixa dtsaida_processo, bp.status_leitura'#13#10'fr' +
+      'om LOTE L'#13#10'inner join TALAO_SETOR TS on L.ID = TS.ID'#13#10'inner join' +
+      ' SETOR S on TS.ID_SETOR = S.ID'#13#10'inner join PRODUTO P on L.ID_PRO' +
+      'DUTO = P.ID'#13#10'left join BAIXA_PROCESSO BP on TS.ID = BP.ID_LOTE a' +
+      'nd TS.ID_SETOR = BP.ID_SETOR'#13#10'left join PROCESSO PROC on BP.ID_P' +
+      'ROCESSO = PROC.ID'#13#10'left join PRODUTO_PROCESSO PP on L.ID_PRODUTO' +
+      ' = PP.ID and BP.ID_PROCESSO = PP.ID_PROCESSO'#13#10'left join COMBINAC' +
+      'AO COMB on L.ID_COMBINACAO = COMB.ID'#13#10'LEFT join SETOR S2 on pp.i' +
+      'd_setor = S2.ID'#13#10'WHERE ((PROC.ler_talao = '#39'S'#39') or (PROC.ler_tala' +
+      'o IS NULL))'#13#10'group by L.ID, L.NUM_LOTE, L.NUM_ORDEM, TS.ID_SETOR' +
+      ', S.NOME, L.ID_PRODUTO, P.REFERENCIA,'#13#10'         P.NOME, L.ID_COM' +
+      'BINACAO, COMB.NOME, P.NOME_MODELO, BP.ID_PROCESSO, PROC.NOME,'#13#10' ' +
+      '        PP.ORDEM, PP.ID_SETOR, S2.NOME, ts.dtentrada, ts.dtsaida' +
+      ','#13#10'         bp.dtentrada, bp.dtbaixa, bp.status_leitura'#13#10'order b' +
+      'y P.referencia, COMB.nome, L.num_lote, TS.ID_SETOR, PP.ID_SETOR,' +
+      ' PP.ORDEM'#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 144
+    Top = 400
+  end
+  object dspConsProduto_Mapa: TDataSetProvider
+    DataSet = sdsConsProduto_Mapa
+    Left = 193
+    Top = 399
+  end
+  object cdsConsProduto_Mapa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsProduto_Mapa'
+    OnCalcFields = cdsModelo_MatCalcFields
+    Left = 232
+    Top = 399
+    object cdsConsProduto_MapaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsConsProduto_MapaNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object cdsConsProduto_MapaNUM_ORDEM: TIntegerField
+      FieldName = 'NUM_ORDEM'
+    end
+    object cdsConsProduto_MapaID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsConsProduto_MapaNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsConsProduto_MapaID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsProduto_MapaREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsProduto_MapaNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsConsProduto_MapaID_COMBINACAO: TIntegerField
+      FieldName = 'ID_COMBINACAO'
+    end
+    object cdsConsProduto_MapaNOME_COMBINACAO: TStringField
+      FieldName = 'NOME_COMBINACAO'
+      Size = 60
+    end
+    object cdsConsProduto_MapaNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
+    object cdsConsProduto_MapaQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsProduto_MapaID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsConsProduto_MapaNOME_PROCESSO: TStringField
+      FieldName = 'NOME_PROCESSO'
+      Size = 30
+    end
+    object cdsConsProduto_MapaORDEM: TIntegerField
+      FieldName = 'ORDEM'
+    end
+    object cdsConsProduto_MapaID_SETOR_PROCESSO: TIntegerField
+      FieldName = 'ID_SETOR_PROCESSO'
+    end
+    object cdsConsProduto_MapaNOME_SETOR_PROCESSO: TStringField
+      FieldName = 'NOME_SETOR_PROCESSO'
+    end
+    object cdsConsProduto_MapaDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsConsProduto_MapaDTSAIDA: TDateField
+      FieldName = 'DTSAIDA'
+    end
+    object cdsConsProduto_MapaDTENTRADA_PROCESSO: TDateField
+      FieldName = 'DTENTRADA_PROCESSO'
+    end
+    object cdsConsProduto_MapaDTSAIDA_PROCESSO: TDateField
+      FieldName = 'DTSAIDA_PROCESSO'
+    end
+    object cdsConsProduto_MapaSTATUS_LEITURA: TStringField
+      FieldName = 'STATUS_LEITURA'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dsConsProduto_Mapa: TDataSource
+    DataSet = cdsConsProduto_Mapa
+    Left = 268
+    Top = 399
   end
 end

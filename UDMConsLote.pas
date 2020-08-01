@@ -117,6 +117,32 @@ type
     cdsConsLote_Mat_AcumUNIDADE: TStringField;
     cdsConsLote_Mat_AcumQTD_CONSUMO: TFloatField;
     frxConsLote_Mat_Acum: TfrxDBDataset;
+    sdsConsProduto_Mapa: TSQLDataSet;
+    dspConsProduto_Mapa: TDataSetProvider;
+    cdsConsProduto_Mapa: TClientDataSet;
+    dsConsProduto_Mapa: TDataSource;
+    cdsConsProduto_MapaID: TIntegerField;
+    cdsConsProduto_MapaNUM_LOTE: TIntegerField;
+    cdsConsProduto_MapaNUM_ORDEM: TIntegerField;
+    cdsConsProduto_MapaID_SETOR: TIntegerField;
+    cdsConsProduto_MapaNOME_SETOR: TStringField;
+    cdsConsProduto_MapaID_PRODUTO: TIntegerField;
+    cdsConsProduto_MapaREFERENCIA: TStringField;
+    cdsConsProduto_MapaNOME_PRODUTO: TStringField;
+    cdsConsProduto_MapaID_COMBINACAO: TIntegerField;
+    cdsConsProduto_MapaNOME_COMBINACAO: TStringField;
+    cdsConsProduto_MapaNOME_MODELO: TStringField;
+    cdsConsProduto_MapaQTD: TFloatField;
+    cdsConsProduto_MapaID_PROCESSO: TIntegerField;
+    cdsConsProduto_MapaNOME_PROCESSO: TStringField;
+    cdsConsProduto_MapaORDEM: TIntegerField;
+    cdsConsProduto_MapaID_SETOR_PROCESSO: TIntegerField;
+    cdsConsProduto_MapaNOME_SETOR_PROCESSO: TStringField;
+    cdsConsProduto_MapaDTENTRADA: TDateField;
+    cdsConsProduto_MapaDTSAIDA: TDateField;
+    cdsConsProduto_MapaDTENTRADA_PROCESSO: TDateField;
+    cdsConsProduto_MapaDTSAIDA_PROCESSO: TDateField;
+    cdsConsProduto_MapaSTATUS_LEITURA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);
@@ -136,6 +162,7 @@ type
     ctLoteProduto: String;
     ctModelo_Setor : String;
     ctConsLote_Mat_Acum : String;
+    ctConsProduto_Mata : String;
   end;
 
 var
@@ -153,6 +180,7 @@ begin
   ctLoteProduto  := sdsLoteProduto.CommandText;
   ctModelo_Setor := sdsModelo_Setor.CommandText;
   ctConsLote_Mat_Acum := sdsConsLote_Mat_Acum.CommandText;
+  ctConsProduto_Mata  := sdsConsProduto_Mapa.CommandText;
   qParametros.Open;
   qParametros_Lote.Open;
   qParametros_Prod.Open;

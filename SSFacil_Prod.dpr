@@ -117,7 +117,8 @@ uses
   UConsBaixaMaterial_Prod in 'UConsBaixaMaterial_Prod.pas' {frmConsBaixaMaterial_Prod},
   UConsLote_Mat_Acum in 'UConsLote_Mat_Acum.pas' {frmConsLote_Mat_Acum},
   UDMPedido_Reserva in '..\ssfacil\UDMPedido_Reserva.pas' {DMPedido_Reserva: TDataModule},
-  ULote_Cancela in 'ULote_Cancela.pas' {frmLote_Cancela};
+  ULote_Cancela in 'ULote_Cancela.pas' {frmLote_Cancela},
+  UConsProduto_Mapa in 'UConsProduto_Mapa.pas' {frmConsProduto_Mapa};
 
 {$R *.res}
 

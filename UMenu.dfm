@@ -415,6 +415,10 @@ object fMenu: TfMenu
         Caption = 'Consulta Mapa'
         OnClick = tbMapaClick
       end
+      object ConsultaMapadoProduto1: TMenuItem
+        Caption = 'Consulta Mapa do Produto'
+        OnClick = ConsultaMapadoProduto1Click
+      end
       object ConsultaRemessaPorReferncia1: TMenuItem
         Caption = 'Consulta Remessa Por Refer'#234'ncia'
         OnClick = ConsultaRemessaPorReferncia1Click

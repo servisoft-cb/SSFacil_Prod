@@ -117,8 +117,6 @@ type
     procedure ckDtEntregaClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure RxDBLookupCombo1Enter(Sender: TObject);
-    procedure RxDBLookupCombo1KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure SMDBGrid2TitleClick(Column: TColumn);
     procedure btnExcluirClick(Sender: TObject);
     procedure RzPageControl2Change(Sender: TObject);
@@ -561,20 +559,6 @@ end;
 procedure TfrmGerar_Lote_SL.RxDBLookupCombo1Enter(Sender: TObject);
 begin
   fDMCadLote.cdsProduto.IndexFieldNames := 'REFERENCIA';
-end;
-
-procedure TfrmGerar_Lote_SL.RxDBLookupCombo1KeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
-begin
-  {if (Key = Vk_F2) then
-  begin
-    if RxDBLookupCombo1.Text <> '' then
-      vCodProduto_Pos := RxDBLookupCombo1.KeyValue;
-    frmSel_Produto  := TfrmSel_Produto.Create(Self);
-    frmSel_Produto.ShowModal;
-    if vCodProduto_Pos > 0 then
-      RxDBLookupCombo1.KeyValue := vCodProduto_Pos;
-  end;}
 end;
 
 procedure TfrmGerar_Lote_SL.prc_Limpar_Auxiliar;
