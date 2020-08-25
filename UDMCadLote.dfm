@@ -723,15 +723,16 @@ object DMCadLote: TDMCadLote
       '          where ID = 1) = '#39'A'#39' then coalesce(pi.OBS, '#39#39') || '#39' '#39' |' +
       '| coalesce(PROD.OBS, '#39#39')'#13#10'         else '#39#39#13#10'       end OBS_LOTE,' +
       #13#10'       cast(0 as double precision) QTD_ESTOQUE, PED.ID_VENDEDO' +
-      'R_INT, VINT.NOME NOME_VENDEDOR_INT'#13#10#13#10'from PEDIDO PED'#13#10'inner joi' +
-      'n PEDIDO_ITEM pi on PED.ID = pi.ID'#13#10'inner join PESSOA CLI on PED' +
-      '.ID_CLIENTE = CLI.CODIGO'#13#10'left join COMBINACAO COMB on pi.ID_COR' +
-      ' = COMB.ID'#13#10'left join PRODUTO PROD on pi.ID_PRODUTO = PROD.ID'#13#10'l' +
-      'eft join COR on PROD.ID_COR = COR.ID'#13#10'left join PRODUTO_SEMI SEM' +
-      'I on PROD.ID = SEMI.ID'#13#10'left join PRODUTO PSEMI on PSEMI.ID = SE' +
-      'MI.ID_MATERIAL1'#13#10'left join PESSOA VINT on PED.ID_VENDEDOR_INT = ' +
-      'VINT.CODIGO'#13#10'where PED.TIPO_REG = '#39'P'#39' and'#13#10'      pi.GERAR_LOTE =' +
-      ' '#39'S'#39'   '#13#10#13#10
+      'R_INT, VINT.NOME NOME_VENDEDOR_INT, lt.num_lote'#13#10'from PEDIDO PED' +
+      #13#10'inner join PEDIDO_ITEM pi on PED.ID = pi.ID'#13#10'inner join PESSOA' +
+      ' CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'left join COMBINACAO COMB o' +
+      'n pi.ID_COR = COMB.ID'#13#10'left join PRODUTO PROD on pi.ID_PRODUTO =' +
+      ' PROD.ID'#13#10'left join COR on PROD.ID_COR = COR.ID'#13#10'left join PRODU' +
+      'TO_SEMI SEMI on PROD.ID = SEMI.ID'#13#10'left join PRODUTO PSEMI on PS' +
+      'EMI.ID = SEMI.ID_MATERIAL1'#13#10'left join PESSOA VINT on PED.ID_VEND' +
+      'EDOR_INT = VINT.CODIGO'#13#10'left join lote lt on pi.id = lt.id_pedid' +
+      'o and pi.item = lt.item_pedido'#13#10'where PED.TIPO_REG = '#39'P'#39' and'#13#10'  ' +
+      '    pi.GERAR_LOTE = '#39'S'#39'   '#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

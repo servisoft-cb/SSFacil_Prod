@@ -233,10 +233,13 @@ begin
             + 'LEFT JOIN PRODUTO PSEMI '
             + 'ON PSEMI.ID = SEMI.ID_MATERIAL1 '
             + 'left join PESSOA VINT on PED.ID_VENDEDOR_INT = VINT.CODIGO '
+            + 'left join lote lt on pi.id = lt.id_pedido and pi.item = lt.item_pedido '
             + 'WHERE PED.TIPO_REG = ' + QuotedStr('P')
             + '  AND PI.GERAR_LOTE = ' + QuotedStr('S')
             + '  and pi.qtd_restante > 0 '
-            + '  and coalesce(pi.gerou_lote_prod,'+QuotedStr('N') +') = ' + QuotedStr('N');
+            + '  and coalesce(pi.gerou_lote_prod,'+QuotedStr('N') +') = ' + QuotedStr('N')
+            + ' and (lt.num_lote is null) ';
+
   if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
     vTextoData := 'PED.DTENTREGA'
   else
