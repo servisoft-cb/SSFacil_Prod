@@ -1606,7 +1606,7 @@ object frmGerar_Lote_Ped: TfrmGerar_Lote_Ped
           ParentFont = False
         end
         object btnGerarAuxiliar: TNxButton
-          Left = 10
+          Left = 8
           Top = 2
           Width = 190
           Height = 30
