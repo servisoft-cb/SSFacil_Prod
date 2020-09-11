@@ -1,6 +1,6 @@
 object frmConsLote_Mat_Acum: TfrmConsLote_Mat_Acum
-  Left = 229
-  Top = 120
+  Left = 244
+  Top = 161
   Width = 928
   Height = 480
   Caption = 'Consulta Material Acumulado'

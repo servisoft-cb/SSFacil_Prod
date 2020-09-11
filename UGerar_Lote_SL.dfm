@@ -21,7 +21,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     Top = 0
     Width = 998
     Height = 538
-    ActivePage = TS_Consulta
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -1412,12 +1412,14 @@ object frmGerar_Lote_SL: TfrmGerar_Lote_SL
           Height = 17
           Alignment = taLeftJustify
           Caption = 'Separar por data de entrega'
+          Checked = True
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -11
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
+          State = cbChecked
           TabOrder = 2
           OnClick = ckDtEntregaClick
         end
