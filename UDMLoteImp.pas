@@ -621,8 +621,8 @@ begin
       vTexto := vTexto + #13 + '(' + FormatFloat('0.00##',vConsumo) + ') ' + cdsTalao_SL_MatNOME_MATERIAL.AsString + ' ' + cdsTalao_SL_MatNOME_COR.AsString
     else
       vTexto := '(' + FormatFloat('0.00##',vConsumo) + ') ' + cdsTalao_SL_MatNOME_MATERIAL.AsString + ' ' + cdsTalao_SL_MatNOME_COR.AsString;
-    //if i > 4 then
-      //cdsTalao_SL_Mat.Last;
+    if i > 5 then
+      cdsTalao_SL_Mat.Last;
     cdsTalao_SL_Mat.Next;
   end;
   TfrxMemoView(frxReport1.FindComponent('memMateriais')).Text := vTexto;

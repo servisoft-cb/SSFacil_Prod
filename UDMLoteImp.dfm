@@ -117,7 +117,7 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspTalao_SL'
     OnCalcFields = cdsTalao_SLCalcFields
-    Left = 248
+    Left = 250
     Top = 16
     object cdsTalao_SLID: TIntegerField
       FieldName = 'ID'
@@ -874,7 +874,7 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspProcesso'
     OnCalcFields = cdsTalao_SLCalcFields
-    Left = 519
+    Left = 518
     Top = 241
     object cdsProcessoID: TIntegerField
       FieldName = 'ID'
@@ -2543,7 +2543,7 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     ProviderName = 'dspTalao_SL_Mat'
     OnCalcFields = cdsTalao_SLCalcFields
-    Left = 482
+    Left = 483
     Top = 8
     object cdsTalao_SL_MatID: TIntegerField
       FieldName = 'ID'
