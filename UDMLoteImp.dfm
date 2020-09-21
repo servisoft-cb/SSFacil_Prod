@@ -14,13 +14,13 @@ object DMLoteImp: TDMLoteImp
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42841.867818298600000000
-    ReportOptions.LastChange = 43895.431066956000000000
+    ReportOptions.CreateDate = 42751.456864641200000000
+    ReportOptions.LastChange = 43864.387886215300000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 795
-    Top = 366
+    Top = 367
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -292,6 +292,7 @@ object DMLoteImp: TDMLoteImp
       'DTEMISSAO=DTEMISSAO'
       'QTD_ESTOQUE_USADA=QTD_ESTOQUE_USADA'
       'CARGA=CARGA')
+    OnOpen = frxTalao_SLNext
     DataSource = dsTalao_SL
     BCDToCurrency = False
     Left = 800
@@ -859,14 +860,14 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 426
-    Top = 224
+    Top = 240
   end
   object dspProcesso: TDataSetProvider
     DataSet = sdsProcesso
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
     Left = 472
-    Top = 224
+    Top = 240
   end
   object cdsProcesso: TClientDataSet
     Aggregates = <>
@@ -874,7 +875,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspProcesso'
     OnCalcFields = cdsTalao_SLCalcFields
     Left = 519
-    Top = 225
+    Top = 241
     object cdsProcessoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -920,7 +921,7 @@ object DMLoteImp: TDMLoteImp
   object dsProcesso: TDataSource
     DataSet = cdsProcesso
     Left = 567
-    Top = 224
+    Top = 240
   end
   object qCliente: TSQLQuery
     MaxBlobSize = -1
@@ -1333,16 +1334,21 @@ object DMLoteImp: TDMLoteImp
         Name = 'Reimpresso'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'ID'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 535
+    Left = 534
     Top = 362
     Data = {
-      5C0000009619E0BD0100000018000000030000000000030000005C00094E756D
+      670000009619E0BD0100000018000000040000000000030000006700094E756D
       5F4F7264656D0400010000000000084E756D5F4C6F746504000100000000000A
-      5265696D70726573736F01004900000001000557494454480200020001000000}
+      5265696D70726573736F01004900000001000557494454480200020001000249
+      4404000100000000000000}
     object mImpLote_SLNum_Ordem: TIntegerField
       FieldName = 'Num_Ordem'
     end
@@ -1352,6 +1358,9 @@ object DMLoteImp: TDMLoteImp
     object mImpLote_SLReimpresso: TStringField
       FieldName = 'Reimpresso'
       Size = 1
+    end
+    object mImpLote_SLID: TIntegerField
+      FieldName = 'ID'
     end
   end
   object dsmImpLote_SL: TDataSource
@@ -1405,14 +1414,14 @@ object DMLoteImp: TDMLoteImp
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 520
-    Top = 48
+    Top = 64
   end
   object dspTalao_Ajuste: TDataSetProvider
     DataSet = sdsTalao_Ajuste
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspLoteUpdateError
     Left = 568
-    Top = 48
+    Top = 64
   end
   object cdsTalao_Ajuste: TClientDataSet
     Aggregates = <>
@@ -1421,7 +1430,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspTalao_Ajuste'
     OnCalcFields = cdsTalao_AjusteCalcFields
     Left = 615
-    Top = 47
+    Top = 63
     object cdsTalao_AjusteID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1538,7 +1547,7 @@ object DMLoteImp: TDMLoteImp
   object dsTalao_Ajuste: TDataSource
     DataSet = cdsTalao_Ajuste
     Left = 663
-    Top = 48
+    Top = 64
   end
   object frxTalao_Ajuste: TfrxDBDataset
     UserName = 'frxTalao_Ajuste'
@@ -1603,12 +1612,12 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 512
-    Top = 112
+    Top = 128
   end
   object dspLote_Ped: TDataSetProvider
     DataSet = sdsLote_Ped
     Left = 552
-    Top = 112
+    Top = 128
   end
   object cdsLote_Ped: TClientDataSet
     Aggregates = <>
@@ -1616,7 +1625,7 @@ object DMLoteImp: TDMLoteImp
     ProviderName = 'dspLote_Ped'
     OnCalcFields = cdsLote_PedCalcFields
     Left = 593
-    Top = 113
+    Top = 129
     object cdsLote_PedDTEMISSAO: TDateField
       FieldName = 'DTEMISSAO'
     end
@@ -1736,7 +1745,7 @@ object DMLoteImp: TDMLoteImp
   object dsLote_Ped: TDataSource
     DataSet = cdsLote_Ped
     Left = 632
-    Top = 112
+    Top = 128
   end
   object frxLote_Ped: TfrxDBDataset
     UserName = 'frxLote_Ped'
@@ -1813,15 +1822,18 @@ object DMLoteImp: TDMLoteImp
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT *'
+      'SELECT USA_LOTE_PED_SPROC, ID_COR_CRU'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
     Left = 704
-    Top = 440
+    Top = 439
     object qParametros_LoteUSA_LOTE_PED_SPROC: TStringField
       FieldName = 'USA_LOTE_PED_SPROC'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_LoteID_COR_CRU: TIntegerField
+      FieldName = 'ID_COR_CRU'
     end
   end
   object sdsConsMatKG: TSQLDataSet
@@ -2128,19 +2140,19 @@ object DMLoteImp: TDMLoteImp
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 470
-    Top = 170
+    Top = 186
   end
   object dspConsLote_Mat_Prod2: TDataSetProvider
     DataSet = sdsConsLote_Mat_Prod2
     Left = 527
-    Top = 170
+    Top = 186
   end
   object cdsConsLote_Mat_Prod2: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsLote_Mat_Prod2'
     Left = 596
-    Top = 169
+    Top = 185
     object cdsConsLote_Mat_Prod2REFERENCIA: TStringField
       FieldName = 'REFERENCIA'
     end
@@ -2212,7 +2224,7 @@ object DMLoteImp: TDMLoteImp
   object dsConsLote_Mat_Prod2: TDataSource
     DataSet = cdsConsLote_Mat_Prod2
     Left = 641
-    Top = 169
+    Top = 185
   end
   object frxConsLote_Mat_SL: TfrxDBDataset
     UserName = 'frxConsLote_Mat_SL'
@@ -2240,7 +2252,7 @@ object DMLoteImp: TDMLoteImp
       'NUM_LOTE=NUM_LOTE')
     DataSource = dsConsLote_Mat_Prod2
     BCDToCurrency = False
-    Left = 924
+    Left = 923
     Top = 519
   end
   object mAuxProcesso_Ped: TClientDataSet
@@ -2489,5 +2501,75 @@ object DMLoteImp: TDMLoteImp
     BCDToCurrency = False
     Left = 1015
     Top = 217
+  end
+  object sdsTalao_SL_Mat: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select PC.ID, PC.ID_MATERIAL, PC.QTD_CONSUMO, MAT.NOME NOME_MATE' +
+      'RIAL,'#13#10'       PC.ID_COR, comb.nome nome_cor'#13#10'from PRODUTO_COMB P' +
+      'COMB'#13#10'inner join PRODUTO_COMB_MAT PC on PCOMB.ID = PC.ID and PCO' +
+      'MB.ITEM = PC.ITEM'#13#10'inner join PRODUTO MAT on PC.ID_MATERIAL = MA' +
+      'T.ID'#13#10'left join combinacao comb on pc.id_cor = comb.id'#13#10'where PC' +
+      'OMB.ID = :ID_PRODUTO and'#13#10'      PCOMB.ID_COR_COMBINACAO = :ID_CO' +
+      'MBINACAO'#13#10'      and pc.imp_talao = '#39'S'#39#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_PRODUTO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COMBINACAO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 387
+    Top = 9
+  end
+  object dspTalao_SL_Mat: TDataSetProvider
+    DataSet = sdsTalao_SL_Mat
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspLoteUpdateError
+    Left = 433
+    Top = 8
+  end
+  object cdsTalao_SL_Mat: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    PacketRecords = 3
+    Params = <>
+    ProviderName = 'dspTalao_SL_Mat'
+    OnCalcFields = cdsTalao_SLCalcFields
+    Left = 482
+    Top = 8
+    object cdsTalao_SL_MatID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsTalao_SL_MatID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsTalao_SL_MatQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+    object cdsTalao_SL_MatNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsTalao_SL_MatID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsTalao_SL_MatNOME_COR: TStringField
+      FieldName = 'NOME_COR'
+      Size = 60
+    end
+  end
+  object dsTalao_SL_Mat: TDataSource
+    DataSet = cdsTalao_SL_Mat
+    Left = 528
+    Top = 8
   end
 end

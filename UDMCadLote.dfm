@@ -2468,7 +2468,7 @@ object DMCadLote: TDMCadLote
     IndexFieldNames = 'ID_MATERIAL'
     Params = <>
     ProviderName = 'dspConsumo'
-    Left = 616
+    Left = 615
     Top = 344
     object cdsConsumoID: TIntegerField
       FieldName = 'ID'

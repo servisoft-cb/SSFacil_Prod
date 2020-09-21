@@ -840,6 +840,7 @@ begin
     if (SMDBGrid2.SelectedRows.CurrentRowSelected) then
     begin
       fDMLoteImp.mImpLote_SL.Insert;
+      fDMLoteImp.mImpLote_SLID.AsInteger        := fDMCadLote.cdsConsulta_Lote_SLID.AsInteger;
       fDMLoteImp.mImpLote_SLNum_Ordem.AsInteger := fDMCadLote.cdsConsulta_Lote_SLNUM_ORDEM.AsInteger;
       fDMLoteImp.mImpLote_SLNum_Lote.AsInteger  := fDMCadLote.cdsConsulta_Lote_SLNUM_LOTE.AsInteger;
       fDMLoteImp.mImpLote_SLReimpresso.AsString := 'N';

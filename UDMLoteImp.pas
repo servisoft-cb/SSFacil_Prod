@@ -392,6 +392,18 @@ type
     mAuxProcesso_PedDesc_Tipo_Produto: TStringField;
     frxmAuxProcesso_Ped: TfrxDBDataset;
     mAuxProcesso_PedCarga: TFloatField;
+    sdsTalao_SL_Mat: TSQLDataSet;
+    dspTalao_SL_Mat: TDataSetProvider;
+    cdsTalao_SL_Mat: TClientDataSet;
+    dsTalao_SL_Mat: TDataSource;
+    mImpLote_SLID: TIntegerField;
+    cdsTalao_SL_MatID: TIntegerField;
+    cdsTalao_SL_MatID_MATERIAL: TIntegerField;
+    cdsTalao_SL_MatQTD_CONSUMO: TFloatField;
+    cdsTalao_SL_MatNOME_MATERIAL: TStringField;
+    cdsTalao_SL_MatID_COR: TIntegerField;
+    cdsTalao_SL_MatNOME_COR: TStringField;
+    qParametros_LoteID_COR_CRU: TIntegerField;
     procedure dspLoteUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
@@ -414,6 +426,7 @@ type
     procedure prc_Imprimir_Processos;
     procedure prc_Abrir_Talao_SL;
     procedure prc_Soma_KG;
+    procedure prc_Talao_Mat;
 
   public
     { Public declarations }
@@ -465,7 +478,6 @@ end;
 
 procedure TDMLoteImp.prc_Imprimir_Processos;
 var
-  sds: TSQLDataSet;
   vTexto: WideString;
 begin
   cdsLote_Processo.Close;
@@ -505,6 +517,7 @@ procedure TDMLoteImp.frxmImpLote_SLFirst(Sender: TObject);
 begin
   prc_Abrir_Talao_SL;
   prc_Imprimir_Processos;
+  prc_Talao_Mat;
 end;
 
 procedure TDMLoteImp.prc_Abrir_Talao_SL;
@@ -521,6 +534,7 @@ procedure TDMLoteImp.frxmImpLote_SLNext(Sender: TObject);
 begin
   prc_Abrir_Talao_SL;
   prc_Imprimir_Processos;
+  prc_Talao_Mat;
 end;
 
 procedure TDMLoteImp.cdsTalao_AjusteCalcFields(DataSet: TDataSet);
@@ -579,6 +593,39 @@ end;
 procedure TDMLoteImp.frxConsulta_LoteOpen(Sender: TObject);
 begin
   prc_Soma_KG;
+end;
+
+procedure TDMLoteImp.prc_Talao_Mat;
+var
+  vTexto: WideString;
+  i: Integer;
+  vConsumo: Real;
+begin
+  cdsTalao_SL_Mat.Close;
+  sdsTalao_SL_Mat.ParamByName('ID_PRODUTO').AsInteger := cdsTalao_SLID_PRODUTO.AsInteger;
+  sdsTalao_SL_Mat.ParamByName('ID_PRODUTO').AsInteger := cdsTalao_SLID_PRODUTO.AsInteger;
+  if (cdsTalao_SLID_COMBINACAO.AsInteger <= 0) then
+    sdsTalao_SL_Mat.ParamByName('ID_COMBINACAO').AsInteger := qParametros_LoteID_COR_CRU.AsInteger
+  else
+    sdsTalao_SL_Mat.ParamByName('ID_COMBINACAO').AsInteger := cdsTalao_SLID_COMBINACAO.AsInteger;
+  cdsTalao_SL_Mat.Open;
+  cdsTalao_SL_Mat.First;
+  vTexto := '';
+  i:= 0;
+  cdsTalao_SL_Mat.First;
+  while not cdsTalao_SL_Mat.Eof do
+  begin
+    i := i + 1;
+    vConsumo := StrToFloat(FormatFloat('0.0000',cdsTalao_SL_MatQTD_CONSUMO.AsFloat * cdsTalao_SLQTD_LOTE.AsFloat));
+    if trim(vTexto) <> '' then
+      vTexto := vTexto + #13 + '(' + FormatFloat('0.00##',vConsumo) + ') ' + cdsTalao_SL_MatNOME_MATERIAL.AsString + ' ' + cdsTalao_SL_MatNOME_COR.AsString
+    else
+      vTexto := '(' + FormatFloat('0.00##',vConsumo) + ') ' + cdsTalao_SL_MatNOME_MATERIAL.AsString + ' ' + cdsTalao_SL_MatNOME_COR.AsString;
+    //if i > 4 then
+      //cdsTalao_SL_Mat.Last;
+    cdsTalao_SL_Mat.Next;
+  end;
+  TfrxMemoView(frxReport1.FindComponent('memMateriais')).Text := vTexto;
 end;
 
 end.
