@@ -62,7 +62,6 @@ object DMCadPreFat: TDMCadPreFat
     Top = 29
   end
   object cdsPreFat: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -189,7 +188,6 @@ object DMCadPreFat: TDMCadPreFat
     end
   end
   object cdsPreFat_Itens: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsPreFatsdsPreFat_Itens
     IndexFieldNames = 'ID;ITEM'
@@ -879,7 +877,6 @@ object DMCadPreFat: TDMCadPreFat
     end
   end
   object cdsPreFat_Vol: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsPreFatsdsPreFat_Vol
     IndexFieldNames = 'ID;NUM_VOLUME'
@@ -975,7 +972,6 @@ object DMCadPreFat: TDMCadPreFat
     end
   end
   object cdsPreFat_Vol_Etiq: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsPreFat_VolsdsPreFat_Vol_Etiq
     IndexFieldNames = 'ID;NUM_VOLUME;ITEM_ETIQ'
