@@ -523,7 +523,7 @@ object frmProcesso_ES: TfrmProcesso_ES
         OnClick = btnConfirmarClick
       end
       object btnCancelar: TNxButton
-        Left = 169
+        Left = 170
         Top = 47
         Width = 109
         Height = 30

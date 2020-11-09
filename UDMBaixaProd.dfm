@@ -1415,8 +1415,8 @@ object DMBaixaProd: TDMBaixaProd
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 136
-    Top = 216
+    Left = 137
+    Top = 217
     object sdsBaixa_ParcialID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1641,15 +1641,15 @@ object DMBaixaProd: TDMBaixaProd
   end
   object dsConsBaixaEtiq: TDataSource
     DataSet = cdsConsBaixaEtiq
-    Left = 264
-    Top = 493
+    Left = 265
+    Top = 443
   end
   object cdsConsBaixaEtiq: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsBaixaEtiq'
-    Left = 216
-    Top = 492
+    Left = 217
+    Top = 442
     object cdsConsBaixaEtiqCODBARRA: TStringField
       FieldName = 'CODBARRA'
       Size = 14
@@ -1667,8 +1667,8 @@ object DMBaixaProd: TDMBaixaProd
   end
   object dspConsBaixaEtiq: TDataSetProvider
     DataSet = sdsConsBaixaEtiq
-    Left = 176
-    Top = 493
+    Left = 177
+    Top = 443
   end
   object sdsConsBaixaEtiq: TSQLDataSet
     NoMetadata = True
@@ -1685,8 +1685,8 @@ object DMBaixaProd: TDMBaixaProd
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 136
-    Top = 493
+    Left = 137
+    Top = 443
   end
   object qProd: TSQLQuery
     MaxBlobSize = -1
@@ -1843,5 +1843,107 @@ object DMBaixaProd: TDMBaixaProd
     SQLConnection = dmDatabase.scoDados
     Left = 779
     Top = 144
+  end
+  object cdsEstoque_Mov: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspEstoque_Mov'
+    Left = 211
+    Top = 503
+    object cdsEstoque_MovID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsEstoque_MovID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsEstoque_MovTIPO_ES: TStringField
+      FieldName = 'TIPO_ES'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsEstoque_MovTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 5
+    end
+    object cdsEstoque_MovID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsEstoque_MovNUMNOTA: TIntegerField
+      FieldName = 'NUMNOTA'
+    end
+    object cdsEstoque_MovID_NOTA: TIntegerField
+      FieldName = 'ID_NOTA'
+    end
+    object cdsEstoque_MovQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsEstoque_MovQTD2: TFloatField
+      FieldName = 'QTD2'
+    end
+    object cdsEstoque_MovDTMOVIMENTO: TDateField
+      FieldName = 'DTMOVIMENTO'
+    end
+  end
+  object dspEstoque_Mov: TDataSetProvider
+    DataSet = sdsEstoque_Mov
+    UpdateMode = upWhereKeyOnly
+    Left = 171
+    Top = 505
+  end
+  object sdsEstoque_Mov: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select E.ID, E.ID_PRODUTO, E.TIPO_ES, E.TIPO_MOV, E.ID_COR, E.NU' +
+      'MNOTA, E.ID_NOTA, E.QTD, E.QTD2, E.DTMOVIMENTO'#13#10'from ESTOQUE_MOV' +
+      ' E'#13#10'where E.ID = :ID   '#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 131
+    Top = 504
+    object sdsEstoque_MovID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsEstoque_MovID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object sdsEstoque_MovTIPO_ES: TStringField
+      FieldName = 'TIPO_ES'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsEstoque_MovTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 5
+    end
+    object sdsEstoque_MovID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object sdsEstoque_MovNUMNOTA: TIntegerField
+      FieldName = 'NUMNOTA'
+    end
+    object sdsEstoque_MovID_NOTA: TIntegerField
+      FieldName = 'ID_NOTA'
+    end
+    object sdsEstoque_MovQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsEstoque_MovQTD2: TFloatField
+      FieldName = 'QTD2'
+    end
+    object sdsEstoque_MovDTMOVIMENTO: TDateField
+      FieldName = 'DTMOVIMENTO'
+    end
   end
 end
