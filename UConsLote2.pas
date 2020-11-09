@@ -740,20 +740,6 @@ begin
       fDMBaixaProd.cdsLote.Post;
       fDMBaixaProd.cdsLote.ApplyUpdates(0);
 
-      //09/11/2020
-      if vID_EstoqueMov > 0 then
-      begin
-        fDMBaixaProd.cdsEstoque_Mov.Close;
-        fDMBaixaProd.sdsEstoque_Mov.ParamByName('ID').AsInteger := vID_EstoqueMov;
-        fDMBaixaProd.cdsEstoque_Mov.Open;
-        if fDMBaixaProd.cdsEstoque_MovID.AsInteger > 0 then
-        begin
-          fDMBaixaProd.cdsEstoque_Mov.Delete;
-          fDMBaixaProd.cdsEstoque_Mov.ApplyUpdates(0);
-        end;
-      end;
-      //*******************
-
       if vID_Pedido_Aux > 0 then
       begin
         fDMBaixaProd.sdsPrc_Pedido_Conferido.Close;
