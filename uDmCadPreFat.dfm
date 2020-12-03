@@ -53,6 +53,11 @@ object DMCadPreFat: TDMCadPreFat
       FieldName = 'LIBERADO_FAT'
       Size = 1
     end
+    object sdsPreFatEM_ESPERA: TStringField
+      FieldName = 'EM_ESPERA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPreFat: TDataSetProvider
     DataSet = sdsPreFat
@@ -107,6 +112,11 @@ object DMCadPreFat: TDMCadPreFat
     end
     object cdsPreFatLIBERADO_FAT: TStringField
       FieldName = 'LIBERADO_FAT'
+      Size = 1
+    end
+    object cdsPreFatEM_ESPERA: TStringField
+      FieldName = 'EM_ESPERA'
+      FixedChar = True
       Size = 1
     end
   end
@@ -462,7 +472,7 @@ object DMCadPreFat: TDMCadPreFat
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsulta'
-    Left = 448
+    Left = 447
     Top = 21
     object cdsConsultaID: TIntegerField
       FieldName = 'ID'
@@ -523,6 +533,16 @@ object DMCadPreFat: TDMCadPreFat
     object cdsConsultaDTEMISSAO_NOTA: TDateField
       FieldName = 'DTEMISSAO_NOTA'
     end
+    object cdsConsultaEM_ESPERA: TStringField
+      FieldName = 'EM_ESPERA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsConsultaEM_ESPERA2: TStringField
+      FieldName = 'EM_ESPERA2'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspConsulta: TDataSetProvider
     DataSet = sdsConsulta
@@ -535,11 +555,12 @@ object DMCadPreFat: TDMCadPreFat
     CommandText = 
       'SELECT PRE.*, CLI.FANTASIA FANTASIA_CLI, CLI.NOME NOME_CLIENTE,'#13 +
       #10'F.NOME NOME_FILIAL, TRA.NOME NOME_TRANSP, F.nome_interno NOME_I' +
-      'NTERNO_FIL,'#13#10'N.numnota, N.dtemissao DTEMISSAO_NOTA'#13#10'FROM PREFAT ' +
-      'PRE'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PRE.ID_CLIENTE = CLI.CODIGO'#13#10'INNE' +
-      'R JOIN FILIAL F'#13#10'ON PRE.FILIAL = F.ID'#13#10'LEFT JOIN PESSOA TRA'#13#10'ON ' +
-      'PRE.ID_TRANSPORTADORA = TRA.CODIGO'#13#10'LEFT JOIN NOTAFISCAL N'#13#10'ON P' +
-      'RE.id_nota = N.ID'#13#10
+      'NTERNO_FIL,'#13#10'N.numnota, N.dtemissao DTEMISSAO_NOTA,'#13#10'CASE'#13#10'  WHE' +
+      'N coalesce(PRE.em_espera,'#39'N'#39') = '#39'N'#39' THEN '#39'N'#39#13#10'  ELSE PRE.em_espe' +
+      'ra'#13#10'  END EM_ESPERA2'#13#10'FROM PREFAT PRE'#13#10'INNER JOIN PESSOA CLI'#13#10'ON' +
+      ' PRE.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JOIN FILIAL F'#13#10'ON PRE.FILIAL' +
+      ' = F.ID'#13#10'LEFT JOIN PESSOA TRA'#13#10'ON PRE.ID_TRANSPORTADORA = TRA.CO' +
+      'DIGO'#13#10'LEFT JOIN NOTAFISCAL N'#13#10'ON PRE.id_nota = N.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

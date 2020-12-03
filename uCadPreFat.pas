@@ -71,6 +71,10 @@ type
     CurrencyEdit1: TCurrencyEdit;
     Label10: TLabel;
     CurrencyEdit2: TCurrencyEdit;
+    ckEm_Espera: TCheckBox;
+    Shape2: TShape;
+    Label11: TLabel;
+    DBCheckBox2: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -269,6 +273,9 @@ begin
       1 : fDmCadPreFat.sdsConsulta.CommandText := fDmCadPreFat.sdsConsulta.CommandText + ' AND PRE.FATURADO = ' + QuotedStr('S');
     end;
 
+    if ckEm_Espera.Checked then
+      fDmCadPreFat.sdsConsulta.CommandText := fDmCadPreFat.sdsConsulta.CommandText + ' AND PRE.EM_ESPERA = ' + QuotedStr('S');
+
   end;
   fDmCadPreFat.cdsConsulta.Open;
 end;
@@ -439,6 +446,12 @@ begin
   if fDmCadPreFat.cdsConsultaFATURADO.AsString = 'S' then
   begin
     Background  := clGreen;
+    AFont.Color := clWhite;
+  end
+  else
+  if fDmCadPreFat.cdsConsultaEM_ESPERA.AsString = 'S' then
+  begin
+    Background  := $004080FF;
     AFont.Color := clWhite;
   end
   else

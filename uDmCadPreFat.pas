@@ -263,6 +263,10 @@ type
     qVerExcluirCONTADOR: TIntegerField;
     cdsConsultaNUMNOTA: TIntegerField;
     cdsConsultaDTEMISSAO_NOTA: TDateField;
+    sdsPreFatEM_ESPERA: TStringField;
+    cdsPreFatEM_ESPERA: TStringField;
+    cdsConsultaEM_ESPERA: TStringField;
+    cdsConsultaEM_ESPERA2: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspPreFatUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -358,11 +362,10 @@ begin
     vMsgErro := vMsgErro + #13 + '*** Data não informada!';
   if cdsPreFatID_CLIENTE.AsInteger <= 0 then
     vMsgErro := vMsgErro + #13 + '*** Cliente não informado!';
+  if (cdsPreFatLIBERADO_FAT.AsString = 'S') and (cdsPreFatEM_ESPERA.AsString = 'S') then
+    vMsgErro := vMsgErro + #13 + '*** Não pode liberar para faturamento se o registro esta Em Espera!';
   if trim(vMSGErro) <> '' then
-  begin
-    MessageDlg(vMSGErro, mtError, [mbOk], 0);
     exit;
-  end;
   sds := TSQLDataSet.Create(nil);
   ID.TransactionID  := 1;
   ID.IsolationLevel := xilREADCOMMITTED;
@@ -490,6 +493,7 @@ procedure TDMCadPreFat.cdsPreFatNewRecord(DataSet: TDataSet);
 begin
   cdsPreFatFATURADO.AsString     := 'N';
   cdsPreFatLIBERADO_FAT.AsString := 'N';
+  cdsPreFatEM_ESPERA.AsString    := 'N';
 end;
 
 procedure TDMCadPreFat.cdsPreFat_VolNewRecord(DataSet: TDataSet);

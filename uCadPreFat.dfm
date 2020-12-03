@@ -75,7 +75,7 @@ object frmCadPreFat: TfrmCadPreFat
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 11
+        ColCount = 12
         RowCount = 2
         Columns = <
           item
@@ -155,6 +155,13 @@ object frmCadPreFat: TfrmCadPreFat
             Title.Alignment = taCenter
             Title.Caption = 'Transportadora'
             Width = 344
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'EM_ESPERA2'
+            Title.Alignment = taCenter
+            Title.Caption = 'Em Espera'
             Visible = True
           end>
       end
@@ -349,6 +356,14 @@ object frmCadPreFat: TfrmCadPreFat
           DisplayFormat = '0'
           TabOrder = 5
           OnKeyDown = CurrencyEdit2KeyDown
+        end
+        object ckEm_Espera: TCheckBox
+          Left = 381
+          Top = 8
+          Width = 97
+          Height = 17
+          Caption = 'Em Espera'
+          TabOrder = 7
         end
       end
       object StaticText1: TStaticText
@@ -710,6 +725,26 @@ object frmCadPreFat: TfrmCadPreFat
           Width = 124
           Height = 13
           Caption = 'N'#227'o Liberado para Faturar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Shape2: TShape
+          Left = 373
+          Top = 5
+          Width = 30
+          Height = 16
+          Brush.Color = 4227327
+        end
+        object Label11: TLabel
+          Left = 404
+          Top = 8
+          Width = 51
+          Height = 13
+          Caption = 'Em Espera'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clMaroon
           Font.Height = -11
@@ -1129,6 +1164,19 @@ object frmCadPreFat: TfrmCadPreFat
             DataField = 'LIBERADO_FAT'
             DataSource = DMCadPreFat.dsPreFat
             TabOrder = 5
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
+          object DBCheckBox2: TDBCheckBox
+            Left = 504
+            Top = 84
+            Width = 169
+            Height = 17
+            TabStop = False
+            Caption = 'Em Espera'
+            DataField = 'EM_ESPERA'
+            DataSource = DMCadPreFat.dsPreFat
+            TabOrder = 6
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
