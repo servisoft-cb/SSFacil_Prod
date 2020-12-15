@@ -356,6 +356,10 @@ object fMenu: TfMenu
       object N2: TMenuItem
         Caption = '-'
       end
+      object EstornarBaixa1: TMenuItem
+        Caption = 'Estornar Baixa'
+        OnClick = EstornarBaixa1Click
+      end
       object BaixaGeral1: TMenuItem
         Caption = 'Baixa Geral'
         OnClick = BaixaGeral1Click

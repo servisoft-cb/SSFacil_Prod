@@ -45,7 +45,7 @@ object frmBaixaTalao_Calc2: TfrmBaixaTalao_Calc2
       Visible = False
     end
     object Label5: TLabel
-      Left = 8
+      Left = 10
       Top = 184
       Width = 977
       Height = 401
@@ -130,7 +130,7 @@ object frmBaixaTalao_Calc2: TfrmBaixaTalao_Calc2
       ParentFont = False
     end
     object Edit1: TEdit
-      Left = 109
+      Left = 110
       Top = 81
       Width = 202
       Height = 24

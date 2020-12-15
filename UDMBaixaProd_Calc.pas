@@ -366,6 +366,22 @@ type
     sdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
     cdsBaixa_ProcessoQTD_LEITURA: TIntegerField;
     sdsPRC_STATUS_PROCESSO: TSQLDataSet;
+    sdsEstornoTalao: TSQLDataSet;
+    dspEstornoTalao: TDataSetProvider;
+    cdsEstornoTalao: TClientDataSet;
+    dsEstornoTalao: TDataSource;
+    cdsEstornoTalaoNUM_LOTE: TIntegerField;
+    cdsEstornoTalaoNUM_ORDEM: TIntegerField;
+    cdsEstornoTalaoNUM_TALAO: TIntegerField;
+    cdsEstornoTalaoID_SETOR: TIntegerField;
+    cdsEstornoTalaoDTENTRADA: TDateField;
+    cdsEstornoTalaoDTSAIDA: TDateField;
+    cdsEstornoTalaoQTD: TFloatField;
+    cdsEstornoTalaoQTD_PRODUZIDO: TFloatField;
+    cdsEstornoTalaoQTD_PENDENTE: TFloatField;
+    cdsEstornoTalaoNOME_SETOR: TStringField;
+    cdsEstornoTalaoITEM: TIntegerField;
+    cdsEstornoTalaoID: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsTalao_SetorCalcFields(DataSet: TDataSet);
     procedure mLote_SetorNewRecord(DataSet: TDataSet);
@@ -378,6 +394,7 @@ type
     ctBaixa_Processo : String;
     ctTalao_Setor : String;
     ctFuncionario_Setor : String;
+    ctEstornoTalao : String;
     vHoraBaixa : TTime;
     vDataBaixa : TDate;
     vID_Setor_Tal : Integer;
@@ -410,6 +427,7 @@ begin
   //ctBaixa_Processo := sdsBaixa_Processo.CommandText;
   ctTalao_Setor       := sdsTalao_Setor.CommandText;
   ctFuncionario_Setor := sdsFuncionario_Setor.CommandText;
+  ctEstornoTalao      := sdsEstornoTalao.CommandText;
   qParametros_Lote.Open;
 
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;

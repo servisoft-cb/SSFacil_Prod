@@ -118,7 +118,8 @@ uses
   UConsLote_Mat_Acum in 'UConsLote_Mat_Acum.pas' {frmConsLote_Mat_Acum},
   UDMPedido_Reserva in '..\ssfacil\UDMPedido_Reserva.pas' {DMPedido_Reserva: TDataModule},
   ULote_Cancela in 'ULote_Cancela.pas' {frmLote_Cancela},
-  UConsProduto_Mapa in 'UConsProduto_Mapa.pas' {frmConsProduto_Mapa};
+  UConsProduto_Mapa in 'UConsProduto_Mapa.pas' {frmConsProduto_Mapa},
+  UEstornarBaixa_Talao in 'UEstornarBaixa_Talao.pas' {frmEstornarBaixa_Talao};
 
 {$R *.res}
 

@@ -1,8 +1,8 @@
 object DMBaixaProd_Calc: TDMBaixaProd_Calc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 201
-  Top = 106
+  Left = 216
+  Top = 133
   Height = 506
   Width = 1028
   object sdsLote: TSQLDataSet
@@ -442,7 +442,7 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 144
+    Left = 142
     Top = 96
     object sdsTalaoID: TIntegerField
       FieldName = 'ID'
@@ -658,7 +658,7 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     Params = <>
     ProviderName = 'dspTalao_Setor'
     OnCalcFields = cdsTalao_SetorCalcFields
-    Left = 216
+    Left = 219
     Top = 152
     object cdsTalao_SetorID: TIntegerField
       FieldName = 'ID'
@@ -1713,5 +1713,94 @@ object DMBaixaProd_Calc: TDMBaixaProd_Calc
     SQLConnection = dmDatabase.scoDados
     Left = 774
     Top = 60
+  end
+  object sdsEstornoTalao: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select L.NUM_LOTE, L.NUM_ORDEM, T.NUM_TALAO, TS.ID_SETOR, TS.DTE' +
+      'NTRADA, TS.DTSAIDA, T.QTD, T.QTD_PRODUZIDO,'#13#10'       T.QTD_PENDEN' +
+      'TE, S.NOME NOME_SETOR, TS.item, L.ID'#13#10'from LOTE L'#13#10'inner join TA' +
+      'LAO T on L.ID = T.ID'#13#10'inner join TALAO_SETOR TS on T.ID = TS.ID ' +
+      'and T.NUM_TALAO = TS.NUM_TALAO'#13#10'inner join SETOR S on TS.ID_SETO' +
+      'R = S.ID'#13#10'where L.NUM_LOTE = :NUM_LOTE and'#13#10'      (T.NUM_TALAO =' +
+      ' :NUM_TALAO or :NUM_TALAO = 0) and'#13#10'      (TS.DTENTRADA is not n' +
+      'ull or TS.DTSAIDA is not null)   '
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'NUM_LOTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'NUM_TALAO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'NUM_TALAO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 351
+    Top = 22
+  end
+  object dspEstornoTalao: TDataSetProvider
+    DataSet = sdsEstornoTalao
+    Left = 384
+    Top = 22
+  end
+  object cdsEstornoTalao: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEstornoTalao'
+    Left = 421
+    Top = 20
+    object cdsEstornoTalaoNUM_LOTE: TIntegerField
+      FieldName = 'NUM_LOTE'
+    end
+    object cdsEstornoTalaoNUM_ORDEM: TIntegerField
+      FieldName = 'NUM_ORDEM'
+    end
+    object cdsEstornoTalaoNUM_TALAO: TIntegerField
+      FieldName = 'NUM_TALAO'
+      Required = True
+    end
+    object cdsEstornoTalaoID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object cdsEstornoTalaoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsEstornoTalaoDTSAIDA: TDateField
+      FieldName = 'DTSAIDA'
+    end
+    object cdsEstornoTalaoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsEstornoTalaoQTD_PRODUZIDO: TFloatField
+      FieldName = 'QTD_PRODUZIDO'
+    end
+    object cdsEstornoTalaoQTD_PENDENTE: TFloatField
+      FieldName = 'QTD_PENDENTE'
+    end
+    object cdsEstornoTalaoNOME_SETOR: TStringField
+      FieldName = 'NOME_SETOR'
+    end
+    object cdsEstornoTalaoITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsEstornoTalaoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+  end
+  object dsEstornoTalao: TDataSource
+    DataSet = cdsEstornoTalao
+    Left = 453
+    Top = 22
   end
 end
