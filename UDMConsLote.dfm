@@ -119,7 +119,7 @@ object DMConsLote: TDMConsLote
     Params = <>
     OnNewRecord = mMatNewRecord
     Left = 312
-    Top = 56
+    Top = 55
     Data = {
       C00000009619E0BD010000001800000007000000000003000000C0000B49445F
       4D6174657269616C04000100000000000649445F436F7204000100000000000D
@@ -161,14 +161,14 @@ object DMConsLote: TDMConsLote
   object mMatGrade: TClientDataSet
     Active = True
     Aggregates = <>
-    IndexFieldNames = 'ID_Setor;ID_Material;ID_Cor'
+    IndexFieldNames = 'ID_Setor;ID_Material;ID_Cor;Tamanho'
     MasterFields = 'ID_Setor;ID_Material;ID_Cor'
     MasterSource = dsmMat
     PacketRecords = 0
     Params = <>
     OnNewRecord = mMatGradeNewRecord
-    Left = 424
-    Top = 56
+    Left = 316
+    Top = 123
     Data = {
       7E0000009619E0BD0100000018000000050000000000030000007E000849445F
       5365746F7204000100000000000B49445F4D6174657269616C04000100000000
@@ -194,8 +194,8 @@ object DMConsLote: TDMConsLote
   end
   object dsmMatGrade: TDataSource
     DataSet = mMatGrade
-    Left = 456
-    Top = 56
+    Left = 348
+    Top = 123
   end
   object sdsTalao: TSQLDataSet
     NoMetadata = True
