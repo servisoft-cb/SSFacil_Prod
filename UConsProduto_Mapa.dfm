@@ -26,7 +26,7 @@ object frmConsProduto_Mapa: TfrmConsProduto_Mapa
     ColCount = 6
     Ctl3D = False
     DefaultRowHeight = 20
-    FixedCols = 5
+    FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected]
     ParentCtl3D = False
     TabOrder = 1
@@ -150,7 +150,7 @@ object frmConsProduto_Mapa: TfrmConsProduto_Mapa
       Caption = 'Processo Encerrado'
     end
     object NxButton1: TNxButton
-      Left = 77
+      Left = 76
       Top = 66
       Width = 115
       Height = 33

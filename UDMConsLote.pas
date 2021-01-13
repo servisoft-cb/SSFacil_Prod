@@ -138,11 +138,12 @@ type
     cdsConsProduto_MapaORDEM: TIntegerField;
     cdsConsProduto_MapaID_SETOR_PROCESSO: TIntegerField;
     cdsConsProduto_MapaNOME_SETOR_PROCESSO: TStringField;
-    cdsConsProduto_MapaDTENTRADA: TDateField;
-    cdsConsProduto_MapaDTSAIDA: TDateField;
     cdsConsProduto_MapaDTENTRADA_PROCESSO: TDateField;
     cdsConsProduto_MapaDTSAIDA_PROCESSO: TDateField;
     cdsConsProduto_MapaSTATUS_LEITURA: TStringField;
+    cdsConsProduto_MapaCONTADOR_PENDENTE: TIntegerField;
+    cdsConsProduto_MapaCONTADOR_EMPRODUCAO: TIntegerField;
+    cdsConsProduto_MapaCONTADOR_ENCERRADO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mMatNewRecord(DataSet: TDataSet);
     procedure mMatGradeNewRecord(DataSet: TDataSet);

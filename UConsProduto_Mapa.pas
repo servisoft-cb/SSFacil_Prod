@@ -99,6 +99,8 @@ begin
     vComandoAux2 := vComandoAux2 + ' AND L.NUM_ORDEM <= ' + IntToStr(CurrencyEdit4.AsInteger);
   fDMConsLote.sdsConsProduto_Mapa.CommandText := vComandoAux2 + vComandoAux;
   fDMConsLote.cdsConsProduto_Mapa.Open;
+
+  fDMConsLote.cdsConsProduto_Mapa.IndexFieldNames := 'REFERENCIA;NOME_COMBINACAO;NUM_LOTE;ID_SETOR;ID_SETOR_PROCESSO;ORDEM';
 end;
 
 procedure TfrmConsProduto_Mapa.prc_Montar_Grid;
@@ -121,7 +123,7 @@ begin
   Grid.Cells[4,vLinha] := 'Qtde';
   Grid.ColWidths[1]    := 135;
   Grid.ColWidths[2]    := 250;
-  Grid.ColWidths[3]    := 250;
+  Grid.ColWidths[3]    := 200;
   Grid.ColWidths[4]    := 50;
   Grid.ColWidths[0]    := 50;
 
@@ -138,22 +140,31 @@ begin
       Grid.Cells[2,vLinha] := fDMConsLote.cdsConsProduto_MapaNOME_MODELO.AsString;
       Grid.Cells[3,vLinha] := fDMConsLote.cdsConsProduto_MapaNOME_COMBINACAO.AsString;
       Grid.Cells[4,vLinha] := fDMConsLote.cdsConsProduto_MapaQTD.AsString;
+
+
       vCol := 4;
+      vCol := vCol + 1;
     end;
-    vCol := vCol + 1;
     if Grid.ColCount < vCol then
       Grid.ColCount := vCol;
-    if vIDSetor_Ant <> fDMConsLote.cdsConsProduto_MapaID_SETOR_PROCESSO.AsInteger then
+    //if vIDSetor_Ant <> fDMConsLote.cdsConsProduto_MapaID_SETOR_PROCESSO.AsInteger then
+    if vIDSetor_Ant <> fDMConsLote.cdsConsProduto_MapaID_SETOR.AsInteger then
     begin
       if trim(fDMConsLote.cdsConsProduto_MapaNOME_SETOR_PROCESSO.AsString) <> '' then
         Grid.Cells[vCol,vLinha] := fDMConsLote.cdsConsProduto_MapaNOME_SETOR_PROCESSO.AsString
       else
         Grid.Cells[vCol,vLinha] := fDMConsLote.cdsConsProduto_MapaNOME_SETOR.AsString;
-      if fDMConsLote.cdsConsProduto_MapaDTSAIDA.AsDateTime > 10 then
+      {if fDMConsLote.cdsConsProduto_MapaDTSAIDA.AsDateTime > 10 then
         Grid.Cells[vCol,vLinha] := '(E)' + Grid.Cells[vCol,vLinha]
       else
       if fDMConsLote.cdsConsProduto_MapaDTENTRADA.AsDateTime > 10 then
-        Grid.Cells[vCol,vLinha] := '(S)' + Grid.Cells[vCol,vLinha];
+        Grid.Cells[vCol,vLinha] := '(S)' + Grid.Cells[vCol,vLinha];}
+      if fDMConsLote.cdsConsProduto_MapaCONTADOR_EMPRODUCAO.AsInteger > 0 then
+        Grid.Cells[vCol,vLinha] := '(S)' + Grid.Cells[vCol,vLinha]
+      else
+      if (fDMConsLote.cdsConsProduto_MapaCONTADOR_EMPRODUCAO.AsInteger <= 0) and (fDMConsLote.cdsConsProduto_MapaCONTADOR_PENDENTE.AsInteger <= 0) and
+         (fDMConsLote.cdsConsProduto_MapaCONTADOR_ENCERRADO.AsInteger > 0) then
+        Grid.Cells[vCol,vLinha] := '(E)' + Grid.Cells[vCol,vLinha];
       vCol := vCol + 1;
       if Grid.ColCount < vCol then
         Grid.ColCount := vCol;
@@ -167,9 +178,11 @@ begin
         Grid.Cells[vCol,vLinha] := '**' +'(E) ' + LowerCase(fDMConsLote.cdsConsProduto_MapaNOME_PROCESSO.AsString)
       else
         Grid.Cells[vCol,vLinha] := '**' + LowerCase(fDMConsLote.cdsConsProduto_MapaNOME_PROCESSO.AsString);
+      vCol := vCol + 1;
     end;
     vNumLote_Ant := fDMConsLote.cdsConsProduto_MapaNUM_LOTE.AsInteger;
-    vIDSetor_Ant := fDMConsLote.cdsConsProduto_MapaID_SETOR_PROCESSO.AsInteger;
+    //vIDSetor_Ant := fDMConsLote.cdsConsProduto_MapaID_SETOR_PROCESSO.AsInteger;
+    vIDSetor_Ant := fDMConsLote.cdsConsProduto_MapaID_SETOR.AsInteger;
     vRef_Ant     := fDMConsLote.cdsConsProduto_MapaREFERENCIA.AsString;
     fDMConsLote.cdsConsProduto_Mapa.Next;
   end;
@@ -192,6 +205,16 @@ var
 begin
   texto := Grid.Cells[ACol, ARow];
 
+
+  if (acol <= 4) and (arow > 0) then
+  begin
+    grid.Canvas.Brush.Color := clBtnFace;
+    grid.Canvas.FillRect(Rect);
+    grid.Canvas.Font.Color  := clBlack;
+    grid.Canvas.TextRect(Rect, Rect.Left+3, Rect.Top + 3, grid.Cells[ACol, ARow]);
+    //grid.Canvas.TextOut(Rect.Left+2, Rect.Top+2, grid.Cells[1,2]);
+  end
+  else
   if (acol <= 4) and (arow <= 0) then
   begin
     grid.Canvas.Font.Color  := clBlack;
@@ -208,10 +231,10 @@ begin
     grid.Canvas.Font.Size   := 9;
     grid.Canvas.Font.Style  := grid.Canvas.Font.Style + [fsBold];
     if (copy(texto,1,3) = '(E)') then
-      grid.Canvas.Brush.Color  := $00FFFFB9
+      grid.Canvas.Brush.Color  := $0077FF77
     else
     if (copy(texto,1,3) = '(S)') then
-      grid.Canvas.Brush.Color  := $0077FF77;
+      grid.Canvas.Brush.Color  := $00FFFFB9;
     {if fDMConsLote.cdsConsProduto_MapaDTENTRADA.AsDateTime > 10 then
       grid.Canvas.Brush.Color  := clGreen
     else
