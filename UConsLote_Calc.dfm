@@ -527,10 +527,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 1330
     Height = 535
-    ActivePage = TS_Talao
+    ActivePage = TS_Setor
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1132,10 +1132,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         Top = 0
         Width = 1326
         Height = 512
-        ActivePage = TS_Setor_Dados
+        ActivePage = TS_Setor_Ref
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet

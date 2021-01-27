@@ -1,6 +1,6 @@
 object frmConsTalao_Etiq: TfrmConsTalao_Etiq
-  Left = 491
-  Top = 136
+  Left = 510
+  Top = 134
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmConsTalao_Etiq'

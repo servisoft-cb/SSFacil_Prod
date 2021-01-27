@@ -7735,12 +7735,6 @@ object fMenu: TfMenu
         GroupName = 'Documento Estoque Por C'#243'digo de Barras'
       end
       item
-        FormName = 'frmProcesso_ES'
-        CompName = 'PnlConsRapida'
-        Caption = 'Cons. Baixa Confer'#234'ncia'
-        GroupName = 'Cons. Baixa Confer'#234'ncia'
-      end
-      item
         FormName = 'frmConfParcial'
         CompName = 'btnEncerrar'
         Caption = 'Encerrar Processo'
@@ -7792,6 +7786,12 @@ object fMenu: TfMenu
         CompName = 'AlterarData1'
         Caption = 'Alterar Data'
         GroupName = 'Consulta Lotes (Cal'#231'ados)'
+      end
+      item
+        FormName = 'frmProcesso_ES'
+        CompName = 'btnTalaoEtiqueta'
+        Caption = 'Tal'#245'es Etiqueta'
+        GroupName = 'Cons. Baixa Confer'#234'ncia'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

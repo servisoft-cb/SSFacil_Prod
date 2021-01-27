@@ -14,8 +14,8 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43402.700424687500000000
-    ReportOptions.LastChange = 44041.431181018520000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 44213.771962824070000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1428,12 +1428,12 @@ object DMLoteImp_Calc: TDMLoteImp_Calc
       '(TS.QTD_PENDENTE) QTD_PENDENTE, TS.ID_SETOR,'#13#10'       S.NOME NOME' +
       '_SETOR, L.REFERENCIA, S.ORDEM_ORC'#13#10'from TALAO_SETOR TS'#13#10'inner jo' +
       'in LOTE L on TS.ID = L.ID'#13#10'left join SETOR S on TS.ID_SETOR = S.' +
-      'ID'#13#10'group by TS.ID_SETOR, S.NOME, L.REFERENCIA, S.ORDEM_ORC'
+      'ID'#13#10'group by S.ORDEM_ORC, L.REFERENCIA, TS.ID_SETOR, S.NOME'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 27
-    Top = 309
+    Top = 310
   end
   object dspConsTalao_Setor_Ref: TDataSetProvider
     DataSet = sdsConsTalao_Setor_Ref

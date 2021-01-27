@@ -504,13 +504,13 @@ begin
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Close;
     fDMLoteImp_Calc.sdsConsTalao_Setor_Ref.CommandText := vComandoAux2 + vComando + vComandoAux;
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Open;
-    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := 'REFERENCIA;NOME_SETOR';
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.IndexFieldNames := 'ORDEM_ORC;REFERENCIA;NOME_SETOR';
     prc_Gravar_mSetorReferencia;
 
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Close;
     fDMLoteImp_Calc.sdsConsTalao_Setor_Ref_Est.CommandText := vComandoAux3 + vComando + vUsaEsteira + vComandoAux4;
     fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.Open;
-    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.IndexFieldNames := 'REFERENCIA;NOME_SETOR';
+    fDMLoteImp_Calc.cdsConsTalao_Setor_Ref_Est.IndexFieldNames := 'ORDEM_ORC;REFERENCIA;NOME_SETOR';
     prc_Gravar_mSetorReferencia_Esteira;
 
     fDMLoteImp_Calc.cdsConsTalao_Setor.Close;
@@ -548,7 +548,7 @@ end;
 
 procedure TfrmConsLote_Calc.prc_Gravar_mSetorReferencia;
 var
-  Ordem : String;
+  Ordem : String;   
   NomeSetor : String;
   vId_Setor_Ant, vItem : Integer;
 begin

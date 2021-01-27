@@ -3,7 +3,9 @@ object frmProcesso_ES: TfrmProcesso_ES
   Top = 24
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
-  Caption = 'Ordem de Produ'#231#227'o/Lote/Tal'#227'o Controle de Entrada e Sa'#237'da'
+  Caption = 
+    'Ordem de Produ'#231#227'o/Lote/Tal'#227'o Controle de Entrada e Sa'#237'da  (Baixa' +
+    ' Processo)'
   ClientHeight = 626
   ClientWidth = 1152
   Color = clBtnFace
@@ -583,7 +585,7 @@ object frmProcesso_ES: TfrmProcesso_ES
       OnKeyDown = CurrencyEdit2KeyDown
     end
     object btnTalaoEtiqueta: TNxButton
-      Left = 769
+      Left = 768
       Top = 79
       Width = 124
       Height = 30
@@ -732,7 +734,7 @@ object frmProcesso_ES: TfrmProcesso_ES
     TabOrder = 2
   end
   object UCControls1: TUCControls
-    GroupName = 'Cons. Baixa Confer'#234'ncia'
+    GroupName = 'Baixa Processo'
     UserControl = fMenu.UserControl1
     NotAllowed = naInvisible
     Left = 736

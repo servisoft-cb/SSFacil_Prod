@@ -532,7 +532,7 @@ end;
 procedure TDMLoteImp_Calc.frxLoteSetorReferenciaNext(Sender: TObject);
 begin
   mSetorReferencia_Esteira.Filtered := False;
-  mSetorReferencia_Esteira.Filter := 'Referencia = ' + QuotedStr(trim(mSetorReferenciaReferencia.AsString));
+  mSetorReferencia_Esteira.Filter   := 'Referencia = ' + QuotedStr(trim(mSetorReferenciaReferencia.AsString));
   mSetorReferencia_Esteira.Filtered := True;
 end;
 
