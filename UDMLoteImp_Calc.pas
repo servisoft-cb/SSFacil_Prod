@@ -356,6 +356,8 @@ type
     vObsPedido: String;
     vTipo_Imp: String;
 
+    function fnc_Busca_Estoque_Talao(Referencia : String ; Ordem : Integer) : Real;
+
   end;
 
 var
@@ -539,6 +541,26 @@ end;
 procedure TDMLoteImp_Calc.frxLoteSetorReferenciaClose(Sender: TObject);
 begin
   mSetorReferencia_Esteira.Filtered := False;
+end;
+
+function TDMLoteImp_Calc.fnc_Busca_Estoque_Talao(Referencia: String; Ordem: Integer): Real;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;      
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select V.QTD_ESTOQUE from VESTOQUE_TALAO V where V.REFERENCIA = :REFERENCIA and V.ORDEM_ORC = :ORDEM_ORC ';
+    sds.ParamByName('REFERENCIA').AsString := Referencia;
+    sds.ParamByName('ORDEM_ORC').AsInteger := Ordem;
+    sds.Open;
+    Result := sds.FieldByName('QTD_ESTOQUE').AsFloat;
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

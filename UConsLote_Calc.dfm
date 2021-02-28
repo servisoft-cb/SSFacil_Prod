@@ -226,7 +226,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       Caption = 'Tal'#227'o em Produ'#231#227'o (falta leituras)'
     end
     object btnConsTalao: TNxButton
-      Left = 444
+      Left = 447
       Top = 75
       Width = 153
       Height = 30
@@ -408,7 +408,7 @@ object frmConsLote_Calc: TfrmConsLote_Calc
       TabOrder = 8
     end
     object btnImprimir: TNxButton
-      Left = 597
+      Left = 598
       Top = 75
       Width = 153
       Height = 30
@@ -527,10 +527,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
     Top = 113
     Width = 1330
     Height = 535
-    ActivePage = TS_Setor
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Talao
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1132,10 +1132,10 @@ object frmConsLote_Calc: TfrmConsLote_Calc
         Top = 0
         Width = 1326
         Height = 512
-        ActivePage = TS_Setor_Ref
+        ActivePage = TS_Setor_Dados
         ActivePageDefault = TS_Setor_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 0
         FixedDimension = 19
         object TS_Setor_Dados: TRzTabSheet

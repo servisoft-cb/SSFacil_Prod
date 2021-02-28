@@ -548,7 +548,7 @@ end;
 
 procedure TfrmConsLote_Calc.prc_Gravar_mSetorReferencia;
 var
-  Ordem : String;   
+  Ordem : String;
   NomeSetor : String;
   vId_Setor_Ant, vItem : Integer;
 begin
@@ -583,11 +583,14 @@ begin
         fDMLoteImp_Calc.mSetorReferencia.Insert;
       Ordem :=  IntToStr(fDMLoteImp_Calc.cdsConsTalao_Setor_RefORDEM_ORC.AsInteger);
       fDMLoteImp_Calc.mSetorReferenciaItem.AsInteger := vItem;
-      fDMLoteImp_Calc.mSetorReferenciaReferencia.AsString := fDMLoteImp_Calc.cdsConsTalao_Setor_RefREFERENCIA.AsString;
-      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Setor'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.Value;
-      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Qtde'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PRODUZIDO.Value;
-      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Estoque'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PENDENTE.Value;
-        fDMLoteImp_Calc.mSetorReferencia.FieldByName(NomeSetor).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefNOME_SETOR.Value;
+      fDMLoteImp_Calc.mSetorReferenciaReferencia.AsString                  := fDMLoteImp_Calc.cdsConsTalao_Setor_RefREFERENCIA.AsString;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Setor'+ Ordem).Value   := fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.Value;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Qtde'+ Ordem).Value    := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PRODUZIDO.Value;
+      //28/02/2021   Vai ser buscado da view vEstoque_Talao
+      //fDMLoteImp_Calc.mSetorReferencia.FieldByName('Estoque'+ Ordem).Value := fDMLoteImp_Calc.cdsConsTalao_Setor_RefQTD_PENDENTE.Value;
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName('Estoque'+ Ordem).Value := fDMLoteImp_Calc.fnc_Busca_Estoque_Talao(fDMLoteImp_Calc.mSetorReferenciaReferencia.AsString,StrToInt(Ordem));
+
+      fDMLoteImp_Calc.mSetorReferencia.FieldByName(NomeSetor).Value        := fDMLoteImp_Calc.cdsConsTalao_Setor_RefNOME_SETOR.Value;
       vId_Setor_Ant := fDMLoteImp_Calc.cdsConsTalao_Setor_RefID_SETOR.AsInteger;
       fDMLoteImp_Calc.mSetorReferencia.Post;
       fDMLoteImp_Calc.cdsConsTalao_Setor_Ref.Next;
